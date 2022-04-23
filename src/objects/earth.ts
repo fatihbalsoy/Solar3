@@ -7,7 +7,6 @@
  *   Copyright © 2022 Fatih Balsoy. All rights reserved.
  */
 
-import { Mesh } from "three";
 import THREE = require("three");
 import Planet from "./planet";
 
@@ -30,7 +29,7 @@ class Earth extends Planet {
         const earthNormal = textureLoader.load('/textures/earth/' + res + '/normal.jpeg')
         const earthRoughness = textureLoader.load('/textures/earth/' + res + '/roughness.jpeg')
         const earthSpecular = textureLoader.load('/textures/earth/' + res + '/specular.jpeg')
-        const earthEmission = textureLoader.load('/textures/earth/' + res + '/emission.jpeg')
+        const earthEmission = textureLoader.load('/textures/earth/' + res + '/night_dark.jpeg')
         const earthCloudsTexture = textureLoader.load('/textures/earth/2k/clouds.png')
 
         //? -- MATERIAL -- ?//
@@ -47,7 +46,8 @@ class Earth extends Planet {
         const earthMaterial = new THREE.MeshStandardMaterial({
             normalMap: earthNormal,
             emissiveMap: earthEmission,
-            // lightMap: earthEmission, // So I can see earth's dark side while working on it
+            lightMap: earthEmission,
+            lightMapIntensity: 1.5,
             roughnessMap: earthRoughness,
             map: earthTexture,
         })
@@ -61,9 +61,10 @@ class Earth extends Planet {
         //     // lightMap: earthEmission
         // })
 
-        const cloudMaterial = new THREE.MeshStandardMaterial()
-        cloudMaterial.map = earthCloudsTexture
-        cloudMaterial.transparent = true
+        const cloudMaterial = new THREE.MeshStandardMaterial({
+            map: earthCloudsTexture,
+            transparent: true
+        })
 
         const materials = [earthMaterial, cloudMaterial]
 
@@ -73,11 +74,19 @@ class Earth extends Planet {
         geometry.addGroup(0, Infinity, 0)
         geometry.addGroup(0, Infinity, 1)
 
+        // * Add second UV for light map * //
+        // Get existing `uv` data array
+        const uv1Array = geometry.getAttribute("uv").array;
+
+        // Use this array to create new attribute named `uv2`
+        geometry.setAttribute('uv2', new THREE.BufferAttribute(uv1Array, 2));
+        // * Second UV End * //
+
         super("Earth", Earth.radius, Earth.distance, Earth.orbitalPeriod, materials, geometry);
 
         const earthAxisVector = new THREE.Vector3(0, 0, 1)
         const earthAxisRadians = 23 * Math.PI / 180
-        this.mesh.setRotationFromAxisAngle(earthAxisVector, earthAxisRadians)
+        this.realMesh.setRotationFromAxisAngle(earthAxisVector, earthAxisRadians)
     }
 }
 

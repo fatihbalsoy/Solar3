@@ -8,7 +8,6 @@
  */
 
 
-import { Mesh } from "three";
 import THREE = require("three");
 import Planet from "./planet";
 
@@ -20,16 +19,12 @@ class Mars extends Planet {
     constructor() {
         //? -- TEXTURES -- ?//
         const textureLoader = new THREE.TextureLoader()
-        const res = '1k'
-        const texture = textureLoader.load('/textures/mars/' + res + '/color.jpg')
-        const normal = textureLoader.load('/textures/mars/' + res + '/normal.jpg')
-        const bump = textureLoader.load('/textures/mars/' + res + '/bump.jpg')
+        const res = '2k'
+        const texture = textureLoader.load('/textures/mars/' + res + '_mars.jpeg')
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()
         material.map = texture
-        material.normalMap = normal
-        material.bumpMap = bump
 
         //? -- GEOMETRY -- ?//
         const geometry = new THREE.SphereBufferGeometry(1, 64, 64)

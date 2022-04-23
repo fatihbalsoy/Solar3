@@ -10,6 +10,12 @@ import Sun from './objects/sun'
 import GUIMovableObject from './gui/movable_3d_object'
 import Mars from './objects/mars'
 import Jupiter from './objects/jupiter'
+import Venus from './objects/venus'
+import Planet from './objects/planet'
+import Mercury from './objects/mercury'
+import Saturn from './objects/saturn'
+import Uranus from './objects/uranus'
+import Neptune from './objects/neptune'
 
 // Loading
 const textureLoader = new THREE.TextureLoader()
@@ -24,6 +30,21 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 // Objects
+
+//? -- SUN -- ?//
+const sun = new Sun()
+scene.add(sun.mesh)
+sun.addGUI(gui)
+
+//? -- MERCURY -- ?//
+const mercury = new Mercury();
+scene.add(mercury.mesh)
+mercury.addGUI(gui)
+
+//? -- VENUS -- ?//
+const venus = new Venus();
+scene.add(venus.mesh)
+venus.addGUI(gui)
 
 //? -- EARTH -- ?//
 const earth = new Earth();
@@ -45,21 +66,22 @@ const jupiter = new Jupiter();
 scene.add(jupiter.mesh)
 jupiter.addGUI(gui)
 
-//? -- SUN -- ?//
-const sun = new Sun()
-scene.add(sun.mesh)
-let sunFolder = sun.addGUI(gui)
+//? -- SATURN -- ?//
+const saturn = new Saturn();
+scene.add(saturn.mesh)
+saturn.addGUI(gui)
+
+//? -- URANUS -- ?//
+const uranus = new Uranus();
+scene.add(uranus.mesh)
+uranus.addGUI(gui)
+
+//? -- NEPTUNE -- ?//
+const neptune = new Neptune();
+scene.add(neptune.mesh)
+neptune.addGUI(gui)
 
 // * -- LIGHTS -- * //
-const sunLight = new THREE.PointLight(0xffffff, 3)
-// 2, 2.5, 5.5
-// 3, 5.2, 3.5
-// pointLight.position.set(3, 5.2, 3.5)
-sunLight.position.set(0, 0, 0)
-sun.mesh.add(sunLight)
-
-const lightFolder = sunFolder.addFolder('Light')
-lightFolder.add(sunLight, 'intensity', 0, 100, 0.01)
 
 // const pointLightHelper = new PointLightHelper(sunLight, 1, 0xffff00)
 // scene.add(pointLightHelper)
@@ -118,13 +140,19 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+renderer.shadowMap.enabled = true
+renderer.shadowMap.type = THREE.PCFShadowMap
+sun.light.shadow.mapSize.width = 512;
+sun.light.shadow.mapSize.height = 512;
+sun.light.shadow.camera.near = 0.5;
+sun.light.shadow.camera.far = 5000000000000000;
 
-const galaxyTexture = textureLoader.load('/textures/galaxy/8k/milky_way.jpeg', () => {
+const galaxyTexture = textureLoader.load('/textures/galaxy/8k_milky_way.jpeg', () => {
     const rt = new THREE.WebGLCubeRenderTarget(galaxyTexture.image.height);
     rt.fromEquirectangularTexture(renderer, galaxyTexture);
+    // rt.texture.offset.x = (90 * Math.PI) / 180
     scene.background = rt.texture;
 })
-
 /**
  ** -- Animate -- *
  */
@@ -149,11 +177,13 @@ document.addEventListener('mousemove', onDocumentMouseMove)
 const clock = new THREE.Clock()
 
 scene.remove(camera)
-earth.mesh.add(camera)
-console.log(moon.mesh.position)
+const planetToLookAt: Planet = earth
+planetToLookAt.mesh.add(camera)
+// camera.position.z = 100
+// camera.position.x = -100
+// camera.fov = 20
 
 // camera.zoom = 10
-const distanceScale = 10000
 const tick = () => {
     camera.updateProjectionMatrix() // for GUI controls
     targetX = mouseX * 0.001
@@ -172,16 +202,22 @@ const tick = () => {
         camera.position.y += .01 * targetY
     }
 
+    mercury.orbit(sun.mesh, elapsedTime)
+    venus.orbit(sun.mesh, elapsedTime)
+
     // Update planetary objects and cameras
     earth.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 0.0001)
-
     earth.orbit(sun.mesh, elapsedTime)
     moon.orbit(earth.mesh, elapsedTime)
-    moon.mesh.lookAt(earth.mesh.position) // not the correct face
+    moon.mesh.lookAt(earth.mesh.position)
+
     mars.orbit(sun.mesh, elapsedTime)
     jupiter.orbit(sun.mesh, elapsedTime)
+    saturn.orbit(sun.mesh, elapsedTime)
+    uranus.orbit(sun.mesh, elapsedTime)
+    neptune.orbit(sun.mesh, elapsedTime)
 
-    camera.lookAt(earth.mesh.position)
+    camera.lookAt(planetToLookAt.mesh.position)
 
     // Update Orbital Controls
     // controls.update()

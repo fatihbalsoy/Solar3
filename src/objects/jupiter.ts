@@ -8,7 +8,6 @@
  */
 
 
-import { Mesh } from "three";
 import THREE = require("three");
 import Planet from "./planet";
 
@@ -21,7 +20,7 @@ class Jupiter extends Planet {
         //? -- TEXTURES -- ?//
         const textureLoader = new THREE.TextureLoader()
         const res = '2k'
-        const texture = textureLoader.load('/textures/jupiter/' + res + '/jupiter.jpg')
+        const texture = textureLoader.load('/textures/jupiter/' + res + '_jupiter.jpeg')
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()

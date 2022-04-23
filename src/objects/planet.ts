@@ -7,7 +7,7 @@
  *   Copyright © 2022 Fatih Balsoy. All rights reserved.
  */
 
-import { Material, Mesh, Object3D, SphereBufferGeometry } from "three"
+import { Material, Mesh, Object3D, SphereGeometry } from "three"
 import THREE = require("three")
 import GUIMovableObject from "../gui/movable_3d_object"
 import Earth from "./earth"
@@ -25,13 +25,17 @@ class Planet extends GUIMovableObject {
     // Material
     material: Material[]
     // Geometry
-    geometry: SphereBufferGeometry
-    // Origin Mesh (Used for adding objects onto it)
+    geometry: SphereGeometry
+    /** 
+     * Origin Mesh (Used for adding objects onto it)
+     */
     mesh: Mesh
-    // Real Mesh (With textures, materials, and geometry)
+    /** 
+     * Real Mesh (With textures, materials, and geometry)
+     */
     realMesh: Mesh
 
-    constructor(name: String, radius: number, distance: number, orbitalPeriod: number, material: Material[], geometry: SphereBufferGeometry) {
+    constructor(name: String, radius: number, distance: number, orbitalPeriod: number, material: Material[], geometry: SphereGeometry) {
         super()
         this.name = name
         this.radius = radius
@@ -45,15 +49,28 @@ class Planet extends GUIMovableObject {
         this.mesh = new THREE.Mesh()
         this.realMesh = new THREE.Mesh(geometry, material)
         this.mesh.add(this.realMesh)
+
+        if (name != "Sun") {
+            this.realMesh.receiveShadow = true
+            this.realMesh.castShadow = true
+        }
+        this.orbitalPeriod = orbitalPeriod
     }
 
     addGUI(gui: dat.GUI): dat.GUI {
         return this._addGUI(gui, this.name, this.mesh)
     }
 
+    /**
+     * Places the planet in an orbiting position around its parent.
+     * @param parent - parent object to orbit around
+     * @param time - the time elapsed since start / current time in seconds
+     */
     orbit(parent: Object3D, time: number) {
-        this.mesh.position.z = parent.position.z + Math.sin(-time * 0.001) * (this.distance / 10000)
-        this.mesh.position.x = parent.position.x + Math.cos(-time * 0.001) * (this.distance / 10000)
+        // TODO: Not real-time
+        let seconds = (1 / this.orbitalPeriod) //* 0.001
+        this.mesh.position.z = parent.position.z + Math.sin(-time * seconds) * (this.distance / 10000)
+        this.mesh.position.x = parent.position.x + Math.cos(-time * seconds) * (this.distance / 10000)
     }
 
     getRadius(): number {

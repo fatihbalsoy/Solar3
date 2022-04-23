@@ -7,13 +7,16 @@
  *   Copyright © 2022 Fatih Balsoy. All rights reserved.
  */
 
-import { Mesh } from "three";
+import { PointLight } from "three";
 import THREE = require("three");
 import Planet from "./planet";
+import * as dat from 'dat.gui'
 
 class Sun extends Planet {
     static radius: number = 696347.055
     static distance: number = 0
+    // Light
+    light: PointLight
 
     constructor() {
         //? -- MATERIAL -- ?//
@@ -25,6 +28,23 @@ class Sun extends Planet {
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
         super("Sun", Sun.radius, Sun.distance, 0, [sunMaterial], geometry);
+
+        const light = new THREE.PointLight(0xffffff, 3)
+        light.position.set(0, 0, 0)
+        light.castShadow = true
+        light.shadow.camera.visible = true
+        light.shadow.camera.near = 0.00001
+        light.shadow.camera.far = 10000000000
+
+        this.light = light
+        this.mesh.add(this.light)
+    }
+
+    addGUI(gui: dat.GUI): dat.GUI {
+        let sunFolder = this._addGUI(gui, this.name, this.mesh)
+
+        const lightFolder = sunFolder.addFolder('Light')
+        lightFolder.add(this.light, 'intensity', 0, 100, 0.01)
     }
 }
 
