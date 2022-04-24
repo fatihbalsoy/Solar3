@@ -13,9 +13,6 @@ import Earth from "./earth";
 import Planet from "./planet";
 
 class Saturn extends Planet {
-    static radius: number = 58232
-    static distance: number = 1514500000
-    static orbitalPeriod: number = 10759.22
 
     constructor() {
         //? -- TEXTURES -- ?//
@@ -43,7 +40,7 @@ class Saturn extends Planet {
         geometry.addGroup(0, Infinity, 0)
 
         //* RING GEOMETRY + MESH *//
-        const eScale = Earth.radius
+        const eScale = Planet.getJSONValue('meanRadius', 'earth')
         const ringGeometry = new THREE.RingBufferGeometry(66900 / eScale, 180000 / eScale, 96, 1)
 
         var ringPos = ringGeometry.attributes.position;
@@ -61,7 +58,7 @@ class Saturn extends Planet {
         ringMesh.castShadow = true
         ringMesh.receiveShadow = true
 
-        super("Saturn", Saturn.radius, Saturn.distance, Saturn.orbitalPeriod, [material], geometry);
+        super("Saturn", [material], geometry);
         this.realMesh.add(ringMesh)
         this.realMesh.rotation.z = 23 * Math.PI / 180
         this.realMesh.receiveShadow = true

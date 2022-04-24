@@ -12,9 +12,6 @@ import THREE = require("three");
 import Planet from "./planet";
 
 class Mars extends Planet {
-    static radius: number = 3389.4394
-    static distance: number = 211628736
-    static orbitalPeriod: number = 686.980
 
     constructor() {
         //? -- TEXTURES -- ?//
@@ -30,7 +27,7 @@ class Mars extends Planet {
         const geometry = new THREE.SphereBufferGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        super("Mars", Mars.radius, Mars.distance, Mars.orbitalPeriod, [material], geometry);
+        super("Mars", [material], geometry);
     }
 }
 

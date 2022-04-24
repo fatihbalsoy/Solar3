@@ -12,10 +12,6 @@ import THREE = require("three");
 import Planet from "./planet";
 
 class Moon extends Planet {
-    static radius: number = 1737.44778
-    static distance: number = 384472.282
-    static orbitalPeriod: number = 27.321661
-
     constructor() {
         //? -- TEXTURES -- ?//
         const textureLoader = new THREE.TextureLoader()
@@ -32,7 +28,7 @@ class Moon extends Planet {
         const geometry = new THREE.SphereBufferGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        super("Moon", Moon.radius, Moon.distance, Moon.orbitalPeriod, [material], geometry);
+        super("Moon", [material], geometry);
 
         // const earthAxisVector = new THREE.Vector3(0, 0, 1)
         // const earthAxisRadians = 23 * Math.PI / 180

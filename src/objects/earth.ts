@@ -11,9 +11,6 @@ import THREE = require("three");
 import Planet from "./planet";
 
 class Earth extends Planet {
-    static radius: number = 6371.07103
-    static distance: number = 150367447
-    static orbitalPeriod: number = 365.256363004
 
     constructor() {
         //? -- TEXTURES -- ?//
@@ -82,11 +79,7 @@ class Earth extends Planet {
         geometry.setAttribute('uv2', new THREE.BufferAttribute(uv1Array, 2));
         // * Second UV End * //
 
-        super("Earth", Earth.radius, Earth.distance, Earth.orbitalPeriod, materials, geometry);
-
-        const earthAxisVector = new THREE.Vector3(0, 0, 1)
-        const earthAxisRadians = 23 * Math.PI / 180
-        this.realMesh.setRotationFromAxisAngle(earthAxisVector, earthAxisRadians)
+        super("earth", materials, geometry);
     }
 }
 

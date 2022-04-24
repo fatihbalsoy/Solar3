@@ -13,9 +13,6 @@ import Earth from "./earth";
 import Planet from "./planet";
 
 class Uranus extends Planet {
-    static radius: number = 25362
-    static distance: number = 3006393609
-    static orbitalPeriod: number = 30688.5
 
     constructor() {
         //? -- TEXTURES -- ?//
@@ -40,13 +37,13 @@ class Uranus extends Planet {
         geometry.addGroup(0, Infinity, 0)
 
         //* RING GEOMETRY + MESH *//
-        const eScale = Earth.radius
+        const eScale = Planet.getJSONValue('meanRadius', 'earth')
         const ringGeometry = new THREE.RingBufferGeometry(51149 / eScale, (51149 + 90) / eScale, 96, 1)
         const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial)
         ringMesh.rotation.x = 15 * Math.PI / 180
 
-        super("Uranus", Uranus.radius, Uranus.distance, Uranus.orbitalPeriod, [material], geometry);
-        this.realMesh.add(ringMesh)
+        super("Uranus", [material], geometry);
+        this.mesh.add(ringMesh)
         // this.realMesh.rotation.z = 23 * Math.PI / 180
     }
 }

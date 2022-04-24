@@ -12,8 +12,11 @@ import THREE = require("three")
 import GUIMovableObject from "../gui/movable_3d_object"
 import Earth from "./earth"
 import * as dat from 'dat.gui'
+import * as objectsJson from '../data/objects.json';
 
 class Planet extends GUIMovableObject {
+    // ID
+    id: String
     // Name of planetary object
     name: String
     // Distance to parent in KM
@@ -22,6 +25,12 @@ class Planet extends GUIMovableObject {
     radius: number
     // Orbital period in Earth days
     orbitalPeriod: number
+    // Rotational period in Earth days
+    rotationalPeriod: number
+    // Axial tilt in degrees
+    axialTilt: number
+    // Mass in KG
+    mass: number
     // Material
     material: Material[]
     // Geometry
@@ -35,14 +44,21 @@ class Planet extends GUIMovableObject {
      */
     realMesh: Mesh
 
-    constructor(name: String, radius: number, distance: number, orbitalPeriod: number, material: Material[], geometry: SphereGeometry) {
+    constructor(id: String, material: Material[], geometry: SphereGeometry) {
+
         super()
-        this.name = name
-        this.radius = radius
-        this.distance = distance
+        const obj = objectsJson[id.toLowerCase()]
+        this.id = id.toLowerCase()
+        this.name = obj.name
+        this.mass = obj.mass.massValue * Math.pow(10, obj.mass.massExponent)
+        this.radius = obj.meanRadius
+        this.distance = obj.semimajorAxis
+        this.orbitalPeriod = obj.sideralOrbit
+        this.rotationalPeriod = obj.sideralRotation / 24
+        this.axialTilt = obj.axialTilt
         this.material = material
 
-        const radiusScale = radius / Earth.radius
+        const radiusScale = this.radius / Planet.getJSONValue('meanRadius', 'earth')
         this.geometry = geometry
         this.geometry.scale(radiusScale, radiusScale, radiusScale)
 
@@ -50,15 +66,30 @@ class Planet extends GUIMovableObject {
         this.realMesh = new THREE.Mesh(geometry, material)
         this.mesh.add(this.realMesh)
 
-        if (name != "Sun") {
+        if (this.name != "Sun") {
             this.realMesh.receiveShadow = true
             this.realMesh.castShadow = true
         }
-        this.orbitalPeriod = orbitalPeriod
+
+        const axisVector = new THREE.Vector3(0, 0, 1)
+        const axisRadians = this.axialTilt * Math.PI / 180
+        this.realMesh.setRotationFromAxisAngle(axisVector, axisRadians)
     }
 
     addGUI(gui: dat.GUI): dat.GUI {
         return this._addGUI(gui, this.name, this.mesh)
+    }
+
+    /**
+     * 
+     */
+    animate(time: number) {
+        this.rotate(time)
+    }
+
+    rotate(time: number) {
+        let mult = this.rotationalPeriod / 10000
+        this.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), mult)
     }
 
     /**
@@ -83,6 +114,10 @@ class Planet extends GUIMovableObject {
 
     getMesh(): Mesh {
         return this.mesh
+    }
+
+    static getJSONValue(key: String, planetId: String) {
+        return objectsJson[planetId.toLowerCase()][key]
     }
 }
 export default Planet;

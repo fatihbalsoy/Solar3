@@ -11,10 +11,6 @@ import THREE = require("three");
 import Planet from "./planet";
 
 class Mercury extends Planet {
-    static radius: number = 2439.7
-    static distance: number = 69816900
-    static orbitalPeriod: number = 87.9691
-
     constructor() {
         //? -- TEXTURES -- ?//
         const textureLoader = new THREE.TextureLoader()
@@ -29,7 +25,7 @@ class Mercury extends Planet {
         const geometry = new THREE.SphereBufferGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        super("Mercury", Mercury.radius, Mercury.distance, Mercury.orbitalPeriod, [material], geometry);
+        super("Mercury", [material], geometry);
     }
 }
 

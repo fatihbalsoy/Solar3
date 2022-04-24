@@ -11,9 +11,6 @@ import THREE = require("three");
 import Planet from "./planet";
 
 class Venus extends Planet {
-    static radius: number = 6051.77718
-    static distance: number = 108939000
-    static orbitalPeriod: number = 224.701
 
     constructor() {
         //? -- TEXTURES -- ?//
@@ -29,7 +26,7 @@ class Venus extends Planet {
         const geometry = new THREE.SphereBufferGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        super("Venus", Venus.radius, Venus.distance, Venus.orbitalPeriod, [material], geometry);
+        super("Venus", [material], geometry);
     }
 }
 

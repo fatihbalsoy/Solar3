@@ -147,7 +147,8 @@ sun.light.shadow.mapSize.height = 512;
 sun.light.shadow.camera.near = 0.5;
 sun.light.shadow.camera.far = 5000000000000000;
 
-const galaxyTexture = textureLoader.load('/textures/galaxy/8k_milky_way.jpeg', () => {
+// TODO: Texture does not look good for galaxy, (maybe try adding stars individually?)
+const galaxyTexture = textureLoader.load('/textures/galaxy/2k_milky_way.jpeg', () => {
     const rt = new THREE.WebGLCubeRenderTarget(galaxyTexture.image.height);
     rt.fromEquirectangularTexture(renderer, galaxyTexture);
     // rt.texture.offset.x = (90 * Math.PI) / 180
@@ -182,8 +183,8 @@ planetToLookAt.mesh.add(camera)
 // camera.position.z = 100
 // camera.position.x = -100
 // camera.fov = 20
-
 // camera.zoom = 10
+
 const tick = () => {
     camera.updateProjectionMatrix() // for GUI controls
     targetX = mouseX * 0.001
@@ -202,22 +203,31 @@ const tick = () => {
         camera.position.y += .01 * targetY
     }
 
+    mercury.animate(elapsedTime)
     mercury.orbit(sun.mesh, elapsedTime)
+    venus.animate(elapsedTime)
     venus.orbit(sun.mesh, elapsedTime)
 
     // Update planetary objects and cameras
-    earth.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 0.0001)
+    //earth.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 0.0001)
+    earth.animate(elapsedTime)
     earth.orbit(sun.mesh, elapsedTime)
     moon.orbit(earth.mesh, elapsedTime)
     moon.mesh.lookAt(earth.mesh.position)
 
+    mars.animate(elapsedTime)
     mars.orbit(sun.mesh, elapsedTime)
+    jupiter.animate(elapsedTime)
     jupiter.orbit(sun.mesh, elapsedTime)
+    saturn.animate(elapsedTime)
     saturn.orbit(sun.mesh, elapsedTime)
+    uranus.animate(elapsedTime)
     uranus.orbit(sun.mesh, elapsedTime)
+    neptune.animate(elapsedTime)
     neptune.orbit(sun.mesh, elapsedTime)
 
     camera.lookAt(planetToLookAt.mesh.position)
+    // console.log("Distance from sun: ", Math.sqrt(Math.pow(camera.position.y - 0, 2) + Math.pow(camera.position.x - 0, 2)))
 
     // Update Orbital Controls
     // controls.update()
