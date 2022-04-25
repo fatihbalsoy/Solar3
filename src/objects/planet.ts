@@ -7,7 +7,7 @@
  *   Copyright © 2022 Fatih Balsoy. All rights reserved.
  */
 
-import { Material, Mesh, Object3D, SphereGeometry } from "three"
+import { Material, Mesh, Object3D, SphereGeometry, Vector3 } from "three"
 import THREE = require("three")
 import GUIMovableObject from "../gui/movable_3d_object"
 import Earth from "./earth"
@@ -81,27 +81,45 @@ class Planet extends GUIMovableObject {
     }
 
     /**
-     * 
+     * Animates the planet by applying rotation and translation.
+     * @param time - the time elapsed since start in seconds
+     * @param parent - parent object to orbit around
      */
-    animate(time: number) {
+    animate(time: number, parent: Object3D) {
         this.rotate(time)
-    }
-
-    rotate(time: number) {
-        let mult = this.rotationalPeriod / 10000
-        this.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), mult)
+        this.orbit(parent, time)
     }
 
     /**
-     * Places the planet in an orbiting position around its parent.
+     * Rotates the planet according to its rotational period.
+     * @param time - the time elapsed since start in seconds
+     */
+    rotate(time: number) {
+        // let dayInSeconds = 24 * 60 * 60
+        // let fullPeriod = 2 * Math.PI
+        // let rotationPercent = time / this.rotationalPeriod * dayInSeconds
+        // let mult = 10000000
+        // let finalSpeed = fullPeriod * rotationPercent / mult
+        this.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 1 / 10000)
+        // this.realMesh.setRotationFromAxisAngle(new THREE.Vector3(0, 20, 0), finalSpeed)
+        // this.realMesh.rotation.y = finalSpeed
+    }
+
+    /**
+     * Places the planet in an orbiting position around its parent according to its orbital period.
      * @param parent - parent object to orbit around
      * @param time - the time elapsed since start / current time in seconds
      */
     orbit(parent: Object3D, time: number) {
         // TODO: Not real-time
-        let seconds = (1 / this.orbitalPeriod) //* 0.001
-        this.mesh.position.z = parent.position.z + Math.sin(-time * seconds) * (this.distance / 10000)
-        this.mesh.position.x = parent.position.x + Math.cos(-time * seconds) * (this.distance / 10000)
+        let yearInSeconds = 365 * 24 * 60 * 60
+        let today = Date.now()
+        let fullPeriod = 2 * Math.PI
+        let orbitPercent = (today / yearInSeconds) / this.orbitalPeriod
+        let mult = 1 //0.000001
+        let finalSpeed = fullPeriod * -orbitPercent / mult
+        this.mesh.position.z = parent.position.z + Math.sin(finalSpeed) * (this.distance / 10000)
+        this.mesh.position.x = parent.position.x + Math.cos(finalSpeed) * (this.distance / 10000)
     }
 
     getRadius(): number {
@@ -114,6 +132,14 @@ class Planet extends GUIMovableObject {
 
     getMesh(): Mesh {
         return this.mesh
+    }
+
+    getPosition(): Vector3 {
+        return this.mesh.position
+    }
+
+    getPositionAsString(): String {
+        return this.mesh.position.x.toFixed(0) + "," + this.mesh.position.y.toFixed(0) + "," + this.mesh.position.z.toFixed(0)
     }
 
     static getJSONValue(key: String, planetId: String) {

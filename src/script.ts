@@ -4,18 +4,20 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
 import { Mesh, PointLightHelper, Uniform, Vector3 } from 'three'
 import * as glsl from 'glslify'
+import GUIMovableObject from './gui/movable_3d_object'
+import Planet from './objects/planet'
+
+import Sun from './objects/sun'
+import Mercury from './objects/mercury'
+import Venus from './objects/venus'
 import Earth from './objects/earth'
 import Moon from './objects/moon'
-import Sun from './objects/sun'
-import GUIMovableObject from './gui/movable_3d_object'
 import Mars from './objects/mars'
 import Jupiter from './objects/jupiter'
-import Venus from './objects/venus'
-import Planet from './objects/planet'
-import Mercury from './objects/mercury'
 import Saturn from './objects/saturn'
 import Uranus from './objects/uranus'
 import Neptune from './objects/neptune'
+import Pluto from './objects/pluto'
 
 // Loading
 const textureLoader = new THREE.TextureLoader()
@@ -81,6 +83,11 @@ const neptune = new Neptune();
 scene.add(neptune.mesh)
 neptune.addGUI(gui)
 
+//? -- PLUTO -- ?//
+const pluto = new Pluto();
+scene.add(pluto.mesh)
+pluto.addGUI(gui)
+
 // * -- LIGHTS -- * //
 
 // const pointLightHelper = new PointLightHelper(sunLight, 1, 0xffff00)
@@ -145,7 +152,7 @@ renderer.shadowMap.type = THREE.PCFShadowMap
 sun.light.shadow.mapSize.width = 512;
 sun.light.shadow.mapSize.height = 512;
 sun.light.shadow.camera.near = 0.5;
-sun.light.shadow.camera.far = 5000000000000000;
+sun.light.shadow.camera.far = pluto.distance;
 
 // TODO: Texture does not look good for galaxy, (maybe try adding stars individually?)
 const galaxyTexture = textureLoader.load('/textures/galaxy/2k_milky_way.jpeg', () => {
@@ -184,7 +191,14 @@ planetToLookAt.mesh.add(camera)
 // camera.position.x = -100
 // camera.fov = 20
 // camera.zoom = 10
+// camera.position.z = 1.37
+// camera.position.x = -13.43
+// camera.fov = 13.6
+// camera.zoom = 1
+// camera.fov = 1
+// camera.zoom = 200
 
+var didPrint = false
 const tick = () => {
     camera.updateProjectionMatrix() // for GUI controls
     targetX = mouseX * 0.001
@@ -203,31 +217,40 @@ const tick = () => {
         camera.position.y += .01 * targetY
     }
 
-    mercury.animate(elapsedTime)
-    mercury.orbit(sun.mesh, elapsedTime)
-    venus.animate(elapsedTime)
-    venus.orbit(sun.mesh, elapsedTime)
+    mercury.animate(elapsedTime, sun.mesh)
+    venus.animate(elapsedTime, sun.mesh)
 
     // Update planetary objects and cameras
     //earth.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 0.0001)
-    earth.animate(elapsedTime)
+    earth.animate(elapsedTime, sun.mesh)
     earth.orbit(sun.mesh, elapsedTime)
     moon.orbit(earth.mesh, elapsedTime)
     moon.mesh.lookAt(earth.mesh.position)
 
-    mars.animate(elapsedTime)
-    mars.orbit(sun.mesh, elapsedTime)
-    jupiter.animate(elapsedTime)
-    jupiter.orbit(sun.mesh, elapsedTime)
-    saturn.animate(elapsedTime)
-    saturn.orbit(sun.mesh, elapsedTime)
-    uranus.animate(elapsedTime)
-    uranus.orbit(sun.mesh, elapsedTime)
-    neptune.animate(elapsedTime)
-    neptune.orbit(sun.mesh, elapsedTime)
+    mars.animate(elapsedTime, sun.mesh)
+    jupiter.animate(elapsedTime, sun.mesh)
+    saturn.animate(elapsedTime, sun.mesh)
+    uranus.animate(elapsedTime, sun.mesh)
+    neptune.animate(elapsedTime, sun.mesh)
+    pluto.animate(elapsedTime, sun.mesh)
 
     camera.lookAt(planetToLookAt.mesh.position)
     // console.log("Distance from sun: ", Math.sqrt(Math.pow(camera.position.y - 0, 2) + Math.pow(camera.position.x - 0, 2)))
+
+    if (!didPrint) {
+        console.log("sun: ", sun.getPositionAsString())
+        console.log("mercury: ", mercury.getPositionAsString())
+        console.log("venus: ", venus.getPositionAsString())
+        console.log("earth: ", earth.getPositionAsString())
+        console.log("moon: ", moon.getPositionAsString())
+        console.log("mars: ", mars.getPositionAsString())
+        console.log("jupiter: ", jupiter.getPositionAsString())
+        console.log("saturn: ", saturn.getPositionAsString())
+        console.log("uranus: ", uranus.getPositionAsString())
+        console.log("neptune: ", neptune.getPositionAsString())
+        console.log("pluto: ", pluto.getPositionAsString())
+        didPrint = true
+    }
 
     // Update Orbital Controls
     // controls.update()
