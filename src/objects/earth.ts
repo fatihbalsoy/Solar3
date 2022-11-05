@@ -9,6 +9,7 @@
 
 import THREE = require("three");
 import Planet from "./planet";
+// var glsl = require('glslify');
 
 class Earth extends Planet {
 
@@ -31,32 +32,50 @@ class Earth extends Planet {
 
         //? -- MATERIAL -- ?//
         // const earthMaterial = new THREE.ShaderMaterial({
-        //     vertexShader: glsl('/shaders/atmosphere.v.vert'),
-        //     fragmentShader: glsl('/shaders/atmosphere.v.frag'),
+        //     vertexShader: `
+        //     attribute vec3 aPosition;
+
+        //     varying vec3 vPosition;
+
+        //     void main() {
+        //         gl_Position = vec4(aPosition, 1.0);
+        //         vPosition = aPosition;
+        //     }
+        //     `,
+        //     fragmentShader: `
+        //     uniform vec3 uSunPos;
+
+        //     void main() {
+        //         color = 1.0 - exp(-1.0 * color);
+        //         gl_FragColor = vec4(color, 1);
+        //     }
+        //     `,
+        //     // vertexShader: glsl('/shaders/test.out.vert'),
+        //     // fragmentShader: glsl('/shaders/test.out.frag'),
         //     uniforms: {
         //         "uSunPos": {
-        //             "value": new Uniform(new Vector3(3, 5.2, 3.5))
+        //             "value": new THREE.Uniform(new THREE.Vector3(3, 5.2, 3.5))
         //         }
         //     }
         // })
 
-        const earthMaterial = new THREE.MeshStandardMaterial({
-            normalMap: earthNormal,
-            emissiveMap: earthEmission,
-            lightMap: earthEmission,
-            lightMapIntensity: 1.5,
-            roughnessMap: earthRoughness,
-            map: earthTexture,
-        })
-
-        // const earthMaterial = new THREE.MeshPhongMaterial({
+        // const earthMaterial = new THREE.MeshStandardMaterial({
         //     normalMap: earthNormal,
         //     emissiveMap: earthEmission,
-        //     bumpMap: earthRoughness,
+        //     lightMap: earthEmission,
+        //     lightMapIntensity: 1.5,
+        //     roughnessMap: earthRoughness,
         //     map: earthTexture,
-        //     specularMap: earthSpecular,
-        //     // lightMap: earthEmission
         // })
+
+        const earthMaterial = new THREE.MeshPhongMaterial({
+            normalMap: earthNormal,
+            emissiveMap: earthEmission,
+            bumpMap: earthRoughness,
+            map: earthTexture,
+            specularMap: earthSpecular,
+            // lightMap: earthEmission
+        })
 
         const cloudMaterial = new THREE.MeshStandardMaterial({
             map: earthCloudsTexture,
