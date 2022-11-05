@@ -68,13 +68,35 @@ class Earth extends Planet {
         //     map: earthTexture,
         // })
 
-        const earthMaterial = new THREE.MeshPhongMaterial({
-            normalMap: earthNormal,
-            emissiveMap: earthEmission,
-            bumpMap: earthRoughness,
-            map: earthTexture,
-            specularMap: earthSpecular,
-            // lightMap: earthEmission
+        // const earthMaterial = new THREE.MeshPhongMaterial({
+        //     normalMap: earthNormal,
+        //     emissiveMap: earthEmission,
+        //     bumpMap: earthRoughness,
+        //     map: earthTexture,
+        //     specularMap: earthSpecular,
+        //     // lightMap: earthEmission
+        // })
+
+        const earthMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                planetRadius: Planet.getJSONValue('meanRadius', 'earth')
+            },
+            vertexShader: `
+            varying vec3 vPosition;
+
+            void main() {
+                vPosition = position; // * vec3(1.5, 1.5, 1.5);
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(vPosition, 1.0);
+            }
+            `,
+            fragmentShader: `
+            varying vec3 vPosition;
+            uniform float planetRadius;
+
+            void main() {
+                gl_FragColor = viewMatrix * vec4(vPosition, 1);
+            }
+        `,
         })
 
         const cloudMaterial = new THREE.MeshStandardMaterial({
@@ -88,7 +110,7 @@ class Earth extends Planet {
         const geometry = new THREE.SphereBufferGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        geometry.addGroup(0, Infinity, 1)
+        // geometry.addGroup(0, Infinity, 1)
 
         // * Add second UV for light map * //
         // Get existing `uv` data array

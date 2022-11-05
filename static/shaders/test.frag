@@ -6,13 +6,8 @@
  *   Last Modified by Fatih Balsoy on 5/13/22
  *   Copyright © 2022 Fatih Balsoy. All rights reserved.
  */
-
-varying vec3 vPosition;
-
-uniform vec3 uSunPos;
+#version 300 es
 
 void main() {
-    color = 1.0 - exp(-1.0 * color);
-
-    gl_FragColor = vec4(color, 1);
+    gl_FragColor = vec4(0, 0, 1, 1);
 }

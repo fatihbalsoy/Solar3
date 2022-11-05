@@ -85,6 +85,21 @@ module.exports = {
                         ]
                 },
 
+                // GLSL
+                {
+                    test: /\.(glsl|frag|vert)$/,
+                    use:
+                        [
+                            {
+                                loader: 'file-loader',
+                                options:
+                                {
+                                    outputPath: 'shaders/'
+                                }
+                            }
+                        ]
+                },
+
                 // Fonts
                 {
                     test: /\.(ttf|eot|woff|woff2)$/,
