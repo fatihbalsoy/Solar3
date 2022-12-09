@@ -60,7 +60,11 @@ class Planet extends GUIMovableObject {
 
         const radiusScale = this.radius / Planet.getJSONValue('meanRadius', 'earth')
         this.geometry = geometry
-        this.geometry.scale(radiusScale, radiusScale, radiusScale)
+        var enlarge = 1;
+        // if (this.id != "moon") {
+        //     enlarge = 1000;
+        // }
+        this.geometry.scale(radiusScale * enlarge, radiusScale * enlarge, radiusScale * enlarge)
 
         this.mesh = new THREE.Mesh()
         this.realMesh = new THREE.Mesh(geometry, material)

@@ -59,14 +59,14 @@ class Earth extends Planet {
         //     }
         // })
 
-        // const earthMaterial = new THREE.MeshStandardMaterial({
-        //     normalMap: earthNormal,
-        //     emissiveMap: earthEmission,
-        //     lightMap: earthEmission,
-        //     lightMapIntensity: 1.5,
-        //     roughnessMap: earthRoughness,
-        //     map: earthTexture,
-        // })
+        const earthMaterial = new THREE.MeshStandardMaterial({
+            normalMap: earthNormal,
+            emissiveMap: earthEmission,
+            lightMap: earthEmission,
+            lightMapIntensity: 1.5,
+            roughnessMap: earthRoughness,
+            map: earthTexture,
+        })
 
         // const earthMaterial = new THREE.MeshPhongMaterial({
         //     normalMap: earthNormal,
@@ -77,27 +77,28 @@ class Earth extends Planet {
         //     // lightMap: earthEmission
         // })
 
-        const earthMaterial = new THREE.ShaderMaterial({
-            uniforms: {
-                planetRadius: Planet.getJSONValue('meanRadius', 'earth')
-            },
-            vertexShader: `
-            varying vec3 vPosition;
+        //? -- SHADER -- ?//
+        // const earthMaterial = new THREE.ShaderMaterial({
+        //     uniforms: {
+        //         planetRadius: Planet.getJSONValue('meanRadius', 'earth')
+        //     },
+        //     vertexShader: `
+        //     varying vec3 vPosition;
 
-            void main() {
-                vPosition = position; // * vec3(1.5, 1.5, 1.5);
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(vPosition, 1.0);
-            }
-            `,
-            fragmentShader: `
-            varying vec3 vPosition;
-            uniform float planetRadius;
+        //     void main() {
+        //         vPosition = position; // * vec3(1.5, 1.5, 1.5);
+        //         gl_Position = projectionMatrix * modelViewMatrix * vec4(vPosition, 1.0);
+        //     }
+        //     `,
+        //     fragmentShader: `
+        //     varying vec3 vPosition;
+        //     uniform float planetRadius;
 
-            void main() {
-                gl_FragColor = viewMatrix * vec4(vPosition, 1);
-            }
-        `,
-        })
+        //     void main() {
+        //         gl_FragColor = viewMatrix * vec4(vPosition, 1);
+        //     }
+        // `,
+        // })
 
         const cloudMaterial = new THREE.MeshStandardMaterial({
             map: earthCloudsTexture,

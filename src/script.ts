@@ -38,14 +38,14 @@ scene.add(sun.mesh)
 sun.addGUI(gui)
 
 // //? -- MERCURY -- ?//
-// const mercury = new Mercury();
-// scene.add(mercury.mesh)
-// mercury.addGUI(gui)
+const mercury = new Mercury();
+scene.add(mercury.mesh)
+mercury.addGUI(gui)
 
 // //? -- VENUS -- ?//
-// const venus = new Venus();
-// scene.add(venus.mesh)
-// venus.addGUI(gui)
+const venus = new Venus();
+scene.add(venus.mesh)
+venus.addGUI(gui)
 
 //? -- EARTH -- ?//
 const earth = new Earth();
@@ -58,34 +58,34 @@ scene.add(moon.mesh)
 moon.addGUI(gui)
 
 // //? -- MARS -- ?//
-// const mars = new Mars();
-// scene.add(mars.mesh)
-// mars.addGUI(gui)
+const mars = new Mars();
+scene.add(mars.mesh)
+mars.addGUI(gui)
 
 // //? -- JUPITER -- ?//
-// const jupiter = new Jupiter();
-// scene.add(jupiter.mesh)
-// jupiter.addGUI(gui)
+const jupiter = new Jupiter();
+scene.add(jupiter.mesh)
+jupiter.addGUI(gui)
 
 // //? -- SATURN -- ?//
-// const saturn = new Saturn();
-// scene.add(saturn.mesh)
-// saturn.addGUI(gui)
+const saturn = new Saturn();
+scene.add(saturn.mesh)
+saturn.addGUI(gui)
 
 // //? -- URANUS -- ?//
-// const uranus = new Uranus();
-// scene.add(uranus.mesh)
-// uranus.addGUI(gui)
+const uranus = new Uranus();
+scene.add(uranus.mesh)
+uranus.addGUI(gui)
 
 // //? -- NEPTUNE -- ?//
-// const neptune = new Neptune();
-// scene.add(neptune.mesh)
-// neptune.addGUI(gui)
+const neptune = new Neptune();
+scene.add(neptune.mesh)
+neptune.addGUI(gui)
 
 // //? -- PLUTO -- ?//
-// const pluto = new Pluto();
-// scene.add(pluto.mesh)
-// pluto.addGUI(gui)
+const pluto = new Pluto();
+scene.add(pluto.mesh)
+pluto.addGUI(gui)
 
 // * -- LIGHTS -- * //
 
@@ -119,7 +119,7 @@ window.addEventListener('resize', () => {
  */
 // Base camera
 const near = 0.001
-const far = 50000
+const far = 5000000000
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, near, far)
 // 0, 0.798, 2
 // -0.298, 0.989, 2
@@ -151,10 +151,10 @@ renderer.shadowMap.type = THREE.PCFShadowMap
 sun.light.shadow.mapSize.width = 512;
 sun.light.shadow.mapSize.height = 512;
 sun.light.shadow.camera.near = 0.5;
-sun.light.shadow.camera.far = moon.distance//pluto.distance;
+sun.light.shadow.camera.far = pluto.distance;
 
 // TODO: Texture does not look good for galaxy, (maybe try adding stars individually?)
-const galaxyTexture = textureLoader.load('/textures/galaxy/2k_milky_way.jpeg', () => {
+const galaxyTexture = textureLoader.load('/textures/galaxy/8k_milky_way.jpeg', () => {
     const rt = new THREE.WebGLCubeRenderTarget(galaxyTexture.image.height);
     rt.fromEquirectangularTexture(renderer, galaxyTexture);
     // rt.texture.offset.x = (90 * Math.PI) / 180
@@ -203,7 +203,8 @@ const tick = () => {
     targetX = mouseX * 0.001
     targetY = mouseY * 0.001
 
-    const elapsedTime = clock.getElapsedTime()
+    // const elapsedTime = clock.getElapsedTime()
+    const elapsedTime = clock.startTime + clock.getElapsedTime()
 
     // Update objects
     const LOCK_CAMERA_TO_MOUSE = false
@@ -216,8 +217,8 @@ const tick = () => {
         camera.position.y += .01 * targetY
     }
 
-    // mercury.animate(elapsedTime, sun.mesh)
-    // venus.animate(elapsedTime, sun.mesh)
+    mercury.animate(elapsedTime, sun.mesh)
+    venus.animate(elapsedTime, sun.mesh)
 
     // Update planetary objects and cameras
     //earth.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 0.0001)
@@ -226,28 +227,28 @@ const tick = () => {
     moon.orbit(earth.mesh, elapsedTime)
     moon.mesh.lookAt(earth.mesh.position)
 
-    // mars.animate(elapsedTime, sun.mesh)
-    // jupiter.animate(elapsedTime, sun.mesh)
-    // saturn.animate(elapsedTime, sun.mesh)
-    // uranus.animate(elapsedTime, sun.mesh)
-    // neptune.animate(elapsedTime, sun.mesh)
-    // pluto.animate(elapsedTime, sun.mesh)
+    mars.animate(elapsedTime, sun.mesh)
+    jupiter.animate(elapsedTime, sun.mesh)
+    saturn.animate(elapsedTime, sun.mesh)
+    uranus.animate(elapsedTime, sun.mesh)
+    neptune.animate(elapsedTime, sun.mesh)
+    pluto.animate(elapsedTime, sun.mesh)
 
     camera.lookAt(planetToLookAt.mesh.position)
     // console.log("Distance from sun: ", Math.sqrt(Math.pow(camera.position.y - 0, 2) + Math.pow(camera.position.x - 0, 2)))
 
     if (!didPrint) {
         console.log("sun: ", sun.getPositionAsString())
-        // console.log("mercury: ", mercury.getPositionAsString())
-        // console.log("venus: ", venus.getPositionAsString())
+        console.log("mercury: ", mercury.getPositionAsString())
+        console.log("venus: ", venus.getPositionAsString())
         console.log("earth: ", earth.getPositionAsString())
         console.log("moon: ", moon.getPositionAsString())
-        // console.log("mars: ", mars.getPositionAsString())
-        // console.log("jupiter: ", jupiter.getPositionAsString())
-        // console.log("saturn: ", saturn.getPositionAsString())
-        // console.log("uranus: ", uranus.getPositionAsString())
-        // console.log("neptune: ", neptune.getPositionAsString())
-        // console.log("pluto: ", pluto.getPositionAsString())
+        console.log("mars: ", mars.getPositionAsString())
+        console.log("jupiter: ", jupiter.getPositionAsString())
+        console.log("saturn: ", saturn.getPositionAsString())
+        console.log("uranus: ", uranus.getPositionAsString())
+        console.log("neptune: ", neptune.getPositionAsString())
+        console.log("pluto: ", pluto.getPositionAsString())
         didPrint = true
     }
 
