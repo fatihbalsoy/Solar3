@@ -2,10 +2,12 @@ import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
-import { Mesh, PointLightHelper, Uniform, Vector3 } from 'three'
+import { Mesh, MeshBasicMaterial, PointLightHelper, Uniform, Vector3 } from 'three'
 import GUIMovableObject from './gui/movable_3d_object'
-import Planet from './objects/planet'
+import { Font, FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 
+import Planet from './objects/planet'
 import Sun from './objects/sun'
 import Mercury from './objects/mercury'
 import Venus from './objects/venus'
@@ -86,6 +88,36 @@ neptune.addGUI(gui)
 const pluto = new Pluto();
 scene.add(pluto.mesh)
 pluto.addGUI(gui)
+
+// * -- TEXT -- * //
+const loader = new FontLoader();
+const planetsWithTxt = [mercury, venus, mars, jupiter, saturn, neptune, uranus, pluto]
+loader.load('fonts/gilroy_extrabold.json', function (f) {
+    for (const planet in planetsWithTxt) {
+        const element = planetsWithTxt[planet];
+
+        const geometryTxt = new TextGeometry(element.name.toString(), {
+            font: f,
+            size: 0.000001 * element.distance,
+            height: 5,
+
+            curveSegments: 12,
+            // bevelEnabled: true,
+            // bevelThickness: 1,
+            // bevelSize: 1,
+            // bevelOffset: 0,
+            // bevelSegments: 5
+        });
+        const materialTxt = new MeshBasicMaterial();
+        materialTxt.color = new THREE.Color(0xFFFFFF);
+
+        const m = new Mesh(geometryTxt, materialTxt);
+        m.position.set(element.mesh.position.x, element.mesh.position.y, element.mesh.position.z);
+        m.lookAt(camera.position)
+        // earth.mesh.add(m)
+        scene.add(m)
+    }
+});
 
 // * -- LIGHTS -- * //
 

@@ -21,7 +21,7 @@
     "portfinder-sync": "0.0.2",
     "raw-loader": "^4.0.2",
     "style-loader": "^2.0.0",
-    "three": "^0.126.0",
+    "three": "^0.148.0",
     "ts-loader": "^9.2.8",
     "webpack": "^5.24.2",
     "webpack-cli": "^4.5.0",
