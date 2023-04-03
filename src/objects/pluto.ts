@@ -14,9 +14,10 @@ class Pluto extends Planet {
 
     constructor() {
         //? -- TEXTURES -- ?//
-        const textureLoader = new THREE.TextureLoader()
+        const loadingManager = new THREE.LoadingManager()
+        const textureLoader = new THREE.TextureLoader(loadingManager)
         const res = '2k'
-        const texture = textureLoader.load('/textures/pluto/' + res + '_pluto.jpg')
+        const texture = textureLoader.load('assets/images/textures/pluto/' + res + '_pluto.jpg')
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()

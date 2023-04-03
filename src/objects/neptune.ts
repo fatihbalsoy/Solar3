@@ -14,9 +14,10 @@ import Planet from "./planet";
 class Neptune extends Planet {
     constructor() {
         //? -- TEXTURES -- ?//
-        const textureLoader = new THREE.TextureLoader()
+        const loadingManager = new THREE.LoadingManager()
+        const textureLoader = new THREE.TextureLoader(loadingManager)
         const res = '2k'
-        const texture = textureLoader.load('/textures/neptune/' + res + '_neptune.jpeg')
+        const texture = textureLoader.load('assets/images/textures/neptune/' + res + '_neptune.jpeg')
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()

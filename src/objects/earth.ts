@@ -19,16 +19,17 @@ class Earth extends Planet {
         const month = today.getMonth()
         const monthNames = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
 
-        const textureLoader = new THREE.TextureLoader()
+        const loadingManager = new THREE.LoadingManager()
+        const textureLoader = new THREE.TextureLoader(loadingManager)
 
         const res = '2k'
 
-        const earthTexture = textureLoader.load('/textures/earth/' + res + '/month/' + monthNames[month] + '.jpeg')
-        const earthNormal = textureLoader.load('/textures/earth/' + res + '/normal.jpeg')
-        const earthRoughness = textureLoader.load('/textures/earth/' + res + '/roughness.jpeg')
-        const earthSpecular = textureLoader.load('/textures/earth/' + res + '/specular.jpeg')
-        const earthEmission = textureLoader.load('/textures/earth/' + res + '/night_dark.jpeg')
-        const earthCloudsTexture = textureLoader.load('/textures/earth/2k/clouds.png')
+        const earthTexture = textureLoader.load('assets/images/textures/earth/' + res + '/month/' + monthNames[month] + '.jpeg')
+        const earthNormal = textureLoader.load('assets/images/textures/earth/' + res + '/normal.jpeg')
+        const earthRoughness = textureLoader.load('assets/images/textures/earth/' + res + '/roughness.jpeg')
+        const earthSpecular = textureLoader.load('assets/images/textures/earth/' + res + '/specular.jpeg')
+        const earthEmission = textureLoader.load('assets/images/textures/earth/' + res + '/night_dark.jpeg')
+        const earthCloudsTexture = textureLoader.load('assets/images/textures/earth/2k/clouds.png')
 
         //? -- MATERIAL -- ?//
         // const earthMaterial = new THREE.ShaderMaterial({

@@ -14,9 +14,10 @@ import Planet from "./planet";
 class Moon extends Planet {
     constructor() {
         //? -- TEXTURES -- ?//
-        const textureLoader = new THREE.TextureLoader()
+        const loadingManager = new THREE.LoadingManager()
+        const textureLoader = new THREE.TextureLoader(loadingManager)
         const res = '2k'
-        const texture = textureLoader.load('/textures/moon/' + res + '_moon.jpeg')
+        const texture = textureLoader.load('assets/images/textures/moon/' + res + '_moon.jpeg')
         texture.wrapS = THREE.RepeatWrapping
         texture.offset.x = (270 / 180) / (2 * Math.PI)
 

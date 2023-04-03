@@ -16,10 +16,11 @@ class Saturn extends Planet {
 
     constructor() {
         //? -- TEXTURES -- ?//
-        const textureLoader = new THREE.TextureLoader()
+        const loadingManager = new THREE.LoadingManager()
+        const textureLoader = new THREE.TextureLoader(loadingManager)
         const res = '2k'
-        const texture = textureLoader.load('/textures/saturn/' + res + '_saturn.jpeg')
-        const ringTexture = textureLoader.load('/textures/saturn/' + res + '_saturn_ring_alpha.png')
+        const texture = textureLoader.load('assets/images/textures/saturn/' + res + '_saturn.jpeg')
+        const ringTexture = textureLoader.load('assets/images/textures/saturn/' + res + '_saturn_ring_alpha.png')
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial({
