@@ -33,26 +33,26 @@ class Earth extends Planet {
 
         //? -- MATERIAL -- ?//
         // const earthMaterial = new THREE.ShaderMaterial({
-        //     vertexShader: `
-        //     attribute vec3 aPosition;
+        //     // vertexShader: `
+        //     // attribute vec3 aPosition;
 
-        //     varying vec3 vPosition;
+        //     // varying vec3 vPosition;
 
-        //     void main() {
-        //         gl_Position = vec4(aPosition, 1.0);
-        //         vPosition = aPosition;
-        //     }
-        //     `,
-        //     fragmentShader: `
-        //     uniform vec3 uSunPos;
+        //     // void main() {
+        //     //     gl_Position = vec4(aPosition, 1.0);
+        //     //     vPosition = aPosition;
+        //     // }
+        //     // `,
+        //     // fragmentShader: `
+        //     // uniform vec3 uSunPos;
 
-        //     void main() {
-        //         color = 1.0 - exp(-1.0 * color);
-        //         gl_FragColor = vec4(color, 1);
-        //     }
-        //     `,
-        //     // vertexShader: glsl('/shaders/test.out.vert'),
-        //     // fragmentShader: glsl('/shaders/test.out.frag'),
+        //     // void main() {
+        //     //     color = 1.0 - exp(-1.0 * color);
+        //     //     gl_FragColor = vec4(color, 1);
+        //     // }
+        //     // `,
+        //     vertexShader: glsl('shaders/atmosphere.v.vert'),
+        //     fragmentShader: glsl('shaders/atmosphere.v.frag'),
         //     uniforms: {
         //         "uSunPos": {
         //             "value": new THREE.Uniform(new THREE.Vector3(3, 5.2, 3.5))

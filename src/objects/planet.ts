@@ -28,6 +28,8 @@ class Planet extends GUIMovableObject {
     rotationalPeriod: number
     // Axial tilt in degrees
     axialTilt: number
+    // Orbital inclination in degrees
+    orbitalInclination: number
     // Mass in KG
     mass: number
     // Material
@@ -43,6 +45,9 @@ class Planet extends GUIMovableObject {
      */
     realMesh: Mesh
 
+    // Distance Scale
+    distanceScale: number = 10000
+
     constructor(id: String, material: Material[], geometry: SphereGeometry) {
 
         super()
@@ -55,12 +60,14 @@ class Planet extends GUIMovableObject {
         this.orbitalPeriod = obj.sideralOrbit
         this.rotationalPeriod = obj.sideralRotation / 24
         this.axialTilt = obj.axialTilt
+        this.orbitalInclination = obj.inclination
         this.material = material
 
+        // GEOMETRY //
         const radiusScale = this.radius / Planet.getJSONValue('meanRadius', 'earth')
         this.geometry = geometry
         var enlarge = 1;
-        // if (this.id != "moon") {
+        // if (this.id != "moon" && this.id != "sun") {
         //     enlarge = 1000;
         // }
         this.geometry.scale(radiusScale * enlarge, radiusScale * enlarge, radiusScale * enlarge)
@@ -74,9 +81,18 @@ class Planet extends GUIMovableObject {
             this.realMesh.castShadow = true
         }
 
+        // ROTATE MESH //
         const axisVector = new THREE.Vector3(0, 0, 1)
         const axisRadians = this.axialTilt * Math.PI / 180
         this.realMesh.setRotationFromAxisAngle(axisVector, axisRadians)
+
+        // STAR SPRITE //
+        // const map = new THREE.TextureLoader().load('assets/images/textures/star16x16.png');
+        // const starMaterial = new THREE.SpriteMaterial({ map: map });
+        // const sprite = new THREE.Sprite(starMaterial);
+        // sprite.lookAt(new THREE.Vector3(0, 0, 0))
+        // sprite.scale.set(this.distance / this.distanceScale / 10, this.distance / this.distanceScale / 10, 1)
+        // this.mesh.add(sprite);
     }
 
     addGUI(gui: dat.GUI): dat.GUI {
@@ -103,7 +119,9 @@ class Planet extends GUIMovableObject {
         // let rotationPercent = time / this.rotationalPeriod * dayInSeconds
         // let mult = 10000000
         // let finalSpeed = fullPeriod * rotationPercent / mult
+
         this.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 1 / 10000)
+
         // this.realMesh.setRotationFromAxisAngle(new THREE.Vector3(0, 20, 0), finalSpeed)
         // this.realMesh.rotation.y = finalSpeed
     }
@@ -121,8 +139,31 @@ class Planet extends GUIMovableObject {
         let orbitPercent = (today / yearInSeconds) / this.orbitalPeriod
         let mult = 1 //0.000001
         let finalSpeed = fullPeriod * -orbitPercent / mult
-        this.mesh.position.z = parent.position.z + Math.sin(finalSpeed) * (this.distance / 10000)
-        this.mesh.position.x = parent.position.x + Math.cos(finalSpeed) * (this.distance / 10000)
+        this.mesh.position.z = parent.position.z + Math.sin(finalSpeed) * (this.distance / this.distanceScale)
+        this.mesh.position.x = parent.position.x + Math.cos(finalSpeed) * (this.distance / this.distanceScale)
+        // this.mesh.position.y = parent.position.y + Math.co
+    }
+
+    displayOrbit(parent: Object3D) {
+        const curve = new THREE.EllipseCurve(
+            // ax, aY
+            parent.position.x, parent.position.y,
+            // xRadius, yRadius
+            this.distance / this.distanceScale, this.distance / this.distanceScale,
+            // aStartAngle, aEndAngle
+            0, 2 * Math.PI,
+            // aClockwise
+            false,
+            // aRotation
+            0
+        );
+        const points = curve.getPoints(5000);
+        const ellGeometry = new THREE.BufferGeometry().setFromPoints(points);
+        const ellMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
+        const ellipse = new THREE.Line(ellGeometry, ellMaterial);
+        ellipse.rotateX(Math.PI / 2)
+        ellipse.rotateY(this.orbitalInclination * Math.PI / 180)
+        parent.add(ellipse)
     }
 
     getRadius(): number {
@@ -131,6 +172,10 @@ class Planet extends GUIMovableObject {
 
     getDistance(): number {
         return this.distance
+    }
+
+    getDistanceScale(): number {
+        return this.distanceScale
     }
 
     getMesh(): Mesh {

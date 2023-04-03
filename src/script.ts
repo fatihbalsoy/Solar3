@@ -40,85 +40,94 @@ const sun = new Sun()
 scene.add(sun.mesh)
 // sun.addGUI(gui)
 
-// //? -- MERCURY -- ?//
+//? -- MERCURY -- ?//
 const mercury = new Mercury();
-scene.add(mercury.mesh)
+mercury.displayOrbit(sun.mesh)
+sun.mesh.add(mercury.mesh)
 // mercury.addGUI(gui)
 
-// //? -- VENUS -- ?//
+//? -- VENUS -- ?//
 const venus = new Venus();
-scene.add(venus.mesh)
+venus.displayOrbit(sun.mesh)
+sun.mesh.add(venus.mesh)
 // venus.addGUI(gui)
 
 //? -- EARTH -- ?//
 const earth = new Earth();
-scene.add(earth.mesh)
+earth.displayOrbit(sun.mesh)
+sun.mesh.add(earth.mesh)
 // earth.addGUI(gui)
 
 //? -- MOON -- ?//
 const moon = new Moon();
-scene.add(moon.mesh)
+moon.displayOrbit(earth.mesh)
+sun.mesh.add(moon.mesh)
 // moon.addGUI(gui)
 
-// //? -- MARS -- ?//
+//? -- MARS -- ?//
 const mars = new Mars();
-scene.add(mars.mesh)
+mars.displayOrbit(sun.mesh)
+sun.mesh.add(mars.mesh)
 // mars.addGUI(gui)
 
-// //? -- JUPITER -- ?//
+//? -- JUPITER -- ?//
 const jupiter = new Jupiter();
-scene.add(jupiter.mesh)
+jupiter.displayOrbit(sun.mesh)
+sun.mesh.add(jupiter.mesh)
 // jupiter.addGUI(gui)
 
-// //? -- SATURN -- ?//
+//? -- SATURN -- ?//
 const saturn = new Saturn();
-scene.add(saturn.mesh)
+saturn.displayOrbit(sun.mesh)
+sun.mesh.add(saturn.mesh)
 // saturn.addGUI(gui)
 
-// //? -- URANUS -- ?//
+//? -- URANUS -- ?//
 const uranus = new Uranus();
-scene.add(uranus.mesh)
+uranus.displayOrbit(sun.mesh)
+sun.mesh.add(uranus.mesh)
 // uranus.addGUI(gui)
 
-// //? -- NEPTUNE -- ?//
+//? -- NEPTUNE -- ?//
 const neptune = new Neptune();
-scene.add(neptune.mesh)
+neptune.displayOrbit(sun.mesh)
+sun.mesh.add(neptune.mesh)
 // neptune.addGUI(gui)
 
-// //? -- PLUTO -- ?//
+//? -- PLUTO -- ?//
 const pluto = new Pluto();
-scene.add(pluto.mesh)
+pluto.displayOrbit(sun.mesh)
+sun.mesh.add(pluto.mesh)
 // pluto.addGUI(gui)
 
 // * -- TEXT -- * //
-const loader = new FontLoader();
-const planetsWithTxt = [sun, mercury, venus, earth, mars, jupiter, saturn, neptune, uranus, pluto]
-loader.load('assets/fonts/gilroy_extrabold.json', function (f) {
-    for (const planet in planetsWithTxt) {
-        const element = planetsWithTxt[planet];
+// const loader = new FontLoader();
+// const planetsWithTxt = [sun, mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto]
+// loader.load('assets/fonts/gilroy_extrabold.json', function (f) {
+//     for (const planet in planetsWithTxt) {
+//         const element = planetsWithTxt[planet];
 
-        const geometryTxt = new TextGeometry(element.name.toString(), {
-            font: f,
-            size: 0.000001 * element.distance,
-            height: 5,
+//         const geometryTxt = new TextGeometry(element.name.toString(), {
+//             font: f,
+//             size: 0.000001 * element.distance,
+//             height: 5,
 
-            curveSegments: 12,
-            // bevelEnabled: true,
-            // bevelThickness: 1,
-            // bevelSize: 1,
-            // bevelOffset: 0,
-            // bevelSegments: 5
-        });
-        const materialTxt = new MeshBasicMaterial();
-        materialTxt.color = new THREE.Color(0xFFFFFF);
+//             curveSegments: 12,
+//             // bevelEnabled: true,
+//             // bevelThickness: 1,
+//             // bevelSize: 1,
+//             // bevelOffset: 0,
+//             // bevelSegments: 5
+//         });
+//         const materialTxt = new MeshBasicMaterial();
+//         materialTxt.color = new THREE.Color(0xFFFFFF);
 
-        const m = new Mesh(geometryTxt, materialTxt);
-        m.position.set(element.mesh.position.x, element.mesh.position.y, element.mesh.position.z);
-        m.lookAt(camera.position)
-        // earth.mesh.add(m)
-        scene.add(m)
-    }
-});
+//         const m = new Mesh(geometryTxt, materialTxt);
+//         m.position.set(100, 0, 100);
+//         m.lookAt(sun.mesh.position)
+//         element.mesh.add(m)
+//     }
+// });
 
 // * -- LIGHTS -- * //
 
@@ -154,18 +163,15 @@ window.addEventListener('resize', () => {
 const near = 0.001
 const far = 5000000000
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, near, far)
-// 0, 0.798, 2
-// -0.298, 0.989, 2
-const initCameraPos = new THREE.Vector3(-0.298, 0.989, 2)
-camera.position.set(initCameraPos.x, initCameraPos.y, initCameraPos.z)
-// -0.408, 0, 0
-// -0.463, -0.217, 0
-const initCameraRot = new THREE.Vector3(-0.463, -0.217, 0)
+const initCameraPos = earth.mesh.position
+const initCameraPosRadius = earth.getRadius()
+camera.position.set(initCameraPos.x + initCameraPosRadius, initCameraPos.y, initCameraPos.z + initCameraPosRadius)
+const initCameraRot = new THREE.Vector3(0, 0, 0)
 camera.rotation.set(initCameraRot.x, initCameraRot.y, initCameraRot.z)
 scene.add(camera)
 
-// const cameraGUI = new GUIMovableObject();
-// cameraGUI._addGUI(gui, 'Camera', camera)
+const cameraGUI = new GUIMovableObject();
+cameraGUI._addGUI(gui, 'Camera', camera)
 
 // Controls
 const controls = new OrbitControls(camera, canvas)
@@ -187,10 +193,9 @@ sun.light.shadow.camera.near = 0.5;
 sun.light.shadow.camera.far = pluto.distance;
 
 // TODO: Texture does not look good for galaxy, (maybe try adding stars individually?)
-const galaxyTexture = textureLoader.load('assets/images/textures/galaxy/8k_milky_way.jpeg', () => {
+const galaxyTexture = textureLoader.load('assets/images/textures/galaxy/4k_milky_way_nostars.png', () => {
     const rt = new THREE.WebGLCubeRenderTarget(galaxyTexture.image.height);
     rt.fromEquirectangularTexture(renderer, galaxyTexture);
-    // rt.texture.offset.x = (90 * Math.PI) / 180
     scene.background = rt.texture;
 })
 /**
@@ -220,7 +225,7 @@ const clock = new THREE.Clock()
 scene.remove(camera)
 var planetToLookAt: Planet = earth
 const plaRadius = planetToLookAt.radius
-const plaCamPosition = planetToLookAt.mesh.position.addScalar(plaRadius)
+const plaCamPosition = planetToLookAt.mesh.position
 camera.position.set(plaCamPosition.x, plaCamPosition.y, plaCamPosition.z)
 controls.target = planetToLookAt.mesh.position
 controls.center = planetToLookAt.mesh.position
@@ -238,6 +243,7 @@ function onDocumentKeyDown(event) {
         55: uranus, // 7
         56: neptune, // 8
         57: pluto, // 9
+        77: moon, // m
     }
     planetToLookAt = planetKeys[keyCode] ?? planetToLookAt
     controls.target = planetToLookAt.mesh.position
@@ -281,7 +287,6 @@ const tick = () => {
     // Update planetary objects and cameras
     //earth.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 0.0001)
     earth.animate(elapsedTime, sun.mesh)
-    earth.orbit(sun.mesh, elapsedTime)
     moon.orbit(earth.mesh, elapsedTime)
     moon.mesh.lookAt(earth.mesh.position)
 
