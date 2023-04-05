@@ -38,7 +38,7 @@ const scene = new THREE.Scene()
 //? -- SUN -- ?//
 const sun = new Sun()
 scene.add(sun.mesh)
-// sun.addGUI(gui)
+sun.addGUI(gui)
 
 //? -- MERCURY -- ?//
 const mercury = new Mercury();
@@ -176,6 +176,7 @@ cameraGUI._addGUI(gui, 'Camera', camera)
 // Controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
+controls.enablePan = false
 
 /**
  ** -- Renderer -- *
@@ -191,6 +192,7 @@ sun.light.shadow.mapSize.width = 512;
 sun.light.shadow.mapSize.height = 512;
 sun.light.shadow.camera.near = 0.5;
 sun.light.shadow.camera.far = pluto.distance;
+// sun.light.
 
 // TODO: Texture does not look good for galaxy, (maybe try adding stars individually?)
 const galaxyTexture = textureLoader.load('assets/images/textures/galaxy/4k_milky_way_nostars.png', () => {

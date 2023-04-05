@@ -10,20 +10,27 @@
 
 import THREE = require("three");
 import Planet from "./planet";
+import { Quality, quality } from "../settings";
 
 class Moon extends Planet {
     constructor() {
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const res = '2k'
+        const res = quality == Quality.high ? '8k' : '2k'
         const texture = textureLoader.load('assets/images/textures/moon/' + res + '_moon.jpeg')
         texture.wrapS = THREE.RepeatWrapping
         texture.offset.x = (270 / 180) / (2 * Math.PI)
 
+        const normalTexture = textureLoader.load('assets/images/textures/moon/normal.png')
+        normalTexture.wrapS = THREE.RepeatWrapping
+        normalTexture.offset.x = (270 / 180) / (2 * Math.PI)
+
         //? -- MATERIAL -- ?//
-        const material = new THREE.MeshStandardMaterial()
-        material.map = texture
+        const material = new THREE.MeshStandardMaterial({
+            normalMap: normalTexture,
+            map: texture,
+        })
 
         //? -- GEOMETRY -- ?//
         const geometry = new THREE.SphereBufferGeometry(1, 64, 64)

@@ -141,7 +141,7 @@ class Planet extends GUIMovableObject {
         let finalSpeed = fullPeriod * -orbitPercent / mult
         this.mesh.position.z = parent.position.z + Math.sin(finalSpeed) * (this.distance / this.distanceScale)
         this.mesh.position.x = parent.position.x + Math.cos(finalSpeed) * (this.distance / this.distanceScale)
-        // this.mesh.position.y = parent.position.y + Math.co
+        // this.mesh.position.y = parent.position.y + Math.sin(this.orbitalInclination) * Math.sin(finalSpeed) * (this.distance / this.distanceScale)
     }
 
     displayOrbit(parent: Object3D) {

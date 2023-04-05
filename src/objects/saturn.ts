@@ -11,6 +11,7 @@ import { Vector3 } from "three";
 import THREE = require("three");
 import Earth from "./earth";
 import Planet from "./planet";
+import { Quality, quality } from "../settings";
 
 class Saturn extends Planet {
 
@@ -18,7 +19,7 @@ class Saturn extends Planet {
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const res = '2k'
+        const res = quality == Quality.high ? '8k' : '2k'
         const texture = textureLoader.load('assets/images/textures/saturn/' + res + '_saturn.jpeg')
         const ringTexture = textureLoader.load('assets/images/textures/saturn/' + res + '_saturn_ring_alpha.png')
 

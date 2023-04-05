@@ -27,7 +27,7 @@ class Sun extends Planet {
         geometry.addGroup(0, Infinity, 0)
         super("Sun", [sunMaterial], geometry);
 
-        const light = new THREE.PointLight(0xffffff, 3)
+        const light = new THREE.PointLight(0xffffff, 1.35) // prev intesity: 3
         light.position.set(0, 0, 0)
         light.castShadow = true
         light.shadow.camera.visible = true
@@ -42,7 +42,7 @@ class Sun extends Planet {
         let sunFolder = this._addGUI(gui, this.name, this.mesh)
 
         const lightFolder = sunFolder.addFolder('Light')
-        lightFolder.add(this.light, 'intensity', 0, 100, 0.01)
+        lightFolder.add(this.light, 'intensity', 0, 10, 0.01)
     }
 }
 
