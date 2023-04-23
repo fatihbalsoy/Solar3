@@ -7,7 +7,8 @@
  */
 
 export enum Quality {
-    high = 1,
+    high = 2,
+    medium = 1,
     low = 0
 }
 export let quality: Quality = 1

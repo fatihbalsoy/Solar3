@@ -12,12 +12,16 @@ import THREE = require("three")
 import GUIMovableObject from "../gui/movable_3d_object"
 import * as dat from 'dat.gui'
 import * as objectsJson from '../data/objects.json';
+import { AstronomyClass } from "../services/astronomy";
+import { Astronomy } from "../services/astronomy_static";
 
 class Planet extends GUIMovableObject {
     // ID
-    id: String
+    id: string
+    // Astronomy Instance Body (javascript any type)
+    astro: any
     // Name of planetary object
-    name: String
+    name: string
     // Distance to parent in KM
     distance: number
     // Radius in KM
@@ -48,7 +52,7 @@ class Planet extends GUIMovableObject {
     // Distance Scale
     distanceScale: number = 10000
 
-    constructor(id: String, material: Material[], geometry: SphereGeometry) {
+    constructor(id: string, material: Material[], geometry: SphereGeometry) {
 
         super()
         const obj = objectsJson[id.toLowerCase()]
@@ -62,6 +66,32 @@ class Planet extends GUIMovableObject {
         this.axialTilt = obj.axialTilt
         this.orbitalInclination = obj.inclination
         this.material = material
+
+        let bodies = {
+            "sun": Astronomy.s.Body[0],
+            "mercury": Astronomy.s.Body[1],
+            "venus": Astronomy.s.Body[2],
+            "earth": Astronomy.s.Body[3],
+            "moon": Astronomy.s.Body[4],
+            "mars": Astronomy.s.Body[5],
+            "ceres": Astronomy.s.Body[6],
+            "pallas": Astronomy.s.Body[7],
+            "juno": Astronomy.s.Body[8],
+            "vesta": Astronomy.s.Body[9],
+            "ida": Astronomy.s.Body[10],
+            "gaspra": Astronomy.s.Body[11],
+            "comet_9p": Astronomy.s.Body[12],
+            "comet_19p": Astronomy.s.Body[13],
+            "comet_67p": Astronomy.s.Body[14],
+            "comet_81p": Astronomy.s.Body[15],
+            "jupiter": Astronomy.s.Body[16],
+            "saturn": Astronomy.s.Body[17],
+            //this.SaturnJPL,       // not much better than existing Saturn... not ready for publish
+            "uranus": Astronomy.s.Body[18],
+            "neptune": Astronomy.s.Body[19],
+            "pluto": Astronomy.s.Body[20]
+        };
+        this.astro = bodies[this.id]
 
         // GEOMETRY //
         const radiusScale = this.radius / Planet.getJSONValue('meanRadius', 'earth')
@@ -105,8 +135,11 @@ class Planet extends GUIMovableObject {
      * @param parent - parent object to orbit around
      */
     animate(time: number, parent: Object3D) {
-        this.rotate(time)
-        this.orbit(parent, time)
+        if (this.name !== "Moon") {
+            this.rotate(time)
+        }
+        this.setPosition()
+        // this.orbit(parent, time)
     }
 
     /**
@@ -126,44 +159,54 @@ class Planet extends GUIMovableObject {
         // this.realMesh.rotation.y = finalSpeed
     }
 
-    /**
-     * Places the planet in an orbiting position around its parent according to its orbital period.
-     * @param parent - parent object to orbit around
-     * @param time - the time elapsed since start / current time in seconds
-     */
-    orbit(parent: Object3D, time: number) {
-        // TODO: Not real-time
-        let yearInSeconds = 365 * 24 * 60 * 60
-        let today = Date.now()
-        let fullPeriod = 2 * Math.PI
-        let orbitPercent = (today / yearInSeconds) / this.orbitalPeriod
-        let mult = 1 //0.000001
-        let finalSpeed = fullPeriod * -orbitPercent / mult
-        this.mesh.position.z = parent.position.z + Math.sin(finalSpeed) * (this.distance / this.distanceScale)
-        this.mesh.position.x = parent.position.x + Math.cos(finalSpeed) * (this.distance / this.distanceScale)
-        // this.mesh.position.y = parent.position.y + Math.sin(this.orbitalInclination) * Math.sin(finalSpeed) * (this.distance / this.distanceScale)
+    setPosition() {
+        let astroDate = new Date()
+        let day = Astronomy.s.DayValue(astroDate);
+        let helioCoords = this.astro.EclipticCartesianCoordinates(day)
+        let AUtoKM = 1.496e+8
+        this.mesh.position.z = -helioCoords.x * AUtoKM / this.distanceScale
+        this.mesh.position.x = -helioCoords.y * AUtoKM / this.distanceScale
+        this.mesh.position.y = helioCoords.z * AUtoKM / this.distanceScale
     }
 
+    // /**
+    //  * Places the planet in an orbiting position around its parent according to its orbital period.
+    //  * @param parent - parent object to orbit around
+    //  * @param time - the time elapsed since start / current time in seconds
+    //  */
+    // orbit(parent: Object3D, time: number) {
+    //     // TODO: Not real-time
+    //     let yearInSeconds = 365 * 24 * 60 * 60
+    //     let today = Date.now()
+    //     let fullPeriod = 2 * Math.PI
+    //     let orbitPercent = (today / yearInSeconds) / this.orbitalPeriod
+    //     let mult = 1 //0.000001
+    //     let finalSpeed = fullPeriod * -orbitPercent / mult
+    //     this.mesh.position.z = parent.position.z + Math.sin(finalSpeed) * (this.distance / this.distanceScale)
+    //     this.mesh.position.x = parent.position.x + Math.cos(finalSpeed) * (this.distance / this.distanceScale)
+    //     // this.mesh.position.y = parent.position.y + Math.sin(this.orbitalInclination) * Math.sin(finalSpeed) * (this.distance / this.distanceScale)
+    // }
+
     displayOrbit(parent: Object3D) {
-        const curve = new THREE.EllipseCurve(
-            // ax, aY
-            parent.position.x, parent.position.y,
-            // xRadius, yRadius
-            this.distance / this.distanceScale, this.distance / this.distanceScale,
-            // aStartAngle, aEndAngle
-            0, 2 * Math.PI,
-            // aClockwise
-            false,
-            // aRotation
-            0
-        );
-        const points = curve.getPoints(5000);
-        const ellGeometry = new THREE.BufferGeometry().setFromPoints(points);
-        const ellMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
-        const ellipse = new THREE.Line(ellGeometry, ellMaterial);
-        ellipse.rotateX(Math.PI / 2)
-        ellipse.rotateY(this.orbitalInclination * Math.PI / 180)
-        parent.add(ellipse)
+        // const curve = new THREE.EllipseCurve(
+        //     // ax, aY
+        //     parent.position.x, parent.position.y,
+        //     // xRadius, yRadius
+        //     this.distance / this.distanceScale, this.distance / this.distanceScale,
+        //     // aStartAngle, aEndAngle
+        //     0, 2 * Math.PI,
+        //     // aClockwise
+        //     false,
+        //     // aRotation
+        //     0
+        // );
+        // const points = curve.getPoints(5000);
+        // const ellGeometry = new THREE.BufferGeometry().setFromPoints(points);
+        // const ellMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
+        // const ellipse = new THREE.Line(ellGeometry, ellMaterial);
+        // ellipse.rotateX(Math.PI / 2)
+        // ellipse.rotateY(this.orbitalInclination * Math.PI / 180)
+        // parent.add(ellipse)
     }
 
     getRadius(): number {
@@ -192,6 +235,30 @@ class Planet extends GUIMovableObject {
 
     static getJSONValue(key: String, planetId: String) {
         return objectsJson[planetId.toLowerCase()][key]
+    }
+
+    // https://stackoverflow.com/questions/42812861/three-js-pivot-point/42866733#42866733
+    // obj - your object (THREE.Object3D or derived)
+    // point - the point of rotation (THREE.Vector3)
+    // axis - the axis of rotation (normalized THREE.Vector3)
+    // theta - radian value of rotation
+    // pointIsWorld - boolean indicating the point is in world coordinates (default = false)
+    private rotateAboutPoint(obj: THREE.Object3D, point: THREE.Vector3, axis: THREE.Vector3, theta: number, pointIsWorld: boolean) {
+        pointIsWorld = (pointIsWorld === undefined) ? false : pointIsWorld;
+
+        if (pointIsWorld) {
+            obj.parent.localToWorld(obj.position); // compensate for world coordinate
+        }
+
+        obj.position.sub(point); // remove the offset
+        obj.position.applyAxisAngle(axis, theta); // rotate the POSITION
+        obj.position.add(point); // re-add the offset
+
+        if (pointIsWorld) {
+            obj.parent.worldToLocal(obj.position); // undo world coordinates compensation
+        }
+
+        obj.rotateOnAxis(axis, theta); // rotate the OBJECT
     }
 }
 export default Planet;

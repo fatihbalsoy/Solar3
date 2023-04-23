@@ -102,6 +102,35 @@ class Earth extends Planet {
         // `,
         // })
 
+        // var vertexShader = [
+        //     'varying vec3 vNormal;',
+        //     'varying vec3 vPosition;',
+        //     'void main() {',
+        //     'vNormal = normalize( normalMatrix * normal );',
+
+        //     'gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );',
+        //     'vPosition = gl_Position.xyz;',
+        //     '}'
+        // ].join('\n')
+
+        // var fragmentShader = [
+        //     'varying vec3 vNormal;',
+        //     'varying vec3 vPosition;',
+
+        //     'void main() {',
+        //     'vec3 lightPosition = vec3(-10.0, 10.0, 0.0);',
+        //     'vec3 lightDirection = normalize(lightPosition - vPosition);',
+        //     'float dotNL = clamp(dot(lightDirection, vNormal), 0.0, 1.0);',
+        //     'float intensity = pow( 0.8 - dot( vNormal, vec3( 0, 0, 1.0 ) ), 12.0 );',
+        //     'gl_FragColor = vec4( 1, 1.0, 1.0, 1.0 ) * intensity * dotNL;',
+        //     '}'
+        // ].join('\n')
+
+        // const earthMaterial = new THREE.ShaderMaterial({
+        //     vertexShader: vertexShader,
+        //     fragmentShader: fragmentShader
+        // })
+
         const cloudMaterial = new THREE.MeshStandardMaterial({
             map: earthCloudsTexture,
             transparent: true

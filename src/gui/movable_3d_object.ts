@@ -26,7 +26,8 @@ class GUIMovableObject {
         if (object instanceof PerspectiveCamera) {
             const camera = object as PerspectiveCamera
             folder.add(camera, 'fov').step(0.01).min(1).max(180)
-            folder.add(camera, 'zoom').step(0.01).min(1)
+            folder.add(camera, 'zoom').step(0.01).min(1).max(10000)
+            folder.add(camera, 'zoom').step(0.01).min(1).max(100)
         }
         if (object instanceof Light) {
             const light = object as Light

@@ -25,15 +25,18 @@ class Saturn extends Planet {
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial({
-            map: texture
+            map: texture,
         })
 
         //* RING MATERIAL *//
-        const ringMaterial = new THREE.MeshStandardMaterial({
+        const ringMaterial = new THREE.MeshPhongMaterial({
             color: new THREE.Color(0xffffff),
             side: THREE.DoubleSide,
             map: ringTexture,
-            transparent: true
+            transparent: true,
+            shininess: 100,
+            reflectivity: 100,
+            refractionRatio: 0.5
         })
 
         //? -- GEOMETRY -- ?//

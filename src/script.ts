@@ -182,7 +182,8 @@ controls.enablePan = false
  ** -- Renderer -- *
  */
 const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
+    canvas: canvas,
+    // antialias: true
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -289,7 +290,8 @@ const tick = () => {
     // Update planetary objects and cameras
     //earth.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 0.0001)
     earth.animate(elapsedTime, sun.mesh)
-    moon.orbit(earth.mesh, elapsedTime)
+    // moon.orbit(earth.mesh, elapsedTime)
+    moon.animate(elapsedTime, earth.mesh)
     moon.mesh.lookAt(earth.mesh.position)
 
     mars.animate(elapsedTime, sun.mesh)
