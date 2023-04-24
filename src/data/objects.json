@@ -43,6 +43,47 @@
         "bodyType": "Moon",
         "rel": "https://api.le-systeme-solaire.net/rest/bodies/lune"
     },
+    "ceres": {
+        "id": "ceres",
+        "name": "Ceres",
+        "englishName": "Ceres",
+        "isPlanet": false,
+        "moons": null,
+        "semimajorAxis": 414010000,
+        "perihelion": 382620000,
+        "aphelion": 445410000,
+        "eccentricity": 0.07582,
+        "inclination": 10.593,
+        "mass": {
+            "massValue": 9.393,
+            "massExponent": 20
+        },
+        "vol": {
+            "volValue": 4.21,
+            "volExponent": 9
+        },
+        "density": 2.161,
+        "gravity": 0.28,
+        "escape": 510.0,
+        "meanRadius": 476.2,
+        "equaRadius": 487.0,
+        "polarRadius": 455.0,
+        "flattening": 0.9619,
+        "dimension": "",
+        "sideralOrbit": 1681.63,
+        "sideralRotation": 9.07,
+        "aroundPlanet": null,
+        "discoveredBy": "Giuseppe Piazzi",
+        "discoveryDate": "01/01/1801",
+        "alternativeName": "A899 OF - 1943 XB",
+        "axialTilt": 3,
+        "avgTemp": 168,
+        "mainAnomaly": 77.3721,
+        "argPeriapsis": 73.59769,
+        "longAscNode": 80.30553,
+        "bodyType": "Asteroid",
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/ceres"
+    },
     "uranus": {
         "id": "uranus",
         "name": "Uranus",

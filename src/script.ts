@@ -22,6 +22,7 @@ import Uranus from './objects/uranus'
 import Neptune from './objects/neptune'
 import Pluto from './objects/pluto'
 import { Stars } from './objects/stars'
+import Ceres from './objects/ceres'
 
 // Loading
 const loadingManager = new THREE.LoadingManager()
@@ -102,6 +103,12 @@ const pluto = new Pluto();
 pluto.displayOrbit(sun.mesh, scene)
 sun.mesh.add(pluto.mesh)
 // pluto.addGUI(gui)
+
+//? -- CERES -- ?//
+const ceres = new Ceres();
+ceres.displayOrbit(sun.mesh, scene)
+sun.mesh.add(ceres.mesh)
+// ceres.addGUI(gui)
 
 // * -- STARS -- * //
 let stars = new Stars()
@@ -212,11 +219,11 @@ sun.light.shadow.camera.far = pluto.distance;
 // composer.addPass(new EffectPass(camera, new BloomEffect()));
 
 // TODO: Texture does not look good for galaxy, (maybe try adding stars individually?)
-// const galaxyTexture = textureLoader.load('assets/images/textures/galaxy/4k_milky_way_nostars.png', () => {
-//     const rt = new THREE.WebGLCubeRenderTarget(galaxyTexture.image.height);
-//     rt.fromEquirectangularTexture(renderer, galaxyTexture);
-//     scene.background = rt.texture;
-// })
+const galaxyTexture = textureLoader.load('assets/images/textures/galaxy/4k_milky_way_nostars.png', () => {
+    const rt = new THREE.WebGLCubeRenderTarget(galaxyTexture.image.height);
+    rt.fromEquirectangularTexture(renderer, galaxyTexture);
+    scene.background = rt.texture;
+})
 /**
  ** -- Animate -- *
  */
@@ -263,6 +270,7 @@ function onDocumentKeyDown(event) {
         56: neptune, // 8
         57: pluto, // 9
         77: moon, // m
+        67: ceres, // c
     }
     planetToLookAt = planetKeys[keyCode] ?? planetToLookAt
     controls.target = planetToLookAt.mesh.position
@@ -303,20 +311,15 @@ const tick = () => {
 
     mercury.animate(elapsedTime, sun.mesh)
     venus.animate(elapsedTime, sun.mesh)
-
-    // Update planetary objects and cameras
-    //earth.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 0.0001)
     earth.animate(elapsedTime, sun.mesh)
-    // moon.orbit(earth.mesh, elapsedTime)
-    moon.animate(elapsedTime, earth.mesh)
-    moon.mesh.lookAt(earth.mesh.position)
-
+    moon.animate(elapsedTime, earth.mesh); moon.mesh.lookAt(earth.mesh.position)
     mars.animate(elapsedTime, sun.mesh)
     jupiter.animate(elapsedTime, sun.mesh)
     saturn.animate(elapsedTime, sun.mesh)
     uranus.animate(elapsedTime, sun.mesh)
     neptune.animate(elapsedTime, sun.mesh)
     pluto.animate(elapsedTime, sun.mesh)
+    ceres.animate(elapsedTime, sun.mesh)
 
     camera.lookAt(planetToLookAt.mesh.position)
     // console.log("Distance from sun: ", Math.sqrt(Math.pow(camera.position.y - 0, 2) + Math.pow(camera.position.x - 0, 2)))
@@ -333,6 +336,7 @@ const tick = () => {
         console.log("uranus: ", uranus.getPositionAsString())
         console.log("neptune: ", neptune.getPositionAsString())
         console.log("pluto: ", pluto.getPositionAsString())
+        console.log("ceres: ", ceres.getPositionAsString())
         didPrint = true
     }
 
