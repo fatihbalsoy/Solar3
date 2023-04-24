@@ -33,6 +33,5 @@
     "glslify": "^7.1.1",
     "glslify-import-loader": "^0.1.2",
     "glslify-loader": "^2.0.0"
-  },
-  "devDependencies": {}
+  }
 }

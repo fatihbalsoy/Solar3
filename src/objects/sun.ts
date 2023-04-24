@@ -11,6 +11,7 @@ import { PointLight } from "three";
 import THREE = require("three");
 import Planet from "./planet";
 import * as dat from 'dat.gui'
+import { sizeScale } from "../settings";
 
 class Sun extends Planet {
     // Light
@@ -29,10 +30,15 @@ class Sun extends Planet {
 
         const light = new THREE.PointLight(0xffffff, 1.35) // prev intesity: 3
         light.position.set(0, 0, 0)
+        // light.distance = 0
         light.castShadow = true
+        // light.shadow.radius = 1
         light.shadow.camera.visible = true
-        light.shadow.camera.near = 0.00001
+        light.shadow.camera.near = 0.00000001
         light.shadow.camera.far = 10000000000
+        light.shadow.mapSize.width = 512;
+        light.shadow.mapSize.height = 512;
+        // light.scale.set(sizeScale * 2, sizeScale * 2, sizeScale * 2)
 
         this.light = light
         this.mesh.add(this.light)

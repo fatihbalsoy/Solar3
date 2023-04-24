@@ -6,6 +6,7 @@ import { Mesh, MeshBasicMaterial, PointLightHelper, Uniform, Vector3 } from 'thr
 import GUIMovableObject from './gui/movable_3d_object'
 import { Font, FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
+// import { BloomEffect, EffectComposer, EffectPass, RenderPass } from 'postprocessing'
 
 import Planet from './objects/planet'
 import Sun from './objects/sun'
@@ -42,92 +43,94 @@ sun.addGUI(gui)
 
 //? -- MERCURY -- ?//
 const mercury = new Mercury();
-mercury.displayOrbit(sun.mesh)
+mercury.displayOrbit(sun.mesh, scene)
 sun.mesh.add(mercury.mesh)
 // mercury.addGUI(gui)
 
 //? -- VENUS -- ?//
 const venus = new Venus();
-venus.displayOrbit(sun.mesh)
+venus.displayOrbit(sun.mesh, scene)
 sun.mesh.add(venus.mesh)
 // venus.addGUI(gui)
 
 //? -- EARTH -- ?//
 const earth = new Earth();
-earth.displayOrbit(sun.mesh)
+earth.displayOrbit(sun.mesh, scene)
 sun.mesh.add(earth.mesh)
 // earth.addGUI(gui)
 
 //? -- MOON -- ?//
 const moon = new Moon();
-moon.displayOrbit(earth.mesh)
+moon.displayOrbit(earth.mesh, scene)
 sun.mesh.add(moon.mesh)
 // moon.addGUI(gui)
 
 //? -- MARS -- ?//
 const mars = new Mars();
-mars.displayOrbit(sun.mesh)
+mars.displayOrbit(sun.mesh, scene)
 sun.mesh.add(mars.mesh)
 // mars.addGUI(gui)
 
 //? -- JUPITER -- ?//
 const jupiter = new Jupiter();
-jupiter.displayOrbit(sun.mesh)
+jupiter.displayOrbit(sun.mesh, scene)
 sun.mesh.add(jupiter.mesh)
 // jupiter.addGUI(gui)
 
 //? -- SATURN -- ?//
 const saturn = new Saturn();
-saturn.displayOrbit(sun.mesh)
+saturn.displayOrbit(sun.mesh, scene)
 sun.mesh.add(saturn.mesh)
 // saturn.addGUI(gui)
 
 //? -- URANUS -- ?//
 const uranus = new Uranus();
-uranus.displayOrbit(sun.mesh)
+uranus.displayOrbit(sun.mesh, scene)
 sun.mesh.add(uranus.mesh)
 // uranus.addGUI(gui)
 
 //? -- NEPTUNE -- ?//
 const neptune = new Neptune();
-neptune.displayOrbit(sun.mesh)
+neptune.displayOrbit(sun.mesh, scene)
 sun.mesh.add(neptune.mesh)
 // neptune.addGUI(gui)
 
 //? -- PLUTO -- ?//
 const pluto = new Pluto();
-pluto.displayOrbit(sun.mesh)
+pluto.displayOrbit(sun.mesh, scene)
 sun.mesh.add(pluto.mesh)
 // pluto.addGUI(gui)
 
 // * -- TEXT -- * //
-// const loader = new FontLoader();
-// const planetsWithTxt = [sun, mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto]
-// loader.load('assets/fonts/gilroy_extrabold.json', function (f) {
-//     for (const planet in planetsWithTxt) {
-//         const element = planetsWithTxt[planet];
+if (false) {
+    const loader = new FontLoader();
+    const planetsWithTxt = [sun, mercury, venus, mars, jupiter, saturn, uranus, neptune, pluto]
+    loader.load('assets/fonts/gilroy_extrabold.json', function (f) {
+        for (const planet in planetsWithTxt) {
+            const element = planetsWithTxt[planet];
 
-//         const geometryTxt = new TextGeometry(element.name.toString(), {
-//             font: f,
-//             size: 0.000001 * element.distance,
-//             height: 5,
+            const geometryTxt = new TextGeometry(element.name.toString(), {
+                font: f,
+                size: 0.000001 * element.distance,
+                height: 5,
 
-//             curveSegments: 12,
-//             // bevelEnabled: true,
-//             // bevelThickness: 1,
-//             // bevelSize: 1,
-//             // bevelOffset: 0,
-//             // bevelSegments: 5
-//         });
-//         const materialTxt = new MeshBasicMaterial();
-//         materialTxt.color = new THREE.Color(0xFFFFFF);
+                curveSegments: 12,
+                // bevelEnabled: true,
+                // bevelThickness: 1,
+                // bevelSize: 1,
+                // bevelOffset: 0,
+                // bevelSegments: 5
+            });
+            const materialTxt = new MeshBasicMaterial();
+            materialTxt.color = new THREE.Color(0xFFFFFF);
 
-//         const m = new Mesh(geometryTxt, materialTxt);
-//         m.position.set(100, 0, 100);
-//         m.lookAt(sun.mesh.position)
-//         element.mesh.add(m)
-//     }
-// });
+            const m = new Mesh(geometryTxt, materialTxt);
+            m.position.set(100, 0, 100);
+            m.lookAt(sun.mesh.position)
+            element.mesh.add(m)
+        }
+    });
+}
 
 // * -- LIGHTS -- * //
 
@@ -161,7 +164,7 @@ window.addEventListener('resize', () => {
  */
 // Base camera
 const near = 0.001
-const far = 5000000000
+const far = pluto.distance
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, near, far)
 const initCameraPos = earth.mesh.position
 const initCameraPosRadius = earth.getRadius()
@@ -183,17 +186,23 @@ controls.enablePan = false
  */
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
-    // antialias: true
+    // powerPreference: "high-performance",
+    // antialias: false,
+    // stencil: false,
+    // depth: false
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFShadowMap
-sun.light.shadow.mapSize.width = 512;
-sun.light.shadow.mapSize.height = 512;
-sun.light.shadow.camera.near = 0.5;
 sun.light.shadow.camera.far = pluto.distance;
-// sun.light.
+
+/**
+ ** -- Post Processing -- *
+ */
+// const composer = new EffectComposer(renderer);
+// composer.addPass(new RenderPass(scene, camera));
+// composer.addPass(new EffectPass(camera, new BloomEffect()));
 
 // TODO: Texture does not look good for galaxy, (maybe try adding stars individually?)
 const galaxyTexture = textureLoader.load('assets/images/textures/galaxy/4k_milky_way_nostars.png', () => {
@@ -324,6 +333,7 @@ const tick = () => {
 
     // Render
     renderer.render(scene, camera)
+    // composer.render();
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)

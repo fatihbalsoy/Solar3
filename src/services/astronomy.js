@@ -1544,7 +1544,7 @@ function Astronomy_FindNextTransition(body, startDay, endDay, location, conditio
 
 //----------------------------------------------------------------------------------------------
 
-function CartesianCoordinates(x, y, z) {
+export function CartesianCoordinates(x, y, z) {
     this.x = x;
     this.y = y;
     this.z = z;

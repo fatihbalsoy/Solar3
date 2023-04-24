@@ -11,6 +11,7 @@
 import THREE = require("three");
 import Earth from "./earth";
 import Planet from "./planet";
+import { sizeScale } from "../settings";
 
 class Uranus extends Planet {
 
@@ -38,8 +39,8 @@ class Uranus extends Planet {
         geometry.addGroup(0, Infinity, 0)
 
         //* RING GEOMETRY + MESH *//
-        const eScale = Planet.getJSONValue('meanRadius', 'earth')
-        const ringGeometry = new THREE.RingBufferGeometry(51149 / eScale, (51149 + 90) / eScale, 96, 1)
+        const ringGeometry = new THREE.RingBufferGeometry(51149, (51149 + 90), 96, 1)
+        ringGeometry.scale(1 / sizeScale, 1 / sizeScale, 1 / sizeScale)
         const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial)
         ringMesh.rotation.x = 15 * Math.PI / 180
 

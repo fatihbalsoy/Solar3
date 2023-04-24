@@ -11,7 +11,7 @@ import { Vector3 } from "three";
 import THREE = require("three");
 import Earth from "./earth";
 import Planet from "./planet";
-import { Quality, quality } from "../settings";
+import { Quality, quality, sizeScale } from "../settings";
 
 class Saturn extends Planet {
 
@@ -29,14 +29,15 @@ class Saturn extends Planet {
         })
 
         //* RING MATERIAL *//
-        const ringMaterial = new THREE.MeshPhongMaterial({
+        const ringMaterial = new THREE.MeshToonMaterial({
             color: new THREE.Color(0xffffff),
             side: THREE.DoubleSide,
             map: ringTexture,
             transparent: true,
-            shininess: 100,
-            reflectivity: 100,
-            refractionRatio: 0.5
+            // opacity: 1,
+            // shininess: 100,
+            // reflectivity: 100,
+            // refractionRatio: 0.5
         })
 
         //? -- GEOMETRY -- ?//
@@ -44,22 +45,22 @@ class Saturn extends Planet {
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
 
+
         //* RING GEOMETRY + MESH *//
-        const eScale = Planet.getJSONValue('meanRadius', 'earth')
-        const ringGeometry = new THREE.RingBufferGeometry(66900 / eScale, 180000 / eScale, 96, 1)
+        const ringGeometry = new THREE.RingBufferGeometry(66900, 180000, 96, 1)
+        ringGeometry.scale(1 / sizeScale, 1 / sizeScale, 1 / sizeScale)
 
         var ringPos = ringGeometry.attributes.position;
         var ringV3 = new THREE.Vector3();
         for (let i = 0; i < ringPos.count; i++) {
             ringV3.fromBufferAttribute(ringPos, i);
-            // console.log(ringV3.length())
-            // 10.999999
-            // 28.55555
-            ringGeometry.attributes.uv.setXY(i, ringV3.length() < 28 ? 0 : 1, 1);
+
+            ringGeometry.attributes.uv.setXY(i, i < ringPos.count / 2 ? 0 : 1, 1);
         }
 
         const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial)
         ringMesh.rotation.x = 90 * Math.PI / 180
+        // ringMesh.renderOrder = 1000000
         ringMesh.castShadow = true
         ringMesh.receiveShadow = true
 

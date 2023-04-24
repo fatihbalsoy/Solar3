@@ -12,8 +12,9 @@ import THREE = require("three")
 import GUIMovableObject from "../gui/movable_3d_object"
 import * as dat from 'dat.gui'
 import * as objectsJson from '../data/objects.json';
-import { AstronomyClass } from "../services/astronomy";
+import { AstronomyClass, CartesianCoordinates } from "../services/astronomy";
 import { Astronomy } from "../services/astronomy_static";
+import { distanceScale, sizeScale } from "../settings";
 
 class Planet extends GUIMovableObject {
     // ID
@@ -48,9 +49,6 @@ class Planet extends GUIMovableObject {
      * Real Mesh (With textures, materials, and geometry)
      */
     realMesh: Mesh
-
-    // Distance Scale
-    distanceScale: number = 10000
 
     constructor(id: string, material: Material[], geometry: SphereGeometry) {
 
@@ -94,7 +92,7 @@ class Planet extends GUIMovableObject {
         this.astro = bodies[this.id]
 
         // GEOMETRY //
-        const radiusScale = this.radius / Planet.getJSONValue('meanRadius', 'earth')
+        const radiusScale = this.radius / sizeScale
         this.geometry = geometry
         var enlarge = 1;
         // if (this.id != "moon" && this.id != "sun") {
@@ -159,54 +157,37 @@ class Planet extends GUIMovableObject {
         // this.realMesh.rotation.y = finalSpeed
     }
 
+    /**
+     * Places the planet in its current real-time position
+     */
     setPosition() {
         let astroDate = new Date()
-        let day = Astronomy.s.DayValue(astroDate);
-        let helioCoords = this.astro.EclipticCartesianCoordinates(day)
-        let AUtoKM = 1.496e+8
-        this.mesh.position.z = -helioCoords.x * AUtoKM / this.distanceScale
-        this.mesh.position.x = -helioCoords.y * AUtoKM / this.distanceScale
-        this.mesh.position.y = helioCoords.z * AUtoKM / this.distanceScale
+        let coordinates = this.getPositionForDate(astroDate)
+        this.mesh.position.x = coordinates.x
+        this.mesh.position.y = coordinates.y
+        this.mesh.position.z = coordinates.z
     }
+    /**
+     * Traces out the planet's orbit
+     */
+    displayOrbit(parent: Object3D, scene: THREE.Scene) {
+        const curve = new THREE.CatmullRomCurve3()
+        console.log(this.name)
+        for (let i = 0; i < 365 * (this.orbitalPeriod / 365); i++) {
+            let currDate = new Date()
+            let currYear = new Date(currDate.getFullYear(), 0)
+            let date = new Date(currYear.setDate(i))
+            let pos = this.getPositionForDate(date)
 
-    // /**
-    //  * Places the planet in an orbiting position around its parent according to its orbital period.
-    //  * @param parent - parent object to orbit around
-    //  * @param time - the time elapsed since start / current time in seconds
-    //  */
-    // orbit(parent: Object3D, time: number) {
-    //     // TODO: Not real-time
-    //     let yearInSeconds = 365 * 24 * 60 * 60
-    //     let today = Date.now()
-    //     let fullPeriod = 2 * Math.PI
-    //     let orbitPercent = (today / yearInSeconds) / this.orbitalPeriod
-    //     let mult = 1 //0.000001
-    //     let finalSpeed = fullPeriod * -orbitPercent / mult
-    //     this.mesh.position.z = parent.position.z + Math.sin(finalSpeed) * (this.distance / this.distanceScale)
-    //     this.mesh.position.x = parent.position.x + Math.cos(finalSpeed) * (this.distance / this.distanceScale)
-    //     // this.mesh.position.y = parent.position.y + Math.sin(this.orbitalInclination) * Math.sin(finalSpeed) * (this.distance / this.distanceScale)
-    // }
+            curve.points[i] = new Vector3(pos.x, pos.y, pos.z)
+        }
+        const points = curve.getPoints(500)
+        const geometry = new THREE.BufferGeometry().setFromPoints(points)
+        const material = new THREE.LineBasicMaterial({ color: 0xff0000 })
+        const line = new THREE.Line(geometry, material)
+        line.renderOrder = -1
 
-    displayOrbit(parent: Object3D) {
-        // const curve = new THREE.EllipseCurve(
-        //     // ax, aY
-        //     parent.position.x, parent.position.y,
-        //     // xRadius, yRadius
-        //     this.distance / this.distanceScale, this.distance / this.distanceScale,
-        //     // aStartAngle, aEndAngle
-        //     0, 2 * Math.PI,
-        //     // aClockwise
-        //     false,
-        //     // aRotation
-        //     0
-        // );
-        // const points = curve.getPoints(5000);
-        // const ellGeometry = new THREE.BufferGeometry().setFromPoints(points);
-        // const ellMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
-        // const ellipse = new THREE.Line(ellGeometry, ellMaterial);
-        // ellipse.rotateX(Math.PI / 2)
-        // ellipse.rotateY(this.orbitalInclination * Math.PI / 180)
-        // parent.add(ellipse)
+        scene.add(line);
     }
 
     getRadius(): number {
@@ -218,7 +199,7 @@ class Planet extends GUIMovableObject {
     }
 
     getDistanceScale(): number {
-        return this.distanceScale
+        return distanceScale
     }
 
     getMesh(): Mesh {
@@ -231,6 +212,18 @@ class Planet extends GUIMovableObject {
 
     getPositionAsString(): String {
         return this.mesh.position.x.toFixed(0) + "," + this.mesh.position.y.toFixed(0) + "," + this.mesh.position.z.toFixed(0)
+    }
+
+    getPositionForDate(date: Date): CartesianCoordinates {
+        let day = Astronomy.s.DayValue(date);
+        let helioCoords = this.astro.EclipticCartesianCoordinates(day)
+        let AUtoKM = 1.496e+8
+        // z,x,y
+        return new CartesianCoordinates(
+            -helioCoords.y * AUtoKM / distanceScale, // x
+            helioCoords.z * AUtoKM / distanceScale,   // y
+            - helioCoords.x * AUtoKM / distanceScale, // z
+        )
     }
 
     static getJSONValue(key: String, planetId: String) {
