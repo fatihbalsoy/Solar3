@@ -6,6 +6,7 @@ import { Mesh, MeshBasicMaterial, PointLightHelper, Uniform, Vector3 } from 'thr
 import GUIMovableObject from './gui/movable_3d_object'
 import { Font, FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
+import { distanceScale } from './settings'
 // import { BloomEffect, EffectComposer, EffectPass, RenderPass } from 'postprocessing'
 
 import Planet from './objects/planet'
@@ -20,6 +21,7 @@ import Saturn from './objects/saturn'
 import Uranus from './objects/uranus'
 import Neptune from './objects/neptune'
 import Pluto from './objects/pluto'
+import { Stars } from './objects/stars'
 
 // Loading
 const loadingManager = new THREE.LoadingManager()
@@ -101,6 +103,9 @@ pluto.displayOrbit(sun.mesh, scene)
 sun.mesh.add(pluto.mesh)
 // pluto.addGUI(gui)
 
+// * -- STARS -- * //
+let stars = new Stars()
+
 // * -- TEXT -- * //
 if (false) {
     const loader = new FontLoader();
@@ -163,8 +168,8 @@ window.addEventListener('resize', () => {
  ** --  Camera -- *
  */
 // Base camera
-const near = 0.001
-const far = pluto.distance
+const near = 0.0001
+const far = 10000 * (pluto.distance / distanceScale)
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, near, far)
 const initCameraPos = earth.mesh.position
 const initCameraPosRadius = earth.getRadius()
@@ -172,6 +177,8 @@ camera.position.set(initCameraPos.x + initCameraPosRadius, initCameraPos.y, init
 const initCameraRot = new THREE.Vector3(0, 0, 0)
 camera.rotation.set(initCameraRot.x, initCameraRot.y, initCameraRot.z)
 scene.add(camera)
+
+stars.displayReal(scene, 1, camera)
 
 const cameraGUI = new GUIMovableObject();
 cameraGUI._addGUI(gui, 'Camera', camera)
@@ -186,8 +193,8 @@ controls.enablePan = false
  */
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
+    antialias: true,
     // powerPreference: "high-performance",
-    // antialias: false,
     // stencil: false,
     // depth: false
 })
@@ -205,11 +212,11 @@ sun.light.shadow.camera.far = pluto.distance;
 // composer.addPass(new EffectPass(camera, new BloomEffect()));
 
 // TODO: Texture does not look good for galaxy, (maybe try adding stars individually?)
-const galaxyTexture = textureLoader.load('assets/images/textures/galaxy/4k_milky_way_nostars.png', () => {
-    const rt = new THREE.WebGLCubeRenderTarget(galaxyTexture.image.height);
-    rt.fromEquirectangularTexture(renderer, galaxyTexture);
-    scene.background = rt.texture;
-})
+// const galaxyTexture = textureLoader.load('assets/images/textures/galaxy/4k_milky_way_nostars.png', () => {
+//     const rt = new THREE.WebGLCubeRenderTarget(galaxyTexture.image.height);
+//     rt.fromEquirectangularTexture(renderer, galaxyTexture);
+//     scene.background = rt.texture;
+// })
 /**
  ** -- Animate -- *
  */
@@ -275,6 +282,7 @@ document.addEventListener("keydown", onDocumentKeyDown, false);
 
 var didPrint = false
 const tick = () => {
+
     camera.updateProjectionMatrix() // for GUI controls
     targetX = mouseX * 0.001
     targetY = mouseY * 0.001
