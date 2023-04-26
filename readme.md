@@ -6,7 +6,7 @@
 
 SolarSystem.3js is a real-time 1:1 scale of the Solar System and nearby stars built with the THREE.js library. 
 
-## [Launch →](https://fatih.bal.soy/apps/solar-system-3js)
+## [Launch →](https://fatih.balsoy.com/app/solar-system-3js)
 
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
