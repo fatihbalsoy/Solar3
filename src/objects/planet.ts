@@ -171,6 +171,7 @@ class Planet extends GUIMovableObject {
      * Traces out the planet's orbit
      */
     displayOrbit(parent: Object3D, scene: THREE.Scene) {
+        // return;
         const curve = new THREE.CatmullRomCurve3()
         console.log(this.name)
         for (let i = 0; i < 365 * (this.orbitalPeriod / 365); i++) {

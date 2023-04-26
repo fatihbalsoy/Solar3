@@ -1269,6 +1269,7 @@ export function AstronomyClass() {
     this.Sun = new SunClass();
     this.Moon = CreateMoon();
 
+    //                          name       N0       Nc          i0      ic      w0       wc          a0        ac   e0        ec        M0        Mc           magBase magPhaseFactor magNonlinearFactor magNonlinearExponent
     this.Mercury = new PlanetPS("Mercury", 48.3313, 3.24587e-5, 7.0047, 5.0e-8, 29.1241, 1.01444e-5, 0.387098, 0.0, 0.205635, 5.59e-10, 168.6562, 4.0923344368, -0.36, 0.027, 2.2e-13, 6);
     this.Venus = new PlanetPS("Venus", 76.6799, 2.46590e-5, 3.3946, 2.75e-8, 54.8910, 1.38374e-5, 0.723330, 0.0, 0.006773, -1.302e-9, 48.0052, 1.6021302244, -4.34, 0.013, 4.2e-7, 3);
     this.Earth = new EarthClass();
