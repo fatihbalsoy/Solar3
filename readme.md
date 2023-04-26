@@ -43,7 +43,7 @@ Center an object on the screen by pressing the following keys:
 * 9 - Pluto
 
 * m - Moon
-* c - Ceres
+<!-- * c - Ceres -->
 
 
 ## Special Thanks

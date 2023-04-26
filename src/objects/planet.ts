@@ -12,15 +12,16 @@ import THREE = require("three")
 import GUIMovableObject from "../gui/movable_3d_object"
 import * as dat from 'dat.gui'
 import * as objectsJson from '../data/objects.json';
-import { AstronomyClass, CartesianCoordinates } from "../services/astronomy";
-import { Astronomy } from "../services/astronomy_static";
+// import { AstronomyClass, CartesianCoordinates } from "../services/astronomy";
+// import { Astronomy } from "../services/astronomy_static";
+import { HelioVector, Body, Vector } from "astronomy-engine";
 import { distanceScale, sizeScale } from "../settings";
 
 class Planet extends GUIMovableObject {
     // ID
     id: string
     // Astronomy Instance Body (javascript any type)
-    astro: any
+    astroBody: Body
     // Name of planetary object
     name: string
     // Distance to parent in KM
@@ -66,30 +67,19 @@ class Planet extends GUIMovableObject {
         this.material = material
 
         let bodies = {
-            "sun": Astronomy.s.Body[0],
-            "mercury": Astronomy.s.Body[1],
-            "venus": Astronomy.s.Body[2],
-            "earth": Astronomy.s.Body[3],
-            "moon": Astronomy.s.Body[4],
-            "mars": Astronomy.s.Body[5],
-            "ceres": Astronomy.s.Body[6],
-            "pallas": Astronomy.s.Body[7],
-            "juno": Astronomy.s.Body[8],
-            "vesta": Astronomy.s.Body[9],
-            "ida": Astronomy.s.Body[10],
-            "gaspra": Astronomy.s.Body[11],
-            "comet_9p": Astronomy.s.Body[12],
-            "comet_19p": Astronomy.s.Body[13],
-            "comet_67p": Astronomy.s.Body[14],
-            "comet_81p": Astronomy.s.Body[15],
-            "jupiter": Astronomy.s.Body[16],
-            "saturn": Astronomy.s.Body[17],
-            //this.SaturnJPL,       // not much better than existing Saturn... not ready for publish
-            "uranus": Astronomy.s.Body[18],
-            "neptune": Astronomy.s.Body[19],
-            "pluto": Astronomy.s.Body[20]
+            "sun": Body.Sun,
+            "mercury": Body.Mercury,
+            "venus": Body.Venus,
+            "earth": Body.Earth,
+            "moon": Body.Moon,
+            "mars": Body.Mars,
+            "jupiter": Body.Jupiter,
+            "saturn": Body.Saturn,
+            "uranus": Body.Uranus,
+            "neptune": Body.Neptune,
+            "pluto": Body.Pluto
         };
-        this.astro = bodies[this.id]
+        this.astroBody = bodies[this.id]
 
         // GEOMETRY //
         const radiusScale = this.radius / sizeScale
@@ -174,7 +164,7 @@ class Planet extends GUIMovableObject {
         // return;
         const curve = new THREE.CatmullRomCurve3()
         console.log(this.name)
-        for (let i = 0; i < 365 * (this.orbitalPeriod / 365); i++) {
+        for (let i = 0; i < 366 * (this.orbitalPeriod / 365); i++) {
             let currDate = new Date()
             let currYear = new Date(currDate.getFullYear(), 0)
             let date = new Date(currYear.setDate(i))
@@ -215,15 +205,15 @@ class Planet extends GUIMovableObject {
         return this.mesh.position.x.toFixed(0) + "," + this.mesh.position.y.toFixed(0) + "," + this.mesh.position.z.toFixed(0)
     }
 
-    getPositionForDate(date: Date): CartesianCoordinates {
-        let day = Astronomy.s.DayValue(date);
-        let helioCoords = this.astro.EclipticCartesianCoordinates(day)
+    getPositionForDate(date: Date): Vector {
+        let helioCoords = HelioVector(this.astroBody, date)
         let AUtoKM = 1.496e+8
         // z,x,y
-        return new CartesianCoordinates(
+        return new Vector(
             -helioCoords.y * AUtoKM / distanceScale, // x
             helioCoords.z * AUtoKM / distanceScale,   // y
             - helioCoords.x * AUtoKM / distanceScale, // z
+            helioCoords.t
         )
     }
 

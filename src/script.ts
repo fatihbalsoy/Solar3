@@ -105,9 +105,9 @@ sun.mesh.add(pluto.mesh)
 // pluto.addGUI(gui)
 
 //? -- CERES -- ?//
-const ceres = new Ceres();
-ceres.displayOrbit(sun.mesh, scene)
-sun.mesh.add(ceres.mesh)
+// const ceres = new Ceres();
+// ceres.displayOrbit(sun.mesh, scene)
+// sun.mesh.add(ceres.mesh)
 // ceres.addGUI(gui)
 
 // * -- STARS -- * //
@@ -270,7 +270,7 @@ function onDocumentKeyDown(event) {
         56: neptune, // 8
         57: pluto, // 9
         77: moon, // m
-        67: ceres, // c
+        // 67: ceres, // c
     }
     planetToLookAt = planetKeys[keyCode] ?? planetToLookAt
     controls.target = planetToLookAt.mesh.position
@@ -319,7 +319,7 @@ const tick = () => {
     uranus.animate(elapsedTime, sun.mesh)
     neptune.animate(elapsedTime, sun.mesh)
     pluto.animate(elapsedTime, sun.mesh)
-    ceres.animate(elapsedTime, sun.mesh)
+    // ceres.animate(elapsedTime, sun.mesh)
 
     camera.lookAt(planetToLookAt.mesh.position)
     // console.log("Distance from sun: ", Math.sqrt(Math.pow(camera.position.y - 0, 2) + Math.pow(camera.position.x - 0, 2)))
@@ -336,7 +336,7 @@ const tick = () => {
         console.log("uranus: ", uranus.getPositionAsString())
         console.log("neptune: ", neptune.getPositionAsString())
         console.log("pluto: ", pluto.getPositionAsString())
-        console.log("ceres: ", ceres.getPositionAsString())
+        // console.log("ceres: ", ceres.getPositionAsString())
         didPrint = true
     }
 
