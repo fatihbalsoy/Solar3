@@ -41,10 +41,18 @@ Center an object on the screen by pressing the following keys:
 * 7 - Uranus
 * 8 - Neptune
 * 9 - Pluto
-
-* m - Moon
 * c - Ceres
+* m - Moon
+* o - Polaris 
+* p - Proxima Centauri
+* r - Rigil Kentaurus
 
+## Known Issues
+
+Here are some known issues that will be worked on in the near future:
+
+* Although the solar system is a 1:1 representation, the star sizes are extremely large for a visual aesthetic. A custom shader will be written to simulate accurate star sizes and brightness depending on their magnitude. Distance between stars are 1:1 scale.
+* The rotation of the solar system, milky way, and stars are all independent. Therefore, not accurate in relation to one another.
 
 ## Special Thanks
 

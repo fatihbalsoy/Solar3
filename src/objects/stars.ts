@@ -19,11 +19,25 @@ interface Star {
 export class Stars {
 
     // // Parsed HYG star database
-    // database: Star[]
+    database: Star[]
     // // Star points
     // points: THREE.Points
+    // Distance scale
+    scale: number = 1
+    // Kilometers in 1 parsec
+    distanceKm = 3.262 * Math.pow(10, 13); // 1 parsec = 3.262 light-years = 3.262 * 10^13 kilometers
+    // Minimum Magnitude
+    minMagnitude: number = Number.MAX_SAFE_INTEGER
+    // Maximum Magnitude
+    maxMagnitude: number = Number.MIN_SAFE_INTEGER
+    // Minimum Distance
+    minDistance: number = Number.MAX_SAFE_INTEGER
+    // Maximum Distance
+    maxDistance: number = Number.MIN_SAFE_INTEGER
 
-    constructor() { }
+    constructor(scale: number) {
+        this.scale = scale
+    }
 
     // Function to parse and process the star data
     parseStarData(data): Star[] {
@@ -60,14 +74,28 @@ export class Stars {
                 VZ: parseFloat(fields[22])
             };
 
+            if (star.Mag > this.maxMagnitude) {
+                this.maxMagnitude = star.Mag
+            }
+            if (star.Mag < this.minMagnitude) {
+                this.minMagnitude = star.Mag
+            }
+            if (star.Distance > this.maxDistance) {
+                this.maxDistance = star.Distance
+            }
+            if (star.Distance < this.minDistance) {
+                this.minDistance = star.Distance
+            }
+
             stars.push(star);
         }
 
+        this.database = stars
         return stars;
     }
 
-    // TODO: The star positions must be rotated.
-    displayReal(scene: THREE.Scene, scale: number, camera: THREE.Camera) {
+    // TODO: The star positions must be rotated. Star sizes are not accurate.
+    displayReal(scene: THREE.Scene, camera: THREE.Camera) {
         // fetch('https://raw.githubusercontent.com/astronexus/HYG-Database/master/hyg/v2/hygxyz.csv')
         fetch('https://raw.githubusercontent.com/astronexus/HYG-Database/master/hyg/v3/hyg.csv')
             .then(response => response.text())
@@ -85,32 +113,33 @@ export class Stars {
                     const star = stars[i];
 
                     // Convert star position from parsecs to kilometers and divide by distanceScale
-                    const distanceKm = 3.262 * Math.pow(10, 13); // 1 parsec = 3.262 light-years = 3.262 * 10^13 kilometers
-                    const x = (star.X * distanceKm / distanceScale) * scale;
-                    const y = (star.Y * distanceKm / distanceScale) * scale;
-                    const z = (star.Z * distanceKm / distanceScale) * scale;
+                    const vector = this.scaleVectorNumbers(-star.Z, -star.Y, star.X)
 
                     // Set star position based on XYZ coordinates
-                    positions[i * 3] = x;
-                    positions[i * 3 + 1] = y;
-                    positions[i * 3 + 2] = z;
+                    positions[i * 3] = vector.x;
+                    positions[i * 3 + 1] = vector.y;
+                    positions[i * 3 + 2] = vector.z;
 
                     // Set star size based on magnitude
-                    sizes[i] = Math.pow(10, -star.Mag / 2.5); // Adjust size based on star's magnitude
+                    // sizes[i] = Math.pow(10, -star.Mag / 2.5); // Adjust size based on star's magnitude
                     // sizes[i] = Math.pow(2.512, -star.Mag) * (1 + star.Distance * distanceScale); // Star magnitude and distance to size factor
+                    sizes[i] = this.calculateStarSize(-star.Mag, star.Distance, this.minMagnitude, this.maxDistance, 40000000, 50000000000)
+                    if (i <= 10) {
+                        console.log(sizes[i])
+                    }
                 }
 
                 // Set star attributes to star geometry
                 starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                starGeometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+                starGeometry.setAttribute('scale', new THREE.BufferAttribute(sizes, 1));
 
                 // Create star material
                 const starMaterial = new THREE.PointsMaterial({
                     color: 0xffffff,
-                    size: 50000000 * scale, // Adjust size to your liking
+                    size: 50000000 * this.scale, // Adjust size to your liking
                     sizeAttenuation: true,
                     // vertexColors: THREE.VertexColors,
-                    transparent: true,
+                    transparent: false,
                     blending: THREE.AdditiveBlending
                 });
 
@@ -120,6 +149,56 @@ export class Stars {
 
                 this.addClickListener(points, stars, camera)
             });
+    }
+
+    getStarPositionById(id: number): THREE.Vector3 {
+        let star: Star = this.database[id]
+        return this.scaleVectorNumbers(-star.Z, -star.Y, star.X)
+    }
+
+    // TODO: Index for faster search results
+    getStarPositionByName(name: String): THREE.Vector3 {
+        // Loop through each star in the database
+        for (let i = 0; i < this.database.length; i++) {
+            const star = this.database[i];
+
+            // Check if the star's ProperName matches the input name
+            if (star.ProperName === name) {
+                // Create a vector for the star's position
+                return this.scaleVectorNumbers(-star.Z, -star.Y, star.X)
+            }
+        }
+
+        // If no star with the input name is found, return null
+        return null;
+    }
+
+    private scalePosition(position: number): number {
+        return (position * this.distanceKm / distanceScale) * this.scale
+    }
+    private scaleVectorNumbers(x: number, y: number, z: number): THREE.Vector3 {
+        return this.scaleVector(new THREE.Vector3(x, y, z))
+    }
+    private scaleVector(v: THREE.Vector3): THREE.Vector3 {
+        return new THREE.Vector3(this.scalePosition(v.x), this.scalePosition(v.y), this.scalePosition(v.z))
+    }
+
+    private calculateStarSize(magnitude: number, distance: number, maxMagnitude: number, maxDistance: number, minSize: number, maxSize: number): number {
+        // Normalize magnitude and distance to values between 0 and 1
+        const normalizedMagnitude = magnitude / maxMagnitude;
+        const normalizedDistance = distance / maxDistance;
+
+        // Use logarithmic scaling to balance the impact of magnitude and distance
+        const logMagnitude = Math.log10(1 / normalizedMagnitude);
+        const logDistance = Math.log10(1 / normalizedDistance);
+
+        // Calculate combined size factor based on normalized magnitude and distance
+        const sizeFactor = (logMagnitude + logDistance) / 2;
+
+        // Scale size factor to desired size range
+        const scaledSize = minSize + (maxSize - minSize) * sizeFactor;
+
+        return scaledSize;
     }
 
     private addClickListener(points: THREE.Points, data: Star[], camera: THREE.Camera) {

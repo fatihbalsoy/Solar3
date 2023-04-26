@@ -174,7 +174,7 @@ class Planet extends GUIMovableObject {
         // return;
         const curve = new THREE.CatmullRomCurve3()
         console.log(this.name)
-        for (let i = 0; i < 365 * (this.orbitalPeriod / 365); i++) {
+        for (let i = 0; i < 366 * (this.orbitalPeriod / 365); i++) {
             let currDate = new Date()
             let currYear = new Date(currDate.getFullYear(), 0)
             let date = new Date(currYear.setDate(i))
