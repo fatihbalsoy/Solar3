@@ -6,7 +6,15 @@
         "resolveJsonModule": true,
         "esModuleInterop": true,
     },
+    "references": [
+        {
+            "path": "./tsconfig.build.json"
+        }
+    ],
     "include": [
         "./src/**/*"
+    ],
+    "exclude": [
+        "node_modules"
     ]
 }
