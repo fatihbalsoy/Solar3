@@ -1,27 +1,12 @@
 ![Alt text](.readme/solarsystem_3js.png?raw=true  "SolarSystem.js")
 
-![Beware](https://img.shields.io/badge/beware-educational_🧠-red)
-![License](https://img.shields.io/badge/license-AGPL-blue)
-![Web](https://img.shields.io/badge/Web-THREE.js-lightgreen)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/fatihbalsoy/SolarSystem.3js/node.js.yml)](https://github.com/fatihbalsoy/SolarSystem.3js/actions/workflows/node.js.yml)
+[![License](https://img.shields.io/github/license/fatihbalsoy/SolarSystem.3js)](https://github.com/fatihbalsoy/SolarSystem.3js/blob/main/LICENSE)
+[![Web](https://img.shields.io/badge/Web-three.js-lightgreen)](https://github.com/mrdoob/three.js/)
 
-SolarSystem.3js is a real-time 1:1 scale of the Solar System and nearby stars built with the THREE.js library. 
+SolarSystem.3js is a real-time 1:1 scale of the Solar System, including nearby stars, built with the [three.js](https://github.com/mrdoob/three.js/) library. 
 
 ## [Launch →](https://fatih.balsoy.com/app/solar-system-3js)
-
-## Setup
-Download [Node.js](https://nodejs.org/en/download/).
-Run the following commands:
-
-``` bash
-# Install dependencies (only the first time)
-npm install
-
-# Run the local server at localhost:8080
-npm run dev
-
-# Build for production in the dist/ directory
-npm run build
-```
 
 ## Gameplay
 
@@ -51,12 +36,27 @@ Center an object on the screen by pressing the following keys:
 
 Here are some known issues that will be worked on in the near future:
 
-* Although the solar system is a 1:1 representation, the star sizes are extremely large for a visual aesthetic. A custom shader will be written to simulate accurate star sizes and brightness depending on their magnitude. Distance between stars are 1:1 scale.
+* Although the distance between stars is 1:1, the star sizes are extremely large for a visual aesthetic. A custom shader will be written to simulate accurate star sizes and brightness depending on their magnitude.
 * The rotation of the solar system, milky way, and stars are all independent. Therefore, not accurate in relation to one another.
+
+## Setup & Build
+Download [Node.js](https://nodejs.org/en/download/).
+Run the following commands:
+
+``` bash
+# Install dependencies (only the first time)
+npm install
+
+# Run the local server at localhost:8080
+npm run dev
+
+# Build for production in the dist/ directory
+npm run build
+```
 
 ## Special Thanks
 
-This project would not have been possible without the helpful resources provided online:
+This project would not have been possible without these helpful resources:
 
 * [Astronomy Engine by Don Cross](https://github.com/cosinekitty/astronomy)
 * [HYG Star Database by David Nash](https://github.com/astronexus/HYG-Database)
