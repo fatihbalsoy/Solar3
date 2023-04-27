@@ -14,7 +14,7 @@ import * as dat from 'dat.gui'
 import * as objectsJson from '../data/objects.json';
 // import { AstronomyClass, CartesianCoordinates } from "../services/astronomy";
 // import { Astronomy } from "../services/astronomy_static";
-import { HelioVector, Body, Vector } from "astronomy-engine";
+import { HelioVector, Body, Vector } from "../services/astronomy";
 import { distanceScale, sizeScale } from "../settings";
 
 class Planet extends GUIMovableObject {

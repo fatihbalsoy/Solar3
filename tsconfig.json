@@ -5,6 +5,8 @@
         "target": "es5",
         "resolveJsonModule": true,
         "esModuleInterop": true,
+        "skipLibCheck": true,
+        "incremental": true,
     },
     "include": [
         "./src/**/*"
