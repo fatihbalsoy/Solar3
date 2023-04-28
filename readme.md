@@ -26,6 +26,7 @@ Center an object on the screen by pressing the following keys:
 * 7 - Uranus
 * 8 - Neptune
 * 9 - Pluto
+* a - Antares
 * c - Ceres
 * m - Moon
 * o - Polaris 
