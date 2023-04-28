@@ -23,6 +23,8 @@ import Neptune from './objects/neptune'
 import Pluto from './objects/pluto'
 import { Stars } from './objects/stars'
 import Ceres from './objects/ceres'
+import { convertRotationMatrix4 } from './utils'
+import { Rotation_EQJ_ECL } from './services/astronomy'
 
 // Loading
 const loadingManager = new THREE.LoadingManager()
@@ -112,6 +114,7 @@ sun.mesh.add(pluto.mesh)
 
 // * -- STARS -- * //
 let stars = new Stars(1)
+stars.displayReal(scene)
 
 // * -- TEXT -- * //
 if (false) {
@@ -181,11 +184,12 @@ const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, near,
 const initCameraPos = earth.mesh.position
 const initCameraPosRadius = earth.getRadius()
 camera.position.set(initCameraPos.x + initCameraPosRadius, initCameraPos.y, initCameraPos.z + initCameraPosRadius)
-const initCameraRot = new THREE.Vector3(0, 0, 0)
-camera.rotation.set(initCameraRot.x, initCameraRot.y, initCameraRot.z)
+// camera.setRotationFromMatrix(convertRotationMatrix4(Rotation_EQJ_ECL()))
 scene.add(camera)
 
-stars.displayReal(scene, camera)
+//* Set camera position *//
+var positionToLookAt: Vector3 = earth.mesh.position
+camera.position.set(positionToLookAt.x, positionToLookAt.y, positionToLookAt.z)
 
 const cameraGUI = new GUIMovableObject();
 cameraGUI._addGUI(gui, 'Camera', camera)
@@ -194,6 +198,9 @@ cameraGUI._addGUI(gui, 'Camera', camera)
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 controls.enablePan = false
+controls.target = positionToLookAt
+controls.center = positionToLookAt
+// controls.enableRotate = true
 
 /**
  ** -- Renderer -- *
@@ -224,37 +231,12 @@ const galaxyTexture = textureLoader.load('assets/images/textures/galaxy/4k_milky
     rt.fromEquirectangularTexture(renderer, galaxyTexture);
     scene.background = rt.texture;
 })
+
 /**
  ** -- Animate -- *
  */
 
-let mouseX = 0
-let mouseY = 0
-
-let targetX = 0
-let targetY = 0
-
-// const windowHalfX = window.innerWidth / 2;
-// const windowHalfY = window.innerHeight / 2;
-
-const onDocumentMouseMove = (event) => {
-    // mouseX = (event.clientX - windowHalfX)
-    // mouseY = (event.clientY - windowHalfY)
-    mouseX = (event.clientX)
-    mouseY = (event.clientY)
-}
-document.addEventListener('mousemove', onDocumentMouseMove)
-
 const clock = new THREE.Clock()
-
-//* Set camera position *//
-scene.remove(camera)
-var positionToLookAt: Vector3 = earth.mesh.position
-// const plaRadius = positionToLookAt.radius
-const plaCamPosition = positionToLookAt
-camera.position.set(plaCamPosition.x, plaCamPosition.y, plaCamPosition.z)
-controls.target = positionToLookAt
-controls.center = positionToLookAt
 
 function onDocumentKeyDown(event) {
     var keyCode = event.which;
@@ -269,7 +251,7 @@ function onDocumentKeyDown(event) {
         55: uranus.mesh.position, // 7
         56: neptune.mesh.position, // 8
         57: pluto.mesh.position, // 9
-        65: stars.getStarPositionByName("Antares"), // o
+        65: stars.getStarPositionByName("Antares"), // a
         // 67: ceres.mesh.position, // c
         77: moon.mesh.position, // m
         79: stars.getStarPositionByName("Polaris"), // o
@@ -281,37 +263,14 @@ function onDocumentKeyDown(event) {
     controls.center = positionToLookAt
 };
 document.addEventListener("keydown", onDocumentKeyDown, false);
-// camera.position.z = 100
-// camera.position.x = -100
-// camera.fov = 20
-// camera.zoom = 10
-// camera.position.z = 1.37
-// camera.position.x = -13.43
-// camera.fov = 13.6
-// camera.zoom = 1
-// camera.fov = 1
-// camera.zoom = 200
 
 var didPrint = false
 const tick = () => {
 
     camera.updateProjectionMatrix() // for GUI controls
-    targetX = mouseX * 0.001
-    targetY = mouseY * 0.001
 
     // const elapsedTime = clock.getElapsedTime()
     const elapsedTime = clock.startTime + clock.getElapsedTime()
-
-    // Update objects
-    const LOCK_CAMERA_TO_MOUSE = false
-    if (LOCK_CAMERA_TO_MOUSE) {
-        camera.rotation.set(initCameraRot.x, initCameraRot.y, initCameraRot.z)
-        camera.rotation.x += .05 * targetY
-        camera.rotation.y += .05 * targetX
-        camera.position.set(initCameraPos.x, initCameraPos.y, initCameraPos.z)
-        camera.position.x += -.01 * targetX
-        camera.position.y += .01 * targetY
-    }
 
     mercury.animate(elapsedTime, sun.mesh)
     venus.animate(elapsedTime, sun.mesh)

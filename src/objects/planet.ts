@@ -12,8 +12,9 @@ import * as THREE from "three"
 import GUIMovableObject from "../gui/movable_3d_object"
 import * as dat from 'dat.gui'
 import * as objectsJson from '../data/objects.json';
-import { HelioVector, Body, Vector } from "../services/astronomy";
+import { HelioVector, Body, Vector, Rotation_EQJ_ECL } from "../services/astronomy";
 import { distanceScale, sizeScale } from "../settings";
+import { convertRotationMatrix4 } from "../utils";
 
 class Planet extends GUIMovableObject {
     // ID
@@ -101,6 +102,9 @@ class Planet extends GUIMovableObject {
         const axisVector = new THREE.Vector3(0, 0, 1)
         const axisRadians = this.axialTilt * Math.PI / 180
         this.realMesh.setRotationFromAxisAngle(axisVector, axisRadians)
+        const rotMatrix = new THREE.Matrix4()
+        const rotArray: number[][] = Rotation_EQJ_ECL().rot
+        this.realMesh.setRotationFromMatrix(convertRotationMatrix4(Rotation_EQJ_ECL()))
 
         // STAR SPRITE //
         // const map = new THREE.TextureLoader().load('assets/images/textures/star16x16.png');

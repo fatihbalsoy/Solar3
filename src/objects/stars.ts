@@ -95,7 +95,7 @@ export class Stars {
     }
 
     // TODO: The star positions must be rotated. Star sizes are not accurate.
-    displayReal(scene: THREE.Scene, camera: THREE.Camera) {
+    displayReal(scene: THREE.Scene) {
         // fetch('https://raw.githubusercontent.com/astronexus/HYG-Database/master/hyg/v2/hygxyz.csv')
         fetch('https://raw.githubusercontent.com/astronexus/HYG-Database/master/hyg/v3/hyg.csv')
             .then(response => response.text())
@@ -145,10 +145,7 @@ export class Stars {
 
                 // Create star points
                 const points = new THREE.Points(starGeometry, starMaterial);
-                points.rotateZ(-Math.PI / 3)
                 scene.add(points);
-
-                this.addClickListener(points, stars, camera)
             });
     }
 
@@ -174,9 +171,9 @@ export class Stars {
         return null;
     }
 
-    private getX(star: Star): number { return -star.Z }
-    private getY(star: Star): number { return -star.Y }
-    private getZ(star: Star): number { return star.X }
+    private getX(star: Star): number { return -star.Y }
+    private getY(star: Star): number { return star.Z }
+    private getZ(star: Star): number { return -star.X }
 
     private scalePosition(position: number): number {
         return (position * this.distanceKm / distanceScale) * this.scale
@@ -205,66 +202,4 @@ export class Stars {
 
         return scaledSize;
     }
-
-    private addClickListener(points: THREE.Points, data: Star[], camera: THREE.Camera) {
-        // Add event listener for mouse clicks
-        window.addEventListener('click', onMouseClick, false);
-
-        // Define the onMouseClick event handler
-        function onMouseClick(event) {
-            // Calculate mouse coordinates normalized to (-1 to 1) in both dimensions
-            const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-            const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-            console.log(mouseX)
-            console.log(mouseY)
-
-            // Create a raycaster and set its origin and direction
-            const raycaster = new THREE.Raycaster();
-            raycaster.params.Points!.threshold = 50000000
-            raycaster.setFromCamera(new THREE.Vector2(mouseX, mouseY), camera);
-
-            // Test for intersection with the points
-            const intersects = raycaster.intersectObject(points);
-
-            for (const intersect of intersects) {
-                console.log('HI')
-                if (intersect.object instanceof THREE.Points) {
-                    // Access the clicked star's name from its userData
-                    const starName = intersect.object.userData.name;
-                    console.log("Clicked star name:", starName);
-                }
-            }
-
-            // if (intersects.length > 0) {
-            //     // Get the clicked point's index
-            //     const clickedIndex = intersects[0].index;
-
-            //     // Get the corresponding star object from the starData array
-            //     const clickedStar = data[clickedIndex];
-
-            //     // Print the clicked star's name to the console
-            //     console.log('Clicked Star:', clickedStar.ProperName);
-            // }
-        }
-    }
 }
-
-// // Convert spherical coordinates to Cartesian coordinates
-// const radius = (star.Distance * distanceKm / distanceScale) * scale; // Multiply distance by distanceScale
-// const theta = star.RA; // Convert RA from degrees to radians
-// const phi = star.Dec; // Convert Dec to polar angle in radians
-// const x = radius * Math.sin(phi) * Math.cos(theta);
-// const y = radius * Math.cos(phi);
-// const z = radius * Math.sin(phi) * Math.sin(theta);
-
-// // Normalize the coordinates to a unit sphere
-// const length = Math.sqrt(x * x + y * y + z * z);
-// const normX = x / length;
-// const normY = y / length;
-// const normZ = z / length;
-
-// // Project the normalized coordinates onto a sphere of radius r
-// const r = 1000
-// const projectedX = normX * r;
-// const projectedY = normY * r;
-// const projectedZ = normZ * r;

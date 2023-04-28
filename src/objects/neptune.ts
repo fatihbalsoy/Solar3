@@ -8,7 +8,7 @@
  */
 
 
-import THREE = require("three");
+import * as THREE from "three";
 import Planet from "./planet";
 
 class Neptune extends Planet {
