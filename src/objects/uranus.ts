@@ -8,7 +8,7 @@
  */
 
 
-import THREE = require("three");
+import * as THREE from "three";
 import Earth from "./earth";
 import Planet from "./planet";
 import { sizeScale } from "../settings";

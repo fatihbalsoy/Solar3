@@ -7,7 +7,7 @@
  *   Copyright © 2022 Fatih Balsoy. All rights reserved.
  */
 
-import THREE = require("three");
+import * as THREE from "three";
 import Planet from "./planet";
 import { Quality, quality } from "../settings";
 
