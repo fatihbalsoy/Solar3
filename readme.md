@@ -10,9 +10,9 @@ SolarSystem.3js is a real-time 1:1 scale of the Solar System, including nearby s
 
 ## Gameplay
 
-Scroll to move the camera closer or farther away from the planet.
+Scroll to move the camera closer or farther away from the selected object.
 
-Drag and click to orbit around the selected celestial object.
+Click and drag to orbit around the selected celestial object.
 
 Center an object on the screen by pressing the following keys: 
 
