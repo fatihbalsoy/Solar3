@@ -145,7 +145,6 @@ export class Stars {
 
                 // Create star points
                 const points = new THREE.Points(starGeometry, starMaterial);
-                points.rotateZ(-Math.PI / 3)
                 scene.add(points);
 
                 this.addClickListener(points, stars, camera)
@@ -174,9 +173,9 @@ export class Stars {
         return null;
     }
 
-    private getX(star: Star): number { return -star.Z }
-    private getY(star: Star): number { return -star.Y }
-    private getZ(star: Star): number { return star.X }
+    private getX(star: Star): number { return -star.Y }
+    private getY(star: Star): number { return star.Z }
+    private getZ(star: Star): number { return -star.X }
 
     private scalePosition(position: number): number {
         return (position * this.distanceKm / distanceScale) * this.scale
