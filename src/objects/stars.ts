@@ -97,7 +97,7 @@ export class Stars {
     // TODO: The star positions must be rotated. Star sizes are not accurate.
     displayReal(scene: THREE.Scene, camera: THREE.Camera) {
         // fetch('https://raw.githubusercontent.com/astronexus/HYG-Database/master/hyg/v2/hygxyz.csv')
-        fetch('https://raw.githubusercontent.com/astronexus/HYG-Database/master/hyg/v3/hyg.csv')
+        fetch('https://raw.githubusercontent.com/astronexus/HYG-Database/master/hyg/v3/hyg_v32.csv')
             .then(response => response.text())
             .then(data => {
                 // Parse and process the star data
@@ -147,7 +147,7 @@ export class Stars {
                 const points = new THREE.Points(starGeometry, starMaterial);
                 scene.add(points);
 
-                this.addClickListener(points, stars, camera)
+                // this.addClickListener(points, stars, camera)
             });
     }
 
