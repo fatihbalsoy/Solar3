@@ -111,7 +111,7 @@ sun.mesh.add(pluto.mesh)
 // ceres.addGUI(gui)
 
 // * -- STARS -- * //
-let stars = new Stars()
+let stars = new Stars(1)
 
 // * -- TEXT -- * //
 if (false) {
@@ -185,7 +185,7 @@ const initCameraRot = new THREE.Vector3(0, 0, 0)
 camera.rotation.set(initCameraRot.x, initCameraRot.y, initCameraRot.z)
 scene.add(camera)
 
-stars.displayReal(scene, 1, camera)
+stars.displayReal(scene, camera)
 
 const cameraGUI = new GUIMovableObject();
 cameraGUI._addGUI(gui, 'Camera', camera)
@@ -249,32 +249,35 @@ const clock = new THREE.Clock()
 
 //* Set camera position *//
 scene.remove(camera)
-var planetToLookAt: Planet = earth
-const plaRadius = planetToLookAt.radius
-const plaCamPosition = planetToLookAt.mesh.position
+var positionToLookAt: Vector3 = earth.mesh.position
+// const plaRadius = positionToLookAt.radius
+const plaCamPosition = positionToLookAt
 camera.position.set(plaCamPosition.x, plaCamPosition.y, plaCamPosition.z)
-controls.target = planetToLookAt.mesh.position
-controls.center = planetToLookAt.mesh.position
+controls.target = positionToLookAt
+controls.center = positionToLookAt
 
 function onDocumentKeyDown(event) {
     var keyCode = event.which;
     let planetKeys = {
-        48: sun, // 0
-        49: mercury, // 1
-        50: venus, // 2
-        51: earth, // 3
-        52: mars, // 4
-        53: jupiter, // 5
-        54: saturn, // 6
-        55: uranus, // 7
-        56: neptune, // 8
-        57: pluto, // 9
-        77: moon, // m
-        // 67: ceres, // c
+        48: sun.mesh.position, // 0
+        49: mercury.mesh.position, // 1
+        50: venus.mesh.position, // 2
+        51: earth.mesh.position, // 3
+        52: mars.mesh.position, // 4
+        53: jupiter.mesh.position, // 5
+        54: saturn.mesh.position, // 6
+        55: uranus.mesh.position, // 7
+        56: neptune.mesh.position, // 8
+        57: pluto.mesh.position, // 9
+        // 67: ceres.mesh.position, // c
+        77: moon.mesh.position, // m
+        79: stars.getStarPositionByName("Polaris"), // o
+        80: stars.getStarPositionByName("Proxima Centauri"), // p
+        82: stars.getStarPositionByName("Rigil Kentaurus") // r
     }
-    planetToLookAt = planetKeys[keyCode] ?? planetToLookAt
-    controls.target = planetToLookAt.mesh.position
-    controls.center = planetToLookAt.mesh.position
+    positionToLookAt = planetKeys[keyCode] ?? positionToLookAt
+    controls.target = positionToLookAt
+    controls.center = positionToLookAt
 };
 document.addEventListener("keydown", onDocumentKeyDown, false);
 // camera.position.z = 100
@@ -321,7 +324,7 @@ const tick = () => {
     pluto.animate(elapsedTime, sun.mesh)
     // ceres.animate(elapsedTime, sun.mesh)
 
-    camera.lookAt(planetToLookAt.mesh.position)
+    camera.lookAt(positionToLookAt)
     // console.log("Distance from sun: ", Math.sqrt(Math.pow(camera.position.y - 0, 2) + Math.pow(camera.position.x - 0, 2)))
 
     if (!didPrint) {
