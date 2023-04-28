@@ -33,7 +33,7 @@ class Moon extends Planet {
         })
 
         //? -- GEOMETRY -- ?//
-        const geometry = new THREE.SphereBufferGeometry(1, 64, 64)
+        const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
         super("Moon", [material], geometry);

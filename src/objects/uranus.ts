@@ -34,12 +34,12 @@ class Uranus extends Planet {
         })
 
         //? -- GEOMETRY -- ?//
-        const geometry = new THREE.SphereBufferGeometry(1, 64, 64)
+        const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
 
         //* RING GEOMETRY + MESH *//
-        const ringGeometry = new THREE.RingBufferGeometry(51149, (51149 + 90), 96, 1)
+        const ringGeometry = new THREE.RingGeometry(51149, (51149 + 90), 96, 1)
         ringGeometry.scale(1 / sizeScale, 1 / sizeScale, 1 / sizeScale)
         const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial)
         ringMesh.rotation.x = 15 * Math.PI / 180

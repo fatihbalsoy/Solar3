@@ -5,8 +5,26 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "command": "npm run dev",
-            "name": "Run npm run dev",
+            "command": "npm run serve",
+            "name": "Run locally",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
+            "command": "npm run watch",
+            "name": "webpack --watch",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
+            "command": "npm run build:prod",
+            "name": "Build (Production)",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
+            "command": "npm run build:dev",
+            "name": "Build (Development)",
             "request": "launch",
             "type": "node-terminal"
         }

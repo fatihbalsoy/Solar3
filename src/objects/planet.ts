@@ -8,7 +8,7 @@
  */
 
 import { Material, Mesh, Object3D, SphereGeometry, Vector3 } from "three"
-import THREE = require("three")
+import * as THREE from "three"
 import GUIMovableObject from "../gui/movable_3d_object"
 import * as dat from 'dat.gui'
 import * as objectsJson from '../data/objects.json';

@@ -139,7 +139,7 @@ class Earth extends Planet {
         const materials = [earthMaterial, cloudMaterial]
 
         //? -- GEOMETRY -- ?//
-        const geometry = new THREE.SphereBufferGeometry(1, 64, 64)
+        const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
         // geometry.addGroup(0, Infinity, 1)
