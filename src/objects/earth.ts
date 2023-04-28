@@ -61,14 +61,14 @@ class Earth extends Planet {
         //     }
         // })
 
-        const earthMaterial = new THREE.MeshStandardMaterial({
-            normalMap: earthNormal,
-            emissiveMap: earthEmission,
-            lightMap: earthEmission,
-            lightMapIntensity: 1.5,
-            roughnessMap: earthRoughness,
-            map: earthTexture,
-        })
+        // const earthMaterial = new THREE.MeshStandardMaterial({
+        //     normalMap: earthNormal,
+        //     emissiveMap: earthEmission,
+        //     lightMap: earthEmission,
+        //     lightMapIntensity: 1.5,
+        //     roughnessMap: earthRoughness,
+        //     map: earthTexture,
+        // })
 
         // const earthMaterial = new THREE.MeshPhongMaterial({
         //     normalMap: earthNormal,
@@ -80,27 +80,33 @@ class Earth extends Planet {
         // })
 
         //? -- SHADER -- ?//
-        // const earthMaterial = new THREE.ShaderMaterial({
-        //     uniforms: {
-        //         planetRadius: Planet.getJSONValue('meanRadius', 'earth')
-        //     },
-        //     vertexShader: `
-        //     varying vec3 vPosition;
+        const earthMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                planetRadius: Planet.getJSONValue('meanRadius', 'earth'),
+                cameraPos: { value: new THREE.Vector3(0, 0, 0) },
+                planetPos: { value: new THREE.Vector3(0, 0, 0) },
+                sunPos: { value: new THREE.Vector3(0, 0, 0) }
+            },
+            vertexShader: `
+            varying vec3 vPosition;
 
-        //     void main() {
-        //         vPosition = position; // * vec3(1.5, 1.5, 1.5);
-        //         gl_Position = projectionMatrix * modelViewMatrix * vec4(vPosition, 1.0);
-        //     }
-        //     `,
-        //     fragmentShader: `
-        //     varying vec3 vPosition;
-        //     uniform float planetRadius;
+            void main() {
+                vPosition = position; // * vec3(1.5, 1.5, 1.5);
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(vPosition, 1.0);
+            }
+            `,
+            fragmentShader: `
+            varying vec3 vPosition;
+            uniform float planetRadius;
+            uniform vec3 cameraPos;
+            uniform vec3 sunPos;
+            uniform vec3 planetPos;
 
-        //     void main() {
-        //         gl_FragColor = viewMatrix * vec4(vPosition, 1);
-        //     }
-        // `,
-        // })
+            void main() {
+                gl_FragColor = vec4(cross(cameraPos + planetPos, vPosition), 1);
+            }
+        `,
+        })
 
         // var vertexShader = [
         //     'varying vec3 vNormal;',
@@ -153,6 +159,15 @@ class Earth extends Planet {
         // * Second UV End * //
 
         super("earth", materials, geometry);
+    }
+
+    updateShader(cameraPos: THREE.Vector3, sunPos: THREE.Vector3) {
+        (this.material[0] as THREE.ShaderMaterial).uniforms = {
+            cameraPos: { value: cameraPos },
+            sunPos: { value: sunPos },
+            planetPos: { value: this.mesh.position }
+        };
+        (this.material[0] as THREE.ShaderMaterial).uniforms.cameraPos.needsUpdate = true
     }
 }
 

@@ -315,7 +315,7 @@ const tick = () => {
 
     mercury.animate(elapsedTime, sun.mesh)
     venus.animate(elapsedTime, sun.mesh)
-    earth.animate(elapsedTime, sun.mesh)
+    earth.animate(elapsedTime, sun.mesh); earth.updateShader(camera.position, sun.mesh.position)
     moon.animate(elapsedTime, earth.mesh); moon.mesh.lookAt(earth.mesh.position)
     mars.animate(elapsedTime, sun.mesh)
     jupiter.animate(elapsedTime, sun.mesh)
