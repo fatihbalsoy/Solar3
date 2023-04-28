@@ -7,8 +7,7 @@
  *   Copyright © 2022 Fatih Balsoy. All rights reserved.
  */
 
-import { Vector3 } from "three";
-import THREE = require("three");
+import * as THREE from "three";
 import Earth from "./earth";
 import Planet from "./planet";
 import { Quality, quality, sizeScale } from "../settings";

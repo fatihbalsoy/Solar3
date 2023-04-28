@@ -32,7 +32,7 @@ const textureLoader = new THREE.TextureLoader(loadingManager)
 const gui = new dat.GUI()
 
 // Canvas
-const canvas: HTMLElement = document.querySelector('canvas.webgl')
+const canvas: HTMLElement = document.querySelector('canvas.webgl')!
 
 // Scene
 const scene = new THREE.Scene()
@@ -269,6 +269,7 @@ function onDocumentKeyDown(event) {
         55: uranus.mesh.position, // 7
         56: neptune.mesh.position, // 8
         57: pluto.mesh.position, // 9
+        65: stars.getStarPositionByName("Antares"), // a
         67: ceres.mesh.position, // c
         77: moon.mesh.position, // m
         79: stars.getStarPositionByName("Polaris"), // o

@@ -113,7 +113,7 @@ export class Stars {
                     const star = stars[i];
 
                     // Convert star position from parsecs to kilometers and divide by distanceScale
-                    const vector = this.scaleVectorNumbers(-star.Z, -star.Y, star.X)
+                    const vector = this.scaleVectorNumbers(this.getX(star), this.getY(star), this.getZ(star))
 
                     // Set star position based on XYZ coordinates
                     positions[i * 3] = vector.x;
@@ -145,6 +145,7 @@ export class Stars {
 
                 // Create star points
                 const points = new THREE.Points(starGeometry, starMaterial);
+                points.rotateZ(-Math.PI / 3)
                 scene.add(points);
 
                 this.addClickListener(points, stars, camera)
@@ -153,11 +154,11 @@ export class Stars {
 
     getStarPositionById(id: number): THREE.Vector3 {
         let star: Star = this.database[id]
-        return this.scaleVectorNumbers(-star.Z, -star.Y, star.X)
+        return this.scaleVectorNumbers(this.getX(star), this.getY(star), this.getZ(star))
     }
 
     // TODO: Index for faster search results
-    getStarPositionByName(name: String): THREE.Vector3 {
+    getStarPositionByName(name: String): THREE.Vector3 | null {
         // Loop through each star in the database
         for (let i = 0; i < this.database.length; i++) {
             const star = this.database[i];
@@ -165,13 +166,17 @@ export class Stars {
             // Check if the star's ProperName matches the input name
             if (star.ProperName === name) {
                 // Create a vector for the star's position
-                return this.scaleVectorNumbers(-star.Z, -star.Y, star.X)
+                return this.scaleVectorNumbers(this.getX(star), this.getY(star), this.getZ(star))
             }
         }
 
         // If no star with the input name is found, return null
         return null;
     }
+
+    private getX(star: Star): number { return -star.Z }
+    private getY(star: Star): number { return -star.Y }
+    private getZ(star: Star): number { return star.X }
 
     private scalePosition(position: number): number {
         return (position * this.distanceKm / distanceScale) * this.scale
@@ -215,7 +220,7 @@ export class Stars {
 
             // Create a raycaster and set its origin and direction
             const raycaster = new THREE.Raycaster();
-            raycaster.params.Points.threshold = 50000000
+            raycaster.params.Points!.threshold = 50000000
             raycaster.setFromCamera(new THREE.Vector2(mouseX, mouseY), camera);
 
             // Test for intersection with the points
