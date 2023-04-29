@@ -9,35 +9,53 @@
 import * as THREE from "three";
 import { distanceScale } from "../settings";
 
-interface Star {
+// Kilometers in 1 parsec
+let distanceKm = 3.262 * Math.pow(10, 13); // 1 parsec = 3.262 light-years = 3.262 * 10^13 kilometers
+
+interface StarData {
     StarID: number, HIP: number, HD: number, HR: number, Gliese: number, BayerFlamsteed: number,
     ProperName: string, RA: number, Dec: number, Distance: number, PMRA: number, PMDec: number,
     RV: number, Mag: number, AbsMag: number, Spectrum: string, ColorIndex: number,
     X: number, Y: number, Z: number, VX: number, VY: number, VZ: number
 }
 
+export class Star {
+    data: StarData
+    position: THREE.Vector3
+    x: number; y: number; z: number;
+
+    constructor(data: StarData) {
+        this.data = data
+        this.position = Star.scaleVectorNumbers(this.getX(), this.getY(), this.getZ())
+        this.x = this.position.x
+        this.y = this.position.y
+        this.z = this.position.z
+    }
+
+    private getX(): number { return -this.data.Y }
+    private getY(): number { return this.data.Z }
+    private getZ(): number { return -this.data.X }
+
+    static scalePosition(position: number): number {
+        return (position * distanceKm / distanceScale)
+    }
+    static scaleVectorNumbers(x: number, y: number, z: number): THREE.Vector3 {
+        return Star.scaleVector(new THREE.Vector3(x, y, z))
+    }
+    static scaleVector(v: THREE.Vector3): THREE.Vector3 {
+        return new THREE.Vector3(Star.scalePosition(v.x), Star.scalePosition(v.y), Star.scalePosition(v.z))
+    }
+}
+
 export class Stars {
 
-    // // Parsed HYG star database
+    // Parsed HYG star database
     database: Star[]
-    // // Star points
+    dataParsed: boolean = false
+    // Star points
     // points: THREE.Points
-    // Distance scale
-    scale: number = 1
-    // Kilometers in 1 parsec
-    distanceKm = 3.262 * Math.pow(10, 13); // 1 parsec = 3.262 light-years = 3.262 * 10^13 kilometers
-    // Minimum Magnitude
-    minMagnitude: number = Number.MAX_SAFE_INTEGER
-    // Maximum Magnitude
-    maxMagnitude: number = Number.MIN_SAFE_INTEGER
-    // Minimum Distance
-    minDistance: number = Number.MAX_SAFE_INTEGER
-    // Maximum Distance
-    maxDistance: number = Number.MIN_SAFE_INTEGER
 
-    constructor(scale: number) {
-        this.scale = scale
-    }
+    constructor() { }
 
     // Function to parse and process the star data
     parseStarData(data): Star[] {
@@ -48,7 +66,7 @@ export class Stars {
         // skip the sun
         for (let i = 2; i < lines.length; i++) {
             const fields = lines[i].split(',');
-            const star: Star = {
+            const star: StarData = {
                 StarID: fields[0],
                 HIP: fields[1],
                 HD: fields[2],
@@ -74,23 +92,11 @@ export class Stars {
                 VZ: parseFloat(fields[22])
             };
 
-            if (star.Mag > this.maxMagnitude) {
-                this.maxMagnitude = star.Mag
-            }
-            if (star.Mag < this.minMagnitude) {
-                this.minMagnitude = star.Mag
-            }
-            if (star.Distance > this.maxDistance) {
-                this.maxDistance = star.Distance
-            }
-            if (star.Distance < this.minDistance) {
-                this.minDistance = star.Distance
-            }
-
-            stars.push(star);
+            stars.push(new Star(star));
         }
 
         this.database = stars
+        this.dataParsed = true
         return stars;
     }
 
@@ -113,7 +119,7 @@ export class Stars {
                     const star = stars[i];
 
                     // Convert star position from parsecs to kilometers and divide by distanceScale
-                    const vector = this.scaleVectorNumbers(this.getX(star), this.getY(star), this.getZ(star))
+                    const vector = star.position
 
                     // Set star position based on XYZ coordinates
                     positions[i * 3] = vector.x;
@@ -123,7 +129,7 @@ export class Stars {
                     // Set star size based on magnitude
                     // sizes[i] = Math.pow(10, -star.Mag / 2.5); // Adjust size based on star's magnitude
                     // sizes[i] = Math.pow(2.512, -star.Mag) * (1 + star.Distance * distanceScale); // Star magnitude and distance to size factor
-                    sizes[i] = this.calculateStarSize(-star.Mag, star.Distance, this.minMagnitude, this.maxDistance, 40000000, 50000000000)
+                    // sizes[i] = this.calculateStarSize(-star.data.Mag, star.data.Distance, this.minMagnitude, this.maxDistance, 40000000, 50000000000)
                     if (i <= 10) {
                         console.log(sizes[i])
                     }
@@ -136,7 +142,7 @@ export class Stars {
                 // Create star material
                 const starMaterial = new THREE.PointsMaterial({
                     color: 0xffffff,
-                    size: 50000000 * this.scale, // Adjust size to your liking
+                    size: 50000000,
                     sizeAttenuation: true,
                     // vertexColors: THREE.VertexColors,
                     transparent: false,
@@ -151,21 +157,16 @@ export class Stars {
             });
     }
 
-    getStarPositionById(id: number): THREE.Vector3 {
-        let star: Star = this.database[id]
-        return this.scaleVectorNumbers(this.getX(star), this.getY(star), this.getZ(star))
-    }
-
     // TODO: Index for faster search results
-    getStarPositionByName(name: String): THREE.Vector3 | null {
+    getStarByName(name: string): Star {
         // Loop through each star in the database
         for (let i = 0; i < this.database.length; i++) {
             const star = this.database[i];
 
             // Check if the star's ProperName matches the input name
-            if (star.ProperName === name) {
+            if (star.data.ProperName === name) {
                 // Create a vector for the star's position
-                return this.scaleVectorNumbers(this.getX(star), this.getY(star), this.getZ(star))
+                return star
             }
         }
 
@@ -173,18 +174,8 @@ export class Stars {
         return null;
     }
 
-    private getX(star: Star): number { return -star.Y }
-    private getY(star: Star): number { return star.Z }
-    private getZ(star: Star): number { return -star.X }
-
-    private scalePosition(position: number): number {
-        return (position * this.distanceKm / distanceScale) * this.scale
-    }
-    private scaleVectorNumbers(x: number, y: number, z: number): THREE.Vector3 {
-        return this.scaleVector(new THREE.Vector3(x, y, z))
-    }
-    private scaleVector(v: THREE.Vector3): THREE.Vector3 {
-        return new THREE.Vector3(this.scalePosition(v.x), this.scalePosition(v.y), this.scalePosition(v.z))
+    getStarById(id: number): Star {
+        return this.database[id]
     }
 
     private calculateStarSize(magnitude: number, distance: number, maxMagnitude: number, maxDistance: number, minSize: number, maxSize: number): number {
@@ -203,48 +194,6 @@ export class Stars {
         const scaledSize = minSize + (maxSize - minSize) * sizeFactor;
 
         return scaledSize;
-    }
-
-    private addClickListener(points: THREE.Points, data: Star[], camera: THREE.Camera) {
-        // Add event listener for mouse clicks
-        window.addEventListener('click', onMouseClick, false);
-
-        // Define the onMouseClick event handler
-        function onMouseClick(event) {
-            // Calculate mouse coordinates normalized to (-1 to 1) in both dimensions
-            const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-            const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-            console.log(mouseX)
-            console.log(mouseY)
-
-            // Create a raycaster and set its origin and direction
-            const raycaster = new THREE.Raycaster();
-            raycaster.params.Points!.threshold = 50000000
-            raycaster.setFromCamera(new THREE.Vector2(mouseX, mouseY), camera);
-
-            // Test for intersection with the points
-            const intersects = raycaster.intersectObject(points);
-
-            for (const intersect of intersects) {
-                console.log('HI')
-                if (intersect.object instanceof THREE.Points) {
-                    // Access the clicked star's name from its userData
-                    const starName = intersect.object.userData.name;
-                    console.log("Clicked star name:", starName);
-                }
-            }
-
-            // if (intersects.length > 0) {
-            //     // Get the clicked point's index
-            //     const clickedIndex = intersects[0].index;
-
-            //     // Get the corresponding star object from the starData array
-            //     const clickedStar = data[clickedIndex];
-
-            //     // Print the clicked star's name to the console
-            //     console.log('Clicked Star:', clickedStar.ProperName);
-            // }
-        }
     }
 }
 

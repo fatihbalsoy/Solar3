@@ -11,8 +11,9 @@ export enum Quality {
     medium = 1,
     low = 0
 }
-export let quality: Quality = 1
+export let quality: Quality = Quality.medium
 
 // Distance Scale
+// TODO: Change to 1/10000
 export let distanceScale: number = 10000
 export let sizeScale: number = 10000

@@ -12,9 +12,10 @@ import * as THREE from "three"
 import GUIMovableObject from "../gui/movable_3d_object"
 import * as dat from 'dat.gui'
 import * as objectsJson from '../data/objects.json';
-import { AstronomyClass, CartesianCoordinates } from "../services/astronomy";
 import { Astronomy } from "../services/astronomy_static";
 import { distanceScale, sizeScale } from "../settings";
+import { CartesianCoordinates } from "../services/astronomy";
+import { CSS2DObject } from "three/examples/jsm/renderers/CSS2DRenderer";
 
 class Planet extends GUIMovableObject {
     // ID
@@ -49,6 +50,11 @@ class Planet extends GUIMovableObject {
      * Real Mesh (With textures, materials, and geometry)
      */
     realMesh: Mesh
+    /**
+     * Label objects
+     */
+    private labelCircle: CSS2DObject
+    private labelText: CSS2DObject
 
     constructor(id: string, material: Material[], geometry: SphereGeometry) {
 
@@ -114,13 +120,25 @@ class Planet extends GUIMovableObject {
         const axisRadians = this.axialTilt * Math.PI / 180
         this.realMesh.setRotationFromAxisAngle(axisVector, axisRadians)
 
-        // STAR SPRITE //
-        // const map = new THREE.TextureLoader().load('assets/images/textures/star16x16.png');
-        // const starMaterial = new THREE.SpriteMaterial({ map: map });
-        // const sprite = new THREE.Sprite(starMaterial);
-        // sprite.lookAt(new THREE.Vector3(0, 0, 0))
-        // sprite.scale.set(this.distance / this.distanceScale / 10, this.distance / this.distanceScale / 10, 1)
-        // this.mesh.add(sprite);
+        // LABEL //
+        const circle = document.createElement('div')
+        circle.style.backgroundColor = 'white'
+        circle.style.borderRadius = '10000px'
+        circle.style.width = '5px'
+        circle.style.height = '5px'
+        this.labelCircle = new CSS2DObject(circle)
+
+        const p = document.createElement('p')
+        p.textContent = this.name
+        p.style.color = 'white'
+        p.style.position = 'absolute'
+        p.style.bottom = '0'
+
+        const div = document.createElement('div')
+        div.style.height = '50px'
+        div.style.position = 'relative'
+        div.appendChild(p)
+        this.labelText = new CSS2DObject(div)
     }
 
     addGUI(gui: dat.GUI): dat.GUI {
@@ -132,12 +150,19 @@ class Planet extends GUIMovableObject {
      * @param time - the time elapsed since start in seconds
      * @param parent - parent object to orbit around
      */
-    animate(time: number, parent: Object3D) {
+    animate(time: number) {
         if (this.name !== "Moon") {
             this.rotate(time)
         }
-        this.setPosition()
-        // this.orbit(parent, time)
+
+        let date = new Date()
+        let coordinates = this.getPositionForDate(date)
+        this.mesh.position.x = coordinates.x
+        this.mesh.position.y = coordinates.y
+        this.mesh.position.z = coordinates.z
+
+        this.labelText.position.set(coordinates.x, coordinates.y, coordinates.z)
+        this.labelCircle.position.set(coordinates.x, coordinates.y, coordinates.z)
     }
 
     /**
@@ -145,28 +170,9 @@ class Planet extends GUIMovableObject {
      * @param time - the time elapsed since start in seconds
      */
     rotate(time: number) {
-        // let dayInSeconds = 24 * 60 * 60
-        // let fullPeriod = 2 * Math.PI
-        // let rotationPercent = time / this.rotationalPeriod * dayInSeconds
-        // let mult = 10000000
-        // let finalSpeed = fullPeriod * rotationPercent / mult
-
         this.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 1 / 10000)
-
-        // this.realMesh.setRotationFromAxisAngle(new THREE.Vector3(0, 20, 0), finalSpeed)
-        // this.realMesh.rotation.y = finalSpeed
     }
 
-    /**
-     * Places the planet in its current real-time position
-     */
-    setPosition() {
-        let astroDate = new Date()
-        let coordinates = this.getPositionForDate(astroDate)
-        this.mesh.position.x = coordinates.x
-        this.mesh.position.y = coordinates.y
-        this.mesh.position.z = coordinates.z
-    }
     /**
      * Traces out the planet's orbit
      */
@@ -189,6 +195,11 @@ class Planet extends GUIMovableObject {
         line.renderOrder = -1
 
         scene.add(line);
+    }
+
+    displayLabel(scene: THREE.Scene) {
+        scene.add(this.labelCircle)
+        scene.add(this.labelText)
     }
 
     getRadius(): number {
