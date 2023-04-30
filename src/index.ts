@@ -1,3 +1,11 @@
+/*
+ *   index.ts
+ *   solar-system-3js
+ * 
+ *   Created by Fatih Balsoy on 4/30/23
+ *   Copyright © 2023 Fatih Balsoy. All rights reserved.
+ */
+
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
