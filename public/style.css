@@ -1,0 +1,30 @@
+@font-face {
+    font-family: "Hubot Sans";
+    src: url("assets/fonts/Hubot-Sans.woff2");
+}
+
+@font-face {
+    font-family: "Mona Sans";
+    src: url("assets/fonts/Mona-Sans.woff2");
+}
+
+*
+{
+    margin: 0;
+    padding: 0;
+    font-family: 'Hubot Sans';
+}
+
+html,
+body
+{
+    height: 100vh;
+}
+
+.webgl
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+}

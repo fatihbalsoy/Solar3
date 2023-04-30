@@ -15,6 +15,21 @@ import * as objectsJson from '../data/objects.json';
 import { HelioVector, Body, Vector, Rotation_EQJ_ECL } from "../services/astronomy";
 import { distanceScale, sizeScale } from "../settings";
 import { convertRotationMatrix4 } from "../utils";
+import { CSS2DObject } from "three/examples/jsm/renderers/CSS2DRenderer";
+
+let bodies = {
+    "sun": Body.Sun,
+    "mercury": Body.Mercury,
+    "venus": Body.Venus,
+    "earth": Body.Earth,
+    "moon": Body.Moon,
+    "mars": Body.Mars,
+    "jupiter": Body.Jupiter,
+    "saturn": Body.Saturn,
+    "uranus": Body.Uranus,
+    "neptune": Body.Neptune,
+    "pluto": Body.Pluto
+};
 
 class Planet extends GUIMovableObject {
     // ID
@@ -49,6 +64,11 @@ class Planet extends GUIMovableObject {
      * Real Mesh (With textures, materials, and geometry)
      */
     realMesh: Mesh
+    /**
+     * Label objects
+     */
+    labelCircle: CSS2DObject
+    labelText: CSS2DObject
 
     constructor(id: string, material: Material[], geometry: SphereGeometry) {
 
@@ -65,28 +85,13 @@ class Planet extends GUIMovableObject {
         this.orbitalInclination = obj.inclination
         this.material = material
 
-        let bodies = {
-            "sun": Body.Sun,
-            "mercury": Body.Mercury,
-            "venus": Body.Venus,
-            "earth": Body.Earth,
-            "moon": Body.Moon,
-            "mars": Body.Mars,
-            "jupiter": Body.Jupiter,
-            "saturn": Body.Saturn,
-            "uranus": Body.Uranus,
-            "neptune": Body.Neptune,
-            "pluto": Body.Pluto
-        };
+        // Astronomy Engine Body //
         this.astroBody = bodies[this.id]
 
         // GEOMETRY //
         const radiusScale = this.radius / sizeScale
         this.geometry = geometry
         var enlarge = 1;
-        // if (this.id != "moon" && this.id != "sun") {
-        //     enlarge = 1000;
-        // }
         this.geometry.scale(radiusScale * enlarge, radiusScale * enlarge, radiusScale * enlarge)
 
         this.mesh = new THREE.Mesh()
@@ -106,13 +111,25 @@ class Planet extends GUIMovableObject {
         const rotArray: number[][] = Rotation_EQJ_ECL().rot
         this.realMesh.setRotationFromMatrix(convertRotationMatrix4(Rotation_EQJ_ECL()))
 
-        // STAR SPRITE //
-        // const map = new THREE.TextureLoader().load('assets/images/textures/star16x16.png');
-        // const starMaterial = new THREE.SpriteMaterial({ map: map });
-        // const sprite = new THREE.Sprite(starMaterial);
-        // sprite.lookAt(new THREE.Vector3(0, 0, 0))
-        // sprite.scale.set(this.distance / this.distanceScale / 10, this.distance / this.distanceScale / 10, 1)
-        // this.mesh.add(sprite);
+        // LABEL //
+        const circle = document.createElement('div')
+        circle.style.backgroundColor = 'white'
+        circle.style.borderRadius = '10000px'
+        circle.style.width = '5px'
+        circle.style.height = '5px'
+        this.labelCircle = new CSS2DObject(circle)
+
+        const p = document.createElement('p')
+        p.textContent = this.name
+        p.style.color = 'white'
+        p.style.position = 'absolute'
+        p.style.bottom = '0'
+
+        const div = document.createElement('div')
+        div.style.height = '50px'
+        div.style.position = 'relative'
+        div.appendChild(p)
+        this.labelText = new CSS2DObject(div)
     }
 
     addGUI(gui: dat.GUI): dat.GUI {
@@ -124,12 +141,19 @@ class Planet extends GUIMovableObject {
      * @param time - the time elapsed since start in seconds
      * @param parent - parent object to orbit around
      */
-    animate(time: number, parent: Object3D) {
+    animate(time: number) {
         if (this.name !== "Moon") {
             this.rotate(time)
         }
-        this.setPosition()
-        // this.orbit(parent, time)
+
+        let date = new Date()
+        let coordinates = this.getPositionForDate(date)
+        this.mesh.position.x = coordinates.x
+        this.mesh.position.y = coordinates.y
+        this.mesh.position.z = coordinates.z
+
+        this.labelText.position.set(coordinates.x, coordinates.y, coordinates.z)
+        this.labelCircle.position.set(coordinates.x, coordinates.y, coordinates.z)
     }
 
     /**
@@ -137,28 +161,9 @@ class Planet extends GUIMovableObject {
      * @param time - the time elapsed since start in seconds
      */
     rotate(time: number) {
-        // let dayInSeconds = 24 * 60 * 60
-        // let fullPeriod = 2 * Math.PI
-        // let rotationPercent = time / this.rotationalPeriod * dayInSeconds
-        // let mult = 10000000
-        // let finalSpeed = fullPeriod * rotationPercent / mult
-
         this.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 1 / 10000)
-
-        // this.realMesh.setRotationFromAxisAngle(new THREE.Vector3(0, 20, 0), finalSpeed)
-        // this.realMesh.rotation.y = finalSpeed
     }
 
-    /**
-     * Places the planet in its current real-time position
-     */
-    setPosition() {
-        let astroDate = new Date()
-        let coordinates = this.getPositionForDate(astroDate)
-        this.mesh.position.x = coordinates.x
-        this.mesh.position.y = coordinates.y
-        this.mesh.position.z = coordinates.z
-    }
     /**
      * Traces out the planet's orbit
      */
@@ -181,6 +186,29 @@ class Planet extends GUIMovableObject {
         line.renderOrder = -1
 
         scene.add(line);
+    }
+
+    displayLabel(scene: THREE.Scene) {
+        scene.add(this.labelCircle)
+        scene.add(this.labelText)
+    }
+
+    updateLabel(camera: THREE.Camera): void {
+        // let inner = ["mercury", "venus", "earth", "mars", "ceres"]
+        // let outer = ["jupiter", "saturn", "uranus", "neptune", "pluto"]
+
+        // // TODO: Uses too many resources (Large numbers + distance)
+        // let dist = new Vector3(0, 0, 0).distanceTo(camera.position) * distanceScale
+        // this.labelText.element.textContent = this.name
+
+        // let removeInner = inner.includes(this.name.toLowerCase()) && dist > 2000000000
+        // let removeOuter = outer.includes(this.name.toLowerCase()) && dist > 20000000000
+
+        // if (removeInner || removeOuter) {
+        //     this.labelText.element.textContent = ''
+        // }
+
+        // this.labelText.element.style.color = 'white'
     }
 
     getRadius(): number {

@@ -24,11 +24,16 @@ const config = {
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
-        { from: path.resolve(__dirname, 'static/') }
+        {
+          from: path.resolve(__dirname, './public'),
+          globOptions: {
+            ignore: ["**/index.html"]
+          }
+        }
       ]
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src/index.html'),
+      template: path.resolve(__dirname, './public/index.html'),
       minify: true
     }),
 
@@ -40,7 +45,7 @@ const config = {
       {
         test: /\.(ts|tsx)$/i,
         loader: "ts-loader",
-        exclude: ["/node_modules/"],
+        exclude: ["./node_modules/", "./scripts/"],
       },
       {
         test: /\.css$/i,
