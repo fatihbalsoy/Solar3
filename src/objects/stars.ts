@@ -45,6 +45,15 @@ export class Star {
     static scaleVector(v: THREE.Vector3): THREE.Vector3 {
         return new THREE.Vector3(Star.scalePosition(v.x), Star.scalePosition(v.y), Star.scalePosition(v.z))
     }
+
+    static empty(): Star {
+        return new Star({
+            StarID: -1, HIP: -1, HD: -1, HR: -1, Gliese: -1, BayerFlamsteed: -1,
+            ProperName: "NULL", RA: -1, Dec: -1, Distance: -1, PMRA: -1, PMDec: -1,
+            RV: -1, Mag: -1, AbsMag: -1, Spectrum: "NULL", ColorIndex: -1,
+            X: -1, Y: -1, Z: -1, VX: -1, VY: -1, VZ: -1
+        })
+    }
 }
 
 export class Stars {
@@ -159,6 +168,8 @@ export class Stars {
 
     // TODO: Index for faster search results
     getStarByName(name: string): Star {
+        if (!this.dataParsed) { return Star.empty() } // TODO: Async instead of returning null star
+
         // Loop through each star in the database
         for (let i = 0; i < this.database.length; i++) {
             const star = this.database[i];
@@ -177,42 +188,4 @@ export class Stars {
     getStarById(id: number): Star {
         return this.database[id]
     }
-
-    private calculateStarSize(magnitude: number, distance: number, maxMagnitude: number, maxDistance: number, minSize: number, maxSize: number): number {
-        // Normalize magnitude and distance to values between 0 and 1
-        const normalizedMagnitude = magnitude / maxMagnitude;
-        const normalizedDistance = distance / maxDistance;
-
-        // Use logarithmic scaling to balance the impact of magnitude and distance
-        const logMagnitude = Math.log10(1 / normalizedMagnitude);
-        const logDistance = Math.log10(1 / normalizedDistance);
-
-        // Calculate combined size factor based on normalized magnitude and distance
-        const sizeFactor = (logMagnitude + logDistance) / 2;
-
-        // Scale size factor to desired size range
-        const scaledSize = minSize + (maxSize - minSize) * sizeFactor;
-
-        return scaledSize;
-    }
 }
-
-// // Convert spherical coordinates to Cartesian coordinates
-// const radius = (star.Distance * distanceKm / distanceScale) * scale; // Multiply distance by distanceScale
-// const theta = star.RA; // Convert RA from degrees to radians
-// const phi = star.Dec; // Convert Dec to polar angle in radians
-// const x = radius * Math.sin(phi) * Math.cos(theta);
-// const y = radius * Math.cos(phi);
-// const z = radius * Math.sin(phi) * Math.sin(theta);
-
-// // Normalize the coordinates to a unit sphere
-// const length = Math.sqrt(x * x + y * y + z * z);
-// const normX = x / length;
-// const normY = y / length;
-// const normZ = z / length;
-
-// // Project the normalized coordinates onto a sphere of radius r
-// const r = 1000
-// const projectedX = normX * r;
-// const projectedY = normY * r;
-// const projectedZ = normZ * r;

@@ -6,18 +6,18 @@ import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { distanceScale } from './settings'
 
 import Sun from './objects/sun'
-import Mercury from './objects/mercury'
-import Venus from './objects/venus'
-import Earth from './objects/earth'
-import Moon from './objects/moon'
-import Mars from './objects/mars'
-import Jupiter from './objects/jupiter'
-import Saturn from './objects/saturn'
-import Uranus from './objects/uranus'
-import Neptune from './objects/neptune'
-import Pluto from './objects/pluto'
+import Mercury from './objects/planets/mercury'
+import Venus from './objects/planets/venus'
+import Earth from './objects/planets/earth'
+import Moon from './objects/moons/earth_moon'
+import Mars from './objects/planets/mars'
+import Jupiter from './objects/planets/jupiter'
+import Saturn from './objects/planets/saturn'
+import Uranus from './objects/planets/uranus'
+import Neptune from './objects/planets/neptune'
+import Pluto from './objects/dwarf_planets/pluto'
 import { Stars } from './objects/stars'
-import Ceres from './objects/ceres'
+import Ceres from './objects/dwarf_planets/ceres'
 
 // Loading
 const loadingManager = new THREE.LoadingManager()
@@ -246,12 +246,12 @@ const tick = () => {
             const object = objects[key];
 
             object.animate()
+            object.updateLabel(camera)
         }
     }
     objects.moon.mesh.lookAt(objects.earth.mesh.position)
 
     camera.lookAt(positionToLookAt)
-    // console.log("Distance from sun: ", Math.sqrt(Math.pow(camera.position.y - 0, 2) + Math.pow(camera.position.x - 0, 2)))
 
     if (!didPrint) {
         console.log("sun: ", objects.sun.getPositionAsString())
