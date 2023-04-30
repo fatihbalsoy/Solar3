@@ -17,6 +17,31 @@ import { distanceScale, sizeScale } from "../settings";
 import { CartesianCoordinates } from "../services/astronomy";
 import { CSS2DObject } from "three/examples/jsm/renderers/CSS2DRenderer";
 
+let bodies = {
+    "sun": Astronomy.s.Body[0],
+    "mercury": Astronomy.s.Body[1],
+    "venus": Astronomy.s.Body[2],
+    "earth": Astronomy.s.Body[3],
+    "moon": Astronomy.s.Body[4],
+    "mars": Astronomy.s.Body[5],
+    "ceres": Astronomy.s.Body[6],
+    "pallas": Astronomy.s.Body[7],
+    "juno": Astronomy.s.Body[8],
+    "vesta": Astronomy.s.Body[9],
+    "ida": Astronomy.s.Body[10],
+    "gaspra": Astronomy.s.Body[11],
+    "comet_9p": Astronomy.s.Body[12],
+    "comet_19p": Astronomy.s.Body[13],
+    "comet_67p": Astronomy.s.Body[14],
+    "comet_81p": Astronomy.s.Body[15],
+    "jupiter": Astronomy.s.Body[16],
+    "saturn": Astronomy.s.Body[17],
+    //this.SaturnJPL,       // not much better than existing Saturn... not ready for publish
+    "uranus": Astronomy.s.Body[18],
+    "neptune": Astronomy.s.Body[19],
+    "pluto": Astronomy.s.Body[20]
+};
+
 class Planet extends GUIMovableObject {
     // ID
     id: string
@@ -53,8 +78,8 @@ class Planet extends GUIMovableObject {
     /**
      * Label objects
      */
-    private labelCircle: CSS2DObject
-    private labelText: CSS2DObject
+    labelCircle: CSS2DObject
+    labelText: CSS2DObject
 
     constructor(id: string, material: Material[], geometry: SphereGeometry) {
 
@@ -71,39 +96,13 @@ class Planet extends GUIMovableObject {
         this.orbitalInclination = obj.inclination
         this.material = material
 
-        let bodies = {
-            "sun": Astronomy.s.Body[0],
-            "mercury": Astronomy.s.Body[1],
-            "venus": Astronomy.s.Body[2],
-            "earth": Astronomy.s.Body[3],
-            "moon": Astronomy.s.Body[4],
-            "mars": Astronomy.s.Body[5],
-            "ceres": Astronomy.s.Body[6],
-            "pallas": Astronomy.s.Body[7],
-            "juno": Astronomy.s.Body[8],
-            "vesta": Astronomy.s.Body[9],
-            "ida": Astronomy.s.Body[10],
-            "gaspra": Astronomy.s.Body[11],
-            "comet_9p": Astronomy.s.Body[12],
-            "comet_19p": Astronomy.s.Body[13],
-            "comet_67p": Astronomy.s.Body[14],
-            "comet_81p": Astronomy.s.Body[15],
-            "jupiter": Astronomy.s.Body[16],
-            "saturn": Astronomy.s.Body[17],
-            //this.SaturnJPL,       // not much better than existing Saturn... not ready for publish
-            "uranus": Astronomy.s.Body[18],
-            "neptune": Astronomy.s.Body[19],
-            "pluto": Astronomy.s.Body[20]
-        };
+        // Astronomy Engine Body //
         this.astro = bodies[this.id]
 
         // GEOMETRY //
         const radiusScale = this.radius / sizeScale
         this.geometry = geometry
         var enlarge = 1;
-        // if (this.id != "moon" && this.id != "sun") {
-        //     enlarge = 1000;
-        // }
         this.geometry.scale(radiusScale * enlarge, radiusScale * enlarge, radiusScale * enlarge)
 
         this.mesh = new THREE.Mesh()
@@ -200,6 +199,24 @@ class Planet extends GUIMovableObject {
     displayLabel(scene: THREE.Scene) {
         scene.add(this.labelCircle)
         scene.add(this.labelText)
+    }
+
+    updateLabel(camera: THREE.Camera): void {
+        // let inner = ["mercury", "venus", "earth", "mars", "ceres"]
+        // let outer = ["jupiter", "saturn", "uranus", "neptune", "pluto"]
+
+        // // TODO: Uses too many resources (Large numbers + distance)
+        // let dist = new Vector3(0, 0, 0).distanceTo(camera.position) * distanceScale
+        // this.labelText.element.textContent = this.name
+
+        // let removeInner = inner.includes(this.name.toLowerCase()) && dist > 2000000000
+        // let removeOuter = outer.includes(this.name.toLowerCase()) && dist > 20000000000
+
+        // if (removeInner || removeOuter) {
+        //     this.labelText.element.textContent = ''
+        // }
+
+        // this.labelText.element.style.color = 'white'
     }
 
     getRadius(): number {
