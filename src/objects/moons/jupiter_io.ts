@@ -14,7 +14,7 @@ class Io extends JupiterMoon {
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const texture = textureLoader.load('assets/images/textures/io/io.jpeg')
+        const texture = textureLoader.load('assets/images/textures/io/io_2k.jpg')
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()

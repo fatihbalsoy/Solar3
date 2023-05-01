@@ -139,9 +139,6 @@ export class Stars {
                     // sizes[i] = Math.pow(10, -star.Mag / 2.5); // Adjust size based on star's magnitude
                     // sizes[i] = Math.pow(2.512, -star.Mag) * (1 + star.Distance * distanceScale); // Star magnitude and distance to size factor
                     // sizes[i] = this.calculateStarSize(-star.data.Mag, star.data.Distance, this.minMagnitude, this.maxDistance, 40000000, 50000000000)
-                    if (i <= 10) {
-                        console.log(sizes[i])
-                    }
                 }
 
                 // Set star attributes to star geometry

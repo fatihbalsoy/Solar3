@@ -94,6 +94,7 @@ This project would not have been possible without these helpful resources:
 * [Textures by Solar System Scope](https://www.solarsystemscope.com/textures/)
 * [Milky Way Texture by gammaburst](https://sourceforge.net/p/stellarium/discussion/278769/thread/00fea5e1/#0f6d/ffb1/d1f9/b21b/8d00)
 * [More Textures by Stellarium](https://github.com/Stellarium/stellarium)
+* [Map of Io by USGS](https://pubs.usgs.gov/sim/3168/)
 
 ## License
 
