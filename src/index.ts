@@ -7,10 +7,10 @@
  */
 
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { OrbitControls } from './modules/OrbitControls'
 import * as dat from 'dat.gui'
 import GUIMovableObject from './gui/movable_3d_object'
-import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { CSS2DRenderer } from './modules/CSS2DRenderer';
 import { distanceScale } from './settings'
 
 import Sun from './objects/sun'
@@ -27,6 +27,8 @@ import Pluto from './objects/dwarf_planets/pluto'
 import { Stars } from './objects/stars'
 import Ceres from './objects/dwarf_planets/ceres'
 import Planet from './objects/planet';
+
+import { Orbit, Orbits } from './utils/orbit_points'
 
 // Loading
 const loadingManager = new THREE.LoadingManager()
@@ -85,41 +87,41 @@ document.body.appendChild(cssRenderer.domElement)
 // Scene
 const scene = new THREE.Scene()
 
-// Objects
-
-//? -- OBJECTS -- ?//
-const objects = {
-    sun: new Sun(),
-    mercury: new Mercury(),
-    venus: new Venus(),
-    earth: new Earth(),
-    moon: new Moon(),
-    mars: new Mars(),
-    jupiter: new Jupiter(),
-    saturn: new Saturn(),
-    uranus: new Uranus(),
-    neptune: new Neptune(),
-    pluto: new Pluto(),
-    // ceres: new Ceres(),
+// * -- OBJECTS -- * //
+let objArr: Planet[] = [
+    new Sun(),
+    new Mercury(), new Venus(), new Earth(), new Moon(), new Mars(),
+    new Jupiter(), new Saturn(), new Uranus(), new Neptune(),
+    new Pluto(), // new Ceres(),
+]
+let objects = {
+    sun: objArr[0] as Sun,
+    mercury: objArr[1], venus: objArr[2], earth: objArr[3], moon: objArr[4], mars: objArr[5],
+    jupiter: objArr[6], saturn: objArr[7], uranus: objArr[8], neptune: objArr[9],
+    pluto: objArr[10], // ceres: objArr[11]
 }
 objects.sun.light.shadow.camera.far = objects.pluto.distance;
+
+// Orbits //
+let orbits = new Orbits()
+orbits.addOrbits(objArr.slice(1, objArr.length), scene)
+
+// Add objects to scene //
 for (const key in objects) {
-    if (Object.prototype.hasOwnProperty.call(objects, key)) {
-        const object = objects[key] as Planet;
+    const object = objects[key] as Planet;
 
-        scene.add(object.mesh)
-        object.displayLabel(scene)
+    scene.add(object.mesh)
+    object.displayLabel(scene)
 
-        if (key !== "sun") {
-            // object.displayOrbit(objects.sun.mesh, scene)
-            objects.sun.mesh.add(object.mesh)
-        }
+    if (key !== "sun") {
+        // object.displayOrbit(objects.sun.mesh, scene)
+        objects.sun.mesh.add(object.mesh)
     }
 }
 
 // * -- STARS -- * //
 let stars = new Stars()
-stars.displayReal(scene)
+stars.display(scene)
 
 // * -- LIGHTS -- * //
 
@@ -214,12 +216,10 @@ const tick = () => {
     const elapsedTime = clock.startTime + clock.getElapsedTime()
 
     for (const key in objects) {
-        if (Object.prototype.hasOwnProperty.call(objects, key)) {
-            const object = objects[key];
+        const object = objects[key];
 
-            object.animate()
-            object.updateLabel(camera)
-        }
+        object.animate()
+        object.updateLabel(camera)
     }
     objects.moon.mesh.lookAt(objects.earth.mesh.position)
 

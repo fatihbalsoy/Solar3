@@ -12,12 +12,13 @@ import * as THREE from "three"
 import GUIMovableObject from "../gui/movable_3d_object"
 import * as dat from 'dat.gui'
 import * as objectsJson from '../data/objects.json';
-import { HelioVector, Body, Vector, Rotation_EQJ_ECL } from "../services/astronomy";
+import { HelioVector, Body, Vector, Rotation_EQJ_ECL } from 'astronomy-engine';
 import { distanceScale, sizeScale } from "../settings";
-import { convertRotationMatrix4 } from "../utils";
-import { CSS2DObject } from "three/examples/jsm/renderers/CSS2DRenderer";
+import { convertRotationMatrix4 } from "../utils/utils";
+import { CSS2DObject } from "../modules/CSS2DRenderer";
+import { Orbit } from '../utils/orbit_points';
 
-let bodies = {
+export let bodies = {
     "sun": Body.Sun,
     "mercury": Body.Mercury,
     "venus": Body.Venus,
@@ -147,7 +148,7 @@ class Planet extends GUIMovableObject {
         }
 
         let date = new Date()
-        let coordinates = this.getPositionForDate(date)
+        let coordinates = Planet.getPositionForDate(date, this.astroBody)
         this.mesh.position.x = coordinates.x
         this.mesh.position.y = coordinates.y
         this.mesh.position.z = coordinates.z
@@ -167,18 +168,10 @@ class Planet extends GUIMovableObject {
     /**
      * Traces out the planet's orbit
      */
-    displayOrbit(parent: Object3D, scene: THREE.Scene) {
-        // return;
+    displayOrbit(data: Orbit, scene: THREE.Scene) {
         const curve = new THREE.CatmullRomCurve3()
-        console.log(this.name)
-        for (let i = 0; i < 366 * (this.orbitalPeriod / 365); i++) {
-            let currDate = new Date()
-            let currYear = new Date(currDate.getFullYear(), 0)
-            let date = new Date(currYear.setDate(i))
-            let pos = this.getPositionForDate(date)
+        curve.points = data.points
 
-            curve.points[i] = new Vector3(pos.x, pos.y, pos.z)
-        }
         const points = curve.getPoints(500)
         const geometry = new THREE.BufferGeometry().setFromPoints(points)
         const material = new THREE.LineBasicMaterial({ color: 0xff0000 })
@@ -235,8 +228,8 @@ class Planet extends GUIMovableObject {
         return this.mesh.position.x.toFixed(0) + "," + this.mesh.position.y.toFixed(0) + "," + this.mesh.position.z.toFixed(0)
     }
 
-    getPositionForDate(date: Date): Vector {
-        let helioCoords = HelioVector(this.astroBody, date)
+    static getPositionForDate(date: Date, body: Body): Vector {
+        let helioCoords = HelioVector(body, date)
         let AUtoKM = 1.496e+8
         // z,x,y
         return new Vector(

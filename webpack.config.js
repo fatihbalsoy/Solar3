@@ -45,7 +45,7 @@ const config = {
       {
         test: /\.(ts|tsx)$/i,
         loader: "ts-loader",
-        exclude: ["./node_modules/", "./scripts/"],
+        exclude: ["/node_modules/", "/scripts/"],
       },
       {
         test: /\.css$/i,
@@ -77,7 +77,10 @@ module.exports = () => {
 
     config.plugins.push(new MiniCssExtractPlugin());
 
-    config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
+    config.plugins.push(new WorkboxWebpackPlugin.GenerateSW({
+      swDest: "./dist/sw.js",
+      maximumFileSizeToCacheInBytes: 20 * 1e+6 // mb * bytes/mb
+    }));
   } else {
     config.mode = "development";
   }

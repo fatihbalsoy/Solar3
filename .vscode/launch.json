@@ -27,6 +27,12 @@
             "name": "Build (Development)",
             "request": "launch",
             "type": "node-terminal"
+        },
+        {
+            "command": "npm run calculate-orbits",
+            "name": "Calculate Orbits",
+            "request": "launch",
+            "type": "node-terminal"
         }
     ]
 }
