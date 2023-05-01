@@ -50,11 +50,10 @@ Jupiter
 <details>
 <summary>Stars</summary>
 
-* a - Antares (Star)
-* c - Ceres (Dwarf Planet)
-* o - Polaris (Star)
-* p - Proxima Centauri (Star)
-* r - Rigil Kentaurus (Star)
+* a - Antares
+* o - Polaris
+* p - Proxima Centauri
+* r - Rigil Kentaurus
 </details>
 
 ## Known Issues
