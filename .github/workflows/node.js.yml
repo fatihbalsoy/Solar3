@@ -29,5 +29,4 @@ jobs:
       - run: npm ci
       - run: npm run build:dev
       - run: npm run build:prod
-      - run: npm run build:prod:orbits
     # - run: npm test
