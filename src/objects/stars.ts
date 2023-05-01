@@ -112,7 +112,8 @@ export class Stars {
     // TODO: The star positions must be rotated. Star sizes are not accurate.
     display(scene: THREE.Scene) {
         // fetch('https://raw.githubusercontent.com/astronexus/HYG-Database/master/hyg/v2/hygxyz.csv')
-        fetch('https://raw.githubusercontent.com/astronexus/HYG-Database/master/hyg/v3/hyg_v32.csv')
+        // fetch('https://raw.githubusercontent.com/astronexus/HYG-Database/master/hyg/v3/hyg_v32.csv')
+        fetch('data/stars_hyg_v33.csv')
             .then(response => response.text())
             .then(data => {
                 // Parse and process the star data

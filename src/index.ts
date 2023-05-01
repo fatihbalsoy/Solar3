@@ -175,7 +175,7 @@ controls.enablePan = false
 // composer.addPass(new EffectPass(camera, new BloomEffect()));
 
 // TODO: Texture does not look good for galaxy, (maybe try adding stars individually?)
-const galaxyTexture = textureLoader.load('assets/images/textures/galaxy/4k_milky_way_nostars.jpeg', () => {
+const galaxyTexture = textureLoader.load('assets/images/textures/galaxy/2k_milky_way_stellarium.jpeg', () => {
     const rt = new THREE.WebGLCubeRenderTarget(galaxyTexture.image.height);
     rt.fromEquirectangularTexture(renderer, galaxyTexture);
     scene.background = rt.texture;

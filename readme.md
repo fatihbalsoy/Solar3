@@ -82,18 +82,17 @@ npm run build:prod
 npm run calculate-orbits
 ```
 
-## Special Thanks
+## Special Thanks and Licenses
 
 This project would not have been possible without these helpful resources:
 
-* [Astronomy Engine by Don Cross](https://github.com/cosinekitty/astronomy)
-* [HYG Star Database by David Nash](https://github.com/astronexus/HYG-Database)
+* [Astronomy Engine by Don Cross - MIT](https://github.com/cosinekitty/astronomy)
+* [HYG Star Database by David Nash - CC BY-SA 2.5](https://github.com/astronexus/HYG-Database)
 * [Computing Planetary Positions by Paul Schlyter](https://www.stjarnhimlen.se/comp/tutorial.html)
 * [Ephemeris Data by NASA's Horizons System](https://ssd.jpl.nasa.gov/horizons/app.html#/)
 * [Monthly Earth Images by NASA](https://visibleearth.nasa.gov/collection/1484/blue-marble)
-* [Textures by Solar System Scope](https://www.solarsystemscope.com/textures/)
-* [Milky Way Texture by gammaburst](https://sourceforge.net/p/stellarium/discussion/278769/thread/00fea5e1/#0f6d/ffb1/d1f9/b21b/8d00)
-* [More Textures by Stellarium](https://github.com/Stellarium/stellarium)
+* [Textures by Solar System Scope - CC BY 4.0](https://www.solarsystemscope.com/textures/)
+* [Milky Way Texture by Stellarium - GPL v2.0](https://github.com/Stellarium/stellarium)
 * [Map of Io by USGS](https://pubs.usgs.gov/sim/3168/)
 
 ## License
