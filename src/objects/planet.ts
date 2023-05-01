@@ -228,12 +228,22 @@ class Planet extends GUIMovableObject {
     }
 
     static getPositionForDate(date: Date, body: Body): Vector {
+        let pos = Planet.getPositionForDateNotScaled(date, body)
+        return new Vector(
+            pos.x * AUtoKM / distanceScale,
+            pos.y * AUtoKM / distanceScale,
+            pos.z * AUtoKM / distanceScale,
+            pos.t
+        )
+    }
+
+    static getPositionForDateNotScaled(date: Date, body: Body): Vector {
         let helioCoords = HelioVector(body, date)
         // z,x,y
         return new Vector(
-            -helioCoords.y * AUtoKM / distanceScale, // x
-            helioCoords.z * AUtoKM / distanceScale,   // y
-            -helioCoords.x * AUtoKM / distanceScale, // z
+            -helioCoords.y, // x
+            helioCoords.z,  // y
+            -helioCoords.x, // z
             helioCoords.t
         )
     }

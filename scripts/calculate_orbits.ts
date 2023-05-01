@@ -24,6 +24,10 @@ Array.prototype.insert = function <T>(this: T[], index: number, ...items: T[]): 
 // define start date
 const startDate = new Date();
 
+// range of objects to calculate orbits for
+let start = bodies.sun
+let stopAt = bodies.pluto
+
 // calculate and store orbit points for each planet
 var orbitPoints: string[] = []
 var indexNames: string = ""
@@ -56,8 +60,9 @@ for (let key in bodies) {
         let orbit: string[] = [];
         for (let i = 0; i < lines; i++) {
             let date = new Date(startDate.getFullYear(), 0, i);
-            let pos = Planet.getPositionForDate(date, planet);
-            let posString = `${pos.x},${pos.y},${pos.z}`
+            let pos = Planet.getPositionForDateNotScaled(date, planet);
+            let sigFigs = 5
+            let posString = `${pos.x.toPrecision(sigFigs)},${pos.y.toPrecision(sigFigs)},${pos.z.toPrecision(sigFigs)}`
             orbit.push(posString);
             if (showCalculations) {
                 process.stdout.clearLine(0);
@@ -71,6 +76,7 @@ for (let key in bodies) {
         if (orbit.length != 0) {
             orbitPoints = orbitPoints.concat(orbit)
         }
+        if (planet.valueOf() == stopAt.valueOf()) { break }
     }
 }
 

@@ -8,6 +8,7 @@
 
 import * as THREE from "three"
 import Planet, { bodies } from "../objects/planet"
+import { AUtoKM, distanceScale } from "../settings"
 
 export interface Orbit {
     name: string
@@ -35,9 +36,9 @@ export class Orbits {
         for (let v = 0; v < vLines.length; v++) {
             let element = vLines[v];
             let coords: string[] = element.split(",")
-            let x = parseFloat(coords[0])
-            let y = parseFloat(coords[1])
-            let z = parseFloat(coords[2])
+            let x = parseFloat(coords[0]) * AUtoKM / distanceScale
+            let y = parseFloat(coords[1]) * AUtoKM / distanceScale
+            let z = parseFloat(coords[2]) * AUtoKM / distanceScale
 
             let vector = new THREE.Vector3(x, y, z)
             vectors.push(vector)
