@@ -10,6 +10,7 @@ import * as fs from "fs";
 import Planet, { bodies } from "../src/objects/planet";
 import * as objectsJson from '../src/data/objects.json';
 import { Body } from 'astronomy-engine';
+import * as readline from 'readline';
 
 declare global {
     interface Array<T> {
@@ -20,6 +21,12 @@ declare global {
 Array.prototype.insert = function <T>(this: T[], index: number, ...items: T[]): void {
     this.splice(index, 0, ...items);
 };
+
+function rprint(s: string) {
+    readline.clearLine(process.stdout, 0)
+    readline.cursorTo(process.stdout, 0, undefined)
+    process.stdout.write(s)
+}
 
 // define start date
 const startDate = new Date();
@@ -54,9 +61,7 @@ for (let key in bodies) {
         indexLines = indexLines.concat((index).toString() + ",")
         process.stdout.write("\n- index: " + index + "\n")
 
-        process.stdout.clearLine(0);
-        process.stdout.cursorTo(0);
-        process.stdout.write("-- Calculating Orbit...")
+        rprint("-- Calculating Orbit...")
         let orbit: string[] = [];
         for (let i = 0; i < lines; i++) {
             let date = new Date(startDate.getFullYear(), 0, i);
@@ -65,14 +70,10 @@ for (let key in bodies) {
             let posString = `${pos.x.toPrecision(sigFigs)},${pos.y.toPrecision(sigFigs)},${pos.z.toPrecision(sigFigs)}`
             orbit.push(posString);
             if (showCalculations) {
-                process.stdout.clearLine(0);
-                process.stdout.cursorTo(0);
-                process.stdout.write("-- Day: " + i + "\t" + posString)
+                rprint("-- Day: " + i + "\t" + posString)
             }
         }
-        process.stdout.clearLine(0);
-        process.stdout.cursorTo(0);
-        process.stdout.write("-- Calculated Orbit.");
+        rprint("-- Calculated Orbit.")
         if (orbit.length != 0) {
             orbitPoints = orbitPoints.concat(orbit)
         }
