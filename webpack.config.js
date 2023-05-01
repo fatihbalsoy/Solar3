@@ -82,6 +82,9 @@ const config = {
     ],
   },
   resolve: {
+    alias: {
+        three: path.resolve('./node_modules/three')
+    },
     extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
   },
 };
