@@ -78,7 +78,6 @@ module.exports = () => {
     config.plugins.push(new MiniCssExtractPlugin());
 
     config.plugins.push(new WorkboxWebpackPlugin.GenerateSW({
-      swDest: "./dist/sw.js",
       maximumFileSizeToCacheInBytes: 20 * 1e+6 // mb * bytes/mb
     }));
   } else {

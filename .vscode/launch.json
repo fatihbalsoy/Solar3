@@ -23,6 +23,12 @@
             "type": "node-terminal"
         },
         {
+            "command": "npm run build:prod:orbits",
+            "name": "Build (Production + Orbit Calculation)",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
             "command": "npm run build:dev",
             "name": "Build (Development)",
             "request": "launch",

@@ -182,7 +182,7 @@ export class Stars {
         }
 
         // If no star with the input name is found, return null
-        return null;
+        return Star.empty();
     }
 
     getStarById(id: number): Star {
