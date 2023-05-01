@@ -15,7 +15,22 @@ const stylesHandler = isProduction
 const config = {
   entry: "./src/index.ts",
   output: {
+    clean: true,
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, "dist"),
+  },
+  optimization: {
+    moduleIds: 'deterministic',
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
   },
   devServer: {
     open: true,
