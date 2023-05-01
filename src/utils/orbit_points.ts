@@ -58,7 +58,6 @@ export class Orbits {
             .then(data => {
                 for (let c in planets) {
                     let planet = planets[c]
-                    console.log("ORB: " + planet.name)
                     let orbit = this.parseData(data, planet.name)
                     planet.displayOrbit(orbit, scene)
                 }

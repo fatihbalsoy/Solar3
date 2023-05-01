@@ -16,10 +16,10 @@
     "@types/three": "^0.148.0",
     "astronomy-engine": "^2.1.17",
     "dat.gui": "^0.7.7",
+    "stats.js": "^0.17.0",
     "three": "^0.148.0"
   },
   "_disabled": {
-    "@types/three": "^",
     "glslify": "^7.1.1",
     "glslify-import-loader": "^0.1.2",
     "glslify-loader": "^2.0.0"
@@ -29,6 +29,7 @@
     "@babel/preset-env": "^7.13.5",
     "@types/dat.gui": "^0.7.9",
     "@types/node": "^18.16.1",
+    "@types/stats.js": "^0.17.0",
     "@webpack-cli/generators": "^3.0.2",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",

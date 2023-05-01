@@ -10,7 +10,7 @@ SolarSystem.3js is a real-time 1:1 scale of the Solar System, including nearby s
 
 ## Gameplay
 
-Scroll to move the camera closer or farther away from the selected object.
+Scroll to move the camera closer or farther away.
 
 Click and drag to orbit around the selected celestial object.
 
@@ -26,19 +26,44 @@ Center an object on the screen by pressing the following keys:
 * 7 - Uranus
 * 8 - Neptune
 * 9 - Pluto
-* a - Antares
-* c - Ceres
+
+<details>
+<summary>Dwarf Planets</summary>
+
+* 9 - Pluto
+* ~~c - Ceres (Dwarf Planet)~~ (Temporarily Removed)
+</details>
+
+<details>
+<summary>Moons</summary>
+
+Earth
 * m - Moon
-* o - Polaris 
-* p - Proxima Centauri
-* r - Rigil Kentaurus
+
+Jupiter
+* e - Europa
+* g - Ganymede
+* i - Io
+* v - Callisto
+</details>
+
+<details>
+<summary>Stars</summary>
+
+* a - Antares (Star)
+* c - Ceres (Dwarf Planet)
+* o - Polaris (Star)
+* p - Proxima Centauri (Star)
+* r - Rigil Kentaurus (Star)
+</details>
 
 ## Known Issues
 
 Here are some known issues that will be worked on in the near future:
 
 * Although the distance between stars is 1:1, the star sizes are extremely large for a visual aesthetic. A custom shader will be written to simulate accurate star sizes and brightness depending on their magnitude.
-* The rotation of the solar system, milky way, and stars are all independent. Therefore, not accurate in relation to one another.
+* The orientation of each celestial object is not yet accurate.
+* The camera is not oriented along the ecliptic plane. 
 
 ## Setup & Build
 Download [Node.js](https://nodejs.org/en/download/).
@@ -53,6 +78,9 @@ npm run serve
 
 # Build for production in the dist/ directory
 npm run build:prod
+
+# Calculate orbits and create cache file
+npm run calculate-orbits
 ```
 
 ## Special Thanks

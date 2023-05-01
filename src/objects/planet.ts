@@ -13,7 +13,7 @@ import GUIMovableObject from "../gui/movable_3d_object"
 import * as dat from 'dat.gui'
 import * as objectsJson from '../data/objects.json';
 import { HelioVector, Body, Vector, Rotation_EQJ_ECL } from 'astronomy-engine';
-import { distanceScale, sizeScale } from "../settings";
+import { AUtoKM, distanceScale, sizeScale } from "../settings";
 import { convertRotationMatrix4 } from "../utils/utils";
 import { CSS2DObject } from "../modules/CSS2DRenderer";
 import { Orbit } from '../utils/orbit_points';
@@ -29,7 +29,11 @@ export let bodies = {
     "saturn": Body.Saturn,
     "uranus": Body.Uranus,
     "neptune": Body.Neptune,
-    "pluto": Body.Pluto
+    "pluto": Body.Pluto,
+    "io": "io",
+    "callisto": "callisto",
+    "europa": "europa",
+    "ganymede": "ganymede"
 };
 
 class Planet extends GUIMovableObject {
@@ -108,8 +112,6 @@ class Planet extends GUIMovableObject {
         const axisVector = new THREE.Vector3(0, 0, 1)
         const axisRadians = this.axialTilt * Math.PI / 180
         this.realMesh.setRotationFromAxisAngle(axisVector, axisRadians)
-        const rotMatrix = new THREE.Matrix4()
-        const rotArray: number[][] = Rotation_EQJ_ECL().rot
         this.realMesh.setRotationFromMatrix(convertRotationMatrix4(Rotation_EQJ_ECL()))
 
         // LABEL //
@@ -149,10 +151,8 @@ class Planet extends GUIMovableObject {
 
         let date = new Date()
         let coordinates = Planet.getPositionForDate(date, this.astroBody)
-        this.mesh.position.x = coordinates.x
-        this.mesh.position.y = coordinates.y
-        this.mesh.position.z = coordinates.z
 
+        this.mesh.position.set(coordinates.x, coordinates.y, coordinates.z)
         this.labelText.position.set(coordinates.x, coordinates.y, coordinates.z)
         this.labelCircle.position.set(coordinates.x, coordinates.y, coordinates.z)
     }
@@ -187,21 +187,20 @@ class Planet extends GUIMovableObject {
     }
 
     updateLabel(camera: THREE.Camera): void {
-        // let inner = ["mercury", "venus", "earth", "mars", "ceres"]
-        // let outer = ["jupiter", "saturn", "uranus", "neptune", "pluto"]
+        let inner = ["mercury", "venus", "earth", "mars", "ceres"]
+        let outer = ["jupiter", "saturn", "uranus", "neptune", "pluto"]
 
-        // // TODO: Uses too many resources (Large numbers + distance)
-        // let dist = new Vector3(0, 0, 0).distanceTo(camera.position) * distanceScale
-        // this.labelText.element.textContent = this.name
+        let dist = new Vector3(0, 0, 0).distanceTo(camera.position) * distanceScale
+        this.labelText.element.textContent = this.name
 
-        // let removeInner = inner.includes(this.name.toLowerCase()) && dist > 2000000000
-        // let removeOuter = outer.includes(this.name.toLowerCase()) && dist > 20000000000
+        let removeInner = inner.includes(this.name.toLowerCase()) && dist > 2000000000
+        let removeOuter = outer.includes(this.name.toLowerCase()) && dist > 20000000000
 
-        // if (removeInner || removeOuter) {
-        //     this.labelText.element.textContent = ''
-        // }
+        if (removeInner || removeOuter) {
+            this.labelText.element.textContent = ''
+        }
 
-        // this.labelText.element.style.color = 'white'
+        this.labelText.element.style.color = 'white'
     }
 
     getRadius(): number {
@@ -230,12 +229,11 @@ class Planet extends GUIMovableObject {
 
     static getPositionForDate(date: Date, body: Body): Vector {
         let helioCoords = HelioVector(body, date)
-        let AUtoKM = 1.496e+8
         // z,x,y
         return new Vector(
             -helioCoords.y * AUtoKM / distanceScale, // x
             helioCoords.z * AUtoKM / distanceScale,   // y
-            - helioCoords.x * AUtoKM / distanceScale, // z
+            -helioCoords.x * AUtoKM / distanceScale, // z
             helioCoords.t
         )
     }

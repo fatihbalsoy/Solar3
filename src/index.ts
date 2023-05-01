@@ -7,6 +7,7 @@
  */
 
 import * as THREE from 'three'
+import Stats from 'stats.js'
 import { OrbitControls } from './modules/OrbitControls'
 import * as dat from 'dat.gui'
 import GUIMovableObject from './gui/movable_3d_object'
@@ -24,11 +25,16 @@ import Saturn from './objects/planets/saturn'
 import Uranus from './objects/planets/uranus'
 import Neptune from './objects/planets/neptune'
 import Pluto from './objects/dwarf_planets/pluto'
-import { Stars } from './objects/stars'
 import Ceres from './objects/dwarf_planets/ceres'
+import Io from './objects/moons/jupiter_io';
 import Planet from './objects/planet';
+import Stars from './objects/stars'
 
-import { Orbit, Orbits } from './utils/orbit_points'
+import { Orbits } from './utils/orbit_points'
+import JupiterMoon from './objects/moons/jupiter_moon';
+import Callisto from './objects/moons/jupiter_callisto';
+import Europa from './objects/moons/jupiter_europa';
+import Ganymede from './objects/moons/jupiter_ganymede';
 
 // Loading
 const loadingManager = new THREE.LoadingManager()
@@ -58,7 +64,6 @@ window.addEventListener('resize', () => {
     renderer.setSize(sizes.width, sizes.height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     cssRenderer.setSize(sizes.width, sizes.height)
-
 })
 
 /**
@@ -87,24 +92,34 @@ document.body.appendChild(cssRenderer.domElement)
 // Scene
 const scene = new THREE.Scene()
 
+// * -- STATISTICS -- * //
+const stats = new Stats()
+stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
+document.body.appendChild(stats.dom)
+
 // * -- OBJECTS -- * //
 let objArr: Planet[] = [
     new Sun(),
     new Mercury(), new Venus(), new Earth(), new Moon(), new Mars(),
     new Jupiter(), new Saturn(), new Uranus(), new Neptune(),
     new Pluto(), // new Ceres(),
+    new Io(), new Callisto(), new Europa(), new Ganymede()
 ]
 let objects = {
     sun: objArr[0] as Sun,
     mercury: objArr[1], venus: objArr[2], earth: objArr[3], moon: objArr[4], mars: objArr[5],
     jupiter: objArr[6], saturn: objArr[7], uranus: objArr[8], neptune: objArr[9],
-    pluto: objArr[10], // ceres: objArr[11]
+    pluto: objArr[10], // ceres: objArr[11],
+    io: objArr[11], callisto: objArr[12], europa: objArr[13], ganymede: objArr[14]
 }
 objects.sun.light.shadow.camera.far = objects.pluto.distance;
+JupiterMoon.jupiter = objects.jupiter
 
 // Orbits //
 let orbits = new Orbits()
-orbits.addOrbits(objArr.slice(1, objArr.length), scene)
+let orbitsStart = objArr.indexOf(objects.mercury)
+let orbitsEnd = objArr.indexOf(objects.pluto) + 1
+orbits.addOrbits(objArr.slice(orbitsStart, orbitsEnd), scene)
 
 // Add objects to scene //
 for (const key in objects) {
@@ -160,7 +175,7 @@ controls.enablePan = false
 // composer.addPass(new EffectPass(camera, new BloomEffect()));
 
 // TODO: Texture does not look good for galaxy, (maybe try adding stars individually?)
-const galaxyTexture = textureLoader.load('assets/images/textures/galaxy/4k_milky_way_nostars.png', () => {
+const galaxyTexture = textureLoader.load('assets/images/textures/galaxy/4k_milky_way_nostars.jpeg', () => {
     const rt = new THREE.WebGLCubeRenderTarget(galaxyTexture.image.height);
     rt.fromEquirectangularTexture(renderer, galaxyTexture);
     scene.background = rt.texture;
@@ -196,10 +211,14 @@ function onDocumentKeyDown(event) {
         57: objects.pluto.mesh.position, // 9
         65: stars.getStarByName("Antares").position, // a
         // 67: objects.ceres.mesh.position, // c
+        69: objects.europa.mesh.position, // e
+        71: objects.ganymede.mesh.position, // g
+        73: objects.io.mesh.position, // i
         77: objects.moon.mesh.position, // m
         79: stars.getStarByName("Polaris").position, // o
         80: stars.getStarByName("Proxima Centauri").position, // p
-        82: stars.getStarByName("Rigil Kentaurus").position // r
+        82: stars.getStarByName("Rigil Kentaurus").position, // r
+        86: objects.callisto.mesh.position, // v
     }
     positionToLookAt = planetKeys[keyCode] ?? positionToLookAt
     controls.target = positionToLookAt
@@ -209,6 +228,7 @@ document.addEventListener("keydown", onDocumentKeyDown, false);
 
 var didPrint = false
 const tick = () => {
+    stats.begin()
 
     camera.updateProjectionMatrix() // for GUI controls
 
@@ -225,22 +245,6 @@ const tick = () => {
 
     camera.lookAt(positionToLookAt)
 
-    if (!didPrint) {
-        console.log("sun: ", objects.sun.getPositionAsString())
-        console.log("mercury: ", objects.mercury.getPositionAsString())
-        console.log("venus: ", objects.venus.getPositionAsString())
-        console.log("earth: ", objects.earth.getPositionAsString())
-        console.log("moon: ", objects.moon.getPositionAsString())
-        console.log("mars: ", objects.mars.getPositionAsString())
-        console.log("jupiter: ", objects.jupiter.getPositionAsString())
-        console.log("saturn: ", objects.saturn.getPositionAsString())
-        console.log("uranus: ", objects.uranus.getPositionAsString())
-        console.log("neptune: ", objects.neptune.getPositionAsString())
-        console.log("pluto: ", objects.pluto.getPositionAsString())
-        // console.log("ceres: ", objects.ceres.getPositionAsString())
-        didPrint = true
-    }
-
     // Update Orbital Controls
     controls.update()
 
@@ -251,6 +255,8 @@ const tick = () => {
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
+
+    stats.end()
 }
 
 tick()

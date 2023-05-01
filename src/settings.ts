@@ -13,7 +13,10 @@ export enum Quality {
 }
 export let quality: Quality = Quality.medium
 
-// Distance Scale
+// Scale
 // TODO: Change to 1/10000
 export let distanceScale: number = 10000
 export let sizeScale: number = 10000
+
+// Astronomical Units to Kilometers
+export let AUtoKM = 1.496e+8

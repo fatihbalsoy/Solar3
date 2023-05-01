@@ -189,3 +189,4 @@ export class Stars {
         return this.database[id]
     }
 }
+export default Stars;

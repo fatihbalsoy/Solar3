@@ -5,7 +5,7 @@ data = json.load(f)
 
 only = ["Sun", "Mercury", "Venus", "Earth", "Moon", "Mars",
         "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto",
-        "1 Ceres"]
+        "1 Ceres", "Io", "Ganymede", "Europa", "Callisto"]
 translation = {
     'la lune': 'moon',
     'uranus': 'uranus',
@@ -18,7 +18,11 @@ translation = {
     'le soleil': 'sun',
     'terre': 'earth',
     'vénus': 'venus',
-    '(1) Cérès': 'ceres'
+    '(1) Cérès': 'ceres',
+    'io': 'io',
+    'ganymede': 'ganymede',
+    'europe': 'europa',
+    'callisto': 'callisto'
 }
 
 json_dump = {}
