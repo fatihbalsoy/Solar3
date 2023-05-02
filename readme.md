@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/github/license/fatihbalsoy/SolarSystem.3js)](https://github.com/fatihbalsoy/SolarSystem.3js/blob/main/LICENSE)
 [![Web](https://img.shields.io/badge/Web-three.js-lightgreen)](https://github.com/mrdoob/three.js/)
 
-SolarSystem.3js is a real-time 1:1 scale of the Solar System, including nearby stars, built with the [three.js](https://github.com/mrdoob/three.js/) library. 
+SolarSystem.3js is a real-time 1:1 scale of the Solar System, including nearby stars, built with the [three.js](https://github.com/mrdoob/three.js/) library.
 
 ## [Launch →](https://fatih.balsoy.com/app/solar-system-3js)
 
@@ -14,7 +14,7 @@ Scroll to move the camera closer or farther away.
 
 Click and drag to orbit around the selected celestial object.
 
-Center an object on the screen by pressing the following keys: 
+Center an object on the screen by pressing the following keys:
 
 * 0 - Sun
 * 1 - Mercury
@@ -32,19 +32,23 @@ Center an object on the screen by pressing the following keys:
 
 * 9 - Pluto
 * ~~c - Ceres (Dwarf Planet)~~ (Temporarily Removed)
+
 </details>
 
 <details>
 <summary>Moons</summary>
 
 Earth
+
 * m - Moon
 
 Jupiter
+
 * e - Europa
 * g - Ganymede
 * i - Io
 * v - Callisto
+
 </details>
 
 <details>
@@ -54,6 +58,7 @@ Jupiter
 * o - Polaris
 * p - Proxima Centauri
 * r - Rigil Kentaurus
+
 </details>
 
 ## Known Issues
@@ -61,9 +66,10 @@ Jupiter
 Here are some known issues that will be worked on in the near future:
 
 * The orientation of each celestial object is not yet accurate.
-* The camera is not oriented along the ecliptic plane. 
+* The camera is not oriented along the ecliptic plane.
 
 ## Setup & Build
+
 Download [Node.js](https://nodejs.org/en/download/).
 Run the following commands:
 
@@ -99,10 +105,10 @@ This project would not have been possible without these helpful resources:
 
 Feel free to submit a pull request for one of the following:
 
-- New features
-- Performance enhancements
-- Fixing bugs
-- Patching security vulnurabilities
+* New features
+* Performance enhancements
+* Fixing bugs
+* Patching security vulnurabilities
 
 ## License
 
