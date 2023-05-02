@@ -109,10 +109,10 @@ class Planet extends GUIMovableObject {
         }
 
         // ROTATE MESH //
-        const axisVector = new THREE.Vector3(0, 0, 1)
-        const axisRadians = this.axialTilt * Math.PI / 180
-        this.realMesh.setRotationFromAxisAngle(axisVector, axisRadians)
-        this.realMesh.setRotationFromMatrix(convertRotationMatrix4(Rotation_EQJ_ECL()))
+        // const axisVector = new THREE.Vector3(0, 0, 1)
+        // const axisRadians = this.axialTilt * Math.PI / 180
+        // this.realMesh.setRotationFromAxisAngle(axisVector, axisRadians)
+        // this.realMesh.setRotationFromMatrix(convertRotationMatrix4(Rotation_EQJ_ECL()))
 
         // LABEL //
         const circle = document.createElement('div')
@@ -209,10 +209,6 @@ class Planet extends GUIMovableObject {
 
     getDistance(): number {
         return this.distance
-    }
-
-    getDistanceScale(): number {
-        return distanceScale
     }
 
     getMesh(): Mesh {

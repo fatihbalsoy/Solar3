@@ -41,7 +41,7 @@ const loadingManager = new THREE.LoadingManager()
 const textureLoader = new THREE.TextureLoader(loadingManager)
 
 // Debug
-const gui = new dat.GUI()
+// const gui = new dat.GUI()
 
 /**
  ** --  Sizes -- *
@@ -136,7 +136,7 @@ for (const key in objects) {
 
 // * -- STARS -- * //
 let stars = new Stars()
-stars.display(scene)
+stars.parseData()
 
 // * -- LIGHTS -- * //
 
@@ -160,13 +160,14 @@ scene.add(camera)
 var positionToLookAt: THREE.Vector3 = objects.earth.mesh.position
 camera.position.set(positionToLookAt.x, positionToLookAt.y, positionToLookAt.z)
 
-const cameraGUI = new GUIMovableObject();
-cameraGUI._addGUI(gui, 'Camera', camera)
+// const cameraGUI = new GUIMovableObject();
+// cameraGUI._addGUI(gui, 'Camera', camera)
 
 // Controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 controls.enablePan = false
+controls.maxDistance = (objects.pluto.distance / distanceScale) * 3
 /**
  ** -- Post Processing -- *
  */
@@ -174,8 +175,7 @@ controls.enablePan = false
 // composer.addPass(new RenderPass(scene, camera));
 // composer.addPass(new EffectPass(camera, new BloomEffect()));
 
-// TODO: Texture does not look good for galaxy, (maybe try adding stars individually?)
-const galaxyTexture = textureLoader.load('assets/images/textures/galaxy/2k_milky_way_stellarium.jpeg', () => {
+const galaxyTexture = textureLoader.load('assets/images/textures/galaxy/8k_stars_milky_way.jpeg', () => {
     const rt = new THREE.WebGLCubeRenderTarget(galaxyTexture.image.height);
     rt.fromEquirectangularTexture(renderer, galaxyTexture);
     scene.background = rt.texture;

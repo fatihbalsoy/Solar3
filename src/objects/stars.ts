@@ -67,101 +67,53 @@ export class Stars {
     constructor() { }
 
     // Function to parse and process the star data
-    parseStarData(data): Star[] {
-        const stars: Star[] = [];
-        const lines = data.split('\n');
-        const headers = lines[0].split(',');
-
-        // skip the sun
-        for (let i = 2; i < lines.length; i++) {
-            const fields = lines[i].split(',');
-            const star: StarData = {
-                StarID: fields[0],
-                HIP: fields[1],
-                HD: fields[2],
-                HR: fields[3],
-                Gliese: fields[4],
-                BayerFlamsteed: fields[5],
-                ProperName: fields[6],
-                RA: parseFloat(fields[7]),
-                Dec: parseFloat(fields[8]),
-                Distance: parseFloat(fields[9]),
-                PMRA: parseFloat(fields[10]),
-                PMDec: parseFloat(fields[11]),
-                RV: parseFloat(fields[12]),
-                Mag: parseFloat(fields[13]),
-                AbsMag: parseFloat(fields[14]),
-                Spectrum: fields[15],
-                ColorIndex: parseFloat(fields[16]),
-                X: parseFloat(fields[17]),
-                Y: parseFloat(fields[18]),
-                Z: parseFloat(fields[19]),
-                VX: parseFloat(fields[20]),
-                VY: parseFloat(fields[21]),
-                VZ: parseFloat(fields[22])
-            };
-
-            stars.push(new Star(star));
-        }
-
-        this.database = stars
-        this.dataParsed = true
-        return stars;
-    }
-
-    // TODO: The star positions must be rotated. Star sizes are not accurate.
-    display(scene: THREE.Scene) {
+    parseData(): Star[] {
         // fetch('https://raw.githubusercontent.com/astronexus/HYG-Database/master/hyg/v2/hygxyz.csv')
         // fetch('https://raw.githubusercontent.com/astronexus/HYG-Database/master/hyg/v3/hyg_v32.csv')
         fetch('data/stars_hyg_v33.csv')
             .then(response => response.text())
             .then(data => {
-                // Parse and process the star data
-                const stars = this.parseStarData(data);
+                const stars: Star[] = [];
+                const lines = data.split('\n');
+                const headers = lines[0].split(',');
 
-                // Create star geometry
-                const starGeometry = new THREE.BufferGeometry();
-                const positions = new Float32Array(stars.length * 3);
-                const sizes = new Float32Array(stars.length);
+                // skip the sun
+                for (let i = 2; i < lines.length; i++) {
+                    const fields = lines[i].split(',');
+                    const star: StarData = {
+                        StarID: parseInt(fields[0]),
+                        HIP: parseInt(fields[1]),
+                        HD: parseInt(fields[2]),
+                        HR: parseInt(fields[3]),
+                        Gliese: parseInt(fields[4]),
+                        BayerFlamsteed: parseInt(fields[5]),
+                        ProperName: fields[6],
+                        RA: parseFloat(fields[7]),
+                        Dec: parseFloat(fields[8]),
+                        Distance: parseFloat(fields[9]),
+                        PMRA: parseFloat(fields[10]),
+                        PMDec: parseFloat(fields[11]),
+                        RV: parseFloat(fields[12]),
+                        Mag: parseFloat(fields[13]),
+                        AbsMag: parseFloat(fields[14]),
+                        Spectrum: fields[15],
+                        ColorIndex: parseFloat(fields[16]),
+                        X: parseFloat(fields[17]),
+                        Y: parseFloat(fields[18]),
+                        Z: parseFloat(fields[19]),
+                        VX: parseFloat(fields[20]),
+                        VY: parseFloat(fields[21]),
+                        VZ: parseFloat(fields[22])
+                    };
 
-                // Generate stars
-                for (let i = 0; i < stars.length; i++) {
-                    const star = stars[i];
-
-                    // Convert star position from parsecs to kilometers and divide by distanceScale
-                    const vector = star.position
-
-                    // Set star position based on XYZ coordinates
-                    positions[i * 3] = vector.x;
-                    positions[i * 3 + 1] = vector.y;
-                    positions[i * 3 + 2] = vector.z;
-
-                    // Set star size based on magnitude
-                    // sizes[i] = Math.pow(10, -star.Mag / 2.5); // Adjust size based on star's magnitude
-                    // sizes[i] = Math.pow(2.512, -star.Mag) * (1 + star.Distance * distanceScale); // Star magnitude and distance to size factor
-                    // sizes[i] = this.calculateStarSize(-star.data.Mag, star.data.Distance, this.minMagnitude, this.maxDistance, 40000000, 50000000000)
+                    stars.push(new Star(star));
                 }
 
-                // Set star attributes to star geometry
-                starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                starGeometry.setAttribute('scale', new THREE.BufferAttribute(sizes, 1));
-
-                // Create star material
-                const starMaterial = new THREE.PointsMaterial({
-                    color: 0xffffff,
-                    size: 50000000,
-                    sizeAttenuation: true,
-                    // vertexColors: THREE.VertexColors,
-                    transparent: false,
-                    blending: THREE.AdditiveBlending
-                });
-
-                // Create star points
-                const points = new THREE.Points(starGeometry, starMaterial);
-                scene.add(points);
-
-                // this.addClickListener(points, stars, camera)
+                this.database = stars
+                this.dataParsed = true
+                return stars;
             });
+        return []
     }
 
     // TODO: Index for faster search results
