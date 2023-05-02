@@ -95,6 +95,15 @@ This project would not have been possible without these helpful resources:
 * [Monthly Earth Images by NASA](https://visibleearth.nasa.gov/collection/1484/blue-marble)
 * [High-res image of Io by USGS](https://pubs.usgs.gov/sim/3168/)
 
+## Contribution
+
+Feel free to submit a pull request for one of the following:
+
+- New features
+- Performance enhancements
+- Fixing bugs
+- Patching security vulnurabilities
+
 ## License
 
 SolarSystem.3js is available under the AGPL v3.0 license. See the LICENSE file for more info.
