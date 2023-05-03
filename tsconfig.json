@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "jsx": "react",
         "outDir": "./built",
         "allowJs": true,
         // "module": "es6",
@@ -8,11 +9,25 @@
         "resolveJsonModule": true,
         "skipLibCheck": true,
         "incremental": true,
-        // "noImplicitAny": true,
-        // "allowSyntheticDefaultImports": true,
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext"
+        ],
+        // "strict": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "isolatedModules": true,
+        "noEmit": true,
     },
     "files": [
-        "src/index.ts"
+        "src/index.tsx"
+    ],
+    "include": [
+        "src"
     ],
     "exclude": [
         "scripts/**"

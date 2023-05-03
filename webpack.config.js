@@ -13,7 +13,7 @@ const stylesHandler = isProduction
   : "style-loader";
 
 const config = {
-  entry: "./src/index.ts",
+  entry: "./src/index.tsx",
   output: {
     clean: true,
     filename: '[name].[contenthash].js',
@@ -58,8 +58,8 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/i,
-        loader: "ts-loader",
+        test: /\.(ts|tsx|js|tsx)$/i,
+        loader: "babel-loader",
         exclude: ["/node_modules/", "/scripts/"],
       },
       {
@@ -83,7 +83,7 @@ const config = {
   },
   resolve: {
     alias: {
-        three: path.resolve('./node_modules/three')
+      three: path.resolve('./node_modules/three')
     },
     extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
   },

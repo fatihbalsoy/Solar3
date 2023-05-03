@@ -18,6 +18,7 @@ import { convertRotationMatrix4 } from "../utils/utils";
 import { CSS2DObject } from "../modules/CSS2DRenderer";
 import { Orbit } from '../utils/orbit_points';
 
+// Used for Astronomy Engine
 export let bodies = {
     "sun": Body.Sun,
     "mercury": Body.Mercury,
