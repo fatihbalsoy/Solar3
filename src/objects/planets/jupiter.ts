@@ -10,7 +10,7 @@
 
 import * as THREE from "three";
 import Planet from "../planet";
-import { quality, Quality } from "../../settings";
+import { Settings, Quality } from "../../settings";
 
 class Jupiter extends Planet {
 
@@ -18,8 +18,8 @@ class Jupiter extends Planet {
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const res = quality == Quality.high ? '8k' : '2k'
-        const texture = textureLoader.load('assets/images/textures/jupiter/' + res + '_jupiter.jpeg')
+        const texture = textureLoader.load('assets/images/textures/jupiter/'
+            + Settings.res2_8k[Settings.quality] + '_jupiter.jpeg')
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()

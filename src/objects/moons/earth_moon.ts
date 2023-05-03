@@ -10,15 +10,15 @@
 
 import * as THREE from "three";
 import Planet from "../planet";
-import { Quality, distanceScale, quality } from "../../settings";
+import { Quality, Settings } from "../../settings";
 
 class Moon extends Planet {
     constructor() {
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const res = quality == Quality.high ? '8k' : '2k'
-        const texture = textureLoader.load('assets/images/textures/moon/' + res + '_moon.jpeg')
+        const texture = textureLoader.load('assets/images/textures/moon/'
+            + Settings.res2_8k[Settings.quality] + '_moon.jpeg')
         texture.wrapS = THREE.RepeatWrapping
         texture.offset.x = (270 / 180) / (2 * Math.PI)
 
@@ -44,7 +44,7 @@ class Moon extends Planet {
     }
 
     updateLabel(camera: THREE.Camera): void {
-        let dist = this.getPosition().distanceTo(camera.position) * distanceScale
+        let dist = this.getPosition().distanceTo(camera.position) / Settings.distanceScale
         if (dist < 4605000) {
             this.labelText.element.textContent = 'Moon'
         } else {

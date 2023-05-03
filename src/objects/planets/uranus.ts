@@ -11,7 +11,7 @@
 import * as THREE from "three";
 import Earth from "./earth";
 import Planet from "../planet";
-import { sizeScale } from "../../settings";
+import { Settings } from "../../settings";
 
 class Uranus extends Planet {
 
@@ -19,8 +19,7 @@ class Uranus extends Planet {
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const res = '2k'
-        const texture = textureLoader.load('assets/images/textures/uranus/' + res + '_uranus.jpeg')
+        const texture = textureLoader.load('assets/images/textures/uranus/2k_uranus.jpeg')
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()
@@ -40,7 +39,7 @@ class Uranus extends Planet {
 
         //* RING GEOMETRY + MESH *//
         const ringGeometry = new THREE.RingGeometry(51149, (51149 + 90), 96, 1)
-        ringGeometry.scale(1 / sizeScale, 1 / sizeScale, 1 / sizeScale)
+        ringGeometry.scale(Settings.sizeScale, Settings.sizeScale, Settings.sizeScale)
         const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial)
         ringMesh.rotation.x = 15 * Math.PI / 180
 

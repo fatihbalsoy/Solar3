@@ -8,7 +8,7 @@
 
 import * as THREE from "three";
 import Planet from "../planet";
-import { Quality, quality } from "../../settings";
+import { Quality, Settings } from "../../settings";
 
 class Ceres extends Planet {
 
@@ -16,8 +16,8 @@ class Ceres extends Planet {
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const res = quality == Quality.high ? '4k' : '2k'
-        const texture = textureLoader.load('assets/images/textures/ceres/' + res + '_ceres_fictional.jpg')
+        const texture = textureLoader.load('assets/images/textures/ceres/'
+            + Settings.res2_4k[Settings.quality] + '_ceres_fictional.jpg')
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()

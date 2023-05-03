@@ -2,36 +2,37 @@
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/fatihbalsoy/SolarSystem.3js/node.js.yml)](https://github.com/fatihbalsoy/SolarSystem.3js/actions/workflows/node.js.yml)
 [![License](https://img.shields.io/github/license/fatihbalsoy/SolarSystem.3js)](https://github.com/fatihbalsoy/SolarSystem.3js/blob/main/LICENSE)
-[![Web](https://img.shields.io/badge/Web-three.js-lightgreen)](https://github.com/mrdoob/three.js/)
+![Web](https://img.shields.io/badge/Web-three.js%20%7C%20WebGL%20%7C%20ReactJS-lightgreen)
 
-SolarSystem.3js is a real-time 1:1 scale of the Solar System, including nearby stars, built with the [three.js](https://github.com/mrdoob/three.js/) library.
+SolarSystem.3js is a stunningly realistic representation of the Solar System, complete with nearby stars, and brought to life through the power of [three.js](https://github.com/mrdoob/three.js/), [WebGL](https://github.com/KhronosGroup/WebGL), and [ReactJS](https://github.com/facebook/react).
 
 ## [Launch →](https://fatih.balsoy.com/app/solar-system-3js)
 
 ## Gameplay
 
-Scroll to move the camera closer or farther away.
+To adjust the camera's distance, simply scroll up or down. If you want to orbit around a particular celestial object, click and drag your mouse. Additionally, you can center an object on your screen by using the search bar located at the top. For instance, you can search for celestial bodies such as the following:
 
-Click and drag to orbit around the selected celestial object.
+<details>
+<summary>Planets</summary>
 
-Center an object on the screen by pressing the following keys:
+* Sun
+* Mercury
+* Venus
+* Earth
+* Mars
+* Jupiter
+* Saturn
+* Uranus
+* Neptune
+* Pluto
 
-* 0 - Sun
-* 1 - Mercury
-* 2 - Venus
-* 3 - Earth
-* 4 - Mars
-* 5 - Jupiter
-* 6 - Saturn
-* 7 - Uranus
-* 8 - Neptune
-* 9 - Pluto
+</details>
 
 <details>
 <summary>Dwarf Planets</summary>
 
-* 9 - Pluto
-* ~~c - Ceres (Dwarf Planet)~~ (Temporarily Removed)
+* Pluto
+* ~~Ceres~~ (Temporarily Removed)
 
 </details>
 
@@ -40,24 +41,25 @@ Center an object on the screen by pressing the following keys:
 
 Earth
 
-* m - Moon
+* Moon
 
 Jupiter
 
-* e - Europa
-* g - Ganymede
-* i - Io
-* v - Callisto
+* Europa
+* Ganymede
+* Io
+* Callisto
 
 </details>
 
 <details>
 <summary>Stars</summary>
 
-* a - Antares
-* o - Polaris
-* p - Proxima Centauri
-* r - Rigil Kentaurus
+* Antares
+* Polaris
+* Proxima Centauri
+* Rigil Kentaurus
+* and lots more!
 
 </details>
 
@@ -65,8 +67,9 @@ Jupiter
 
 Here are some known issues that will be worked on in the near future:
 
-* The orientation of each celestial object is not yet accurate.
+* The positioning of each celestial object is not entirely precise or accurate.
 * The camera is not oriented along the ecliptic plane.
+* The camera may not always accurately focus on a star.
 
 ## Setup & Build
 

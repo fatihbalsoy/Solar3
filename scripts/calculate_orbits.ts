@@ -7,10 +7,31 @@
  */
 
 import * as fs from "fs";
-import Planet, { bodies } from "../src/objects/planet";
+import Planet from "../src/objects/planet";
 import * as objectsJson from '../src/data/objects.json';
 import { Body } from 'astronomy-engine';
 import * as readline from 'readline';
+import Objects from '../src/objects/objects'
+
+/** Stars **/
+import Sun from '../src/objects/sun'
+/** Planets **/
+import Mercury from '../src/objects/planets/mercury'
+import Venus from '../src/objects/planets/venus'
+import Earth from '../src/objects/planets/earth'
+import Mars from '../src/objects/planets/mars'
+import Jupiter from '../src/objects/planets/jupiter'
+import Saturn from '../src/objects/planets/saturn'
+import Uranus from '../src/objects/planets/uranus'
+import Neptune from '../src/objects/planets/neptune'
+/** Dwarf Planets **/
+import Pluto from '../src/objects/dwarf_planets/pluto'
+/** Moons **/
+import Moon from '../src/objects/moons/earth_moon'
+import Io from '../src/objects/moons/jupiter_io';
+import Callisto from '../src/objects/moons/jupiter_callisto';
+import Europa from '../src/objects/moons/jupiter_europa';
+import Ganymede from '../src/objects/moons/jupiter_ganymede';
 
 declare global {
     interface Array<T> {
@@ -31,22 +52,24 @@ function rprint(s: string) {
 // define start date
 const startDate = new Date();
 
-// range of objects to calculate orbits for
-let start = bodies.sun
-let stopAt = bodies.pluto
-
 // calculate and store orbit points for each planet
 var orbitPoints: string[] = []
 var indexNames: string = ""
 var indexLines: string = ""
 
+new Objects({
+    mercury: new Mercury(), venus: new Venus(), earth: new Earth(), mars: new Mars(),
+    jupiter: new Jupiter(), saturn: new Saturn(), uranus: new Uranus(), neptune: new Neptune(),
+    pluto: new Pluto(), // ceres: new Ceres(),
+})
+
 process.stdout.write("\n--- Calculating Orbits ---")
 process.stdout.write("\n" + startDate.toISOString())
 let showCalculations = false
-for (let key in bodies) {
-    if (Object.prototype.hasOwnProperty.call(bodies, key)) {
-        let planet: Body = bodies[key];
-        process.stdout.write("\n" + key)
+for (let key in Objects) {
+    let planet: Planet = Objects[key];
+    if (planet) {
+        process.stdout.write("\n" + planet.name)
 
         let obj = objectsJson[key]
         let name = obj.name
@@ -65,7 +88,7 @@ for (let key in bodies) {
         let orbit: string[] = [];
         for (let i = 0; i < lines; i++) {
             let date = new Date(startDate.getFullYear(), 0, i);
-            let pos = Planet.getPositionForDateNotScaled(date, planet);
+            let pos = planet.getPositionForDateNotScaled(date);
             let sigFigs = 5
             let posString = `${pos.x.toPrecision(sigFigs)},${pos.y.toPrecision(sigFigs)},${pos.z.toPrecision(sigFigs)}`
             orbit.push(posString);
@@ -77,7 +100,6 @@ for (let key in bodies) {
         if (orbit.length != 0) {
             orbitPoints = orbitPoints.concat(orbit)
         }
-        if (planet.valueOf() == stopAt.valueOf()) { break }
     }
 }
 

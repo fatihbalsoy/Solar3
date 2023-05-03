@@ -9,7 +9,7 @@
 
 import * as THREE from "three";
 import Planet from "../planet";
-import { Quality, distanceScale, quality } from "../../settings";
+import { Quality, Settings } from "../../settings";
 // var glsl = require('glslify');
 
 class Earth extends Planet {
@@ -23,7 +23,7 @@ class Earth extends Planet {
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
 
-        const res = quality == Quality.high ? '8k' : '2k'
+        const res = Settings.res2_8k[Settings.quality]
 
         const earthTexture = textureLoader.load('assets/images/textures/earth/' + res + '/month/' + monthNames[month] + '.jpeg')
         const earthNormal = textureLoader.load('assets/images/textures/earth/' + res + '/normal.jpeg')

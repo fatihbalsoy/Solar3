@@ -7,7 +7,7 @@
  */
 
 import * as THREE from "three";
-import { distanceScale } from "../settings";
+import { Settings } from "../settings";
 
 // Kilometers in 1 parsec
 let distanceKm = 3.262 * Math.pow(10, 13); // 1 parsec = 3.262 light-years = 3.262 * 10^13 kilometers
@@ -37,7 +37,7 @@ export class Star {
     private getZ(): number { return -this.data.X }
 
     static scalePosition(position: number): number {
-        return (position * distanceKm / distanceScale)
+        return (position * distanceKm * Settings.distanceScale)
     }
     static scaleVectorNumbers(x: number, y: number, z: number): THREE.Vector3 {
         return Star.scaleVector(new THREE.Vector3(x, y, z))
@@ -57,9 +57,9 @@ export class Star {
 }
 
 export class Stars {
-
     // Parsed HYG star database
-    database: Star[]
+    static database: Star[]
+    static indexedDatabase: { [key: string]: Star } = {}
     dataParsed: boolean = false
     // Star points
     // points: THREE.Points
@@ -69,16 +69,15 @@ export class Stars {
     // Function to parse and process the star data
     parseData(): Star[] {
         // fetch('https://raw.githubusercontent.com/astronexus/HYG-Database/master/hyg/v2/hygxyz.csv')
-        // fetch('https://raw.githubusercontent.com/astronexus/HYG-Database/master/hyg/v3/hyg_v32.csv')
-        fetch('data/stars_hyg_v33.csv')
+        fetch('https://raw.githubusercontent.com/astronexus/HYG-Database/master/hyg/v3/hyg_v33.csv')
+            // fetch('data/stars_hyg_v33.csv')
             .then(response => response.text())
             .then(data => {
                 const stars: Star[] = [];
                 const lines = data.split('\n');
-                const headers = lines[0].split(',');
+                // const headers = lines[0].split(',');
 
-                // skip the sun
-                for (let i = 2; i < lines.length; i++) {
+                for (let i = 1; i < lines.length; i++) {
                     const fields = lines[i].split(',');
                     const star: StarData = {
                         StarID: parseInt(fields[0]),
@@ -106,37 +105,25 @@ export class Stars {
                         VZ: parseFloat(fields[22])
                     };
 
-                    stars.push(new Star(star));
+                    let starObj = new Star(star)
+                    stars.push(starObj);
+                    Stars.indexedDatabase[star.ProperName.toLowerCase()] = starObj
                 }
 
-                this.database = stars
+                Stars.database = stars
                 this.dataParsed = true
                 return stars;
             });
         return []
     }
 
-    // TODO: Index for faster search results
     getStarByName(name: string): Star {
         if (!this.dataParsed) { return Star.empty() } // TODO: Async instead of returning null star
-
-        // Loop through each star in the database
-        for (let i = 0; i < this.database.length; i++) {
-            const star = this.database[i];
-
-            // Check if the star's ProperName matches the input name
-            if (star.data.ProperName === name) {
-                // Create a vector for the star's position
-                return star
-            }
-        }
-
-        // If no star with the input name is found, return null
-        return Star.empty();
+        return Stars.indexedDatabase[name] ?? Star.empty()
     }
 
     getStarById(id: number): Star {
-        return this.database[id]
+        return Stars.database[id]
     }
 }
 export default Stars;

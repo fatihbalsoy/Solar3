@@ -8,13 +8,16 @@
 
 import * as THREE from "three";
 import JupiterMoon from "./jupiter_moon";
+import { Quality, Settings } from "../../settings";
+import { EnumDictionary } from "../../utils/utils";
 
 class Io extends JupiterMoon {
     constructor() {
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const texture = textureLoader.load('assets/images/textures/io/io_2k.jpg')
+        const texture = textureLoader.load('assets/images/textures/io/io_'
+            + Settings.res2_4_8k[Settings.quality] + '.jpeg')
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()

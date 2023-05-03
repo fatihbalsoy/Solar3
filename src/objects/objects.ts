@@ -31,34 +31,34 @@ import Europa from './moons/jupiter_europa';
 import Ganymede from './moons/jupiter_ganymede';
 
 class Objects implements Iterable<Planet> {
-    sun: Sun;
-    mercury: Mercury; venus: Venus; earth: Earth; mars: Mars;
-    jupiter: Jupiter; saturn: Saturn; uranus: Uranus; neptune: Neptune;
-    pluto: Pluto;
-    moon: Moon;
-    io: Io; callisto: Callisto; europa: Europa; ganymede: Ganymede;
+    static sun: Sun;
+    static mercury: Mercury; static venus: Venus; static earth: Earth; static mars: Mars;
+    static jupiter: Jupiter; static saturn: Saturn; static uranus: Uranus; static neptune: Neptune;
+    static pluto: Pluto;
+    static moon: Moon;
+    static io: Io; static callisto: Callisto; static europa: Europa; static ganymede: Ganymede;
 
     constructor(objects: {}) {
         for (const key in objects) {
             const element = objects[key];
-            this[key] = element
+            Objects[key] = element
         }
     }
 
-    array() {
+    static array() {
         return [
-            this.sun,
-            this.mercury, this.venus, this.earth, this.mars,
-            this.jupiter, this.saturn, this.uranus, this.neptune,
-            this.pluto,
-            this.moon,
-            this.io, this.callisto, this.europa, this.ganymede
+            Objects.sun,
+            Objects.mercury, Objects.venus, Objects.earth, Objects.mars,
+            Objects.jupiter, Objects.saturn, Objects.uranus, Objects.neptune,
+            Objects.pluto,
+            Objects.moon,
+            Objects.io, Objects.callisto, Objects.europa, Objects.ganymede
         ]
     }
 
     [Symbol.iterator](): Iterator<Planet> {
         let index = 0;
-        let items = this.array
+        let items = Objects.array()
 
         return {
             next(): IteratorResult<Planet> {

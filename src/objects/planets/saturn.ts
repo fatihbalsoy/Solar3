@@ -10,7 +10,7 @@
 import * as THREE from "three";
 import Earth from "./earth";
 import Planet from "../planet";
-import { Quality, quality, sizeScale } from "../../settings";
+import { Quality, Settings } from "../../settings";
 
 class Saturn extends Planet {
 
@@ -18,7 +18,7 @@ class Saturn extends Planet {
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const res = quality == Quality.high ? '8k' : '2k'
+        const res = Settings.res2_8k[Settings.quality]
         const texture = textureLoader.load('assets/images/textures/saturn/' + res + '_saturn.jpeg')
         const ringTexture = textureLoader.load('assets/images/textures/saturn/' + res + '_saturn_ring_alpha.png')
 
@@ -47,7 +47,7 @@ class Saturn extends Planet {
 
         //* RING GEOMETRY + MESH *//
         const ringGeometry = new THREE.RingGeometry(66900, 180000, 96, 1)
-        ringGeometry.scale(1 / sizeScale, 1 / sizeScale, 1 / sizeScale)
+        ringGeometry.scale(Settings.sizeScale, Settings.sizeScale, Settings.sizeScale)
 
         var ringPos = ringGeometry.attributes.position;
         var ringV3 = new THREE.Vector3();

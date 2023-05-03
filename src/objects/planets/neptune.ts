@@ -16,8 +16,7 @@ class Neptune extends Planet {
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const res = '2k'
-        const texture = textureLoader.load('assets/images/textures/neptune/' + res + '_neptune.jpeg')
+        const texture = textureLoader.load('assets/images/textures/neptune/2k_neptune.jpeg')
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()

@@ -10,7 +10,7 @@
 
 import * as THREE from "three";
 import Planet from "../planet";
-import { Quality, quality } from "../../settings";
+import { Quality, Settings } from "../../settings";
 
 class Mars extends Planet {
 
@@ -18,8 +18,8 @@ class Mars extends Planet {
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const res = quality == Quality.high ? '8k' : '2k'
-        const texture = textureLoader.load('assets/images/textures/mars/' + res + '_mars.jpeg')
+        const texture = textureLoader.load('assets/images/textures/mars/'
+            + Settings.res2_8k[Settings.quality] + '_mars.jpeg')
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()

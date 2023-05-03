@@ -7,9 +7,11 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-// import './styles/generic.css';
-import { CssBaseline, ThemeProvider } from '@mui/material';
 import AppScene from './scene';
+import { WebsiteTheme } from './theme';
+import SearchBar from './interface/search';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import './style.css';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -17,7 +19,10 @@ const root = ReactDOM.createRoot(
 
 root.render(
     <div>
-        <CssBaseline />
-        <AppScene />
-    </div>
+        <ThemeProvider theme={WebsiteTheme}>
+            <CssBaseline />
+            <AppScene />
+            <SearchBar></SearchBar>
+        </ThemeProvider>
+    </div >
 );

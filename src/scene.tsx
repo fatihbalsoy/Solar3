@@ -12,7 +12,7 @@ import Stats from 'stats.js'
 import { Orbits } from './utils/orbit_points'
 import Objects from './objects/objects'
 import { OrbitControls } from './modules/OrbitControls'
-import { distanceScale } from './settings'
+import { Settings } from './settings'
 
 import Planet from './objects/planet'
 import Stars from './objects/stars'
@@ -52,11 +52,8 @@ class AppScene extends Component {
     private textureLoader: THREE.TextureLoader
     private statistics: Stats
 
-    private objects: Objects
     private orbits: Orbits
     private stars: Stars
-
-    private positionToLookAt: THREE.Vector3 = new THREE.Vector3(0, 0, 0)
 
     componentDidMount() {
         const width = this.mount?.clientWidth || 0
@@ -64,7 +61,7 @@ class AppScene extends Component {
 
         this.clock = new THREE.Clock()
         this.scene = new THREE.Scene()
-        this.camera = new THREE.PerspectiveCamera(75, width / height, 0.00000001, (60000000000 / distanceScale) * 5)
+        this.camera = new THREE.PerspectiveCamera(75, width / height, 0.00000001, (60000000000 * Settings.distanceScale) * 5)
         this.controls = new OrbitControls(this.camera, this.mount)
         this.renderer = new THREE.WebGLRenderer({ antialias: true })
         this.cssRenderer = new CSS2DRenderer()
@@ -91,10 +88,10 @@ class AppScene extends Component {
 
         // * -- STATISTICS --  * //
         this.statistics.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
-        document.body.appendChild(this.statistics.dom)
+        // document.body.appendChild(this.statistics.dom)
 
         // * -- PLANETS --  * //
-        this.objects = new Objects({
+        new Objects({
             sun: new Sun(),
             mercury: new Mercury(), venus: new Venus(), earth: new Earth(), mars: new Mars(),
             jupiter: new Jupiter(), saturn: new Saturn(), uranus: new Uranus(), neptune: new Neptune(),
@@ -102,19 +99,18 @@ class AppScene extends Component {
             moon: new Moon(),
             io: new Io(), callisto: new Callisto(), europa: new Europa(), ganymede: new Ganymede()
         })
-        this.objects.sun.light.shadow.camera.far = this.objects.pluto.distance;
-        JupiterMoon.jupiter = this.objects.jupiter
+        Objects.sun.light.shadow.camera.far = Objects.pluto.distance;
 
-        this.orbits.addOrbits(this.objects.array().slice(1, 10), this.scene) // Mercury to Pluto
+        this.orbits.addOrbits((Objects.array() as Planet[]).slice(1, 10), this.scene) // Mercury to Pluto
 
-        for (const key in this.objects) {
-            const object = this.objects[key] as Planet;
+        for (const key in Objects) {
+            const object = Objects[key] as Planet;
 
             this.scene.add(object.mesh)
             object.displayLabel(this.scene)
 
             if (key !== "sun") {
-                this.objects.sun.mesh.add(object.mesh)
+                Objects.sun.mesh.add(object.mesh)
             }
         }
 
@@ -122,11 +118,11 @@ class AppScene extends Component {
         this.stars.parseData()
 
         // * -- CONTROLS -- * //
-        this.positionToLookAt = this.objects.earth.getPosition()
+        Settings.lookAt = Objects.earth.getPosition()
         this.controls.enableDamping = true
         this.controls.enablePan = false
-        this.controls.maxDistance = (this.objects.pluto.distance / distanceScale) * 3
-        this.lookAt(this.positionToLookAt)
+        this.controls.maxDistance = (Objects.pluto.distance * Settings.distanceScale) * 3
+        this.lookAt(Settings.lookAt)
 
         // * -- GALAXY -- * //
         const galaxyTexture = this.textureLoader.load('assets/images/textures/galaxy/8k_stars_milky_way.jpeg', () => {
@@ -136,7 +132,6 @@ class AppScene extends Component {
         })
 
         window.addEventListener('resize', this.handleResize)
-        window.addEventListener('keydown', this.onDocumentKeyDown);
 
         if (this.mount) {
             this.mount.appendChild(this.renderer.domElement)
@@ -178,34 +173,6 @@ class AppScene extends Component {
         }
     }
 
-    onDocumentKeyDown = (event) => {
-        var keyCode = event.which;
-        let planetKeys = {
-            48: this.objects.sun.mesh.position, // 0
-            49: this.objects.mercury.mesh.position, // 1
-            50: this.objects.venus.mesh.position, // 2
-            51: this.objects.earth.mesh.position, // 3
-            52: this.objects.mars.mesh.position, // 4
-            53: this.objects.jupiter.mesh.position, // 5
-            54: this.objects.saturn.mesh.position, // 6
-            55: this.objects.uranus.mesh.position, // 7
-            56: this.objects.neptune.mesh.position, // 8
-            57: this.objects.pluto.mesh.position, // 9
-            65: this.stars.getStarByName("Antares").position, // a
-            // 67: this.objects.ceres.mesh.position, // c
-            69: this.objects.europa.mesh.position, // e
-            71: this.objects.ganymede.mesh.position, // g
-            73: this.objects.io.mesh.position, // i
-            77: this.objects.moon.mesh.position, // m
-            79: this.stars.getStarByName("Polaris").position, // o
-            80: this.stars.getStarByName("Proxima Centauri").position, // p
-            82: this.stars.getStarByName("Rigil Kentaurus").position, // r
-            86: this.objects.callisto.mesh.position, // v
-        }
-        this.positionToLookAt = planetKeys[keyCode] ?? this.positionToLookAt
-        this.lookAt(this.positionToLookAt)
-    };
-
     start = () => {
         if (!this.frameId) {
             this.frameId = window.requestAnimationFrame(this.animate)
@@ -223,15 +190,15 @@ class AppScene extends Component {
 
         // const elapsedTime = this.clock.startTime + this.clock.getElapsedTime()
 
-        for (const key in this.objects) {
-            const object = this.objects[key];
+        for (const key in Objects) {
+            const object = Objects[key];
 
             object.animate()
             object.updateLabel(this.camera)
         }
-        this.objects.moon.mesh.lookAt(this.objects.earth.mesh.position)
+        Objects.moon.mesh.lookAt(Objects.earth.mesh.position)
 
-        this.camera.lookAt(this.positionToLookAt)
+        this.lookAt(Settings.lookAt)
         this.controls.update()
 
         this.renderScene()

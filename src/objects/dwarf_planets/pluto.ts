@@ -9,7 +9,7 @@
 
 import * as THREE from "three";
 import Planet from "../planet";
-import { Quality, quality } from "../../settings";
+import { Quality, Settings } from "../../settings";
 
 class Pluto extends Planet {
 
@@ -17,7 +17,7 @@ class Pluto extends Planet {
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const res = quality == Quality.high ? '2k' : '1k'
+        const res = Settings.quality == Quality.high ? '2k' : '1k'
         const texture = textureLoader.load('assets/images/textures/pluto/' + res + '_pluto.jpg')
 
         //? -- MATERIAL -- ?//

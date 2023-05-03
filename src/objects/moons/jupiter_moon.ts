@@ -6,15 +6,14 @@
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
-import { JupiterMoons, JupiterMoonsInfo, StateVector } from "astronomy-engine";
+import { JupiterMoons, JupiterMoonsInfo, StateVector, Vector, Body, AstroTime } from "astronomy-engine";
 import Planet from "../planet";
-import { AUtoKM, distanceScale } from "../../settings";
-import Jupiter from "../planets/jupiter";
+import { Settings } from "../../settings";
+import Objects from "../objects";
 
 class JupiterMoon extends Planet {
     static moonsInfo: JupiterMoonsInfo
     static updating: boolean = false
-    static jupiter: Jupiter
 
     updateJupiterMoons(date: Date): JupiterMoonsInfo | null {
         if (!JupiterMoon.updating) {
@@ -25,26 +24,37 @@ class JupiterMoon extends Planet {
         return JupiterMoon.moonsInfo
     }
 
-    // TODO: Uses too many resources (Large numbers + distance)
     animate(time: number): void {
-        let date = new Date()
+        let pos = this.getPositionForDate(new Date())
+        this.mesh.position.set(pos.x, pos.y, pos.z)
+        this.labelText.position.set(pos.x, pos.y, pos.z)
+        this.labelCircle.position.set(pos.x, pos.y, pos.z)
+    }
+
+    getPositionForDate(date: Date): Vector {
+        let pos = this.getPositionForDateNotScaled(date)
+        let jPos = Objects.jupiter.getPosition()
+        return new Vector(
+            jPos.x + (pos.x * Settings.AUtoKM * Settings.distanceScale),
+            jPos.y + (pos.y * Settings.AUtoKM * Settings.distanceScale),
+            jPos.z + (pos.z * Settings.AUtoKM * Settings.distanceScale),
+            pos.t
+        )
+    }
+
+    getPositionForDateNotScaled(date: Date): Vector {
         let infos = this.updateJupiterMoons(date)
-        if (infos != null) {
-            let coordinates: StateVector = (infos as JupiterMoonsInfo)[this.id]
-
-            let jPos = JupiterMoon.jupiter.getPosition()
-            let x = jPos.x + (-coordinates.y * AUtoKM / distanceScale)
-            let y = jPos.y + (coordinates.z * AUtoKM / distanceScale)
-            let z = jPos.z + (-coordinates.x * AUtoKM / distanceScale)
-
-            this.mesh.position.set(x, y, z)
-            this.labelText.position.set(x, y, z)
-            this.labelCircle.position.set(x, y, z)
-        }
+        let joviCoords: StateVector = (infos as JupiterMoonsInfo)[this.id]
+        return new Vector(
+            -joviCoords.y, // x
+            joviCoords.z,  // y
+            -joviCoords.x, // z
+            new AstroTime(date)
+        )
     }
 
     updateLabel(camera: THREE.Camera): void {
-        let dist = JupiterMoon.jupiter.getPosition().distanceTo(camera.position) * distanceScale
+        let dist = Objects.jupiter.getPosition().distanceTo(camera.position) / Settings.distanceScale
         if (dist < 15000000) {
             this.labelText.element.textContent = this.name
         } else {

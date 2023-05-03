@@ -9,39 +9,17 @@
 
 import { Material, Mesh, Object3D, SphereGeometry, Vector3 } from "three"
 import * as THREE from "three"
-import GUIMovableObject from "../gui/movable_3d_object"
 import * as dat from 'dat.gui'
 import * as objectsJson from '../data/objects.json';
 import { HelioVector, Body, Vector, Rotation_EQJ_ECL } from 'astronomy-engine';
-import { AUtoKM, distanceScale, sizeScale } from "../settings";
+import { Settings } from "../settings";
 import { convertRotationMatrix4 } from "../utils/utils";
 import { CSS2DObject } from "../modules/CSS2DRenderer";
 import { Orbit } from '../utils/orbit_points';
 
-// Used for Astronomy Engine
-export let bodies = {
-    "sun": Body.Sun,
-    "mercury": Body.Mercury,
-    "venus": Body.Venus,
-    "earth": Body.Earth,
-    "moon": Body.Moon,
-    "mars": Body.Mars,
-    "jupiter": Body.Jupiter,
-    "saturn": Body.Saturn,
-    "uranus": Body.Uranus,
-    "neptune": Body.Neptune,
-    "pluto": Body.Pluto,
-    "io": "io",
-    "callisto": "callisto",
-    "europa": "europa",
-    "ganymede": "ganymede"
-};
-
-class Planet extends GUIMovableObject {
+class Planet {
     // ID
     id: string
-    // Astronomy Instance Body (javascript any type)
-    astroBody: Body
     // Name of planetary object
     name: string
     // Distance to parent in KM
@@ -77,8 +55,6 @@ class Planet extends GUIMovableObject {
     labelText: CSS2DObject
 
     constructor(id: string, material: Material[], geometry: SphereGeometry) {
-
-        super()
         const obj = objectsJson[id.toLowerCase()]
         this.id = id.toLowerCase()
         this.name = obj.name
@@ -91,11 +67,8 @@ class Planet extends GUIMovableObject {
         this.orbitalInclination = obj.inclination
         this.material = material
 
-        // Astronomy Engine Body //
-        this.astroBody = bodies[this.id]
-
         // GEOMETRY //
-        const radiusScale = this.radius / sizeScale
+        const radiusScale = this.radius * Settings.sizeScale
         this.geometry = geometry
         var enlarge = 1;
         this.geometry.scale(radiusScale * enlarge, radiusScale * enlarge, radiusScale * enlarge)
@@ -136,10 +109,6 @@ class Planet extends GUIMovableObject {
         this.labelText = new CSS2DObject(div)
     }
 
-    addGUI(gui: dat.GUI): dat.GUI {
-        return this._addGUI(gui, this.name, this.mesh)
-    }
-
     /**
      * Animates the planet by applying rotation and translation.
      * @param time - the time elapsed since start in seconds
@@ -151,7 +120,7 @@ class Planet extends GUIMovableObject {
         }
 
         let date = new Date()
-        let coordinates = Planet.getPositionForDate(date, this.astroBody)
+        let coordinates = this.getPositionForDate(date)
 
         this.mesh.position.set(coordinates.x, coordinates.y, coordinates.z)
         this.labelText.position.set(coordinates.x, coordinates.y, coordinates.z)
@@ -191,7 +160,7 @@ class Planet extends GUIMovableObject {
         let inner = ["mercury", "venus", "earth", "mars", "ceres"]
         let outer = ["jupiter", "saturn", "uranus", "neptune", "pluto"]
 
-        let dist = new Vector3(0, 0, 0).distanceTo(camera.position) * distanceScale
+        let dist = new Vector3(0, 0, 0).distanceTo(camera.position) / Settings.distanceScale
         this.labelText.element.textContent = this.name
 
         let removeInner = inner.includes(this.name.toLowerCase()) && dist > 2000000000
@@ -224,18 +193,18 @@ class Planet extends GUIMovableObject {
         return this.mesh.position.x.toFixed(0) + "," + this.mesh.position.y.toFixed(0) + "," + this.mesh.position.z.toFixed(0)
     }
 
-    static getPositionForDate(date: Date, body: Body): Vector {
-        let pos = Planet.getPositionForDateNotScaled(date, body)
+    getPositionForDate(date: Date): Vector {
+        let pos = this.getPositionForDateNotScaled(date)
         return new Vector(
-            pos.x * AUtoKM / distanceScale,
-            pos.y * AUtoKM / distanceScale,
-            pos.z * AUtoKM / distanceScale,
+            pos.x * Settings.AUtoKM * Settings.distanceScale,
+            pos.y * Settings.AUtoKM * Settings.distanceScale,
+            pos.z * Settings.AUtoKM * Settings.distanceScale,
             pos.t
         )
     }
 
-    static getPositionForDateNotScaled(date: Date, body: Body): Vector {
-        let helioCoords = HelioVector(body, date)
+    getPositionForDateNotScaled(date: Date): Vector {
+        let helioCoords = HelioVector(Body[this.name], date)
         // z,x,y
         return new Vector(
             -helioCoords.y, // x

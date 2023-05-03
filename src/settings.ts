@@ -6,17 +6,50 @@
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
+import { Vector3 } from "three"
+import { EnumDictionary } from "./utils/utils"
+
 export enum Quality {
     high = 2,
     medium = 1,
     low = 0
 }
-export let quality: Quality = Quality.medium
+export class Settings {
+    static lookAt: Vector3 = new Vector3(0, 0, 0) // does not work well with stars
 
-// Scale
-// TODO: Change to 1/10000
-export let distanceScale: number = 10000
-export let sizeScale: number = 10000
+    // Graphics
+    static quality: Quality = Quality.medium
+    static readonly res2_4_8k: EnumDictionary<Quality, string> = {
+        [Quality.high]: '8k',
+        [Quality.medium]: '4k',
+        [Quality.low]: '2k'
+    }
+    static readonly res4_8k: EnumDictionary<Quality, string> = {
+        [Quality.high]: '8k',
+        [Quality.medium]: '4k',
+        [Quality.low]: '4k'
+    }
+    static readonly res2_8k: EnumDictionary<Quality, string> = {
+        [Quality.high]: '8k',
+        [Quality.medium]: '2k',
+        [Quality.low]: '2k'
+    }
+    static readonly res2_4k: EnumDictionary<Quality, string> = {
+        [Quality.high]: '4k',
+        [Quality.medium]: '4k',
+        [Quality.low]: '2k'
+    }
+    static readonly res1_2k: EnumDictionary<Quality, string> = {
+        [Quality.high]: '2k',
+        [Quality.medium]: '2k',
+        [Quality.low]: '1k'
+    }
 
-// Astronomical Units to Kilometers
-export let AUtoKM = 1.496e+8
+    // Scale
+    static readonly distanceScale: number = 1 / 10000
+    static readonly sizeScale: number = 1 / 10000
+
+    // Astronomical Units to Kilometers
+    static readonly AUtoKM = 1.496e+8
+}
+export default Settings
