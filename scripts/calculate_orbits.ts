@@ -9,12 +9,9 @@
 import * as fs from "fs";
 import Planet from "../src/objects/planet";
 import * as objectsJson from '../src/data/objects.json';
-import { Body } from 'astronomy-engine';
 import * as readline from 'readline';
 import Objects from '../src/objects/objects'
 
-/** Stars **/
-import Sun from '../src/objects/sun'
 /** Planets **/
 import Mercury from '../src/objects/planets/mercury'
 import Venus from '../src/objects/planets/venus'
@@ -26,12 +23,6 @@ import Uranus from '../src/objects/planets/uranus'
 import Neptune from '../src/objects/planets/neptune'
 /** Dwarf Planets **/
 import Pluto from '../src/objects/dwarf_planets/pluto'
-/** Moons **/
-import Moon from '../src/objects/moons/earth_moon'
-import Io from '../src/objects/moons/jupiter_io';
-import Callisto from '../src/objects/moons/jupiter_callisto';
-import Europa from '../src/objects/moons/jupiter_europa';
-import Ganymede from '../src/objects/moons/jupiter_ganymede';
 
 declare global {
     interface Array<T> {

@@ -1,6 +1,7 @@
 ![Alt text](.readme/solarsystem_3js.png?raw=true  "SolarSystem.js")
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/fatihbalsoy/SolarSystem.3js/node.js.yml)](https://github.com/fatihbalsoy/SolarSystem.3js/actions/workflows/node.js.yml)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/fatihbalsoy/SolarSystem.3js/webpack.yml)](https://github.com/fatihbalsoy/SolarSystem.3js/actions/workflows/webpack.yml)
+[![Orbit Calculation Status](https://img.shields.io/github/actions/workflow/status/fatihbalsoy/SolarSystem.3js/calculate-orbits.yml?color=blue&label=orbits)](https://github.com/fatihbalsoy/SolarSystem.3js/actions/workflows/calculate-orbits.yml)
 [![License](https://img.shields.io/github/license/fatihbalsoy/SolarSystem.3js)](https://github.com/fatihbalsoy/SolarSystem.3js/blob/main/LICENSE)
 ![Web](https://img.shields.io/badge/Web-three.js%20%7C%20WebGL%20%7C%20ReactJS-lightgreen)
 
