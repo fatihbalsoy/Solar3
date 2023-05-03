@@ -16,9 +16,11 @@
     box-sizing: border-box;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 600px) {
     .search-bar {
-        width: 100%;
-        margin: 0px
+        width: unset;
+        margin: 10px;
+        right: 0;
+        left: 0;
     }
 }
