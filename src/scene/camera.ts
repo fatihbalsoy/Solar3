@@ -14,7 +14,7 @@ import AppScene from "../scene"
 class SceneCamera extends THREE.PerspectiveCamera {
     flyTo(planet: Planet, duration: number) {
         let planetCoords = planet.position
-        let camera = AppScene.camera
+        let camera = this
         let cameraCoords = { x: camera.position.x, y: camera.position.y, z: camera.position.z }
 
         var fovScale = .5
