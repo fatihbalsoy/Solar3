@@ -23,7 +23,7 @@ class Moon extends Planet {
         texture.offset.x = (270 / 180) / (2 * Math.PI)
 
         const normalRes = Settings.quality <= Quality.medium ? 'jpeg' : 'png'
-        const normalTexture = textureLoader.load('assets/images/textures/moon/2k_normal.' + normalRes)
+        const normalTexture = textureLoader.load('assets/images/textures/moon/2k_moon_normal.' + normalRes)
         normalTexture.wrapS = THREE.RepeatWrapping
         normalTexture.offset.x = (270 / 180) / (2 * Math.PI)
 
