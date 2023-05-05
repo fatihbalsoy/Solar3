@@ -18,11 +18,9 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-    <div>
-        <ThemeProvider theme={WebsiteTheme}>
-            <CssBaseline />
-            <AppScene />
-            <SearchBar></SearchBar>
-        </ThemeProvider>
-    </div >
+    <ThemeProvider theme={WebsiteTheme}>
+        <CssBaseline />
+        <AppScene />
+        <SearchBar />
+    </ThemeProvider>
 );

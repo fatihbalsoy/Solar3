@@ -30,7 +30,8 @@ import Callisto from './moons/jupiter_callisto';
 import Europa from './moons/jupiter_europa';
 import Ganymede from './moons/jupiter_ganymede';
 
-class Objects implements Iterable<Planet> {
+/// Also includes dwarf planets and moons
+class Planets implements Iterable<Planet> {
     static sun: Sun;
     static mercury: Mercury; static venus: Venus; static earth: Earth; static mars: Mars;
     static jupiter: Jupiter; static saturn: Saturn; static uranus: Uranus; static neptune: Neptune;
@@ -41,24 +42,26 @@ class Objects implements Iterable<Planet> {
     constructor(objects: {}) {
         for (const key in objects) {
             const element = objects[key];
-            Objects[key] = element
+            Planets[key] = element
         }
     }
 
-    static array() {
-        return [
-            Objects.sun,
-            Objects.mercury, Objects.venus, Objects.earth, Objects.mars,
-            Objects.jupiter, Objects.saturn, Objects.uranus, Objects.neptune,
-            Objects.pluto,
-            Objects.moon,
-            Objects.io, Objects.callisto, Objects.europa, Objects.ganymede
+    static array(sort: boolean = false) {
+        let a = [
+            Planets.sun,
+            Planets.mercury, Planets.venus, Planets.earth, Planets.mars,
+            Planets.jupiter, Planets.saturn, Planets.uranus, Planets.neptune,
+            Planets.pluto,
+            Planets.moon,
+            Planets.io, Planets.callisto, Planets.europa, Planets.ganymede
         ]
+        let sorted = sort ? a.sort((a, b) => Planet.comparator(a, b)) : a
+        return sorted
     }
 
     [Symbol.iterator](): Iterator<Planet> {
         let index = 0;
-        let items = Objects.array()
+        let items = Planets.array()
 
         return {
             next(): IteratorResult<Planet> {
@@ -71,4 +74,4 @@ class Objects implements Iterable<Planet> {
         };
     }
 }
-export default Objects
+export default Planets

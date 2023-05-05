@@ -9,7 +9,6 @@
 
 import { Material, Mesh, Object3D, SphereGeometry, Vector3 } from "three"
 import * as THREE from "three"
-import * as dat from 'dat.gui'
 import * as objectsJson from '../data/objects.json';
 import { HelioVector, Body, Vector, Rotation_EQJ_ECL } from 'astronomy-engine';
 import { Settings } from "../settings";
@@ -24,6 +23,8 @@ class Planet {
     name: string
     // Distance to parent in KM
     distance: number
+    // Position of the planet in xyz coordinates
+    position: Vector3 = new Vector3(0, 0, 0)
     // Radius in KM
     radius: number
     // Orbital period in Earth days
@@ -121,6 +122,7 @@ class Planet {
 
         let date = new Date()
         let coordinates = this.getPositionForDate(date)
+        this.position.set(coordinates.x, coordinates.y, coordinates.z)
 
         this.mesh.position.set(coordinates.x, coordinates.y, coordinates.z)
         this.labelText.position.set(coordinates.x, coordinates.y, coordinates.z)
@@ -136,7 +138,9 @@ class Planet {
     }
 
     /**
-     * Traces out the planet's orbit
+     * Traces out the planet's orbit onto the scene.
+     * @param data orbit data and information
+     * @param scene
      */
     displayOrbit(data: Orbit, scene: THREE.Scene) {
         const curve = new THREE.CatmullRomCurve3()
@@ -151,11 +155,19 @@ class Planet {
         scene.add(line);
     }
 
+    /**
+     * Add label to the scene.
+     * @param scene 
+     */
     displayLabel(scene: THREE.Scene) {
         scene.add(this.labelCircle)
         scene.add(this.labelText)
     }
 
+    /**
+     * Hide labels when camera is far enough to bunch labels in one place.
+     * @param camera used to get distance from the sun
+     */
     updateLabel(camera: THREE.Camera): void {
         let inner = ["mercury", "venus", "earth", "mars", "ceres"]
         let outer = ["jupiter", "saturn", "uranus", "neptune", "pluto"]
@@ -173,12 +185,18 @@ class Planet {
         this.labelText.element.style.color = 'white'
     }
 
+    /**
+     * Get planet radius in game scale
+     */
     getRadius(): number {
-        return this.radius
+        return this.radius * Settings.distanceScale
     }
 
+    /**
+     * Get planet distance from sun in game scale
+     */
     getDistance(): number {
-        return this.distance
+        return this.distance * Settings.distanceScale
     }
 
     getMesh(): Mesh {
@@ -186,13 +204,18 @@ class Planet {
     }
 
     getPosition(): Vector3 {
-        return this.mesh.position
+        return this.position
     }
 
     getPositionAsString(): String {
-        return this.mesh.position.x.toFixed(0) + "," + this.mesh.position.y.toFixed(0) + "," + this.mesh.position.z.toFixed(0)
+        return this.position.x.toFixed(0) + "," + this.position.y.toFixed(0) + "," + this.position.z.toFixed(0)
     }
 
+    /**
+     * Calculates a scaled vector from the center of the Sun to the given body at the given time.
+     * @param date the date in which to calculate the planet's position
+     * @returns a heliocentric vector pointing to the planet's position
+     */
     getPositionForDate(date: Date): Vector {
         let pos = this.getPositionForDateNotScaled(date)
         return new Vector(
@@ -203,6 +226,11 @@ class Planet {
         )
     }
 
+    /**
+     * Calculates a non-scaled vector from the center of the Sun to the given body at the given time.
+     * @param date the date in which to calculate the planet's position
+     * @returns a heliocentric vector pointing to the planet's position
+     */
     getPositionForDateNotScaled(date: Date): Vector {
         let helioCoords = HelioVector(Body[this.name], date)
         // z,x,y
@@ -214,8 +242,23 @@ class Planet {
         )
     }
 
+    /**
+     * Get a value from the planet's JSON object provided by https://api.le-systeme-solaire.net/en/
+     * @param key the key used to fetch a value from the json.
+     * @param planetId examples: "sun", "earth", and etc.
+     * @returns value of `any` type.
+     */
     static getJSONValue(key: String, planetId: String) {
         return objectsJson[planetId.toLowerCase()][key]
     }
+
+    static comparator(a: Planet, b: Planet): number {
+        if (a.id > b.id) {
+            return 1;
+        } else if (a.id < b.id) {
+            return -1;
+        }
+        return 0;
+    };
 }
 export default Planet;

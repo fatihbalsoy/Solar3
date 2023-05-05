@@ -6,63 +6,15 @@
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
-import * as THREE from "three";
-import { Settings } from "../settings";
-
-// Kilometers in 1 parsec
-let distanceKm = 3.262 * Math.pow(10, 13); // 1 parsec = 3.262 light-years = 3.262 * 10^13 kilometers
-
-interface StarData {
-    StarID: number, HIP: number, HD: number, HR: number, Gliese: number, BayerFlamsteed: number,
-    ProperName: string, RA: number, Dec: number, Distance: number, PMRA: number, PMDec: number,
-    RV: number, Mag: number, AbsMag: number, Spectrum: string, ColorIndex: number,
-    X: number, Y: number, Z: number, VX: number, VY: number, VZ: number
-}
-
-export class Star {
-    data: StarData
-    position: THREE.Vector3
-    x: number; y: number; z: number;
-
-    constructor(data: StarData) {
-        this.data = data
-        this.position = Star.scaleVectorNumbers(this.getX(), this.getY(), this.getZ())
-        this.x = this.position.x
-        this.y = this.position.y
-        this.z = this.position.z
-    }
-
-    private getX(): number { return -this.data.Y }
-    private getY(): number { return this.data.Z }
-    private getZ(): number { return -this.data.X }
-
-    static scalePosition(position: number): number {
-        return (position * distanceKm * Settings.distanceScale)
-    }
-    static scaleVectorNumbers(x: number, y: number, z: number): THREE.Vector3 {
-        return Star.scaleVector(new THREE.Vector3(x, y, z))
-    }
-    static scaleVector(v: THREE.Vector3): THREE.Vector3 {
-        return new THREE.Vector3(Star.scalePosition(v.x), Star.scalePosition(v.y), Star.scalePosition(v.z))
-    }
-
-    static empty(): Star {
-        return new Star({
-            StarID: -1, HIP: -1, HD: -1, HR: -1, Gliese: -1, BayerFlamsteed: -1,
-            ProperName: "NULL", RA: -1, Dec: -1, Distance: -1, PMRA: -1, PMDec: -1,
-            RV: -1, Mag: -1, AbsMag: -1, Spectrum: "NULL", ColorIndex: -1,
-            X: -1, Y: -1, Z: -1, VX: -1, VY: -1, VZ: -1
-        })
-    }
-}
+import { Star, StarData } from "./star";
+import '../utils/extensions';
 
 export class Stars {
     // Parsed HYG star database
     static database: Star[]
     static indexedDatabase: { [key: string]: Star } = {}
+    static indexedTree: string[] = []
     dataParsed: boolean = false
-    // Star points
-    // points: THREE.Points
 
     constructor() { }
 
@@ -108,6 +60,9 @@ export class Stars {
                     let starObj = new Star(star)
                     stars.push(starObj);
                     Stars.indexedDatabase[star.ProperName.toLowerCase()] = starObj
+                    if (star.ProperName != "\"\"") {
+                        Stars.indexedTree.binaryInsert(star.ProperName.toLowerCase())
+                    }
                 }
 
                 Stars.database = stars

@@ -49,7 +49,8 @@ const config = {
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './public/index.html'),
-      minify: true
+      minify: true,
+      hash: true
     }),
 
     // Add your plugins here

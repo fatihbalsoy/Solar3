@@ -10,7 +10,7 @@ import * as fs from "fs";
 import Planet from "../src/objects/planet";
 import * as objectsJson from '../src/data/objects.json';
 import * as readline from 'readline';
-import Objects from '../src/objects/objects'
+import Planets from '../src/objects/planets'
 
 /** Planets **/
 import Mercury from '../src/objects/planets/mercury'
@@ -48,7 +48,7 @@ var orbitPoints: string[] = []
 var indexNames: string = ""
 var indexLines: string = ""
 
-new Objects({
+new Planets({
     mercury: new Mercury(), venus: new Venus(), earth: new Earth(), mars: new Mars(),
     jupiter: new Jupiter(), saturn: new Saturn(), uranus: new Uranus(), neptune: new Neptune(),
     pluto: new Pluto(), // ceres: new Ceres(),
@@ -57,8 +57,8 @@ new Objects({
 process.stdout.write("\n--- Calculating Orbits ---")
 process.stdout.write("\n" + startDate.toISOString())
 let showCalculations = false
-for (let key in Objects) {
-    let planet: Planet = Objects[key];
+for (let key in Planets) {
+    let planet: Planet = Planets[key];
     if (planet) {
         process.stdout.write("\n" + planet.name)
 

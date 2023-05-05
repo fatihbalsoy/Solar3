@@ -19,6 +19,7 @@
     "@mdi/js": "^7.2.96",
     "@mdi/react": "^1.6.1",
     "@mui/material": "^5.12.3",
+    "@tweenjs/tween.js": "^20.0.3",
     "@types/three": "^0.148.0",
     "astronomy-engine": "^2.1.17",
     "dat.gui": "^0.7.7",

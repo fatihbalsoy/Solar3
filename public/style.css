@@ -47,4 +47,5 @@ body
     right: 0;
     bottom: 0;
     outline: none;
+    z-index: 0;
 }

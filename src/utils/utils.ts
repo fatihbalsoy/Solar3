@@ -13,7 +13,3 @@ export function convertRotationMatrix4(m: RotationMatrix): Matrix4 {
     const rotMatrix = new Matrix4()
     return rotMatrix.fromArray(m.rot[0].concat([0]).concat(m.rot[1]).concat([0]).concat(m.rot[2]).concat([0]).concat([0, 0, 0, 0]))
 }
-
-export type EnumDictionary<T extends string | symbol | number, U> = {
-    [K in T]: U;
-};

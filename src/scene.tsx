@@ -7,10 +7,11 @@
  */
 import React, { Component } from 'react'
 import * as THREE from 'three'
+import * as TWEEN from '@tweenjs/tween.js'
 import { CSS2DRenderer } from './modules/CSS2DRenderer'
 import Stats from 'stats.js'
 import { Orbits } from './utils/orbit_points'
-import Objects from './objects/objects'
+import Planets from './objects/planets'
 import { OrbitControls } from './modules/OrbitControls'
 import { Settings } from './settings'
 
@@ -38,13 +39,15 @@ import Io from './objects/moons/jupiter_io';
 import Callisto from './objects/moons/jupiter_callisto';
 import Europa from './objects/moons/jupiter_europa';
 import Ganymede from './objects/moons/jupiter_ganymede';
+import SceneCamera from './scene/camera'
+import SearchBar from './interface/search'
 
 class AppScene extends Component {
     private mount: HTMLDivElement
     private clock: THREE.Clock
     private scene: THREE.Scene
-    private camera: THREE.PerspectiveCamera
-    private controls: OrbitControls
+    static camera: SceneCamera
+    static controls: OrbitControls
     private renderer: THREE.WebGLRenderer
     private cssRenderer: CSS2DRenderer
     private frameId: number
@@ -61,9 +64,9 @@ class AppScene extends Component {
 
         this.clock = new THREE.Clock()
         this.scene = new THREE.Scene()
-        this.camera = new THREE.PerspectiveCamera(75, width / height, 0.00000001, (60000000000 * Settings.distanceScale) * 5)
-        this.controls = new OrbitControls(this.camera, this.mount)
-        this.renderer = new THREE.WebGLRenderer({ antialias: true })
+        AppScene.camera = new SceneCamera(75, width / height, 0.0001, (60000000000 * Settings.distanceScale) * 5)
+        AppScene.controls = new OrbitControls(AppScene.camera, this.mount)
+        this.renderer = new THREE.WebGLRenderer({ antialias: true, depth: true })
         this.cssRenderer = new CSS2DRenderer()
         this.loadingManager = new THREE.LoadingManager()
         this.textureLoader = new THREE.TextureLoader(this.loadingManager)
@@ -72,7 +75,7 @@ class AppScene extends Component {
         this.orbits = new Orbits()
         this.stars = new Stars()
 
-        this.scene.add(this.camera)
+        this.scene.add(AppScene.camera)
 
         // * -- RENDERERS --  * //
         this.renderer.setClearColor('#000000')
@@ -84,14 +87,16 @@ class AppScene extends Component {
         this.cssRenderer.domElement.style.position = 'absolute'
         this.cssRenderer.domElement.style.top = '0px'
         this.cssRenderer.domElement.style.pointerEvents = 'none'
-        document.body.appendChild(this.cssRenderer.domElement)
+        this.cssRenderer.domElement.style.zIndex = '1'
+        const root = document.getElementById("root")
+        root.insertBefore(this.cssRenderer.domElement, root.children[1])
 
         // * -- STATISTICS --  * //
         this.statistics.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
         // document.body.appendChild(this.statistics.dom)
 
         // * -- PLANETS --  * //
-        new Objects({
+        new Planets({
             sun: new Sun(),
             mercury: new Mercury(), venus: new Venus(), earth: new Earth(), mars: new Mars(),
             jupiter: new Jupiter(), saturn: new Saturn(), uranus: new Uranus(), neptune: new Neptune(),
@@ -99,18 +104,16 @@ class AppScene extends Component {
             moon: new Moon(),
             io: new Io(), callisto: new Callisto(), europa: new Europa(), ganymede: new Ganymede()
         })
-        Objects.sun.light.shadow.camera.far = Objects.pluto.distance;
-
-        this.orbits.addOrbits((Objects.array() as Planet[]).slice(1, 10), this.scene) // Mercury to Pluto
-
-        for (const key in Objects) {
-            const object = Objects[key] as Planet;
+        Planets.sun.light.shadow.camera.far = Planets.pluto.distance;
+        this.orbits.addOrbits((Planets.array() as Planet[]).slice(1, 10), this.scene) // Mercury to Pluto
+        for (const key in Planets) {
+            const object = Planets[key] as Planet;
 
             this.scene.add(object.mesh)
             object.displayLabel(this.scene)
 
             if (key !== "sun") {
-                Objects.sun.mesh.add(object.mesh)
+                Planets.sun.mesh.add(object.mesh)
             }
         }
 
@@ -118,11 +121,11 @@ class AppScene extends Component {
         this.stars.parseData()
 
         // * -- CONTROLS -- * //
-        Settings.lookAt = Objects.earth.getPosition()
-        this.controls.enableDamping = true
-        this.controls.enablePan = false
-        this.controls.maxDistance = (Objects.pluto.distance * Settings.distanceScale) * 3
-        this.lookAt(Settings.lookAt)
+        Settings.lookAt = Planets.earth
+        AppScene.controls.enableDamping = true
+        AppScene.controls.enablePan = false
+        AppScene.controls.maxDistance = (Planets.pluto.distance * Settings.distanceScale) * 3
+        this.lookAt(Settings.lookAt.getPosition())
 
         // * -- GALAXY -- * //
         const galaxyTexture = this.textureLoader.load('assets/images/textures/galaxy/8k_stars_milky_way.jpeg', () => {
@@ -150,8 +153,8 @@ class AppScene extends Component {
     }
 
     lookAt(position: THREE.Vector3) {
-        this.controls.target = position
-        this.controls.center = position
+        AppScene.controls.target = position
+        // AppScene.camera.lookAt(position)
     }
 
     handleResize = () => {
@@ -167,9 +170,9 @@ class AppScene extends Component {
             this.cssRenderer.setSize(width, height)
         }
 
-        if (this.camera) {
-            this.camera.aspect = width / height
-            this.camera.updateProjectionMatrix()
+        if (AppScene.camera) {
+            AppScene.camera.aspect = width / height
+            AppScene.camera.updateProjectionMatrix()
         }
     }
 
@@ -185,39 +188,50 @@ class AppScene extends Component {
         }
     }
 
+    didFlyToStart = false
     animate = () => {
         this.statistics.begin()
 
-        // const elapsedTime = this.clock.startTime + this.clock.getElapsedTime()
+        const elapsedTime = this.clock.startTime + this.clock.getElapsedTime()
 
-        for (const key in Objects) {
-            const object = Objects[key];
+        for (const key in Planets) {
+            const object: Planet = Planets[key];
 
-            object.animate()
-            object.updateLabel(this.camera)
+            object.animate(this.clock.getElapsedTime())
+            object.updateLabel(AppScene.camera)
         }
-        Objects.moon.mesh.lookAt(Objects.earth.mesh.position)
+        Planets.moon.mesh.lookAt(Planets.earth.mesh.position)
 
-        this.lookAt(Settings.lookAt)
-        this.controls.update()
+        this.lookAt(Settings.lookAt.getPosition())
+        AppScene.controls.update()
+        if (!this.didFlyToStart) {
+            AppScene.camera.flyTo(Planets.earth, 0)
+            this.didFlyToStart = true
+        }
 
         this.renderScene()
         this.frameId = window.requestAnimationFrame(this.animate)
+        TWEEN.update()
 
         this.statistics.end()
     }
 
     renderScene = () => {
-        if (this.renderer && this.cssRenderer && this.scene && this.camera) {
-            this.renderer.render(this.scene, this.camera)
-            this.cssRenderer.render(this.scene, this.camera)
+        if (this.renderer && this.cssRenderer && this.scene && AppScene.camera) {
+            this.renderer.render(this.scene, AppScene.camera)
+            this.cssRenderer.render(this.scene, AppScene.camera)
         }
+    }
+
+    onClickScene() {
+        SearchBar.hideSearchResults()
     }
 
     render() {
         return (
             <div
                 className="webgl"
+                onMouseDown={this.onClickScene}
                 ref={mount => {
                     this.mount = mount
                 }}

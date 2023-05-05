@@ -10,7 +10,6 @@
 import * as THREE from "three";
 import Planet from "./planet";
 import * as dat from 'dat.gui'
-import { sizeScale } from "../settings";
 
 class Sun extends Planet {
     // Light
@@ -41,14 +40,6 @@ class Sun extends Planet {
 
         this.light = light
         this.mesh.add(this.light)
-    }
-
-    addGUI(gui: dat.GUI): dat.GUI {
-        let sunFolder = this._addGUI(gui, this.name, this.mesh)
-
-        const lightFolder = sunFolder.addFolder('Light')
-        // lightFolder.add(this.light, 'intensity', 0, 10, 0.01)
-        return lightFolder
     }
 }
 

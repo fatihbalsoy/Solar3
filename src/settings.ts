@@ -7,7 +7,10 @@
  */
 
 import { Vector3 } from "three"
-import { EnumDictionary } from "./utils/utils"
+import { EnumDictionary } from "./utils/extensions"
+import Planet from "./objects/planet"
+import Star from "./objects/star"
+import Planets from "./objects/planets"
 
 export enum Quality {
     high = 2,
@@ -15,7 +18,7 @@ export enum Quality {
     low = 0
 }
 export class Settings {
-    static lookAt: Vector3 = new Vector3(0, 0, 0) // does not work well with stars
+    static lookAt: Planet | Star = Planets.sun // does not work well with stars
 
     // Graphics
     static quality: Quality = Quality.medium
