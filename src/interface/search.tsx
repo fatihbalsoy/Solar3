@@ -72,12 +72,12 @@ class SearchBar extends Component {
     }
 
     onClickTelescopeIcon() {
-        this.searchAndLookAt(this.state.value)
+        this.searchAndLookAt(this.state.value.toLowerCase())
         SearchBar.hideSearchResults()
     }
 
     onClickFlyIcon() {
-        let planet: Planet = Planets[this.state.value]
+        let planet: Planet = Planets[this.state.value.toLowerCase()]
         if (planet) {
             Settings.lookAt = planet
             AppScene.camera.flyTo(planet, 2000)
