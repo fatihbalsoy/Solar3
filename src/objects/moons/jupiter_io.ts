@@ -8,8 +8,7 @@
 
 import * as THREE from "three";
 import JupiterMoon from "./jupiter_moon";
-import { Quality, Settings } from "../../settings";
-import { EnumDictionary } from "../../utils/utils";
+import { Settings } from "../../settings";
 
 class Io extends JupiterMoon {
     constructor() {

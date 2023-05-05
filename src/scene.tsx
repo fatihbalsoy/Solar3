@@ -93,7 +93,13 @@ class AppScene extends Component {
 
         // * -- STATISTICS --  * //
         this.statistics.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
-        // document.body.appendChild(this.statistics.dom)
+        this.statistics.dom.style.inset = 'unset'
+        this.statistics.dom.style.bottom = '0px'
+        this.statistics.dom.style.right = '0px'
+        this.statistics.dom.style.position = 'fixed'
+        if (Settings.isDev) {
+            document.body.appendChild(this.statistics.dom)
+        }
 
         // * -- PLANETS --  * //
         new Planets({
@@ -128,7 +134,8 @@ class AppScene extends Component {
         this.lookAt(Settings.lookAt.getPosition())
 
         // * -- GALAXY -- * //
-        const galaxyTexture = this.textureLoader.load('assets/images/textures/galaxy/8k_stars_milky_way.jpeg', () => {
+        let galaxyRes = Settings.res2_8k[Settings.quality]
+        const galaxyTexture = this.textureLoader.load('assets/images/textures/galaxy/' + galaxyRes + '_stars_milky_way.jpeg', () => {
             const rt = new THREE.WebGLCubeRenderTarget(galaxyTexture.image.height);
             rt.fromEquirectangularTexture(this.renderer, galaxyTexture);
             this.scene.background = rt.texture;

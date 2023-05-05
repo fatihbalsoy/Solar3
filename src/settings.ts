@@ -11,6 +11,8 @@ import { EnumDictionary } from "./utils/extensions"
 import Planet from "./objects/planet"
 import Star from "./objects/star"
 import Planets from "./objects/planets"
+import { totalmem } from 'os'
+var platform = require('platform');
 
 export enum Quality {
     high = 2,
@@ -18,10 +20,19 @@ export enum Quality {
     low = 0
 }
 export class Settings {
+    static isDev = process.env.NODE_ENV !== 'production'
     static lookAt: Planet | Star = Planets.sun // does not work well with stars
 
     // Graphics
-    static quality: Quality = Quality.medium
+    private static gigabyteToBytes = 1e+9
+    static readonly quality: Quality =
+        // Safari on iPhone only provides roughly 300mb of RAM
+        platform.layout == 'WebKit' && platform.product == 'iPhone'
+            ? Quality.low
+            // Load 8k textures on high-end devices (16gb ram)
+            : totalmem() >= 15 * this.gigabyteToBytes
+                ? Quality.high
+                : Quality.medium
     static readonly res2_4_8k: EnumDictionary<Quality, string> = {
         [Quality.high]: '8k',
         [Quality.medium]: '4k',

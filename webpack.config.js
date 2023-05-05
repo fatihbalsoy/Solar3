@@ -50,7 +50,6 @@ const config = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './public/index.html'),
       minify: true,
-      hash: true
     }),
 
     // Add your plugins here
@@ -85,6 +84,9 @@ const config = {
   resolve: {
     alias: {
       three: path.resolve('./node_modules/three')
+    },
+    fallback: {
+      "os": require.resolve("os-browserify/browser")
     },
     extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
   },
