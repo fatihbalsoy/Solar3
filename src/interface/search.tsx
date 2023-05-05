@@ -57,7 +57,11 @@ class SearchBar extends Component {
 
         const planets = Planets.array(true)
         const pResult = planets.map((p) => p.id).binarySearchPrefix(search)
-        const results = [planets[pResult].id].concat(slice).filter((value, index, arr) => value.startsWith(search))
+        const results = []
+        if (planets[pResult]) {
+            results.push(planets[pResult].id)
+        }
+        results.concat(slice).filter((value, index, arr) => value.startsWith(search))
 
         this.setState({
             value: e.target.value,
@@ -106,10 +110,12 @@ class SearchBar extends Component {
 
     iconButton(name: string, icon: string, color: any = "default", f: () => any = () => { }, disabled: boolean = false) {
         return (<Tooltip title={name}>
-            <IconButton type="button" onClick={f} color={color} disabled={disabled} className="search-bar-icon-button" aria-label={name.toLowerCase()}>
-                <Icon
-                    size={1} path={icon}></Icon>
-            </IconButton>
+            <span>
+                <IconButton type="button" onClick={f} color={color} disabled={disabled} className="search-bar-icon-button" aria-label={name.toLowerCase()}>
+                    <Icon
+                        size={1} path={icon}></Icon>
+                </IconButton>
+            </span>
         </Tooltip >)
     }
 
@@ -155,7 +161,7 @@ class SearchBar extends Component {
                                             : obj.name
 
 
-                                        return <ListItem disablePadding>
+                                        return <ListItem disablePadding key={name}>
                                             <ListItemButton onClick={() => this.onClickSearchResult(name)}>
                                                 <ListItemIcon>
                                                     <Icon size={1} path={icon}></Icon>

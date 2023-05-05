@@ -32,21 +32,21 @@ declare global {
 if (!Array.prototype.binaryInsert) {
     Array.prototype.binaryInsert = function <T>(this: T[], item: T, compare?: (a: T, b: T) => number) {
         compare = compare || defaultCompare;
-        let start = 0;
-        let end = this.length - 1;
+        let left = 0;
+        let right = this.length - 1;
         let mid;
 
-        while (start <= end) {
-            mid = Math.floor((start + end) / 2);
+        while (left <= right) {
+            mid = Math.floor((left + right) / 2);
 
             if (compare(item, this[mid]) < 0) {
-                end = mid - 1;
+                right = mid - 1;
             } else {
-                start = mid + 1;
+                left = mid + 1;
             }
         }
 
-        this.splice(start, 0, item);
+        this.splice(left, 0, item);
     };
 }
 
@@ -76,18 +76,18 @@ if (!Array.prototype.binarySearch) {
 if (!Array.prototype.binarySearchPrefix) {
     Array.prototype.binarySearchPrefix = function <T>(searchTerm: T, compare?: (a: T, b: T) => number): number {
         compare = compare || defaultCompare;
-        let low = 0;
-        let high = this.length - 1;
+        let left = 0;
+        let right = this.length - 1;
         let prefix: T[] = [];
 
-        while (low <= high) {
-            const mid = Math.floor((low + high) / 2);
+        while (left <= right) {
+            const mid = Math.floor((left + right) / 2);
             const comparison = compare(this[mid], searchTerm);
 
             if (comparison < 0) {
-                low = mid + 1;
+                left = mid + 1;
             } else if (comparison > 0) {
-                high = mid - 1;
+                right = mid - 1;
             } else {
                 let prefixStartIndex = mid;
                 while (prefixStartIndex >= 0 && compare(this[prefixStartIndex], searchTerm) === 0) {
@@ -106,6 +106,6 @@ if (!Array.prototype.binarySearchPrefix) {
             }
         }
 
-        return low
+        return left
     }
 }

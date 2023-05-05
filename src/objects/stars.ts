@@ -59,9 +59,11 @@ export class Stars {
 
                     let starObj = new Star(star)
                     stars.push(starObj);
-                    Stars.indexedDatabase[star.ProperName.toLowerCase()] = starObj
-                    if (star.ProperName != "\"\"") {
-                        Stars.indexedTree.binaryInsert(star.ProperName.toLowerCase())
+                    if (star.ProperName) {
+                        Stars.indexedDatabase[star.ProperName.toLowerCase()] = starObj
+                        if (star.ProperName != "\"\"") {
+                            Stars.indexedTree.binaryInsert(star.ProperName.toLowerCase())
+                        }
                     }
                 }
 

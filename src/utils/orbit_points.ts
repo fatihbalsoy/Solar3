@@ -27,27 +27,30 @@ export class Orbits {
         let planetIndex = fileLines[2].split(",")
 
         let i = planetNames.indexOf(planet)
-        let name = planetNames[i].toLowerCase();
-        let index = parseInt(planetIndex[i]);
-        let length = parseInt(fileLines[index - 1])
-        let vLines: string[] = fileLines.slice(index, index + length)
-        var vectors: THREE.Vector3[] = []
+        let p = planetNames[i]
+        if (p) {
+            let name = planetNames[i].toLowerCase();
+            let index = parseInt(planetIndex[i]);
+            let length = parseInt(fileLines[index - 1])
+            let vLines: string[] = fileLines.slice(index, index + length)
+            var vectors: THREE.Vector3[] = []
 
-        for (let v = 0; v < vLines.length; v++) {
-            let element = vLines[v];
-            let coords: string[] = element.split(",")
-            let x = parseFloat(coords[0]) * Settings.AUtoKM * Settings.distanceScale
-            let y = parseFloat(coords[1]) * Settings.AUtoKM * Settings.distanceScale
-            let z = parseFloat(coords[2]) * Settings.AUtoKM * Settings.distanceScale
+            for (let v = 0; v < vLines.length; v++) {
+                let element = vLines[v];
+                let coords: string[] = element.split(",")
+                let x = parseFloat(coords[0]) * Settings.AUtoKM * Settings.distanceScale
+                let y = parseFloat(coords[1]) * Settings.AUtoKM * Settings.distanceScale
+                let z = parseFloat(coords[2]) * Settings.AUtoKM * Settings.distanceScale
 
-            let vector = new THREE.Vector3(x, y, z)
-            vectors.push(vector)
-        }
+                let vector = new THREE.Vector3(x, y, z)
+                vectors.push(vector)
+            }
 
-        orbit = {
-            name: name,
-            length: vectors.length,
-            points: vectors
+            orbit = {
+                name: name,
+                length: vectors.length,
+                points: vectors
+            }
         }
 
         return orbit
@@ -59,8 +62,10 @@ export class Orbits {
             .then(data => {
                 for (let c in planets) {
                     let planet = planets[c]
-                    let orbit = this.parseData(data, planet.name)
-                    planet.displayOrbit(orbit, scene)
+                    if (planet.id) {
+                        let orbit = this.parseData(data, planet.name)
+                        planet.displayOrbit(orbit, scene)
+                    }
                 }
             })
     }
