@@ -57,11 +57,11 @@ class SearchBar extends Component {
 
         const planets = Planets.array(true)
         const pResult = planets.map((p) => p.id).binarySearchPrefix(search)
-        const results = []
+        var results = []
         if (planets[pResult]) {
             results.push(planets[pResult].id)
         }
-        results.concat(slice).filter((value, index, arr) => value.startsWith(search))
+        results = results.concat(slice).filter((value, index, arr) => value.startsWith(search))
 
         this.setState({
             value: e.target.value,
