@@ -19,6 +19,7 @@ export enum Quality {
     medium = 1,
     low = 0
 }
+
 export class Settings {
     static isDev = process.env.NODE_ENV !== 'production'
     static lookAt: Planet | Star = Planets.sun // does not work well with stars
@@ -58,6 +59,16 @@ export class Settings {
         [Quality.medium]: '2k',
         [Quality.low]: '1k'
     }
+    static readonly res2k: EnumDictionary<Quality, string> = {
+        [Quality.high]: '2k',
+        [Quality.medium]: '2k',
+        [Quality.low]: '2k'
+    }
+    static readonly res1k: EnumDictionary<Quality, string> = {
+        [Quality.high]: '1k',
+        [Quality.medium]: '1k',
+        [Quality.low]: '1k'
+    }
 
     // Scale
     static readonly distanceScale: number = 1 / 10000
@@ -66,4 +77,23 @@ export class Settings {
     // Astronomical Units to Kilometers
     static readonly AUtoKM = 1.496e+8
 }
+
+export const resFields: EnumDictionary<string, EnumDictionary<Quality, string>> = {
+    "mercury": Settings.res2_8k,
+    "venus": Settings.res2_4k,
+    "earth": Settings.res2_8k,
+    "mars": Settings.res2_8k,
+    "jupiter": Settings.res2_8k,
+    "saturn": Settings.res2_8k,
+    "uranus": Settings.res2k,
+    "neptune": Settings.res2k,
+    "pluto": Settings.res1_2k,
+    "ceres": Settings.res2_4k,
+    "moon": Settings.res2_8k,
+    "io": Settings.res2_4_8k,
+    "europa": Settings.res1k,
+    "ganymede": Settings.res1k,
+    "callisto": Settings.res1k,
+}
+
 export default Settings

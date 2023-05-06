@@ -15,11 +15,13 @@ import { Quality, Settings } from "../../settings";
 class Mars extends Planet {
 
     constructor() {
+        const id = "mars"
+
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const texture = textureLoader.load('assets/images/textures/mars/'
-            + Settings.res2_8k[Settings.quality] + '_mars.jpeg')
+        const texture = textureLoader.load(Planet.getTexturePath(id))
+        const lowTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()
@@ -29,7 +31,7 @@ class Mars extends Planet {
         const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        super("Mars", [material], geometry);
+        super(id, [material], geometry, lowTexture);
     }
 }
 

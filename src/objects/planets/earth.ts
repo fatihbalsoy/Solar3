@@ -15,6 +15,8 @@ import { Quality, Settings } from "../../settings";
 class Earth extends Planet {
 
     constructor() {
+        const id = "earth"
+
         //? -- TEXTURES -- ?//
         const today = new Date()
         const month = today.getMonth()
@@ -26,6 +28,7 @@ class Earth extends Planet {
         const res = Settings.res2_8k[Settings.quality]
 
         const earthTexture = textureLoader.load('assets/images/textures/earth/' + res + '/month/' + monthNames[month] + '.jpeg')
+        const earthLowResTexure = textureLoader.load('assets/images/textures/earth/2k/month/' + monthNames[month] + '.jpeg')
         const earthNormal = textureLoader.load('assets/images/textures/earth/' + res + '/normal.jpeg')
         const earthRoughness = textureLoader.load('assets/images/textures/earth/' + res + '/roughness.jpeg')
         const earthSpecular = textureLoader.load('assets/images/textures/earth/' + res + '/specular.jpeg')
@@ -33,34 +36,6 @@ class Earth extends Planet {
         const earthCloudsTexture = textureLoader.load('assets/images/textures/earth/2k/clouds.png')
 
         //? -- MATERIAL -- ?//
-        // const earthMaterial = new THREE.ShaderMaterial({
-        //     // vertexShader: `
-        //     // attribute vec3 aPosition;
-
-        //     // varying vec3 vPosition;
-
-        //     // void main() {
-        //     //     gl_Position = vec4(aPosition, 1.0);
-        //     //     vPosition = aPosition;
-        //     // }
-        //     // `,
-        //     // fragmentShader: `
-        //     // uniform vec3 uSunPos;
-
-        //     // void main() {
-        //     //     color = 1.0 - exp(-1.0 * color);
-        //     //     gl_FragColor = vec4(color, 1);
-        //     // }
-        //     // `,
-        //     vertexShader: glsl('shaders/atmosphere.v.vert'),
-        //     fragmentShader: glsl('shaders/atmosphere.v.frag'),
-        //     uniforms: {
-        //         "uSunPos": {
-        //             "value": new THREE.Uniform(new THREE.Vector3(3, 5.2, 3.5))
-        //         }
-        //     }
-        // })
-
         const earthMaterial = new THREE.MeshStandardMaterial({
             normalMap: earthNormal,
             emissiveMap: earthEmission,
@@ -69,67 +44,6 @@ class Earth extends Planet {
             roughnessMap: earthRoughness,
             map: earthTexture,
         })
-
-        // const earthMaterial = new THREE.MeshPhongMaterial({
-        //     normalMap: earthNormal,
-        //     emissiveMap: earthEmission,
-        //     bumpMap: earthRoughness,
-        //     map: earthTexture,
-        //     specularMap: earthSpecular,
-        //     // lightMap: earthEmission
-        // })
-
-        //? -- SHADER -- ?//
-        // const earthMaterial = new THREE.ShaderMaterial({
-        //     uniforms: {
-        //         planetRadius: Planet.getJSONValue('meanRadius', 'earth')
-        //     },
-        //     vertexShader: `
-        //     varying vec3 vPosition;
-
-        //     void main() {
-        //         vPosition = position; // * vec3(1.5, 1.5, 1.5);
-        //         gl_Position = projectionMatrix * modelViewMatrix * vec4(vPosition, 1.0);
-        //     }
-        //     `,
-        //     fragmentShader: `
-        //     varying vec3 vPosition;
-        //     uniform float planetRadius;
-
-        //     void main() {
-        //         gl_FragColor = viewMatrix * vec4(vPosition, 1);
-        //     }
-        // `,
-        // })
-
-        // var vertexShader = [
-        //     'varying vec3 vNormal;',
-        //     'varying vec3 vPosition;',
-        //     'void main() {',
-        //     'vNormal = normalize( normalMatrix * normal );',
-
-        //     'gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );',
-        //     'vPosition = gl_Position.xyz;',
-        //     '}'
-        // ].join('\n')
-
-        // var fragmentShader = [
-        //     'varying vec3 vNormal;',
-        //     'varying vec3 vPosition;',
-
-        //     'void main() {',
-        //     'vec3 lightPosition = vec3(-10.0, 10.0, 0.0);',
-        //     'vec3 lightDirection = normalize(lightPosition - vPosition);',
-        //     'float dotNL = clamp(dot(lightDirection, vNormal), 0.0, 1.0);',
-        //     'float intensity = pow( 0.8 - dot( vNormal, vec3( 0, 0, 1.0 ) ), 12.0 );',
-        //     'gl_FragColor = vec4( 1, 1.0, 1.0, 1.0 ) * intensity * dotNL;',
-        //     '}'
-        // ].join('\n')
-
-        // const earthMaterial = new THREE.ShaderMaterial({
-        //     vertexShader: vertexShader,
-        //     fragmentShader: fragmentShader
-        // })
 
         const cloudMaterial = new THREE.MeshStandardMaterial({
             map: earthCloudsTexture,
@@ -152,7 +66,7 @@ class Earth extends Planet {
         geometry.setAttribute('uv2', new THREE.BufferAttribute(uv1Array, 2));
         // * Second UV End * //
 
-        super("earth", materials, geometry);
+        super(id, materials, geometry, earthLowResTexure);
     }
 }
 

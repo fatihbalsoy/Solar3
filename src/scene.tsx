@@ -42,6 +42,7 @@ import Ganymede from './objects/moons/jupiter_ganymede';
 import SceneCamera from './scene/camera'
 import SearchBar from './interface/search'
 
+// TODO: Preload textures to prevent lag during runtime
 class AppScene extends Component {
     private mount: HTMLDivElement
     private clock: THREE.Clock
@@ -57,6 +58,8 @@ class AppScene extends Component {
 
     private orbits: Orbits
     private stars: Stars
+
+    private timer: NodeJS.Timeout;
 
     componentDidMount() {
         const width = this.mount?.clientWidth || 0
@@ -131,7 +134,7 @@ class AppScene extends Component {
         AppScene.controls.enableDamping = true
         AppScene.controls.enablePan = false
         AppScene.controls.maxDistance = (Planets.pluto.distance * Settings.distanceScale) * 3
-        this.lookAt(Settings.lookAt.getPosition())
+        AppScene.controls.target = Settings.lookAt.getPosition()
 
         // * -- GALAXY -- * //
         let galaxyRes = Settings.res2_8k[Settings.quality]
@@ -147,21 +150,23 @@ class AppScene extends Component {
             this.mount.appendChild(this.renderer.domElement)
         }
 
+        this.calculatePositions(true)
+        this.timer = setInterval(() => {
+            this.calculatePositions(true)
+        }, 1000);
+
         this.start()
+        AppScene.camera.flyTo(Planets.earth, 0)
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleResize)
         this.stop()
+        clearInterval(this.timer)
 
         if (this.mount && this.renderer) {
             this.mount.removeChild(this.renderer.domElement)
         }
-    }
-
-    lookAt(position: THREE.Vector3) {
-        AppScene.controls.target = position
-        // AppScene.camera.lookAt(position)
     }
 
     handleResize = () => {
@@ -195,26 +200,29 @@ class AppScene extends Component {
         }
     }
 
-    didFlyToStart = false
+    calculatePositions(all: boolean = false) {
+        if (all) {
+            for (const key in Planets) {
+                const object: Planet = Planets[key];
+                object.animate()
+                object.updateLabel(AppScene.camera)
+            }
+        } else if (Settings.lookAt instanceof Planet) {
+            if (Settings.lookAt instanceof JupiterMoon) {
+                Planets.jupiter.animate()
+            }
+            Settings.lookAt.animate()
+            Settings.lookAt.updateLabel(AppScene.camera)
+        }
+        Planets.moon.mesh.lookAt(Planets.earth.mesh.position)
+        AppScene.controls.target = Settings.lookAt.getPosition()
+    }
+
     animate = () => {
         this.statistics.begin()
 
-        const elapsedTime = this.clock.startTime + this.clock.getElapsedTime()
-
-        for (const key in Planets) {
-            const object: Planet = Planets[key];
-
-            object.animate(this.clock.getElapsedTime())
-            object.updateLabel(AppScene.camera)
-        }
-        Planets.moon.mesh.lookAt(Planets.earth.mesh.position)
-
-        this.lookAt(Settings.lookAt.getPosition())
+        this.calculatePositions()
         AppScene.controls.update()
-        if (!this.didFlyToStart) {
-            AppScene.camera.flyTo(Planets.earth, 0)
-            this.didFlyToStart = true
-        }
 
         this.renderScene()
         this.frameId = window.requestAnimationFrame(this.animate)

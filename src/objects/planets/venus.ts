@@ -14,11 +14,13 @@ import { Quality, Settings } from "../../settings";
 class Venus extends Planet {
 
     constructor() {
+        const id = "venus"
+
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const texture = textureLoader.load('assets/images/textures/venus/'
-            + Settings.res2_8k[Settings.quality] + '_venus_atmosphere.jpeg')
+        const texture = textureLoader.load(Planet.getTexturePath(id))
+        const lowResTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()
@@ -28,7 +30,7 @@ class Venus extends Planet {
         const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        super("Venus", [material], geometry);
+        super(id, [material], geometry, lowResTexture);
     }
 }
 

@@ -14,11 +14,13 @@ import { Quality, Settings } from "../../settings";
 class Pluto extends Planet {
 
     constructor() {
+        const id = "pluto"
+
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const res = Settings.quality == Quality.high ? '2k' : '1k'
-        const texture = textureLoader.load('assets/images/textures/pluto/' + res + '_pluto.jpg')
+        const texture = textureLoader.load(Planet.getTexturePath(id))
+        const lowTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()
@@ -28,7 +30,7 @@ class Pluto extends Planet {
         const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        super("Pluto", [material], geometry);
+        super(id, [material], geometry, lowTexture);
     }
 }
 

@@ -13,11 +13,13 @@ import { Quality, Settings } from "../../settings";
 
 class Mercury extends Planet {
     constructor() {
+        const id = "mercury"
+
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const texture = textureLoader.load('assets/images/textures/mercury/'
-            + Settings.res2_8k[Settings.quality] + '_mercury.jpeg')
+        const texture = textureLoader.load(Planet.getTexturePath(id))
+        const lowResTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()
@@ -27,7 +29,7 @@ class Mercury extends Planet {
         const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        super("Mercury", [material], geometry);
+        super(id, [material], geometry, lowResTexture);
     }
 }
 

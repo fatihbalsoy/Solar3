@@ -11,10 +11,12 @@ import JupiterMoon from "./jupiter_moon"
 
 class Ganymede extends JupiterMoon {
     constructor() {
+        const id = "ganymede"
+
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const texture = textureLoader.load('assets/images/textures/ganymede/ganymede.jpeg')
+        const texture = textureLoader.load('assets/images/textures/ganymede/1k_ganymede.jpeg')
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()
@@ -24,7 +26,7 @@ class Ganymede extends JupiterMoon {
         const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        super("Ganymede", [material], geometry);
+        super(id, [material], geometry, texture);
     }
 }
 export default Ganymede

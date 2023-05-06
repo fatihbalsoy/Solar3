@@ -24,7 +24,7 @@ class JupiterMoon extends Planet {
         return JupiterMoon.moonsInfo
     }
 
-    animate(time: number): void {
+    animate(): void {
         let pos = this.getPositionForDate(new Date())
         this.position.set(pos.x, pos.y, pos.z)
         this.mesh.position.set(pos.x, pos.y, pos.z)

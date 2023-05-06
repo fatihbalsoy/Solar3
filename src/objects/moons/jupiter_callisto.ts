@@ -11,10 +11,12 @@ import JupiterMoon from "./jupiter_moon"
 
 class Callisto extends JupiterMoon {
     constructor() {
+        const id = "callisto"
+
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const texture = textureLoader.load('assets/images/textures/callisto/callisto.jpeg')
+        const texture = textureLoader.load('assets/images/textures/callisto/1k_callisto.jpeg')
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()
@@ -24,7 +26,7 @@ class Callisto extends JupiterMoon {
         const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        super("Callisto", [material], geometry);
+        super(id, [material], geometry, texture);
     }
 }
 export default Callisto

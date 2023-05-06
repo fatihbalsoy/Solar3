@@ -10,22 +10,29 @@
 import * as THREE from "three";
 import Earth from "./earth";
 import Planet from "../planet";
-import { Quality, Settings } from "../../settings";
+import { Quality, Settings, resFields } from "../../settings";
 
 class Saturn extends Planet {
 
     constructor() {
+        const id = "saturn"
+
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const res = Settings.res2_8k[Settings.quality]
-        const texture = textureLoader.load('assets/images/textures/saturn/' + res + '_saturn.jpeg')
-        const ringTexture = textureLoader.load('assets/images/textures/saturn/' + res + '_saturn_ring_alpha.png')
+        const texture = textureLoader.load(Planet.getTexturePath(id))
+        const lowResTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
+        const ringTexture = textureLoader.load('assets/images/textures/saturn/' + resFields[id][Settings.quality] + '_saturn_ring_alpha.png')
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial({
             map: texture,
         })
+
+        //? -- GEOMETRY -- ?//
+        const geometry = new THREE.SphereGeometry(1, 64, 64)
+        geometry.clearGroups()
+        geometry.addGroup(0, Infinity, 0)
 
         //* RING MATERIAL *//
         const ringMaterial = new THREE.MeshToonMaterial({
@@ -38,12 +45,6 @@ class Saturn extends Planet {
             // reflectivity: 100,
             // refractionRatio: 0.5
         })
-
-        //? -- GEOMETRY -- ?//
-        const geometry = new THREE.SphereGeometry(1, 64, 64)
-        geometry.clearGroups()
-        geometry.addGroup(0, Infinity, 0)
-
 
         //* RING GEOMETRY + MESH *//
         const ringGeometry = new THREE.RingGeometry(66900, 180000, 96, 1)
@@ -63,11 +64,7 @@ class Saturn extends Planet {
         ringMesh.castShadow = true
         ringMesh.receiveShadow = true
 
-        super("Saturn", [material], geometry);
-        this.realMesh.add(ringMesh)
-        this.realMesh.rotation.z = 23 * Math.PI / 180
-        this.realMesh.receiveShadow = true
-        this.realMesh.castShadow = true
+        super(id, [material], geometry, lowResTexture, [ringMesh]);
     }
 }
 

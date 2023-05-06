@@ -14,13 +14,17 @@ import { Quality, Settings } from "../../settings";
 
 class Moon extends Planet {
     constructor() {
+        const id = "moon"
+
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const texture = textureLoader.load('assets/images/textures/moon/'
-            + Settings.res2_8k[Settings.quality] + '_moon.jpeg')
+        const texture = textureLoader.load(Planet.getTexturePath(id))
+        const lowTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
         texture.wrapS = THREE.RepeatWrapping
         texture.offset.x = (270 / 180) / (2 * Math.PI)
+        lowTexture.wrapS = texture.wrapS
+        lowTexture.offset.x = texture.offset.x
 
         const normalRes = Settings.quality <= Quality.medium ? 'jpeg' : 'png'
         const normalTexture = textureLoader.load('assets/images/textures/moon/2k_moon_normal.' + normalRes)
@@ -37,7 +41,7 @@ class Moon extends Planet {
         const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        super("Moon", [material], geometry);
+        super(id, [material], geometry, lowTexture);
 
         // const earthAxisVector = new THREE.Vector3(0, 0, 1)
         // const earthAxisRadians = 23 * Math.PI / 180

@@ -11,8 +11,7 @@ import { Material, Mesh, Object3D, SphereGeometry, Vector3 } from "three"
 import * as THREE from "three"
 import * as objectsJson from '../data/objects.json';
 import { HelioVector, Body, Vector, Rotation_EQJ_ECL } from 'astronomy-engine';
-import { Settings } from "../settings";
-import { convertRotationMatrix4 } from "../utils/utils";
+import { Quality, Settings, resFields } from "../settings";
 import { CSS2DObject } from "../modules/CSS2DRenderer";
 import { Orbit } from '../utils/orbit_points';
 
@@ -50,12 +49,16 @@ class Planet {
      */
     realMesh: Mesh
     /**
+     * Level of detail
+     */
+    lod: THREE.LOD
+    /**
      * Label objects
      */
     labelCircle: CSS2DObject
     labelText: CSS2DObject
 
-    constructor(id: string, material: Material[], geometry: SphereGeometry) {
+    constructor(id: string, material: Material[], geometry: SphereGeometry, lowResTexture: THREE.Texture, children: Object3D[] = []) {
         const obj = objectsJson[id.toLowerCase()]
         this.id = id.toLowerCase()
         this.name = obj.name
@@ -67,16 +70,32 @@ class Planet {
         this.axialTilt = obj.axialTilt
         this.orbitalInclination = obj.inclination
         this.material = material
+        const radiusScale = this.radius * Settings.sizeScale
+
+        // LEVEL OF DETAIL //
+        this.lod = new THREE.LOD()
+
+        // const lowPolyGeometry = new SphereGeometry(radiusScale, 16, 16)
+        // const lowResMaterial = new THREE.MeshBasicMaterial({ map: lowResTexture })
+        // const lowResMesh = new THREE.Mesh(lowPolyGeometry, lowResMaterial)
+        // this.lod.addLevel(lowResMesh, 200 * this.radius * Settings.distanceScale) // 2mil * Settings.distanceScale
+
+        const lowPoly0Geometry = new SphereGeometry(radiusScale, 4, 4)
+        const lowRes0Mesh = new THREE.Mesh(lowPoly0Geometry)
+        this.lod.addLevel(lowRes0Mesh, 314 * this.radius * Settings.distanceScale)
 
         // GEOMETRY //
-        const radiusScale = this.radius * Settings.sizeScale
         this.geometry = geometry
-        var enlarge = 1;
-        this.geometry.scale(radiusScale * enlarge, radiusScale * enlarge, radiusScale * enlarge)
+        this.geometry.scale(radiusScale, radiusScale, radiusScale)
 
         this.mesh = new THREE.Mesh()
         this.realMesh = new THREE.Mesh(geometry, material)
-        this.mesh.add(this.realMesh)
+        for (const key in children) {
+            const object = children[key];
+            this.realMesh.add(object)
+        }
+        this.lod.addLevel(this.realMesh, 0)
+        this.mesh.add(this.lod)
 
         if (this.name != "Sun") {
             this.realMesh.receiveShadow = true
@@ -115,9 +134,9 @@ class Planet {
      * @param time - the time elapsed since start in seconds
      * @param parent - parent object to orbit around
      */
-    animate(time: number) {
+    animate() {
         if (this.name !== "Moon") {
-            this.rotate(time)
+            this.rotate()
         }
 
         let date = new Date()
@@ -133,7 +152,7 @@ class Planet {
      * Rotates the planet according to its rotational period.
      * @param time - the time elapsed since start in seconds
      */
-    rotate(time: number) {
+    rotate() {
         this.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 1 / 10000)
     }
 
@@ -250,6 +269,17 @@ class Planet {
      */
     static getJSONValue(key: String, planetId: String) {
         return objectsJson[planetId.toLowerCase()][key]
+    }
+
+    /**
+     * Get a path to a planet's texture for the given quality
+     * @param id the planet's identifier
+     * @param quality the resolution of the texture
+     * @returns a path to the texture
+     */
+    static getTexturePath(id: string, quality: Quality = Settings.quality): string {
+        const venus = id == "venus" ? "_atmosphere" : ""
+        return "assets/images/textures/" + id + "/" + resFields[id][quality] + "_" + id + venus + ".jpeg"
     }
 
     static comparator(a: Planet, b: Planet): number {

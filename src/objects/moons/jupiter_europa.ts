@@ -11,10 +11,12 @@ import JupiterMoon from "./jupiter_moon"
 
 class Europa extends JupiterMoon {
     constructor() {
+        const id = "europa"
+
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const texture = textureLoader.load('assets/images/textures/europa/europa.jpeg')
+        const texture = textureLoader.load('assets/images/textures/europa/1k_europa.jpeg')
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()
@@ -24,7 +26,7 @@ class Europa extends JupiterMoon {
         const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        super("Europa", [material], geometry);
+        super(id, [material], geometry, texture);
     }
 }
 export default Europa

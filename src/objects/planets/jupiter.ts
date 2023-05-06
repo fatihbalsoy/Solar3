@@ -15,11 +15,13 @@ import { Settings, Quality } from "../../settings";
 class Jupiter extends Planet {
 
     constructor() {
+        const id = "jupiter"
+
         //? -- TEXTURES -- ?//
         const loadingManager = new THREE.LoadingManager()
         const textureLoader = new THREE.TextureLoader(loadingManager)
-        const texture = textureLoader.load('assets/images/textures/jupiter/'
-            + Settings.res2_8k[Settings.quality] + '_jupiter.jpeg')
+        const texture = textureLoader.load(Planet.getTexturePath(id))
+        const lowTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()
@@ -29,7 +31,7 @@ class Jupiter extends Planet {
         const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        super("Jupiter", [material], geometry);
+        super(id, [material], geometry, lowTexture);
     }
 }
 
