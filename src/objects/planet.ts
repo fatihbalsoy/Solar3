@@ -92,7 +92,7 @@ class Planet {
         this.realMesh = new THREE.Mesh(geometry, material)
         for (const key in children) {
             const object = children[key];
-            this.realMesh.add(object)
+            this.mesh.add(object)
         }
         this.lod.addLevel(this.realMesh, 0)
         this.mesh.add(this.lod)
