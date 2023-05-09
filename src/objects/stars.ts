@@ -62,12 +62,13 @@ export class Stars {
                     if (star.ProperName) {
                         Stars.indexedDatabase[star.ProperName.toLowerCase()] = starObj
                         if (star.ProperName != "\"\"") {
-                            Stars.indexedTree.binaryInsert(star.ProperName.toLowerCase())
+                            Stars.indexedTree.push(star.ProperName.toLowerCase())
                         }
                     }
                 }
 
                 Stars.database = stars
+                Stars.indexedTree = Stars.indexedTree.sort()
                 this.dataParsed = true
                 return stars;
             });
