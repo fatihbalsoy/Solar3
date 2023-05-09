@@ -100,6 +100,7 @@ This project would not have been possible without these helpful resources:
 * [Textures by Solar System Scope - CC BY 4.0](https://www.solarsystemscope.com/textures/)
 * [Galilean Moon Textures by Stellarium - GPL v2.0](https://github.com/Stellarium/stellarium)
 * [Computing Planetary Positions by Paul Schlyter](https://www.stjarnhimlen.se/comp/tutorial.html)
+* [Textures by James Hastings-Trew](https://planetpixelemporium.com/planets.html)
 * [Solar System Data by Christophe](https://api.le-systeme-solaire.net/en/)
 * [Ephemeris Data by NASA's Horizons System](https://ssd.jpl.nasa.gov/horizons/app.html#/)
 * [Monthly Earth Images by NASA](https://visibleearth.nasa.gov/collection/1484/blue-marble)
