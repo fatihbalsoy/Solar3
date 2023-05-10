@@ -27,8 +27,8 @@ export class Settings {
     // Graphics
     private static gigabyteToBytes = 1e+9
     static readonly quality: Quality =
-        // Safari on iPhone only provides roughly 300mb of RAM
-        platform.layout == 'WebKit' && platform.product == 'iPhone'
+        // Safari on iPhone only provides roughly 300mb of RAM. Therefore, load 2k textures instead. Same for low-end devices (2gb ram)
+        (platform.layout == 'WebKit' && platform.product == 'iPhone') || totalmem() <= 3
             ? Quality.low
             // Load 8k textures on high-end devices (16gb ram)
             : totalmem() >= 15 * this.gigabyteToBytes
