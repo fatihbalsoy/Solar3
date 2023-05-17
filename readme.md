@@ -11,7 +11,6 @@ To adjust the camera's distance, simply scroll up or down. If you want to orbit 
 <details>
 <summary>Planets</summary>
 
-* Sun
 * Mercury
 * Venus
 * Earth
@@ -20,7 +19,6 @@ To adjust the camera's distance, simply scroll up or down. If you want to orbit 
 * Saturn
 * Uranus
 * Neptune
-* Pluto
 
 </details>
 
@@ -51,6 +49,7 @@ Jupiter
 <details>
 <summary>Stars</summary>
 
+* Sun
 * Antares
 * Polaris
 * Proxima Centauri
