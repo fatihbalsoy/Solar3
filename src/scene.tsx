@@ -46,7 +46,7 @@ import SearchBar from './interface/search'
 class AppScene extends Component {
     private mount: HTMLDivElement
     private clock: THREE.Clock
-    private scene: THREE.Scene
+    static scene: THREE.Scene
     static camera: SceneCamera
     static controls: OrbitControls
     private renderer: THREE.WebGLRenderer
@@ -66,7 +66,7 @@ class AppScene extends Component {
         const height = this.mount?.clientHeight || 0
 
         this.clock = new THREE.Clock()
-        this.scene = new THREE.Scene()
+        AppScene.scene = new THREE.Scene()
         AppScene.camera = new SceneCamera(75, width / height, 0.0001, (60000000000 * Settings.distanceScale) * 5)
         AppScene.controls = new OrbitControls(AppScene.camera, this.mount)
         this.renderer = new THREE.WebGLRenderer({ antialias: true, depth: true })
@@ -78,7 +78,7 @@ class AppScene extends Component {
         this.orbits = new Orbits()
         this.stars = new Stars()
 
-        this.scene.add(AppScene.camera)
+        AppScene.scene.add(AppScene.camera)
 
         // * -- RENDERERS --  * //
         this.renderer.setClearColor('#000000')
@@ -114,12 +114,12 @@ class AppScene extends Component {
             io: new Io(), callisto: new Callisto(), europa: new Europa(), ganymede: new Ganymede()
         })
         Planets.sun.light.shadow.camera.far = Planets.pluto.distance;
-        this.orbits.addOrbits((Planets.array() as Planet[]).slice(1, 10), this.scene) // Mercury to Pluto
+        this.orbits.addOrbits((Planets.array() as Planet[]).slice(1, 10), AppScene.scene) // Mercury to Pluto
         for (const key in Planets) {
             const object = Planets[key] as Planet;
 
-            this.scene.add(object.mesh)
-            object.displayLabel(this.scene)
+            AppScene.scene.add(object.mesh)
+            object.displayLabel(AppScene.scene)
 
             if (key !== "sun") {
                 Planets.sun.mesh.add(object.mesh)
@@ -141,7 +141,7 @@ class AppScene extends Component {
         const galaxyTexture = this.textureLoader.load('assets/images/textures/galaxy/' + galaxyRes + '_stars_milky_way.jpeg', () => {
             const rt = new THREE.WebGLCubeRenderTarget(galaxyTexture.image.height);
             rt.fromEquirectangularTexture(this.renderer, galaxyTexture);
-            this.scene.background = rt.texture;
+            AppScene.scene.background = rt.texture;
         })
 
         window.addEventListener('resize', this.handleResize)
@@ -232,9 +232,9 @@ class AppScene extends Component {
     }
 
     renderScene = () => {
-        if (this.renderer && this.cssRenderer && this.scene && AppScene.camera) {
-            this.renderer.render(this.scene, AppScene.camera)
-            this.cssRenderer.render(this.scene, AppScene.camera)
+        if (this.renderer && this.cssRenderer && AppScene.scene && AppScene.camera) {
+            this.renderer.render(AppScene.scene, AppScene.camera)
+            this.cssRenderer.render(AppScene.scene, AppScene.camera)
         }
     }
 

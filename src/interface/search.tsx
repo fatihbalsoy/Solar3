@@ -121,6 +121,25 @@ class SearchBar extends Component {
 
     render() {
         return (
+            <div>
+            {
+                Settings.lookAt instanceof Planet ?
+                    <div className="info-card-body">
+                        <Paper className="info-card">
+                            <div>
+                                {/* TODO: Compress images, they are too big. */}
+                                <img src={'assets/images/info/' + (Settings.lookAt as Planet).id + '.jpeg'} className="info-card-image"></img>
+                            </div>
+                            <div className="info-card-content">
+                                <h1>{(Settings.lookAt as Planet).name}</h1>
+                                <h3>TODO: [Rocky Planet | Gas Giant]</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida, elit a placerat tempor, nisl risus malesuada elit, non ultrices nunc odio et purus. Donec congue eu velit molestie pellentesque. Vivamus nibh tellus, venenatis at nisi eget, venenatis congue neque. <i>Wikipedia</i></p>
+                                <p>TODO: Table including RA, Dec, Mag, and etc.</p>
+                            </div>
+                        </Paper>
+                    </div>
+                : null
+            }
             <div className="search">
                 <Paper
                     component="form"
@@ -174,6 +193,7 @@ class SearchBar extends Component {
                             </List>
                         </Paper>
                 }
+            </div>
             </div>
         )
     }
