@@ -89,46 +89,38 @@ class Earth extends Planet {
             },
             vertexShader: `
             varying vec3 vPosition;
-            varying mat4 pMatrix;
-            varying mat4 vMatrix;
-            varying mat4 mMatrix;
+            varying mat4 projecMat;
+            varying mat4 viewMat;
+            varying mat4 modelViewMat;
 
             void main() {
                 vPosition = position; // * vec3(1.5, 1.5, 1.5);
-                pMatrix = projectionMatrix;
-                vMatrix = viewMatrix;
-                mMatrix = modelMatrix;
+                projecMat = projectionMatrix;
+                viewMat = viewMatrix;
+                modelViewMat = modelViewMatrix;
                 gl_Position = projectionMatrix * modelViewMatrix * vec4(vPosition, 1.0);
             }
             `,
             fragmentShader: `
             varying vec3 vPosition;
+            varying mat4 projecMat;
+            varying mat4 viewMat;
+            varying mat4 modelViewMat;
+            varying mat4 glVertex;
+
             uniform float planetRadius;
             uniform vec3 cameraPos;
             uniform vec3 sunPos;
             uniform vec3 planetPos;
 
-            in vec3 fragmentPosition;
-
-            varying mat4 pMatrix;
-            varying mat4 vMatrix;
-            varying mat4 mMatrix;
-
             void main() {
-                // Get the pixel's coordinates in window space.
-                vec4 windowPosition = vec4(fragmentPosition, 0.0, 1.0);
-              
-                // Convert the pixel's coordinates from window space to clip space.
-                vec4 clipPosition = projectionMatrix * windowPosition;
-              
-                // Convert the pixel's coordinates from clip space to camera space.
-                vec4 cameraPosition = inverse(projectionMatrix) * clipPosition;
-              
-                // Convert the pixel's coordinates from camera space to world space.
-                vec4 worldPosition = inverse(viewMatrix) * cameraPosition;
-              
-                // Set the fragment color to the world position.
-                gl_FragColor = worldPosition;
+                float dist = 0.00001; //distance(planetPos, cameraPos) / 99.0;
+                float depth = gl_FragCoord.z / gl_FragCoord.w;
+                // gl_FragColor = vec4(dist, dist, dist, 1.0) *depth;
+                float pixelDistance = pow(distance(vPosition, sunPos), 5.0);
+                gl_FragColor = vec4(dist, dist, dist, 1.0) * pixelDistance * depth;
+
+                // gl_FragColor = projecMat * modelViewMat * vec4(vPosition, 1.0);
             }
         `,
         })
