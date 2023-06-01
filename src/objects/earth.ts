@@ -89,9 +89,15 @@ class Earth extends Planet {
             },
             vertexShader: `
             varying vec3 vPosition;
+            varying mat4 pMatrix;
+            varying mat4 vMatrix;
+            varying mat4 mMatrix;
 
             void main() {
                 vPosition = position; // * vec3(1.5, 1.5, 1.5);
+                pMatrix = projectionMatrix;
+                vMatrix = viewMatrix;
+                mMatrix = modelMatrix;
                 gl_Position = projectionMatrix * modelViewMatrix * vec4(vPosition, 1.0);
             }
             `,
@@ -102,8 +108,27 @@ class Earth extends Planet {
             uniform vec3 sunPos;
             uniform vec3 planetPos;
 
+            in vec3 fragmentPosition;
+
+            varying mat4 pMatrix;
+            varying mat4 vMatrix;
+            varying mat4 mMatrix;
+
             void main() {
-                gl_FragColor = vec4(cross(cameraPos + planetPos, vPosition), 1);
+                // Get the pixel's coordinates in window space.
+                vec4 windowPosition = vec4(fragmentPosition, 0.0, 1.0);
+              
+                // Convert the pixel's coordinates from window space to clip space.
+                vec4 clipPosition = projectionMatrix * windowPosition;
+              
+                // Convert the pixel's coordinates from clip space to camera space.
+                vec4 cameraPosition = inverse(projectionMatrix) * clipPosition;
+              
+                // Convert the pixel's coordinates from camera space to world space.
+                vec4 worldPosition = inverse(viewMatrix) * cameraPosition;
+              
+                // Set the fragment color to the world position.
+                gl_FragColor = worldPosition;
             }
         `,
         })
@@ -167,7 +192,7 @@ class Earth extends Planet {
             sunPos: { value: sunPos },
             planetPos: { value: this.mesh.position }
         };
-        (this.material[0] as THREE.ShaderMaterial).uniforms.cameraPos.needsUpdate = true
+        (this.material[0] as THREE.ShaderMaterial).uniformsNeedUpdate = true
     }
 }
 
