@@ -135,7 +135,7 @@ function onDocumentKeyDown(event) {
 };
 document.addEventListener("keydown", onDocumentKeyDown, false);
 
-var didPrint = false
+var didExecFirstFrame = false
 const tick = () => {
 
     camera.updateProjectionMatrix() // for GUI controls
@@ -145,7 +145,11 @@ const tick = () => {
 
     // Update objects
 
-    earth.animate(elapsedTime, sun.mesh); earth.updateShader(camera.position, sun.mesh.position)
+    if (!didExecFirstFrame) {
+        earth.animate(elapsedTime, sun.mesh);
+        didExecFirstFrame = true;
+    }
+    earth.updateShader(camera.position, sun.mesh.position)
 
     camera.lookAt(positionToLookAt)
 

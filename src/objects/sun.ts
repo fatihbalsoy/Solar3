@@ -41,6 +41,7 @@ class Sun extends Planet {
 
         this.light = light
         this.mesh.add(this.light)
+        this.realMesh.scale.set(0.005, 0.005, 0.005)
     }
 
     addGUI(gui: dat.GUI): dat.GUI {
