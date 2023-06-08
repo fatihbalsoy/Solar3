@@ -56,6 +56,7 @@
     position: fixed;
     box-sizing: border-box;
     align-items: start;
+    overflow-y: auto;
 }
 
 .info-card-image {

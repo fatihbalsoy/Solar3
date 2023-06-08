@@ -1,11 +1,15 @@
 import json
-
-f = open('src/data/raw_data.json')
-data = json.load(f)
+import requests
 
 only = ["Sun", "Mercury", "Venus", "Earth", "Moon", "Mars",
         "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto",
         "1 Ceres", "Io", "Ganymede", "Europa", "Callisto"]
+
+# Solar System API
+
+f = open('src/data/raw_data.json')
+data = json.load(f)
+
 translation = {
     'la lune': 'moon',
     'uranus': 'uranus',
@@ -42,4 +46,19 @@ f.close()
 
 json_object = json.dumps(json_dump, indent=4)
 with open("src/data/objects.json", "w") as outfile:
+    outfile.write(json_object)
+
+# Wikipedia
+
+wikipedia_json_object = {}
+for planet in only:
+    wiki_url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + planet
+    response = requests.get(wiki_url)
+    if response.ok:
+        wikipedia_json_object[planet] = response.json()
+
+# print(wikipedia_json_object)
+
+json_object = json.dumps(wikipedia_json_object, indent=4)
+with open("src/data/wiki.json", "w") as outfile:
     outfile.write(json_object)

@@ -18,7 +18,7 @@ import Planets from "../objects/planets";
 import './search.css';
 import { Star } from "../objects/star";
 import AppScene from "../scene";
-import { start } from "repl";
+import * as wikiJson from '../data/wiki.json';
 
 class SearchBar extends Component {
     state = {
@@ -101,6 +101,10 @@ class SearchBar extends Component {
         SearchBar.hideSearchResults(false)
     }
 
+    onClickOutside() {
+        SearchBar.hideSearchResults()
+    }
+
     static hideSearchResults(state: boolean = true) {
         const searchResults = document.getElementsByClassName('search-results')[0] as HTMLDivElement
         if (searchResults) {
@@ -119,81 +123,87 @@ class SearchBar extends Component {
         </Tooltip >)
     }
 
+    getPlanetWiki(): JSON {
+        const wiki = wikiJson[(Settings.lookAt as Planet).name]
+        // console.log(this.getPlanetWiki["content_urls"]["desktop"]["page"])
+        return wiki
+    }
+
     render() {
         return (
             <div>
-            {
-                Settings.lookAt instanceof Planet ?
-                    <div className="info-card-body">
-                        <Paper className="info-card">
-                            <div>
-                                {/* TODO: Compress images, they are too big. */}
-                                <img src={'assets/images/info/' + (Settings.lookAt as Planet).id + '.jpeg'} className="info-card-image"></img>
-                            </div>
-                            <div className="info-card-content">
-                                <h1>{(Settings.lookAt as Planet).name}</h1>
-                                <h3>TODO: [Rocky Planet | Gas Giant]</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida, elit a placerat tempor, nisl risus malesuada elit, non ultrices nunc odio et purus. Donec congue eu velit molestie pellentesque. Vivamus nibh tellus, venenatis at nisi eget, venenatis congue neque. <i>Wikipedia</i></p>
-                                <p>TODO: Table including RA, Dec, Mag, and etc.</p>
-                            </div>
-                        </Paper>
-                    </div>
-                : null
-            }
-            <div className="search">
-                <Paper
-                    component="form"
-                    onSubmit={(e) => e.preventDefault()}
-                    className="search-bar"
-                >
-                    {/* {this.iconButton("Menu", mdiMenu)} */}
-                    <InputBase
-                        sx={{ ml: 1, flex: 1 }}
-                        placeholder="Search"
-                        onKeyDown={this.onKeyDown}
-                        onClick={this.onClickSearchBar}
-                        onChange={this.handleChange}
-                        value={this.state.value}
-                        inputProps={{ 'aria-label': 'search' }}
-                    />
-                    {this.iconButton("Search", mdiMagnify)}
-                    <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                    {/* {this.iconButton("Target", mdiTelescope, "primary", this.onClickTelescopeIcon,
+                {
+                    Settings.lookAt instanceof Planet ?
+                        <div className="info-card-body">
+                            <Paper className="info-card">
+                                <div>
+                                    {/* TODO: Compress images, they are too big. */}
+                                    <img src={'assets/images/info/' + (Settings.lookAt as Planet).id + '.jpeg'} className="info-card-image"></img>
+                                </div>
+                                <div className="info-card-content">
+                                    <h1>{(Settings.lookAt as Planet).name}</h1>
+                                    <h3>TODO: [Rocky Planet | Gas Giant]</h3>
+                                    <p>{this.getPlanetWiki["extract"]} <a href=""><i>Wikipedia</i></a></p>
+                                    <p>TODO: Table including RA, Dec, Mag, and etc.</p>
+                                </div>
+                            </Paper>
+                        </div>
+                        : null
+                }
+                <div className="search">
+                    <Paper
+                        component="form"
+                        onSubmit={(e) => e.preventDefault()}
+                        className="search-bar"
+                    >
+                        {/* {this.iconButton("Menu", mdiMenu)} */}
+                        <InputBase
+                            sx={{ ml: 1, flex: 1 }}
+                            placeholder="Search"
+                            onKeyDown={this.onKeyDown}
+                            onClick={this.onClickSearchBar}
+                            onChange={this.handleChange}
+                            value={this.state.value}
+                            inputProps={{ 'aria-label': 'search' }}
+                        />
+                        {this.iconButton("Search", mdiMagnify)}
+                        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+                        {/* {this.iconButton("Target", mdiTelescope, "primary", this.onClickTelescopeIcon,
                         !(Planets[this.state.value.toLowerCase()] || Stars.indexedDatabase[this.state.value.toLowerCase()])
                     )} */}
-                    {this.iconButton("Fly", mdiRocketLaunch, "primary", this.onClickFlyIcon, !Planets[this.state.value.toLowerCase()])}
-                </Paper>
-                {
-                    this.state.value == '' || this.state.results.length == 0 ? null :
-                        <Paper className="search-bar search-results">
-                            <List sx={{ width: '100%' }}>
-                                {
-                                    this.state.results.map((item, index, array) => {
-                                        let obj: Planet | Star = Planets[item] || Stars.indexedDatabase[item]
+                        {this.iconButton("Fly", mdiRocketLaunch, "primary", this.onClickFlyIcon, !Planets[this.state.value.toLowerCase()])}
+                    </Paper>
+                    {
+                        this.state.value == '' || this.state.results.length == 0 ? null :
+                            <Paper className="search-bar search-results">
+                                <List sx={{ width: '100%' }}>
+                                    {
+                                        this.state.results.map((item, index, array) => {
+                                            let obj: Planet | Star = Planets[item] || Stars.indexedDatabase[item]
 
-                                        var icon = mdiEarth
-                                        if (obj instanceof Star) {
-                                            icon = obj.data.Mag <= 3 ? mdiStarFourPoints : mdiStarFourPointsSmall
-                                        }
-                                        var name = obj instanceof (Star)
-                                            ? obj.data.ProperName
-                                            : obj.name
+                                            var icon = mdiEarth
+                                            if (obj instanceof Star) {
+                                                icon = obj.data.Mag <= 3 ? mdiStarFourPoints : mdiStarFourPointsSmall
+                                            }
+                                            var name = obj instanceof (Star)
+                                                ? obj.data.ProperName
+                                                : obj.name
 
 
-                                        return <ListItem disablePadding key={name}>
-                                            <ListItemButton onClick={() => this.onClickSearchResult(name)}>
-                                                <ListItemIcon>
-                                                    <Icon size={1} path={icon}></Icon>
-                                                </ListItemIcon>
-                                                <ListItemText primary={name} />
-                                            </ListItemButton>
-                                        </ListItem>
-                                    })
-                                }
-                            </List>
-                        </Paper>
-                }
-            </div>
+                                            return <ListItem disablePadding key={name}>
+                                                <ListItemButton onClick={() => this.onClickSearchResult(name)}>
+                                                    <ListItemIcon>
+                                                        <Icon size={1} path={icon}></Icon>
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={name} />
+                                                </ListItemButton>
+                                            </ListItem>
+                                        })
+                                    }
+                                </List>
+                            </Paper>
+                    }
+                </div>
             </div>
         )
     }
