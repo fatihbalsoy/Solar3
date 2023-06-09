@@ -63,8 +63,8 @@ const config = {
         exclude: ["/node_modules/", "/scripts/"],
       },
       {
-        test: /\.css$/i,
-        use: [stylesHandler, "css-loader"],
+        test: /\.(css|scss|sass)$/i,
+        use: [stylesHandler, "css-loader", "sass-loader"],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,

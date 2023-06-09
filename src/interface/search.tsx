@@ -15,7 +15,7 @@ import Stars from "../objects/stars";
 import { Settings } from "../settings";
 import Planet from "../objects/planet";
 import Planets from "../objects/planets";
-import './search.css';
+import './search.scss';
 import { Star } from "../objects/star";
 import AppScene from "../scene";
 import * as wikiJson from '../data/wiki.json';
@@ -139,7 +139,7 @@ class SearchBar extends Component {
                 {
                     this.state.showingInfoCard && Settings.lookAt instanceof Planet ?
                         <div className="info-card-body">
-                            <Paper className="info-card">
+                            <Paper className="info-card search-bar-mobile-full-width">
                                 <div>
                                     {/* TODO: Compress images, they are too big. */}
                                     <img src={'assets/images/info/' + planet.id + '.jpeg'} className="info-card-image"></img>
@@ -164,7 +164,7 @@ class SearchBar extends Component {
                     <Paper
                         component="form"
                         onSubmit={(e) => e.preventDefault()}
-                        className="search-bar"
+                        className="search-bar search-bar-mobile-full-width"
                     >
                         {/* {this.iconButton("Menu", mdiMenu)} */}
                         <InputBase
@@ -185,7 +185,7 @@ class SearchBar extends Component {
                     </Paper>
                     {
                         this.state.value == '' || this.state.results.length == 0 ? null :
-                            <Paper className="search-bar search-results">
+                            <Paper className="search-bar search-results search-bar-mobile-full-width">
                                 <List sx={{ width: '100%' }}>
                                     {
                                         this.state.results.map((item, index, array) => {
