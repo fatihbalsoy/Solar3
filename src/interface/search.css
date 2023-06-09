@@ -68,3 +68,8 @@
 .info-card-content {
     padding: 10px 20px;
 }
+
+.info-card-close-button {
+    position: absolute;
+    right: calc(20px - 4px);
+}

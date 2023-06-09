@@ -20,6 +20,8 @@ class Planet {
     id: string
     // Name of planetary object
     name: string
+    // The body type
+    type: string
     // Distance to parent in KM
     distance: number
     // Position of the planet in xyz coordinates
@@ -62,6 +64,7 @@ class Planet {
         const obj = objectsJson[id.toLowerCase()]
         this.id = id.toLowerCase()
         this.name = obj.name
+        this.type = obj.type
         this.mass = obj.mass.massValue * Math.pow(10, obj.mass.massExponent)
         this.radius = obj.meanRadius
         this.distance = obj.semimajorAxis

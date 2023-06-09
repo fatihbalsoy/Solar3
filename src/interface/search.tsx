@@ -6,7 +6,7 @@
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
-import { mdiEarth, mdiMagnify, mdiRocketLaunch, mdiStarFourPoints, mdiStarFourPointsSmall, mdiTelescope, mdiWeb } from "@mdi/js";
+import { mdiClose, mdiEarth, mdiMagnify, mdiRocketLaunch, mdiStarFourPoints, mdiStarFourPointsSmall, mdiTelescope, mdiWeb } from "@mdi/js";
 import Icon from "@mdi/react";
 import { Divider, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Tooltip } from "@mui/material";
 import React from "react";
@@ -23,6 +23,7 @@ import * as wikiJson from '../data/wiki.json';
 class SearchBar extends Component {
     state = {
         value: '',
+        showingInfoCard: false,
         results: [] as number[],
     }
 
@@ -94,6 +95,7 @@ class SearchBar extends Component {
         SearchBar.hideSearchResults()
         this.setState({
             value: name,
+            showingInfoCard: true
         })
     }
 
@@ -101,8 +103,10 @@ class SearchBar extends Component {
         SearchBar.hideSearchResults(false)
     }
 
-    onClickOutside() {
-        SearchBar.hideSearchResults()
+    onClickCloseInfoCard = () => {
+        this.setState({
+            showingInfoCard: false
+        })
     }
 
     static hideSearchResults(state: boolean = true) {
@@ -112,8 +116,8 @@ class SearchBar extends Component {
         }
     }
 
-    iconButton(name: string, icon: string, color: any = "default", f: () => any = () => { }, disabled: boolean = false) {
-        return (<Tooltip title={name}>
+    iconButton(name: string, icon: string, color: any = "default", f: () => any = () => { }, disabled: boolean = false, className: string = "") {
+        return (<Tooltip title={name} className={className}>
             <span>
                 <IconButton type="button" onClick={f} color={color} disabled={disabled} className="search-bar-icon-button" aria-label={name.toLowerCase()}>
                     <Icon
@@ -123,28 +127,34 @@ class SearchBar extends Component {
         </Tooltip >)
     }
 
-    getPlanetWiki(): JSON {
+    getPlanetWiki() {
         const wiki = wikiJson[(Settings.lookAt as Planet).name]
-        // console.log(this.getPlanetWiki["content_urls"]["desktop"]["page"])
         return wiki
     }
 
     render() {
+        const planet = (Settings.lookAt as Planet)
         return (
             <div>
                 {
-                    Settings.lookAt instanceof Planet ?
+                    this.state.showingInfoCard && Settings.lookAt instanceof Planet ?
                         <div className="info-card-body">
                             <Paper className="info-card">
                                 <div>
                                     {/* TODO: Compress images, they are too big. */}
-                                    <img src={'assets/images/info/' + (Settings.lookAt as Planet).id + '.jpeg'} className="info-card-image"></img>
+                                    <img src={'assets/images/info/' + planet.id + '.jpeg'} className="info-card-image"></img>
                                 </div>
                                 <div className="info-card-content">
-                                    <h1>{(Settings.lookAt as Planet).name}</h1>
-                                    <h3>TODO: [Rocky Planet | Gas Giant]</h3>
-                                    <p>{this.getPlanetWiki["extract"]} <a href=""><i>Wikipedia</i></a></p>
-                                    <p>TODO: Table including RA, Dec, Mag, and etc.</p>
+                                    {this.iconButton("Close", mdiClose, "close", this.onClickCloseInfoCard, false, "info-card-close-button")}
+                                    <h1>{planet.name}</h1>
+                                    <h3>{planet.type}</h3>
+                                    <br />
+                                    <p>{this.getPlanetWiki()["extract"]} <a style={{ color: "lightblue" }} target="_blank" rel="noopener noreferrer" href={this.getPlanetWiki()["content_urls"]["desktop"]["page"]}><i><b>Wikipedia</b></i></a></p>
+                                    {/* <p>TODO: Table including RA, Dec, Mag, and etc.</p> */}
+                                    <br />
+                                    <h4>Photo Details</h4>
+                                    <p>License: {this.getPlanetWiki()["photo_credits"]["cc"]}</p>
+                                    <p>Author: {this.getPlanetWiki()["photo_credits"]["by"]}</p>
                                 </div>
                             </Paper>
                         </div>
