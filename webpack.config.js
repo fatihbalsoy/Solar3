@@ -13,9 +13,24 @@ const stylesHandler = isProduction
   : "style-loader";
 
 const config = {
-  entry: "./src/index.ts",
+  entry: "./src/index.tsx",
   output: {
+    clean: true,
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, "dist"),
+  },
+  optimization: {
+    moduleIds: 'deterministic',
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
   },
   devServer: {
     open: true,
@@ -24,12 +39,17 @@ const config = {
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
-        { from: path.resolve(__dirname, 'static/') }
+        {
+          from: path.resolve(__dirname, './public'),
+          globOptions: {
+            ignore: ["**/index.html"]
+          }
+        }
       ]
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src/index.html'),
-      minify: true
+      template: path.resolve(__dirname, './public/index.html'),
+      minify: true,
     }),
 
     // Add your plugins here
@@ -38,9 +58,9 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/i,
-        loader: "ts-loader",
-        exclude: ["/node_modules/"],
+        test: /\.(ts|tsx|js|tsx)$/i,
+        loader: "babel-loader",
+        exclude: ["/node_modules/", "/scripts/"],
       },
       {
         test: /\.css$/i,
@@ -62,6 +82,12 @@ const config = {
     ],
   },
   resolve: {
+    alias: {
+      three: path.resolve('./node_modules/three')
+    },
+    fallback: {
+      "os": require.resolve("os-browserify/browser")
+    },
     extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
   },
 };
@@ -72,7 +98,9 @@ module.exports = () => {
 
     config.plugins.push(new MiniCssExtractPlugin());
 
-    config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
+    config.plugins.push(new WorkboxWebpackPlugin.GenerateSW({
+      maximumFileSizeToCacheInBytes: 20 * 1e+6 // mb * bytes/mb
+    }));
   } else {
     config.mode = "development";
   }

@@ -10,7 +10,6 @@
 import * as THREE from "three";
 import Planet from "./planet";
 import * as dat from 'dat.gui'
-import { sizeScale } from "../settings";
 
 class Sun extends Planet {
     // Light
@@ -25,7 +24,7 @@ class Sun extends Planet {
         const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        super("Sun", [sunMaterial], geometry);
+        super("sun", [sunMaterial], geometry, null);
 
         const light = new THREE.PointLight(0xffffff, 1.35) // prev intesity: 3
         light.position.set(0, 0, 0)
@@ -42,14 +41,6 @@ class Sun extends Planet {
         this.light = light
         this.mesh.add(this.light)
         this.realMesh.scale.set(0.005, 0.005, 0.005)
-    }
-
-    addGUI(gui: dat.GUI): dat.GUI {
-        let sunFolder = this._addGUI(gui, this.name, this.mesh)
-
-        const lightFolder = sunFolder.addFolder('Light')
-        // lightFolder.add(this.light, 'intensity', 0, 10, 0.01)
-        return lightFolder
     }
 }
 

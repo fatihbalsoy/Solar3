@@ -41,12 +41,181 @@
         "argPeriapsis": 0.0,
         "longAscNode": 0.0,
         "bodyType": "Moon",
-        "rel": "https://api.le-systeme-solaire.net/rest/bodies/lune"
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/lune",
+        "type": "Satellite"
     },
-    "ceres": {
-        "id": "ceres",
-        "name": "Ceres",
-        "englishName": "Ceres",
+    "io": {
+        "id": "io",
+        "name": "Io",
+        "englishName": "Io",
+        "isPlanet": false,
+        "moons": null,
+        "semimajorAxis": 421800,
+        "perihelion": 420071,
+        "aphelion": 423529,
+        "eccentricity": 0.004,
+        "inclination": 0.036,
+        "mass": {
+            "massValue": 8.932,
+            "massExponent": 22
+        },
+        "vol": null,
+        "density": 3.53,
+        "gravity": 1.79,
+        "escape": 0.0,
+        "meanRadius": 1821.5,
+        "equaRadius": 0.0,
+        "polarRadius": 0.0,
+        "flattening": 0.0,
+        "dimension": "",
+        "sideralOrbit": 1.76914,
+        "sideralRotation": 42.4593,
+        "aroundPlanet": {
+            "planet": "jupiter",
+            "rel": "https://api.le-systeme-solaire.net/rest/bodies/jupiter"
+        },
+        "discoveredBy": "Galileo Galilei",
+        "discoveryDate": "07/01/1610",
+        "alternativeName": "",
+        "axialTilt": 0,
+        "avgTemp": 0,
+        "mainAnomaly": 0.0,
+        "argPeriapsis": 0.0,
+        "longAscNode": 0.0,
+        "bodyType": "Moon",
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/io",
+        "type": "Satellite"
+    },
+    "europa": {
+        "id": "europa",
+        "name": "Europa",
+        "englishName": "Europa",
+        "isPlanet": false,
+        "moons": null,
+        "semimajorAxis": 671100,
+        "perihelion": 0,
+        "aphelion": 0,
+        "eccentricity": 0.009,
+        "inclination": 0.466,
+        "mass": {
+            "massValue": 4.8,
+            "massExponent": 22
+        },
+        "vol": null,
+        "density": 3.01,
+        "gravity": 1.31,
+        "escape": 0.0,
+        "meanRadius": 1560.8,
+        "equaRadius": 0.0,
+        "polarRadius": 0.0,
+        "flattening": 0.0,
+        "dimension": "",
+        "sideralOrbit": 3.55118,
+        "sideralRotation": 85.2293,
+        "aroundPlanet": {
+            "planet": "jupiter",
+            "rel": "https://api.le-systeme-solaire.net/rest/bodies/jupiter"
+        },
+        "discoveredBy": "Galileo Galilei",
+        "discoveryDate": "08/01/1610",
+        "alternativeName": "",
+        "axialTilt": 0,
+        "avgTemp": 0,
+        "mainAnomaly": 0.0,
+        "argPeriapsis": 0.0,
+        "longAscNode": 0.0,
+        "bodyType": "Moon",
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/europe",
+        "type": "Satellite"
+    },
+    "ganymede": {
+        "id": "ganymede",
+        "name": "Ganymede",
+        "englishName": "Ganymede",
+        "isPlanet": false,
+        "moons": null,
+        "semimajorAxis": 1070400,
+        "perihelion": 0,
+        "aphelion": 0,
+        "eccentricity": 0.001,
+        "inclination": 0.177,
+        "mass": {
+            "massValue": 1.4819,
+            "massExponent": 23
+        },
+        "vol": null,
+        "density": 1.94,
+        "gravity": 1.428,
+        "escape": 0.0,
+        "meanRadius": 2631.2,
+        "equaRadius": 0.0,
+        "polarRadius": 0.0,
+        "flattening": 0.0,
+        "dimension": "",
+        "sideralOrbit": 7.15455,
+        "sideralRotation": 171.7093,
+        "aroundPlanet": {
+            "planet": "jupiter",
+            "rel": "https://api.le-systeme-solaire.net/rest/bodies/jupiter"
+        },
+        "discoveredBy": "Galileo Galilei",
+        "discoveryDate": "11/01/1610",
+        "alternativeName": "",
+        "axialTilt": 0,
+        "avgTemp": 0,
+        "mainAnomaly": 0.0,
+        "argPeriapsis": 0.0,
+        "longAscNode": 0.0,
+        "bodyType": "Moon",
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/ganymede",
+        "type": "Satellite"
+    },
+    "callisto": {
+        "id": "callisto",
+        "name": "Callisto",
+        "englishName": "Callisto",
+        "isPlanet": false,
+        "moons": null,
+        "semimajorAxis": 1882700,
+        "perihelion": 0,
+        "aphelion": 0,
+        "eccentricity": 0.007,
+        "inclination": 0.192,
+        "mass": {
+            "massValue": 1.0759,
+            "massExponent": 23
+        },
+        "vol": null,
+        "density": 1.83,
+        "gravity": 1.235,
+        "escape": 0.0,
+        "meanRadius": 2410.3,
+        "equaRadius": 0.0,
+        "polarRadius": 0.0,
+        "flattening": 0.0,
+        "dimension": "",
+        "sideralOrbit": 16.68902,
+        "sideralRotation": 400.536,
+        "aroundPlanet": {
+            "planet": "jupiter",
+            "rel": "https://api.le-systeme-solaire.net/rest/bodies/jupiter"
+        },
+        "discoveredBy": "Galileo Galilei",
+        "discoveryDate": "07/01/1610",
+        "alternativeName": "",
+        "axialTilt": 0,
+        "avgTemp": 0,
+        "mainAnomaly": 0.0,
+        "argPeriapsis": 0.0,
+        "longAscNode": 0.0,
+        "bodyType": "Moon",
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/callisto",
+        "type": "Satellite"
+    },
+    "1 ceres": {
+        "id": "1 ceres",
+        "name": "1 Ceres",
+        "englishName": "1 Ceres",
         "isPlanet": false,
         "moons": null,
         "semimajorAxis": 414010000,
@@ -82,7 +251,8 @@
         "argPeriapsis": 73.59769,
         "longAscNode": 80.30553,
         "bodyType": "Asteroid",
-        "rel": "https://api.le-systeme-solaire.net/rest/bodies/ceres"
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/ceres",
+        "type": "Dwarf Planet"
     },
     "uranus": {
         "id": "uranus",
@@ -232,7 +402,8 @@
         "argPeriapsis": 98.862,
         "longAscNode": 73.967,
         "bodyType": "Planet",
-        "rel": "https://api.le-systeme-solaire.net/rest/bodies/uranus"
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/uranus",
+        "type": "Ice Giant"
     },
     "pluto": {
         "id": "pluto",
@@ -294,7 +465,8 @@
         "argPeriapsis": 113.175,
         "longAscNode": 110.088,
         "bodyType": "Dwarf Planet",
-        "rel": "https://api.le-systeme-solaire.net/rest/bodies/pluton"
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/pluton",
+        "type": "Dwarf Planet"
     },
     "neptune": {
         "id": "neptune",
@@ -392,7 +564,8 @@
         "argPeriapsis": 256.932,
         "longAscNode": 131.823,
         "bodyType": "Planet",
-        "rel": "https://api.le-systeme-solaire.net/rest/bodies/neptune"
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/neptune",
+        "type": "Ice Giant"
     },
     "jupiter": {
         "id": "jupiter",
@@ -754,7 +927,8 @@
         "argPeriapsis": 273.442,
         "longAscNode": 100.398,
         "bodyType": "Planet",
-        "rel": "https://api.le-systeme-solaire.net/rest/bodies/jupiter"
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/jupiter",
+        "type": "Gas Giant"
     },
     "mars": {
         "id": "mars",
@@ -804,7 +978,8 @@
         "argPeriapsis": 286.231,
         "longAscNode": 49.667,
         "bodyType": "Planet",
-        "rel": "https://api.le-systeme-solaire.net/rest/bodies/mars"
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/mars",
+        "type": "Terrestrial"
     },
     "mercury": {
         "id": "mercury",
@@ -845,7 +1020,8 @@
         "argPeriapsis": 29.022,
         "longAscNode": 48.378,
         "bodyType": "Planet",
-        "rel": "https://api.le-systeme-solaire.net/rest/bodies/mercure"
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/mercure",
+        "type": "Terrestrial"
     },
     "saturn": {
         "id": "saturn",
@@ -1215,7 +1391,8 @@
         "argPeriapsis": 336.178,
         "longAscNode": 113.759,
         "bodyType": "Planet",
-        "rel": "https://api.le-systeme-solaire.net/rest/bodies/saturne"
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/saturne",
+        "type": "Gas Giant"
     },
     "sun": {
         "id": "sun",
@@ -1256,7 +1433,8 @@
         "argPeriapsis": 0.0,
         "longAscNode": 0.0,
         "bodyType": "Star",
-        "rel": "https://api.le-systeme-solaire.net/rest/bodies/soleil"
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/soleil",
+        "type": "Star"
     },
     "earth": {
         "id": "earth",
@@ -1302,7 +1480,8 @@
         "argPeriapsis": 85.901,
         "longAscNode": 18.272,
         "bodyType": "Planet",
-        "rel": "https://api.le-systeme-solaire.net/rest/bodies/terre"
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/terre",
+        "type": "Terrestrial"
     },
     "venus": {
         "id": "venus",
@@ -1343,6 +1522,7 @@
         "argPeriapsis": 54.78,
         "longAscNode": 76.785,
         "bodyType": "Planet",
-        "rel": "https://api.le-systeme-solaire.net/rest/bodies/venus"
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/venus",
+        "type": "Terrestrial"
     }
 }

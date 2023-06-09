@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- * Google tag (gtag.js) * -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TR2HV7J6H2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-TR2HV7J6H2');
+    </script>
+
+    <!-- * Theme Color (Chrome and Safari 15) * -->
+    <meta name="theme-color" content="#000000">
+
+    <!-- * iOS meta tags & icons * -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Solar System">
+    <link rel="apple-touch-icon" href="assets/icons/Apple-192.png"> <!-- iPhone -->
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/icons/Apple-152.png"> <!-- iPad -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/Apple-180.png"> <!-- iPhone Retina -->
+    <link rel="apple-touch-icon" sizes="167x167" href="assets/icons/Apple-167.png"> <!-- iPad Retina -->
+    <link rel="apple-touch-icon" sizes="512x512" href="assets/icons/Apple-512.png"> <!-- 512px -->
+
+    <!-- * Favicon * -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/Standard-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/Standard-32.png">
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <!-- * Manifest * --
+        manifest.json provides metadata used when your web app is installed on a
+        user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+      -->
+    <link rel="manifest" href="manifest.json" />
+
+    <!--
+        Notice the use of %PUBLIC_URL% in the tags above.
+        It will be replaced with the URL of the `public` folder during the build.
+        Only files inside the `public` folder can be referenced from the HTML.
+  
+        Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+        work correctly both with client-side routing and a non-root public URL.
+        Learn how to configure a non-root public URL by running `npm run build`.
+      -->
+    <title>SolarSystem.3js</title>
+    <meta name="description" content="Real-time 1:1 scale of the solar system." />
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("service-worker.js")
+                    .then((registration) => {
+                        console.log("Service Worker registered: ", registration);
+                    })
+                    .catch((registrationError) => {
+                        console.error("Service Worker registration failed: ", registrationError);
+                    });
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+        This HTML file is a template.
+        If you open it directly in the browser, you will see an empty page.
+  
+        You can add webfonts, meta tags, or analytics to this file.
+        The build step will place the bundled scripts into the <body> tag.
+  
+        To begin the development, run `npm start` or `yarn start`.
+        To create a production bundle, use `npm run build` or `yarn build`.
+      -->
+</body>
+
+</html>

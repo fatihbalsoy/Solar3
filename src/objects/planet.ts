@@ -9,22 +9,23 @@
 
 import { Material, Mesh, Object3D, SphereGeometry, Vector3 } from "three"
 import * as THREE from "three"
-import GUIMovableObject from "../gui/movable_3d_object"
-import * as dat from 'dat.gui'
 import * as objectsJson from '../data/objects.json';
-import { AstronomyClass, CartesianCoordinates } from "../services/astronomy";
-import { Astronomy } from "../services/astronomy_static";
-import { distanceScale, sizeScale } from "../settings";
+import { HelioVector, Body, Vector, Rotation_EQJ_ECL } from 'astronomy-engine';
+import { Quality, Settings, resFields } from "../settings";
+import { CSS2DObject } from "../modules/CSS2DRenderer";
+import { Orbit } from '../utils/orbit_points';
 
-class Planet extends GUIMovableObject {
+class Planet {
     // ID
     id: string
-    // Astronomy Instance Body (javascript any type)
-    astro: any
     // Name of planetary object
     name: string
+    // The body type
+    type: string
     // Distance to parent in KM
     distance: number
+    // Position of the planet in xyz coordinates
+    position: Vector3 = new Vector3(0, 0, 0)
     // Radius in KM
     radius: number
     // Orbital period in Earth days
@@ -49,13 +50,21 @@ class Planet extends GUIMovableObject {
      * Real Mesh (With textures, materials, and geometry)
      */
     realMesh: Mesh
+    /**
+     * Level of detail
+     */
+    lod: THREE.LOD
+    /**
+     * Label objects
+     */
+    labelCircle: CSS2DObject
+    labelText: CSS2DObject
 
-    constructor(id: string, material: Material[], geometry: SphereGeometry) {
-
-        super()
+    constructor(id: string, material: Material[], geometry: SphereGeometry, lowResTexture: THREE.Texture, children: Object3D[] = []) {
         const obj = objectsJson[id.toLowerCase()]
         this.id = id.toLowerCase()
         this.name = obj.name
+        this.type = obj.type
         this.mass = obj.mass.massValue * Math.pow(10, obj.mass.massExponent)
         this.radius = obj.meanRadius
         this.distance = obj.semimajorAxis
@@ -64,45 +73,32 @@ class Planet extends GUIMovableObject {
         this.axialTilt = obj.axialTilt
         this.orbitalInclination = obj.inclination
         this.material = material
+        const radiusScale = this.radius * Settings.sizeScale
 
-        let bodies = {
-            "sun": Astronomy.s.Body[0],
-            "mercury": Astronomy.s.Body[1],
-            "venus": Astronomy.s.Body[2],
-            "earth": Astronomy.s.Body[3],
-            "moon": Astronomy.s.Body[4],
-            "mars": Astronomy.s.Body[5],
-            "ceres": Astronomy.s.Body[6],
-            "pallas": Astronomy.s.Body[7],
-            "juno": Astronomy.s.Body[8],
-            "vesta": Astronomy.s.Body[9],
-            "ida": Astronomy.s.Body[10],
-            "gaspra": Astronomy.s.Body[11],
-            "comet_9p": Astronomy.s.Body[12],
-            "comet_19p": Astronomy.s.Body[13],
-            "comet_67p": Astronomy.s.Body[14],
-            "comet_81p": Astronomy.s.Body[15],
-            "jupiter": Astronomy.s.Body[16],
-            "saturn": Astronomy.s.Body[17],
-            //this.SaturnJPL,       // not much better than existing Saturn... not ready for publish
-            "uranus": Astronomy.s.Body[18],
-            "neptune": Astronomy.s.Body[19],
-            "pluto": Astronomy.s.Body[20]
-        };
-        this.astro = bodies[this.id]
+        // LEVEL OF DETAIL //
+        this.lod = new THREE.LOD()
+
+        // const lowPolyGeometry = new SphereGeometry(radiusScale, 16, 16)
+        // const lowResMaterial = new THREE.MeshBasicMaterial({ map: lowResTexture })
+        // const lowResMesh = new THREE.Mesh(lowPolyGeometry, lowResMaterial)
+        // this.lod.addLevel(lowResMesh, 200 * this.radius * Settings.distanceScale) // 2mil * Settings.distanceScale
+
+        const lowPoly0Geometry = new SphereGeometry(radiusScale, 4, 4)
+        const lowRes0Mesh = new THREE.Mesh(lowPoly0Geometry)
+        this.lod.addLevel(lowRes0Mesh, 314 * this.radius * Settings.distanceScale)
 
         // GEOMETRY //
-        const radiusScale = this.radius / sizeScale
         this.geometry = geometry
-        var enlarge = 1;
-        // if (this.id != "moon" && this.id != "sun") {
-        //     enlarge = 1000;
-        // }
-        this.geometry.scale(radiusScale * enlarge, radiusScale * enlarge, radiusScale * enlarge)
+        this.geometry.scale(radiusScale, radiusScale, radiusScale)
 
         this.mesh = new THREE.Mesh()
         this.realMesh = new THREE.Mesh(geometry, material)
-        this.mesh.add(this.realMesh)
+        for (const key in children) {
+            const object = children[key];
+            this.mesh.add(object)
+        }
+        this.lod.addLevel(this.realMesh, 0)
+        this.mesh.add(this.lod)
 
         if (this.name != "Sun") {
             this.realMesh.receiveShadow = true
@@ -110,21 +106,30 @@ class Planet extends GUIMovableObject {
         }
 
         // ROTATE MESH //
-        const axisVector = new THREE.Vector3(0, 0, 1)
-        const axisRadians = this.axialTilt * Math.PI / 180
-        this.realMesh.setRotationFromAxisAngle(axisVector, axisRadians)
+        // const axisVector = new THREE.Vector3(0, 0, 1)
+        // const axisRadians = this.axialTilt * Math.PI / 180
+        // this.realMesh.setRotationFromAxisAngle(axisVector, axisRadians)
+        // this.realMesh.setRotationFromMatrix(convertRotationMatrix4(Rotation_EQJ_ECL()))
 
-        // STAR SPRITE //
-        // const map = new THREE.TextureLoader().load('assets/images/textures/star16x16.png');
-        // const starMaterial = new THREE.SpriteMaterial({ map: map });
-        // const sprite = new THREE.Sprite(starMaterial);
-        // sprite.lookAt(new THREE.Vector3(0, 0, 0))
-        // sprite.scale.set(this.distance / this.distanceScale / 10, this.distance / this.distanceScale / 10, 1)
-        // this.mesh.add(sprite);
-    }
+        // LABEL //
+        const circle = document.createElement('div')
+        circle.style.backgroundColor = 'white'
+        circle.style.borderRadius = '10000px'
+        circle.style.width = '5px'
+        circle.style.height = '5px'
+        this.labelCircle = new CSS2DObject(circle)
 
-    addGUI(gui: dat.GUI): dat.GUI {
-        return this._addGUI(gui, this.name, this.mesh)
+        const p = document.createElement('p')
+        p.textContent = this.name
+        p.style.color = 'white'
+        p.style.position = 'absolute'
+        p.style.bottom = '0'
+
+        const div = document.createElement('div')
+        div.style.height = '50px'
+        div.style.position = 'relative'
+        div.appendChild(p)
+        this.labelText = new CSS2DObject(div)
     }
 
     /**
@@ -132,56 +137,37 @@ class Planet extends GUIMovableObject {
      * @param time - the time elapsed since start in seconds
      * @param parent - parent object to orbit around
      */
-    animate(time: number, parent: Object3D) {
+    animate() {
         if (this.name !== "Moon") {
-            this.rotate(time)
+            this.rotate()
         }
-        this.setPosition()
-        // this.orbit(parent, time)
+
+        let date = new Date()
+        let coordinates = this.getPositionForDate(date)
+        this.position.set(coordinates.x, coordinates.y, coordinates.z)
+
+        this.mesh.position.set(coordinates.x, coordinates.y, coordinates.z)
+        this.labelText.position.set(coordinates.x, coordinates.y, coordinates.z)
+        this.labelCircle.position.set(coordinates.x, coordinates.y, coordinates.z)
     }
 
     /**
      * Rotates the planet according to its rotational period.
      * @param time - the time elapsed since start in seconds
      */
-    rotate(time: number) {
-        // let dayInSeconds = 24 * 60 * 60
-        // let fullPeriod = 2 * Math.PI
-        // let rotationPercent = time / this.rotationalPeriod * dayInSeconds
-        // let mult = 10000000
-        // let finalSpeed = fullPeriod * rotationPercent / mult
-
+    rotate() {
         this.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 1 / 10000)
-
-        // this.realMesh.setRotationFromAxisAngle(new THREE.Vector3(0, 20, 0), finalSpeed)
-        // this.realMesh.rotation.y = finalSpeed
     }
 
     /**
-     * Places the planet in its current real-time position
+     * Traces out the planet's orbit onto the scene.
+     * @param data orbit data and information
+     * @param scene
      */
-    setPosition() {
-        let astroDate = new Date()
-        let coordinates = this.getPositionForDate(astroDate)
-        this.mesh.position.x = coordinates.x
-        this.mesh.position.y = coordinates.y
-        this.mesh.position.z = coordinates.z
-    }
-    /**
-     * Traces out the planet's orbit
-     */
-    displayOrbit(parent: Object3D, scene: THREE.Scene) {
-        // return;
+    displayOrbit(data: Orbit, scene: THREE.Scene) {
         const curve = new THREE.CatmullRomCurve3()
-        console.log(this.name)
-        for (let i = 0; i < 366 * (this.orbitalPeriod / 365); i++) {
-            let currDate = new Date()
-            let currYear = new Date(currDate.getFullYear(), 0)
-            let date = new Date(currYear.setDate(i))
-            let pos = this.getPositionForDate(date)
+        curve.points = data.points
 
-            curve.points[i] = new Vector3(pos.x, pos.y, pos.z)
-        }
         const points = curve.getPoints(500)
         const geometry = new THREE.BufferGeometry().setFromPoints(points)
         const material = new THREE.LineBasicMaterial({ color: 0xff0000 })
@@ -191,16 +177,48 @@ class Planet extends GUIMovableObject {
         scene.add(line);
     }
 
+    /**
+     * Add label to the scene.
+     * @param scene 
+     */
+    displayLabel(scene: THREE.Scene) {
+        scene.add(this.labelCircle)
+        scene.add(this.labelText)
+    }
+
+    /**
+     * Hide labels when camera is far enough to bunch labels in one place.
+     * @param camera used to get distance from the sun
+     */
+    updateLabel(camera: THREE.Camera): void {
+        let inner = ["mercury", "venus", "earth", "mars", "ceres"]
+        let outer = ["jupiter", "saturn", "uranus", "neptune", "pluto"]
+
+        let dist = new Vector3(0, 0, 0).distanceTo(camera.position) / Settings.distanceScale
+        this.labelText.element.textContent = this.name
+
+        let removeInner = inner.includes(this.name.toLowerCase()) && dist > 2000000000
+        let removeOuter = outer.includes(this.name.toLowerCase()) && dist > 20000000000
+
+        if (removeInner || removeOuter) {
+            this.labelText.element.textContent = ''
+        }
+
+        this.labelText.element.style.color = 'white'
+    }
+
+    /**
+     * Get planet radius in game scale
+     */
     getRadius(): number {
-        return this.radius
+        return this.radius * Settings.distanceScale
     }
 
+    /**
+     * Get planet distance from sun in game scale
+     */
     getDistance(): number {
-        return this.distance
-    }
-
-    getDistanceScale(): number {
-        return distanceScale
+        return this.distance * Settings.distanceScale
     }
 
     getMesh(): Mesh {
@@ -208,27 +226,72 @@ class Planet extends GUIMovableObject {
     }
 
     getPosition(): Vector3 {
-        return this.mesh.position
+        return this.position
     }
 
     getPositionAsString(): String {
-        return this.mesh.position.x.toFixed(0) + "," + this.mesh.position.y.toFixed(0) + "," + this.mesh.position.z.toFixed(0)
+        return this.position.x.toFixed(0) + "," + this.position.y.toFixed(0) + "," + this.position.z.toFixed(0)
     }
 
-    getPositionForDate(date: Date): CartesianCoordinates {
-        let day = Astronomy.s.DayValue(date);
-        let helioCoords = this.astro.EclipticCartesianCoordinates(day)
-        let AUtoKM = 1.496e+8
-        // z,x,y
-        return new CartesianCoordinates(
-            -helioCoords.y * AUtoKM / distanceScale, // x
-            helioCoords.z * AUtoKM / distanceScale,   // y
-            - helioCoords.x * AUtoKM / distanceScale, // z
+    /**
+     * Calculates a scaled vector from the center of the Sun to the given body at the given time.
+     * @param date the date in which to calculate the planet's position
+     * @returns a heliocentric vector pointing to the planet's position
+     */
+    getPositionForDate(date: Date): Vector {
+        let pos = this.getPositionForDateNotScaled(date)
+        return new Vector(
+            pos.x * Settings.AUtoKM * Settings.distanceScale,
+            pos.y * Settings.AUtoKM * Settings.distanceScale,
+            pos.z * Settings.AUtoKM * Settings.distanceScale,
+            pos.t
         )
     }
 
+    /**
+     * Calculates a non-scaled vector from the center of the Sun to the given body at the given time.
+     * @param date the date in which to calculate the planet's position
+     * @returns a heliocentric vector pointing to the planet's position
+     */
+    getPositionForDateNotScaled(date: Date): Vector {
+        let helioCoords = HelioVector(Body[this.name], date)
+        // z,x,y
+        return new Vector(
+            -helioCoords.y, // x
+            helioCoords.z,  // y
+            -helioCoords.x, // z
+            helioCoords.t
+        )
+    }
+
+    /**
+     * Get a value from the planet's JSON object provided by https://api.le-systeme-solaire.net/en/
+     * @param key the key used to fetch a value from the json.
+     * @param planetId examples: "sun", "earth", and etc.
+     * @returns value of `any` type.
+     */
     static getJSONValue(key: String, planetId: String) {
         return objectsJson[planetId.toLowerCase()][key]
     }
+
+    /**
+     * Get a path to a planet's texture for the given quality
+     * @param id the planet's identifier
+     * @param quality the resolution of the texture
+     * @returns a path to the texture
+     */
+    static getTexturePath(id: string, quality: Quality = Settings.quality): string {
+        const venus = id == "venus" ? "_atmosphere" : ""
+        return "assets/images/textures/" + id + "/" + resFields[id][quality] + "_" + id + venus + ".jpeg"
+    }
+
+    static comparator(a: Planet, b: Planet): number {
+        if (a.id > b.id) {
+            return 1;
+        } else if (a.id < b.id) {
+            return -1;
+        }
+        return 0;
+    };
 }
 export default Planet;
