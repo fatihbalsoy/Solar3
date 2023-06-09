@@ -5,12 +5,17 @@ only = ["Sun", "Mercury", "Venus", "Earth", "Moon", "Mars",
         "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto",
         "1 Ceres", "Io", "Ganymede", "Europa", "Callisto"]
 wiki_corrections = {
+    'mercury': 'mercury_planet',
     'io': 'io_moon',
     'ganymede': 'ganymede_moon',
     'europa': 'europa_moon',
     'callisto': 'callisto_moon'
 }
 photo_credits = {
+    'sun': {
+        'cc': 'Unsplash',
+        'by': 'NASA'
+    },
     'mercury': {
         'cc': 'Unsplash',
         'by': 'NASA'
