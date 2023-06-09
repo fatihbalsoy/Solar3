@@ -7,10 +7,13 @@
   "scripts": {
     "build:dev": "webpack --mode=development",
     "build:prod:orbits": "npm run calculate-orbits && npm run build:prod",
+    "build:prod:wiki": "npm run update-wiki && npm run build:prod",
+    "build:prod:all": "npm run calculate-orbits && npm run update-wiki && npm run build:prod",
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
     "serve": "webpack serve",
-    "calculate-orbits": "npx ts-node ./scripts/calculate_orbits.ts"
+    "calculate-orbits": "npx ts-node -P ./scripts/tsconfig.json ./scripts/calculate_orbits.ts",
+    "update-wiki": "python3 src/data/generate_data.py"
   },
   "dependencies": {
     "@babel/runtime": "^7.21.5",

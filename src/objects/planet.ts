@@ -252,6 +252,7 @@ class Planet {
      * Calculates a non-scaled vector from the center of the Sun to the given body at the given time.
      * @param date the date in which to calculate the planet's position
      * @returns a heliocentric vector pointing to the planet's position
+     * @note this is a copy of the function found in scripts/calculate_orbits.ts
      */
     getPositionForDateNotScaled(date: Date): Vector {
         let helioCoords = HelioVector(Body[this.name], date)

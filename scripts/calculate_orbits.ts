@@ -7,22 +7,21 @@
  */
 
 import * as fs from "fs";
-import Planet from "../src/objects/planet";
+import * as ast from "astronomy-engine"
 import * as objectsJson from '../src/data/objects.json';
 import * as readline from 'readline';
-import Planets from '../src/objects/planets'
 
-/** Planets **/
-import Mercury from '../src/objects/planets/mercury'
-import Venus from '../src/objects/planets/venus'
-import Earth from '../src/objects/planets/earth'
-import Mars from '../src/objects/planets/mars'
-import Jupiter from '../src/objects/planets/jupiter'
-import Saturn from '../src/objects/planets/saturn'
-import Uranus from '../src/objects/planets/uranus'
-import Neptune from '../src/objects/planets/neptune'
-/** Dwarf Planets **/
-import Pluto from '../src/objects/dwarf_planets/pluto'
+const supported_bodies = [
+    ast.Body.Mercury,
+    ast.Body.Venus,
+    ast.Body.Earth,
+    ast.Body.Mars,
+    ast.Body.Jupiter,
+    ast.Body.Saturn,
+    ast.Body.Uranus,
+    ast.Body.Neptune,
+    ast.Body.Pluto
+]
 
 declare global {
     interface Array<T> {
@@ -40,6 +39,23 @@ function rprint(s: string) {
     process.stdout.write(s)
 }
 
+/**
+ * Calculates a non-scaled vector from the center of the Sun to the given body at the given time.
+ * @param date the date in which to calculate the planet's position
+ * @returns a heliocentric vector pointing to the planet's position
+ * @note this is a copy of the function found in src/objects/planet.ts
+ */
+function getPositionForDateNotScaled(body: string, date: Date): ast.Vector {
+    let helioCoords = ast.HelioVector(body as ast.Body, date)
+    // z,x,y
+    return new ast.Vector(
+        -helioCoords.y, // x
+        helioCoords.z,  // y
+        -helioCoords.x, // z
+        helioCoords.t
+    )
+}
+
 // define start date
 const startDate = new Date();
 
@@ -48,22 +64,16 @@ var orbitPoints: string[] = []
 var indexNames: string = ""
 var indexLines: string = ""
 
-new Planets({
-    mercury: new Mercury(), venus: new Venus(), earth: new Earth(), mars: new Mars(),
-    jupiter: new Jupiter(), saturn: new Saturn(), uranus: new Uranus(), neptune: new Neptune(),
-    pluto: new Pluto(), // ceres: new Ceres(),
-})
-
 process.stdout.write("\n--- Calculating Orbits ---")
 process.stdout.write("\n" + startDate.toISOString())
 let showCalculations = false
-for (let key in Planets) {
-    let planet: Planet = Planets[key];
-    if (planet) {
-        process.stdout.write("\n" + planet.name)
+for (let key in supported_bodies) {
+    let planet: ast.Body = supported_bodies[key];
+    if (typeof planet == "string") {
+        process.stdout.write("\n" + planet)
 
-        let obj = objectsJson[key]
-        let name = obj.name
+        let obj = objectsJson[planet.toLowerCase()]
+        let name: string = obj.name
         let orbitalPeriod = obj.sideralOrbit
         let lines = Math.floor(366 * (orbitalPeriod / 365))
         orbitPoints.push(lines.toString())
@@ -79,7 +89,7 @@ for (let key in Planets) {
         let orbit: string[] = [];
         for (let i = 0; i < lines; i++) {
             let date = new Date(startDate.getFullYear(), 0, i);
-            let pos = planet.getPositionForDateNotScaled(date);
+            let pos = getPositionForDateNotScaled(name, date);
             let sigFigs = 5
             let posString = `${pos.x.toPrecision(sigFigs)},${pos.y.toPrecision(sigFigs)},${pos.z.toPrecision(sigFigs)}`
             orbit.push(posString);
