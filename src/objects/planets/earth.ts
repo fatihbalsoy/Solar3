@@ -10,6 +10,7 @@
 import * as THREE from "three";
 import Planet from "../planet";
 import { Quality, Settings } from "../../settings";
+import AppScene from "../../scene";
 // var glsl = require('glslify');
 
 class Earth extends Planet {
@@ -22,8 +23,7 @@ class Earth extends Planet {
         const month = today.getMonth()
         const monthNames = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
 
-        const loadingManager = new THREE.LoadingManager()
-        const textureLoader = new THREE.TextureLoader(loadingManager)
+        const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
 
         const res = Settings.res2_8k[Settings.quality]
 

@@ -11,6 +11,7 @@
 import * as THREE from "three";
 import Planet from "../planet";
 import { Quality, Settings } from "../../settings";
+import AppScene from "../../scene";
 
 class Mars extends Planet {
 
@@ -18,8 +19,7 @@ class Mars extends Planet {
         const id = "mars"
 
         //? -- TEXTURES -- ?//
-        const loadingManager = new THREE.LoadingManager()
-        const textureLoader = new THREE.TextureLoader(loadingManager)
+        const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
         const texture = textureLoader.load(Planet.getTexturePath(id))
         const lowTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
         const normalTexture = textureLoader.load('assets/images/textures/mars/1k_mars_normal.jpeg')
