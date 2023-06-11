@@ -7,6 +7,7 @@
  */
 import React, { Component } from 'react'
 import * as THREE from 'three'
+import * as ThreeMeshUI from 'three-mesh-ui';
 import * as TWEEN from '@tweenjs/tween.js'
 import { CSS2DRenderer } from './modules/renderers/CSS2DRenderer'
 import Stats from 'stats.js'
@@ -46,6 +47,7 @@ import { VRButton } from './modules/webxr/VRButton'
 import { XRControllerModelFactory } from './modules/webxr/XRControllerModelFactory'
 import { XRHandModelFactory } from './modules/webxr/XRHandModelFactory'
 import { ARButton } from './modules/webxr/ARButton'
+import XRSearchBar from './interface/search-xr'
 
 // TODO: Preload textures to prevent lag during runtime
 class AppScene extends Component {
@@ -95,7 +97,7 @@ class AppScene extends Component {
 
         // * -- WEBXR -- * //
         this.renderer.xr.enabled = true
-        document.body.appendChild(ARButton.createButton(this.renderer));
+        document.body.appendChild(VRButton.createButton(this.renderer));
 
         AppScene.group = new THREE.Group()
         AppScene.group.add(AppScene.camera)
@@ -135,8 +137,13 @@ class AppScene extends Component {
         this.hand2.add(handModelFactory.createHandModel(this.hand2));
         AppScene.scene.add(this.hand2);
 
+        // Search Bar
+        const xrSeachBar = new XRSearchBar()
+        AppScene.camera.add(xrSeachBar)
+
         // * -- RENDERERS --  * //
-        this.renderer.setClearColor('#000000')
+        // this.renderer.setClearColor('#000000')
+        this.renderer.setClearColor('#fff')
         this.renderer.setSize(width, height)
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
         this.renderer.shadowMap.enabled = true
@@ -192,12 +199,12 @@ class AppScene extends Component {
         AppScene.controls.target = Settings.lookAt.getPosition()
 
         // * -- GALAXY -- * //
-        let galaxyRes = Settings.res2_8k[Settings.quality]
-        const galaxyTexture = this.textureLoader.load('assets/images/textures/galaxy/' + galaxyRes + '_stars_milky_way.jpeg', () => {
-            const rt = new THREE.WebGLCubeRenderTarget(galaxyTexture.image.height);
-            rt.fromEquirectangularTexture(this.renderer, galaxyTexture);
-            AppScene.scene.background = rt.texture;
-        })
+        // let galaxyRes = Settings.res2_8k[Settings.quality]
+        // const galaxyTexture = this.textureLoader.load('assets/images/textures/galaxy/' + galaxyRes + '_stars_milky_way.jpeg', () => {
+        //     const rt = new THREE.WebGLCubeRenderTarget(galaxyTexture.image.height);
+        //     rt.fromEquirectangularTexture(this.renderer, galaxyTexture);
+        //     AppScene.scene.background = rt.texture;
+        // })
 
         window.addEventListener('resize', this.handleResize)
 
@@ -272,6 +279,7 @@ class AppScene extends Component {
         this.statistics.begin()
 
         this.calculatePositions()
+        ThreeMeshUI.update()
         AppScene.controls.update()
 
         this.renderScene()

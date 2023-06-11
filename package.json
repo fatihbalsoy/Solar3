@@ -32,7 +32,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.0",
     "stats.js": "^0.17.0",
-    "three": "^0.148.0"
+    "three": "^0.148.0",
+    "three-mesh-ui": "^6.5.4"
   },
   "devDependencies": {
     "@babel/core": "^7.21.8",
