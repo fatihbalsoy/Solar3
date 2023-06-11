@@ -42,6 +42,7 @@ import Ganymede from './objects/moons/jupiter_ganymede';
 import SceneCamera from './scene/camera'
 import SearchBar from './interface/search'
 import SceneLoadingManager from './scene/loading_manager'
+import { VRButton } from './modules/VRButton'
 
 // TODO: Preload textures to prevent lag during runtime
 class AppScene extends Component {
@@ -80,6 +81,10 @@ class AppScene extends Component {
         this.stars = new Stars()
 
         AppScene.scene.add(AppScene.camera)
+
+        // * -- WEBXR -- * //
+        this.renderer.xr.enabled = true
+        document.body.appendChild(VRButton.createButton(this.renderer));
 
         // * -- RENDERERS --  * //
         this.renderer.setClearColor('#000000')
@@ -190,15 +195,16 @@ class AppScene extends Component {
     }
 
     start = () => {
-        if (!this.frameId) {
-            this.frameId = window.requestAnimationFrame(this.animate)
-        }
+        // if (!this.frameId) {
+        //     this.frameId = window.requestAnimationFrame(this.animate)
+        // }
+        this.renderer.setAnimationLoop(this.animate)
     }
 
     stop = () => {
-        if (this.frameId) {
-            window.cancelAnimationFrame(this.frameId)
-        }
+        // if (this.frameId) {
+        //     window.cancelAnimationFrame(this.frameId)
+        // }
     }
 
     calculatePositions(all: boolean = false) {
