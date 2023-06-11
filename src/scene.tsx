@@ -8,11 +8,11 @@
 import React, { Component } from 'react'
 import * as THREE from 'three'
 import * as TWEEN from '@tweenjs/tween.js'
-import { CSS2DRenderer } from './modules/CSS2DRenderer'
+import { CSS2DRenderer } from './modules/renderers/CSS2DRenderer'
 import Stats from 'stats.js'
 import { Orbits } from './utils/orbit_points'
 import Planets from './objects/planets'
-import { OrbitControls } from './modules/OrbitControls'
+import { OrbitControls } from './modules/controls/OrbitControls'
 import { Settings } from './settings'
 
 import Planet from './objects/planet'
@@ -42,13 +42,16 @@ import Ganymede from './objects/moons/jupiter_ganymede';
 import SceneCamera from './scene/camera'
 import SearchBar from './interface/search'
 import SceneLoadingManager from './scene/loading_manager'
-import { VRButton } from './modules/VRButton'
+import { VRButton } from './modules/webxr/VRButton'
+import { XRControllerModelFactory } from './modules/webxr/XRControllerModelFactory'
+import { XRHandModelFactory } from './modules/webxr/XRHandModelFactory'
 
 // TODO: Preload textures to prevent lag during runtime
 class AppScene extends Component {
     private mount: HTMLDivElement
     private clock: THREE.Clock
     static scene: THREE.Scene
+    static group: THREE.Group
     static camera: SceneCamera
     static controls: OrbitControls
     private renderer: THREE.WebGLRenderer
@@ -57,6 +60,13 @@ class AppScene extends Component {
     static loadingManager: SceneLoadingManager
     private textureLoader: THREE.TextureLoader
     private statistics: Stats
+
+    private hand1: THREE.XRHandSpace
+    private hand2: THREE.XRHandSpace
+    private controller1: THREE.XRTargetRaySpace
+    private controller2: THREE.XRTargetRaySpace
+    private controllerGrip1: THREE.XRGripSpace
+    private controllerGrip2: THREE.XRGripSpace
 
     private orbits: Orbits
     private stars: Stars
@@ -85,6 +95,44 @@ class AppScene extends Component {
         // * -- WEBXR -- * //
         this.renderer.xr.enabled = true
         document.body.appendChild(VRButton.createButton(this.renderer));
+
+        AppScene.group = new THREE.Group()
+        AppScene.group.add(AppScene.camera)
+        AppScene.group.position.set(AppScene.camera.position.x, AppScene.camera.position.y, AppScene.camera.position.z)
+        AppScene.scene.add(AppScene.group)
+
+        // Controllers
+        this.controller1 = this.renderer.xr.getController(0);
+        AppScene.scene.add(this.controller1);
+
+        this.controller2 = this.renderer.xr.getController(1);
+        AppScene.scene.add(this.controller2);
+
+        const controllerModelFactory = new XRControllerModelFactory();
+        const handModelFactory = new XRHandModelFactory();
+
+        // Hand 1
+        this.controllerGrip1 = this.renderer.xr.getControllerGrip(0);
+        this.controllerGrip1.add(controllerModelFactory.createControllerModel(this.controllerGrip1));
+        AppScene.scene.add(this.controllerGrip1);
+
+        this.hand1 = this.renderer.xr.getHand(0);
+        this.hand1.addEventListener('pinchstart', (event) => { console.log(event) });
+        this.hand1.addEventListener('pinchend', () => { });
+        this.hand1.add(handModelFactory.createHandModel(this.hand1));
+
+        AppScene.scene.add(this.hand1);
+
+        // Hand 2
+        this.controllerGrip2 = this.renderer.xr.getControllerGrip(1);
+        this.controllerGrip2.add(controllerModelFactory.createControllerModel(this.controllerGrip2));
+        AppScene.scene.add(this.controllerGrip2);
+
+        this.hand2 = this.renderer.xr.getHand(1);
+        this.hand2.addEventListener('pinchstart', () => { });
+        this.hand2.addEventListener('pinchend', () => { });
+        this.hand2.add(handModelFactory.createHandModel(this.hand2));
+        AppScene.scene.add(this.hand2);
 
         // * -- RENDERERS --  * //
         this.renderer.setClearColor('#000000')
@@ -195,16 +243,10 @@ class AppScene extends Component {
     }
 
     start = () => {
-        // if (!this.frameId) {
-        //     this.frameId = window.requestAnimationFrame(this.animate)
-        // }
         this.renderer.setAnimationLoop(this.animate)
     }
 
     stop = () => {
-        // if (this.frameId) {
-        //     window.cancelAnimationFrame(this.frameId)
-        // }
     }
 
     calculatePositions(all: boolean = false) {
@@ -232,7 +274,6 @@ class AppScene extends Component {
         AppScene.controls.update()
 
         this.renderScene()
-        this.frameId = window.requestAnimationFrame(this.animate)
         TWEEN.update()
 
         this.statistics.end()

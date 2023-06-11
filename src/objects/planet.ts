@@ -12,7 +12,7 @@ import * as THREE from "three"
 import * as objectsJson from '../data/objects.json';
 import { HelioVector, Body, Vector, Rotation_EQJ_ECL, Equator, Observer, EquatorialCoordinates, HorizontalCoordinates, Horizon } from 'astronomy-engine';
 import { Quality, Settings, resFields } from "../settings";
-import { CSS2DObject } from "../modules/CSS2DRenderer";
+import { CSS2DObject } from "../modules/renderers/CSS2DRenderer";
 import { Orbit } from '../utils/orbit_points';
 
 class Planet {
