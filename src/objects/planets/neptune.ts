@@ -10,14 +10,14 @@
 
 import * as THREE from "three";
 import Planet from "../planet";
+import AppScene from "../../scene";
 
 class Neptune extends Planet {
     constructor() {
         const id = "neptune"
 
         //? -- TEXTURES -- ?//
-        const loadingManager = new THREE.LoadingManager()
-        const textureLoader = new THREE.TextureLoader(loadingManager)
+        const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
         const texture = textureLoader.load(Planet.getTexturePath(id))
 
         //? -- MATERIAL -- ?//

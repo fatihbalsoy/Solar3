@@ -11,6 +11,7 @@ import * as THREE from "three";
 import Earth from "./earth";
 import Planet from "../planet";
 import { Quality, Settings, resFields } from "../../settings";
+import AppScene from "../../scene";
 
 class Saturn extends Planet {
 
@@ -18,8 +19,7 @@ class Saturn extends Planet {
         const id = "saturn"
 
         //? -- TEXTURES -- ?//
-        const loadingManager = new THREE.LoadingManager()
-        const textureLoader = new THREE.TextureLoader(loadingManager)
+        const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
         const texture = textureLoader.load(Planet.getTexturePath(id))
         const lowResTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
         const ringTexture = textureLoader.load('assets/images/textures/saturn/' + resFields[id][Settings.quality] + '_saturn_ring_alpha.png')

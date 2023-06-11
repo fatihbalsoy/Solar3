@@ -11,6 +11,7 @@
 import * as THREE from "three";
 import Planet from "../planet";
 import { Settings, Quality } from "../../settings";
+import AppScene from "../../scene";
 
 class Jupiter extends Planet {
 
@@ -18,8 +19,7 @@ class Jupiter extends Planet {
         const id = "jupiter"
 
         //? -- TEXTURES -- ?//
-        const loadingManager = new THREE.LoadingManager()
-        const textureLoader = new THREE.TextureLoader(loadingManager)
+        const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
         const texture = textureLoader.load(Planet.getTexturePath(id))
         const lowTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
 

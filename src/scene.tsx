@@ -41,6 +41,7 @@ import Europa from './objects/moons/jupiter_europa';
 import Ganymede from './objects/moons/jupiter_ganymede';
 import SceneCamera from './scene/camera'
 import SearchBar from './interface/search'
+import SceneLoadingManager from './scene/loading_manager'
 
 // TODO: Preload textures to prevent lag during runtime
 class AppScene extends Component {
@@ -52,7 +53,7 @@ class AppScene extends Component {
     private renderer: THREE.WebGLRenderer
     private cssRenderer: CSS2DRenderer
     private frameId: number
-    private loadingManager: THREE.LoadingManager
+    static loadingManager: SceneLoadingManager
     private textureLoader: THREE.TextureLoader
     private statistics: Stats
 
@@ -71,8 +72,8 @@ class AppScene extends Component {
         AppScene.controls = new OrbitControls(AppScene.camera, this.mount)
         this.renderer = new THREE.WebGLRenderer({ antialias: true, depth: true })
         this.cssRenderer = new CSS2DRenderer()
-        this.loadingManager = new THREE.LoadingManager()
-        this.textureLoader = new THREE.TextureLoader(this.loadingManager)
+        AppScene.loadingManager = new SceneLoadingManager()
+        this.textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
         this.statistics = new Stats()
 
         this.orbits = new Orbits()
