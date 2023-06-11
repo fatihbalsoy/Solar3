@@ -9,9 +9,8 @@
 #loading-screen {
     z-index: 99;
     position: absolute;
-    transition: opacity 1s, visibility 1s;
+    transition: opacity 1s;
     opacity: 1;
-    visibility: visible;
     width: 100%;
     height: 100%;
 }

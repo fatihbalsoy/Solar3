@@ -12,7 +12,7 @@ class SceneLoadingManager extends THREE.LoadingManager {
     constructor() {
         super()
 
-        const loadingScreenImage = document.getElementById('loading-screen') as HTMLDivElement
+        const loadingScreen = document.getElementById('loading-screen') as HTMLDivElement
 
         this.onStart = function (url, itemsLoaded, itemsTotal) {
             // console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
@@ -20,9 +20,14 @@ class SceneLoadingManager extends THREE.LoadingManager {
 
         this.onLoad = function () {
             // console.log('Loading complete!');
-            if (loadingScreenImage) {
-                loadingScreenImage.style.opacity = '0'
-                loadingScreenImage.style.visibility = 'hidden'
+            if (loadingScreen) {
+                loadingScreen.style.opacity = '0'
+                setTimeout(() => {
+                    loadingScreen.style.visibility = 'hidden'
+                    loadingScreen.style.display = 'none'
+                }, 1100);
+            } else {
+                console.log("Error, could not find loading screen html element.")
             }
         }
 
