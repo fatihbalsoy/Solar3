@@ -26,6 +26,7 @@ class Earth extends Planet {
         const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
 
         const res = Settings.res2_8k[Settings.quality]
+        const cloudRes = Settings.res2_4k[Settings.quality]
 
         const earthTexture = textureLoader.load('assets/images/textures/earth/' + res + '/month/' + monthNames[month] + '.jpeg')
         const earthLowResTexure = textureLoader.load('assets/images/textures/earth/2k/month/' + monthNames[month] + '.jpeg')
@@ -33,7 +34,7 @@ class Earth extends Planet {
         const earthRoughness = textureLoader.load('assets/images/textures/earth/' + res + '/roughness.jpeg')
         const earthSpecular = textureLoader.load('assets/images/textures/earth/' + res + '/specular.jpeg')
         const earthEmission = textureLoader.load('assets/images/textures/earth/' + res + '/night_dark.jpeg')
-        const earthCloudsTexture = textureLoader.load('assets/images/textures/earth/2k/clouds.png')
+        const earthCloudsTexture = textureLoader.load('assets/images/textures/earth/' + cloudRes + '/clouds.png')
 
         //? -- MATERIAL -- ?//
         const earthMaterial = new THREE.MeshStandardMaterial({
@@ -56,7 +57,7 @@ class Earth extends Planet {
         const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        // geometry.addGroup(0, Infinity, 1)
+        geometry.addGroup(0, Infinity, 1)
 
         // * Add second UV for light map * //
         // Get existing `uv` data array
