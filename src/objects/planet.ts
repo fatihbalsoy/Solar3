@@ -10,7 +10,7 @@
 import { Material, Mesh, Object3D, SphereGeometry, Vector3 } from "three"
 import * as THREE from "three"
 import * as objectsJson from '../data/objects.json';
-import { HelioVector, Body, Vector, Rotation_EQJ_ECL } from 'astronomy-engine';
+import { HelioVector, Body, Vector, Rotation_EQJ_ECL, Equator, Observer, EquatorialCoordinates, HorizontalCoordinates, Horizon } from 'astronomy-engine';
 import { Quality, Settings, resFields } from "../settings";
 import { CSS2DObject } from "../modules/CSS2DRenderer";
 import { Orbit } from '../utils/orbit_points';
@@ -196,12 +196,20 @@ class Planet {
 
         let dist = new Vector3(0, 0, 0).distanceTo(camera.position) / Settings.distanceScale
         this.labelText.element.textContent = this.name
+        this.labelCircle.element.style.backgroundColor = 'white'
 
         let removeInner = inner.includes(this.name.toLowerCase()) && dist > 2000000000
         let removeOuter = outer.includes(this.name.toLowerCase()) && dist > 20000000000
 
-        if (removeInner || removeOuter) {
+        let removeTarget = (Settings.lookAt as Planet).id == this.id
+            ? this.position.distanceTo(camera.position) / Settings.distanceScale < this.radius * 10
+            : false;
+
+        if (removeInner || removeOuter || removeTarget) {
             this.labelText.element.textContent = ''
+            if (removeTarget) {
+                this.labelCircle.element.style.backgroundColor = 'transparent'
+            }
         }
 
         this.labelText.element.style.color = 'white'
@@ -263,6 +271,39 @@ class Planet {
             -helioCoords.x, // z
             helioCoords.t
         )
+    }
+
+    /**
+     * Calculates the right ascension and declination of the planet given the observer's gps location
+     * @param date the date in which to calculate the planet's equatorial coordinates
+     * @param gpsLocation the observer's gps location on Earth
+     * @returns equatorial coordinates of the planet (right ascension and declination)
+     */
+    getEquatorialCoordinates(date: Date, gpsLocation: GeolocationPosition): EquatorialCoordinates | null {
+        if (navigator.geolocation) {
+            let observer = new Observer(gpsLocation.coords.latitude, gpsLocation.coords.longitude, gpsLocation.coords.altitude ?? 0)
+            let equator = Equator(Body[this.name], date, observer, true, true)
+            return equator
+        } else {
+            return null
+        }
+    }
+
+    /**
+     * Calculates the azimuth and altitude of the planet given the observer's gps location
+     * @param date the date in which to calculate the planet's horizontal coordinates
+     * @param gpsLocation the observer's gps location on Earth
+     * @returns horizontal coordinates of the planet (azimuth and altitude)
+     */
+    getHorizontalCoordinates(date: Date, gpsLocation: GeolocationPosition): HorizontalCoordinates | null {
+        if (navigator.geolocation) {
+            let observer = new Observer(gpsLocation.coords.latitude, gpsLocation.coords.longitude, gpsLocation.coords.altitude ?? 0)
+            let equator = Equator(Body[this.name], date, observer, true, true)
+            let horizontal = Horizon(date, observer, equator.ra, equator.dec)
+            return horizontal
+        } else {
+            return null
+        }
     }
 
     /**

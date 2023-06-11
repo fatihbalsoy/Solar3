@@ -8,7 +8,7 @@
 
 import { mdiClose, mdiEarth, mdiMagnify, mdiRocketLaunch, mdiStarFourPoints, mdiStarFourPointsSmall, mdiTelescope, mdiWeb } from "@mdi/js";
 import Icon from "@mdi/react";
-import { Divider, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Tooltip } from "@mui/material";
+import { Button, Divider, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Tooltip } from "@mui/material";
 import React from "react";
 import { Component } from "react";
 import Stars from "../objects/stars";
@@ -19,13 +19,18 @@ import './search.scss';
 import { Star } from "../objects/star";
 import AppScene from "../scene";
 import * as wikiJson from '../data/wiki.json';
+import { EquatorialCoordinates, HorizontalCoordinates } from "astronomy-engine";
+import { convertHourToHMS } from "../utils/utils";
 
 class SearchBar extends Component {
     state = {
         value: '',
         showingInfoCard: false,
         results: [] as number[],
+        locationPermission: 'prompt', // 'granted', or 'denied'
+        location: null // GeolocationPosition
     }
+    interval: NodeJS.Timer
 
     constructor(props: {}) {
         super(props);
@@ -36,6 +41,20 @@ class SearchBar extends Component {
         this.onClickFlyIcon = this.onClickFlyIcon.bind(this);
         this.onClickSearchResult = this.onClickSearchResult.bind(this)
         this.onClickSearchBar = this.onClickSearchBar.bind(this)
+        this.onClickAllowLocation = this.onClickAllowLocation.bind(this)
+
+        this.updateLocationPermissionStatus = this.updateLocationPermissionStatus.bind(this)
+        this.getLocation = this.getLocation.bind(this)
+
+        this.updateLocationPermissionStatus()
+        this.getLocation()
+    }
+
+    componentDidMount() {
+        this.interval = setInterval(() => this.setState({ time: Date.now() }), 333);
+    }
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     searchAndLookAt(s: string) {
@@ -74,6 +93,92 @@ class SearchBar extends Component {
         if (e.key == "Enter") {
             this.searchAndLookAt(this.state.value)
         }
+    }
+
+    onClickAllowLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(() => { })
+            this.updateLocationPermissionStatus()
+        }
+    }
+
+    updateLocationPermissionStatus() {
+        navigator.permissions.query({ name: 'geolocation' }).then((value) => {
+            this.setState({
+                locationPermission: value.state
+            })
+        })
+    }
+
+    getLocation() {
+        if (navigator.geolocation && this.state.locationPermission == 'granted') {
+            navigator.geolocation.getCurrentPosition((value) => {
+                this.setState({
+                    location: value
+                })
+            })
+        }
+    }
+
+    planetPositionComponent() {
+        // Location is NOT supported //
+        const locationNotSupported = (
+            <div></div>
+        )
+        let not_supported = ["earth", "io", "europa", "ganymede", "callisto"]
+        if (!navigator.geolocation ||
+            (Settings.lookAt as Planet && not_supported.includes((Settings.lookAt as Planet).id))) {
+            return locationNotSupported
+        }
+
+        // Location IS supported //
+        // - Needs Location Permissions - 
+        // TODO: Refresh view after 'Allow Location' is clicked
+        const needsPermission = (
+            <div>
+                <div style={{ height: "15px" }}></div>
+                <Button onClick={this.onClickAllowLocation} variant="outlined">Allow Location</Button>
+                <div style={{ height: "15px" }}></div>
+                <p>
+                    To provide accurate planet information based on your current position and deliver a
+                    personalized experience, the app requires your location. This allows it to calculate
+                    real-time celestial coordinates like RA, Dec, Azimuth, and Altitude for the planet
+                    you are viewing.
+                </p>
+            </div>
+        )
+
+        // - Has Location Permissions -
+        var equatorialCoords: EquatorialCoordinates = null
+        var horizontalCoords: HorizontalCoordinates = null
+        if (this.state.locationPermission == 'granted' && Settings.lookAt as Planet && this.state.location) {
+            let planet = Settings.lookAt as Planet
+            let date = new Date()
+            equatorialCoords = planet.getEquatorialCoordinates(date, this.state.location)
+            horizontalCoords = planet.getHorizontalCoordinates(date, this.state.location)
+        }
+        const hasPermission = (
+            <div>
+                <p>Right Ascension: {equatorialCoords ? convertHourToHMS(equatorialCoords.ra, 1) : "Loading"}</p>
+                <p>Declination: {equatorialCoords ? equatorialCoords.dec.toFixed(4) : "Loading"}°</p>
+                <div style={{ height: "10px" }}></div>
+                <p>Azimuth: {horizontalCoords ? horizontalCoords.azimuth.toFixed(4) : "Loading"}°</p>
+                <p>Altitude: {horizontalCoords ? horizontalCoords.altitude.toFixed(4) : "Loading"}°</p>
+            </div>
+        )
+
+        const locationSupported = (
+            <div>
+                <h3>Position</h3>
+                {
+                    this.state.locationPermission == 'granted'
+                        ? hasPermission
+                        : needsPermission
+                }
+            </div>
+        )
+
+        return locationSupported
     }
 
     onClickTelescopeIcon() {
@@ -134,6 +239,9 @@ class SearchBar extends Component {
 
     render() {
         const planet = (Settings.lookAt as Planet)
+        if (!this.state.location) {
+            this.getLocation()
+        }
         return (
             <div>
                 {
@@ -152,9 +260,15 @@ class SearchBar extends Component {
                                     <p>{this.getPlanetWiki()["extract"]} <a style={{ color: "lightblue" }} target="_blank" rel="noopener noreferrer" href={this.getPlanetWiki()["content_urls"]["desktop"]["page"]}><i><b>Wikipedia</b></i></a></p>
                                     {/* <p>TODO: Table including RA, Dec, Mag, and etc.</p> */}
                                     <br />
+                                    {this.planetPositionComponent()}
+                                    <br />
                                     <h4>Photo Details</h4>
-                                    <p>License: {this.getPlanetWiki()["photo_credits"]["cc"]}</p>
-                                    <p>Author: {this.getPlanetWiki()["photo_credits"]["by"]}</p>
+                                    <p>License: {this.getPlanetWiki()["photo_credits"]["wiki"]["cc"]}</p>
+                                    <p>Author: {this.getPlanetWiki()["photo_credits"]["wiki"]["by"]}</p>
+                                    <br />
+                                    <h4>Texture Details</h4>
+                                    <p>License: {this.getPlanetWiki()["photo_credits"]["texture"]["cc"]}</p>
+                                    <p>Author: {this.getPlanetWiki()["photo_credits"]["texture"]["by"]}</p>
                                 </div>
                             </Paper>
                         </div>
