@@ -45,6 +45,7 @@ import SceneLoadingManager from './scene/loading_manager'
 import { VRButton } from './modules/webxr/VRButton'
 import { XRControllerModelFactory } from './modules/webxr/XRControllerModelFactory'
 import { XRHandModelFactory } from './modules/webxr/XRHandModelFactory'
+import { ARButton } from './modules/webxr/ARButton'
 
 // TODO: Preload textures to prevent lag during runtime
 class AppScene extends Component {
@@ -81,7 +82,7 @@ class AppScene extends Component {
         AppScene.scene = new THREE.Scene()
         AppScene.camera = new SceneCamera(75, width / height, 0.0001, (60000000000 * Settings.distanceScale) * 5)
         AppScene.controls = new OrbitControls(AppScene.camera, this.mount)
-        this.renderer = new THREE.WebGLRenderer({ antialias: true, depth: true })
+        this.renderer = new THREE.WebGLRenderer({ antialias: true, depth: true, alpha: true })
         this.cssRenderer = new CSS2DRenderer()
         AppScene.loadingManager = new SceneLoadingManager()
         this.textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
@@ -94,7 +95,7 @@ class AppScene extends Component {
 
         // * -- WEBXR -- * //
         this.renderer.xr.enabled = true
-        document.body.appendChild(VRButton.createButton(this.renderer));
+        document.body.appendChild(ARButton.createButton(this.renderer));
 
         AppScene.group = new THREE.Group()
         AppScene.group.add(AppScene.camera)

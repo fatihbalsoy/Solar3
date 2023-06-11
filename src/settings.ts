@@ -70,8 +70,12 @@ export class Settings {
         [Quality.low]: '1k'
     }
 
-    // Scale
+    // * Scale * //
+    // Normal: 1/10000
+    // AR: 1/1000000
     static readonly distanceScale: number = 1 / 10000
+    // Normal: 1/10000
+    // AR: 1/100000
     static readonly sizeScale: number = 1 / 10000
 
     // Astronomical Units to Kilometers
