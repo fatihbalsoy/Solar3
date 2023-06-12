@@ -76,6 +76,13 @@ export class Settings {
 
     // Astronomical Units to Kilometers
     static readonly AUtoKM = 1.496e+8
+
+    // * Developer Settings * //
+    // Stop the program from progressing after the loading screen
+    static haltLoadingScreen(): boolean {
+        const keep = false
+        return Settings.isDev ? keep : false
+    }
 }
 
 export const resFields: EnumDictionary<string, EnumDictionary<Quality, string>> = {

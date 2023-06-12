@@ -7,6 +7,7 @@
  */
 
 import * as THREE from "three";
+import Settings from "../settings";
 
 class SceneLoadingManager extends THREE.LoadingManager {
     constructor() {
@@ -21,11 +22,17 @@ class SceneLoadingManager extends THREE.LoadingManager {
         this.onLoad = function () {
             // console.log('Loading complete!');
             if (loadingScreen) {
-                loadingScreen.style.opacity = '0'
-                setTimeout(() => {
-                    loadingScreen.style.visibility = 'hidden'
-                    loadingScreen.style.display = 'none'
-                }, 1100);
+                if (Settings.haltLoadingScreen()) {
+                    console.log("The function Settings.haltLoadingScreen() is returning true, " +
+                        "indicating that the program is currently halted at the loading " +
+                        "screen for debugging and development purposes. ")
+                } else {
+                    loadingScreen.style.opacity = '0'
+                    setTimeout(() => {
+                        loadingScreen.style.visibility = 'hidden'
+                        loadingScreen.style.display = 'none'
+                    }, 1100);
+                }
             } else {
                 console.log("Error, could not find loading screen html element.")
             }
