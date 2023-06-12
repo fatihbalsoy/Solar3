@@ -143,7 +143,7 @@ class AppScene extends Component {
 
         // * -- RENDERERS --  * //
         // this.renderer.setClearColor('#000000')
-        this.renderer.setClearColor('#fff')
+        this.renderer.setClearColor('#dedede')
         this.renderer.setSize(width, height)
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
         this.renderer.shadowMap.enabled = true
