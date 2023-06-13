@@ -207,7 +207,7 @@ class AppScene extends Component {
         if (all) {
             for (const key in Planets) {
                 const object: Planet = Planets[key];
-                object.animate()
+                object.animate(true)
                 object.updateLabel(AppScene.camera)
             }
         } else if (Settings.lookAt instanceof Planet) {

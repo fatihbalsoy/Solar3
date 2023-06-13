@@ -134,11 +134,13 @@ class Planet {
 
     /**
      * Animates the planet by applying rotation and translation.
-     * @param time - the time elapsed since start in seconds
-     * @param parent - parent object to orbit around
+     * @param calledByTimer - whether the function is called by a timer. useful if calculating things every second or so.
      */
-    animate() {
-        if (this.name !== "Moon") {
+    animate(calledByTimer: boolean = false) {
+        // Since earth's rotation speed is not noticable, it will be calculated when called by a timer
+        const notMoonOrEarth = this.name !== "Moon" && this.name !== "Earth"
+        const isEarthAndCalledByTimer = this.name == "Earth" && calledByTimer
+        if (notMoonOrEarth || isEarthAndCalledByTimer) {
             this.rotate()
         }
 
