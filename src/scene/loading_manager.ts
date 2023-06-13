@@ -22,7 +22,7 @@ class SceneLoadingManager extends THREE.LoadingManager {
         this.onLoad = function () {
             // console.log('Loading complete!');
             if (loadingScreen) {
-                if (Settings.haltLoadingScreen()) {
+                if (Settings.dev_haltLoadingScreen()) {
                     console.log("The function Settings.haltLoadingScreen() is returning true, " +
                         "indicating that the program is currently halted at the loading " +
                         "screen for debugging and development purposes. ")

@@ -28,12 +28,13 @@ export class Settings {
     // Graphics
     private static gigabyteToBytes = 1e+9
     static readonly quality: Quality =
-        // Safari on iPhone only provides roughly 300mb of RAM. Therefore, load 2k textures instead. Same for low-end devices (2gb ram)
+        // Safari on iPhone only provides roughly 300mb of RAM. Therefore, load low-res textures instead. Same for low-end devices (2gb ram)
         (platform.layout == 'WebKit' && platform.product == 'iPhone') || totalmem() <= 3
             ? Quality.low
-            // Load 8k textures on high-end devices (16gb ram)
+            // Load high-res textures on high-end devices (16gb ram)
             : totalmem() >= 15 * this.gigabyteToBytes
                 ? Quality.high
+                // Load medium-res textures on everything else
                 : Quality.medium
     static readonly res2_4_8k: EnumDictionary<Quality, string> = {
         [Quality.high]: '8k',
@@ -71,7 +72,11 @@ export class Settings {
         [Quality.low]: '1k'
     }
 
-    // Scale
+    // * Scale * //
+    // The scale is extremely small so the program does not need to 
+    // calculate large numbers and run into issues at far distances.
+    // If both variables match, then the program is simulating the 
+    // solar system at 1:1 scale.
     static readonly distanceScale: number = 1 / 10000
     static readonly sizeScale: number = 1 / 10000
 
@@ -80,12 +85,12 @@ export class Settings {
 
     // * Developer Settings * //
     // Stop the program from progressing after the loading screen
-    static haltLoadingScreen(): boolean {
-        const keep = false
-        return Settings.isDev ? keep : false
+    static dev_setHaltLoadingScreen: boolean = false
+    static dev_haltLoadingScreen(): boolean {
+        return Settings.isDev ? Settings.dev_setHaltLoadingScreen : false
     }
     // Add ambient light to see objects without shadows
-    static addAmbientLight() {
+    static dev_addAmbientLight() {
         if (Settings.isDev) {
             const light = new AmbientLight(new Color(0xffffff), 1)
             AppScene.scene.add(light)
