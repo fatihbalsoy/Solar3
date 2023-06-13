@@ -237,6 +237,17 @@ class SearchBar extends Component {
         return wiki
     }
 
+    getPlanetWikiDate(): string {
+        const dateString = this.getPlanetWiki()["timestamp"]
+        const date = new Date(dateString)
+        const formattedDate = date.toLocaleDateString(undefined, {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric'
+        });
+        return formattedDate
+    }
+
     render() {
         const planet = (Settings.lookAt as Planet)
         if (!this.state.location) {
@@ -269,6 +280,10 @@ class SearchBar extends Component {
                                     <h4>Texture Details</h4>
                                     <p>License: {this.getPlanetWiki()["photo_credits"]["texture"]["cc"]}</p>
                                     <p>Author: {this.getPlanetWiki()["photo_credits"]["texture"]["by"]}</p>
+                                    <br />
+                                    <p className="info-card-update-text">
+                                        Updated on {this.getPlanetWikiDate()} | <a className="info-card-update-text" href={this.getPlanetWiki()["content_urls"]["desktop"]["revisions"]}>Revisions</a> | <a className="info-card-update-text" href={this.getPlanetWiki()["content_urls"]["desktop"]["edit"]}>Edit</a>
+                                    </p>
                                 </div>
                             </Paper>
                         </div>
