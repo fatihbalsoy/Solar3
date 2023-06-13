@@ -11,7 +11,8 @@ import * as THREE from "three";
 import Planet from "../planet";
 import { Quality, Settings } from "../../settings";
 import AppScene from "../../scene";
-// var glsl = require('glslify');
+import * as dat from 'dat.gui';
+import { Observer, ObserverVector } from "astronomy-engine";
 
 class Earth extends Planet {
 
@@ -68,6 +69,37 @@ class Earth extends Planet {
         // * Second UV End * //
 
         super(id, materials, geometry, earthLowResTexure);
+    }
+
+    rotate() {
+        // 0 degrees latitude, 0 degrees longitude
+        const lat = 0
+        const lon = 0
+
+        // Convert geographic coordinates to cartesian coordinates
+        const x = Math.cos(lat) * Math.cos(lon)
+        const y = Math.cos(lat) * Math.sin(lon)
+        const z = Math.sin(lat)
+
+        // Coordinates in relation to texture and scene (universe)
+        const rX = +x // -y
+        const rY = +z
+        const rZ = -y // -x
+
+        // Real-time observer vector for location at current time
+        const ob = new Observer(lat, lon, 0)
+        const obVec = ObserverVector(new Date(), ob, true)
+
+        // Coordinates in relation to scene (universe)
+        const rObX = -obVec.y
+        const rObY = +obVec.z
+        const rObZ = -obVec.x
+
+        // Angle between real-time coordinates and texture coordinates
+        const angle = Math.acos((rX * rObX + rY * rObY + rZ * rObZ) / (Math.sqrt(Math.pow(rX, 2) + Math.pow(rY, 2) + Math.pow(rZ, 2)) * Math.sqrt(Math.pow(rObX, 2) + Math.pow(rObY, 2) + Math.pow(rObZ, 2))))
+
+        // Rotate mesh so the texture matches real-time rotation of planet
+        this.realMesh.rotation.set(0, -angle, 0)
     }
 }
 

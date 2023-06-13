@@ -206,6 +206,8 @@ class AppScene extends Component {
         //     AppScene.scene.background = rt.texture;
         // })
 
+        // * ---- * //
+
         window.addEventListener('resize', this.handleResize)
 
         if (this.mount) {

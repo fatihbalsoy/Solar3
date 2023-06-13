@@ -12,6 +12,14 @@ import "./loading_screen.scss";
 import { LinearProgress } from "@mui/material";
 
 class LoadingScreen extends Component {
+    isFirstTime: string = 'false'
+
+    constructor() {
+        super({})
+
+        this.isFirstTime = localStorage.getItem('first-time') ?? 'true'
+        localStorage.setItem('first-time', 'false')
+    }
 
     render() {
         return (
@@ -20,6 +28,15 @@ class LoadingScreen extends Component {
                 <div className="loading-screen-content">
                     <h1 className="loading-screen-title">SolarSystem.3js</h1>
                     <LinearProgress />
+                    {
+                        this.isFirstTime == 'true'
+                            ? <div>
+                                <br />
+                                <p>Loading textures tailored to your computer's specifications.</p>
+                                <p>This will take approximately 30 seconds for the first time.</p>
+                            </div>
+                            : <div></div>
+                    }
                 </div>
             </div>
         )
