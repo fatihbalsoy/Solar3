@@ -105,6 +105,9 @@ npm run update-wiki
 
 # Calculate orbits, update wiki, then build for production
 npm run build:prod:all
+
+# Run build:prod:all and run the local server at localhost:3000
+npm run serve:prod
 ```
 
 ## Contribution

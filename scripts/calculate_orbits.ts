@@ -91,7 +91,7 @@ for (let key in supported_bodies) {
             let date = new Date(startDate.getFullYear(), 0, i);
             let pos = getPositionForDateNotScaled(name, date);
             let sigFigs = 5
-            let posString = `${pos.x.toPrecision(sigFigs)},${pos.y.toPrecision(sigFigs)},${pos.z.toPrecision(sigFigs)}`
+            let posString = `${pos.x.toFixed(sigFigs)},${pos.y.toFixed(sigFigs)},${pos.z.toFixed(sigFigs)}`
             orbit.push(posString);
             if (showCalculations) {
                 rprint("-- Day: " + i + "\t" + posString)
