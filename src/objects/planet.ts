@@ -156,7 +156,7 @@ class Planet {
      * @param time - the time elapsed since start in seconds
      */
     rotate() {
-        this.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 1 / 10000)
+        // this.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 1 / 10000)
     }
 
     /**

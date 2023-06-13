@@ -12,15 +12,19 @@ import Planet from "../planet";
 import { Quality, Settings } from "../../settings";
 import AppScene from "../../scene";
 import * as dat from 'dat.gui';
+import { Observer, ObserverVector } from "astronomy-engine";
 
 class Earth extends Planet {
 
     londonCoords = {
-        latitude: 51.5072,
-        longitude: -0.1276
+        latitude: 0,
+        longitude: 0
     }
     londonCartesianCoords: THREE.Vector3
     londonPointMesh: THREE.Mesh
+
+    londonAccurateCoords: THREE.Vector3
+    londonAccuratePointMesh: THREE.Mesh
 
     constructor() {
         const id = "earth"
@@ -42,12 +46,6 @@ class Earth extends Planet {
         const earthSpecular = textureLoader.load('assets/images/textures/earth/' + res + '/specular.jpeg')
         const earthEmission = textureLoader.load('assets/images/textures/earth/' + res + '/night_dark.jpeg')
         const earthCloudsTexture = textureLoader.load('assets/images/textures/earth/' + cloudRes + '/clouds.png')
-
-        // Offset texture by 270 degrees in order to match latitude and longitude calculations
-        // earthTexture.wrapS = THREE.RepeatWrapping
-        // earthTexture.offset.x = 270 / 360
-        // earthLowResTexure.wrapS = earthTexture.wrapS
-        // earthLowResTexure.offset.x = earthTexture.offset.x
 
         //? -- MATERIAL -- ?//
         const earthMaterial = new THREE.MeshStandardMaterial({
@@ -82,11 +80,18 @@ class Earth extends Planet {
 
         super(id, materials, geometry, earthLowResTexure);
 
-        // * London Coordinates * //
+        // * Planet Rotation * //
+        // Settings.addAmbientLight()
         const londonPointGeo = new THREE.SphereGeometry(100 * Settings.sizeScale, 8, 8)
         const londonPointMesh = new THREE.Mesh(londonPointGeo)
         this.londonPointMesh = londonPointMesh
         this.realMesh.add(this.londonPointMesh)
+
+        const londonPointGeo2 = new THREE.SphereGeometry(100 * Settings.sizeScale, 8, 8)
+        const londonPointMat2 = new THREE.MeshBasicMaterial({ color: 0x009688 })
+        const londonPointMesh2 = new THREE.Mesh(londonPointGeo2, londonPointMat2)
+        this.londonAccuratePointMesh = londonPointMesh2
+        this.mesh.add(this.londonAccuratePointMesh)
 
         if (Settings.isDev) {
             const gui = new dat.GUI()
@@ -97,9 +102,7 @@ class Earth extends Planet {
         }
     }
 
-    animate() {
-        super.animate()
-
+    rotate() {
         const lat = this.londonCoords.latitude * Math.PI / 180
         const lon = this.londonCoords.longitude * Math.PI / 180
         const x = (this.radius * Settings.sizeScale) * Math.cos(lat) * Math.cos(lon)
@@ -112,6 +115,25 @@ class Earth extends Planet {
 
         this.londonCartesianCoords = new THREE.Vector3(x, y, z)
         this.londonPointMesh.position.set(rX, rY, rZ)
+
+        const stable_latitude = 0
+        const stable_longitude = 0
+        const ob = new Observer(stable_latitude, stable_longitude, 0)
+        const obVec = ObserverVector(new Date(), ob, true)
+        const obX = obVec.x * this.radius * 2.35 // i dont know what the 2.35 resembles
+        const obY = obVec.y * this.radius * 2.35
+        const obZ = obVec.z * this.radius * 2.35
+
+        const rObX = -obY
+        const rObY = +obZ
+        const rObZ = -obX
+
+        const angle = Math.acos((rX * rObX + rY * rObY + rZ * rObZ) / (Math.sqrt(Math.pow(rX, 2) + Math.pow(rY, 2) + Math.pow(rZ, 2)) * Math.sqrt(Math.pow(rObX, 2) + Math.pow(rObY, 2) + Math.pow(rObZ, 2))))
+
+        this.londonAccurateCoords = new THREE.Vector3(obX, obY, obZ)
+        this.londonAccuratePointMesh.position.set(rObX, rObY, rObZ)
+
+        this.realMesh.rotation.set(0, -angle, 0)
     }
 }
 
