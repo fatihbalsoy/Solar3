@@ -11,9 +11,16 @@ import * as THREE from "three";
 import Planet from "../planet";
 import { Quality, Settings } from "../../settings";
 import AppScene from "../../scene";
-// var glsl = require('glslify');
+import * as dat from 'dat.gui';
 
 class Earth extends Planet {
+
+    londonCoords = {
+        latitude: 51.5072,
+        longitude: -0.1276
+    }
+    londonCartesianCoords: THREE.Vector3
+    londonPointMesh: THREE.Mesh
 
     constructor() {
         const id = "earth"
@@ -35,6 +42,12 @@ class Earth extends Planet {
         const earthSpecular = textureLoader.load('assets/images/textures/earth/' + res + '/specular.jpeg')
         const earthEmission = textureLoader.load('assets/images/textures/earth/' + res + '/night_dark.jpeg')
         const earthCloudsTexture = textureLoader.load('assets/images/textures/earth/' + cloudRes + '/clouds.png')
+
+        // Offset texture by 270 degrees in order to match latitude and longitude calculations
+        // earthTexture.wrapS = THREE.RepeatWrapping
+        // earthTexture.offset.x = 270 / 360
+        // earthLowResTexure.wrapS = earthTexture.wrapS
+        // earthLowResTexure.offset.x = earthTexture.offset.x
 
         //? -- MATERIAL -- ?//
         const earthMaterial = new THREE.MeshStandardMaterial({
@@ -68,6 +81,37 @@ class Earth extends Planet {
         // * Second UV End * //
 
         super(id, materials, geometry, earthLowResTexure);
+
+        // * London Coordinates * //
+        const londonPointGeo = new THREE.SphereGeometry(100 * Settings.sizeScale, 8, 8)
+        const londonPointMesh = new THREE.Mesh(londonPointGeo)
+        this.londonPointMesh = londonPointMesh
+        this.realMesh.add(this.londonPointMesh)
+
+        if (Settings.isDev) {
+            const gui = new dat.GUI()
+
+            const earthFolder = gui.addFolder("Earth")
+            earthFolder.add(this.londonCoords, "latitude", -90, 90, 0.01)
+            earthFolder.add(this.londonCoords, "longitude", -180, 180, 0.01)
+        }
+    }
+
+    animate() {
+        super.animate()
+
+        const lat = this.londonCoords.latitude * Math.PI / 180
+        const lon = this.londonCoords.longitude * Math.PI / 180
+        const x = (this.radius * Settings.sizeScale) * Math.cos(lat) * Math.cos(lon)
+        const y = (this.radius * Settings.sizeScale) * Math.cos(lat) * Math.sin(lon)
+        const z = (this.radius * Settings.sizeScale) * Math.sin(lat)
+
+        const rX = +x // -y
+        const rY = +z
+        const rZ = -y // -x
+
+        this.londonCartesianCoords = new THREE.Vector3(x, y, z)
+        this.londonPointMesh.position.set(rX, rY, rZ)
     }
 }
 

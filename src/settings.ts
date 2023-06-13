@@ -6,12 +6,13 @@
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
-import { Vector3 } from "three"
+import { AmbientLight, Color, Vector3 } from "three"
 import { EnumDictionary } from "./utils/extensions"
 import Planet from "./objects/planet"
 import Star from "./objects/star"
 import Planets from "./objects/planets"
 import { totalmem } from 'os'
+import AppScene from "./scene"
 var platform = require('platform');
 
 export enum Quality {
@@ -82,6 +83,13 @@ export class Settings {
     static haltLoadingScreen(): boolean {
         const keep = false
         return Settings.isDev ? keep : false
+    }
+    // Add ambient light to see objects without shadows
+    static addAmbientLight() {
+        if (Settings.isDev) {
+            const light = new AmbientLight(new Color(0xffffff), 1)
+            AppScene.scene.add(light)
+        }
     }
 }
 
