@@ -21,6 +21,7 @@ import AppScene from "../scene";
 import * as wikiJson from '../data/wiki.json';
 import { EquatorialCoordinates, HorizontalCoordinates } from "astronomy-engine";
 import { convertHourToHMS } from "../utils/utils";
+import Crosshair from "./crosshair";
 
 class SearchBar extends Component {
     state = {
@@ -62,7 +63,7 @@ class SearchBar extends Component {
         const star: Star = Stars.indexedDatabase[s]
         const solObject: Planet = Planets[s]
         if (solObject || star) {
-            Settings.lookAt = solObject || star
+            AppScene.camera.animateLookAt(solObject || star, 2000)
         } else {
             // TODO: UI
             console.log("No such object:", s)
@@ -255,6 +256,7 @@ class SearchBar extends Component {
         }
         return (
             <div>
+                <Crosshair />
                 {
                     this.state.showingInfoCard && Settings.lookAt instanceof Planet ?
                         <div className="info-card-body">

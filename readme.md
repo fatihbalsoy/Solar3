@@ -76,7 +76,6 @@ Here are some known issues that will be worked on in the near future:
 
 * Every celestial object's rotation, other than Earth and Moon, is not accurate.
 * The camera is not oriented along the ecliptic plane.
-* The camera may not always accurately focus on a star.
 
 ## Setup & Build
 

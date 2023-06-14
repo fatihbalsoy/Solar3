@@ -134,7 +134,7 @@ class AppScene extends Component {
         Settings.lookAt = Planets.earth
         AppScene.controls.enableDamping = true
         AppScene.controls.enablePan = false
-        AppScene.controls.maxDistance = (Planets.pluto.distance * Settings.distanceScale) * 3
+        // AppScene.controls.maxDistance = (Planets.pluto.distance * Settings.distanceScale) * 3
         AppScene.controls.target = Settings.lookAt.getPosition()
 
         // * -- GALAXY -- * //
@@ -218,7 +218,9 @@ class AppScene extends Component {
             Settings.lookAt.updateLabel(AppScene.camera)
         }
         Planets.moon.mesh.lookAt(Planets.earth.mesh.position)
-        AppScene.controls.target = Settings.lookAt.getPosition()
+        if (!AppScene.camera.isAnimating) {
+            AppScene.controls.target = Settings.lookAt.getPosition()
+        }
     }
 
     animate = () => {
