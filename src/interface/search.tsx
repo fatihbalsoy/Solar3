@@ -293,7 +293,7 @@ class SearchBar extends Component {
                     <Paper
                         component="form"
                         onSubmit={(e) => e.preventDefault()}
-                        className="search-bar search-bar-mobile-full-width"
+                        className="search-bar search-bar-self search-bar-mobile-full-width"
                     >
                         {/* {this.iconButton("Menu", mdiMenu)} */}
                         <InputBase
