@@ -6,11 +6,10 @@
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
-import { mdiClose, mdiEarth, mdiMagnify, mdiRocketLaunch, mdiStarFourPoints, mdiStarFourPointsSmall, mdiTelescope, mdiWeb } from "@mdi/js";
+import { mdiClose, mdiEarth, mdiMagnify, mdiMenu, mdiRocketLaunch, mdiStarFourPoints, mdiStarFourPointsSmall, mdiTelescope, mdiWeb } from "@mdi/js";
 import Icon from "@mdi/react";
-import { Button, Divider, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Tooltip } from "@mui/material";
-import React from "react";
-import { Component } from "react";
+import { Button, Divider, Drawer, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, SwipeableDrawer, Tooltip } from "@mui/material";
+import React, { Component } from "react";
 import Stars from "../objects/stars";
 import { Settings } from "../settings";
 import Planet from "../objects/planet";
@@ -22,6 +21,7 @@ import * as wikiJson from '../data/wiki.json';
 import { EquatorialCoordinates, HorizontalCoordinates } from "astronomy-engine";
 import { convertHourToHMS } from "../utils/utils";
 import Crosshair from "./crosshair";
+import DrawerContent from "./drawer";
 
 class SearchBar extends Component {
     state = {
@@ -29,7 +29,8 @@ class SearchBar extends Component {
         showingInfoCard: false,
         results: [] as number[],
         locationPermission: 'prompt', // 'granted', or 'denied'
-        location: null // GeolocationPosition
+        location: null, // GeolocationPosition
+        drawerOpen: false
     }
     interval: NodeJS.Timer
 
@@ -43,6 +44,8 @@ class SearchBar extends Component {
         this.onClickSearchResult = this.onClickSearchResult.bind(this)
         this.onClickSearchBar = this.onClickSearchBar.bind(this)
         this.onClickAllowLocation = this.onClickAllowLocation.bind(this)
+        this.onMenuOpen = this.onMenuOpen.bind(this)
+        this.onMenuClose = this.onMenuClose.bind(this)
 
         this.updateLocationPermissionStatus = this.updateLocationPermissionStatus.bind(this)
         this.getLocation = this.getLocation.bind(this)
@@ -215,6 +218,18 @@ class SearchBar extends Component {
         })
     }
 
+    onMenuOpen = () => {
+        this.setState({
+            drawerOpen: true
+        })
+    }
+
+    onMenuClose = () => {
+        this.setState({
+            drawerOpen: false
+        })
+    }
+
     static hideSearchResults(state: boolean = true) {
         const searchResults = document.getElementsByClassName('search-results')[0] as HTMLDivElement
         if (searchResults) {
@@ -258,6 +273,18 @@ class SearchBar extends Component {
             <div>
                 <Crosshair />
                 {
+                    Settings.isDev
+                        ? <SwipeableDrawer
+                            variant="temporary"
+                            open={this.state.drawerOpen}
+                            onClose={this.onMenuClose}
+                            onOpen={this.onMenuOpen}
+                        >
+                            <DrawerContent />
+                        </SwipeableDrawer>
+                        : null
+                }
+                {
                     this.state.showingInfoCard && Settings.lookAt instanceof Planet ?
                         <div className="info-card-body">
                             <Paper className="info-card search-bar-mobile-full-width">
@@ -284,7 +311,7 @@ class SearchBar extends Component {
                                     <p>Author: {this.getPlanetWiki()["photo_credits"]["texture"]["by"]}</p>
                                     <br />
                                     <p className="info-card-update-text">
-                                        Updated on {this.getPlanetWikiDate()} | <a className="info-card-update-text" href={this.getPlanetWiki()["content_urls"]["desktop"]["revisions"]}>Revisions</a> | <a className="info-card-update-text" href={this.getPlanetWiki()["content_urls"]["desktop"]["edit"]}>Edit</a>
+                                        Updated on {this.getPlanetWikiDate()} | <a target="_blank" rel="noopener noreferrer" className="info-card-update-text" href={this.getPlanetWiki()["content_urls"]["desktop"]["revisions"]}>Revisions</a> | <a target="_blank" rel="noopener noreferrer" className="info-card-update-text" href={this.getPlanetWiki()["content_urls"]["desktop"]["edit"]}>Edit</a>
                                     </p>
                                 </div>
                             </Paper>
@@ -297,7 +324,7 @@ class SearchBar extends Component {
                         onSubmit={(e) => e.preventDefault()}
                         className="search-bar search-bar-self search-bar-mobile-full-width"
                     >
-                        {/* {this.iconButton("Menu", mdiMenu)} */}
+                        {this.iconButton("Menu", mdiMenu, "white", this.onMenuOpen)}
                         <InputBase
                             sx={{ ml: 1, flex: 1 }}
                             placeholder="Search"
