@@ -104,7 +104,7 @@ class Earth extends Planet {
         const angle = Math.acos(numerator / denominator)
 
         // Rotate mesh so the texture matches real-time rotation of planet
-        this.realMesh.rotation.set(0, +angle, 0)
+        this.realMesh.rotation.set(0, (rObZ > 0 ? -1 : +1) * angle, 0)
     }
 }
 
