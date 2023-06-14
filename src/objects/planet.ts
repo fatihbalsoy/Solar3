@@ -154,7 +154,7 @@ class Planet {
     }
 
     /**
-     * Rotates the planet according to its rotational period.
+     * Rotates the planet to match current rotation.
      * @param time - the time elapsed since start in seconds
      */
     rotate() {
