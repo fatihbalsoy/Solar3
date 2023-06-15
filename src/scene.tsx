@@ -115,7 +115,8 @@ class AppScene extends Component {
             io: new Io(), callisto: new Callisto(), europa: new Europa(), ganymede: new Ganymede()
         })
         Planets.sun.light.shadow.camera.far = Planets.pluto.distance;
-        this.orbits.addOrbits((Planets.array() as Planet[]).slice(1, 10), AppScene.scene) // Mercury to Pluto
+        const plArray = Planets.array() as Planet[]
+        this.orbits.addOrbits(plArray.slice(1, plArray.length), AppScene.scene) // Mercury to Pluto
         for (const key in Planets) {
             const object = Planets[key] as Planet;
 

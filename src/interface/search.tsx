@@ -18,7 +18,8 @@ import './search.scss';
 import { Star } from "../objects/star";
 import AppScene from "../scene";
 import * as wikiJson from '../data/wiki.json';
-import { EquatorialCoordinates, HorizontalCoordinates } from "astronomy-engine";
+import * as objectsJson from '../data/objects.json';
+import { ConstellationInfo, EquatorialCoordinates, HorizontalCoordinates } from "astronomy-engine";
 import { convertHourToHMS } from "../utils/utils";
 import Crosshair from "./crosshair";
 import DrawerContent from "./drawer";
@@ -124,6 +125,10 @@ class SearchBar extends Component {
         }
     }
 
+    padding(p: number = 10) {
+        return <div style={{ height: p.toString() + "px" }}></div>
+    }
+
     planetPositionComponent() {
         // Location is NOT supported //
         const locationNotSupported = (
@@ -140,9 +145,9 @@ class SearchBar extends Component {
         // TODO: Refresh view after 'Allow Location' is clicked
         const needsPermission = (
             <div>
-                <div style={{ height: "15px" }}></div>
+                {this.padding(15)}
                 <Button onClick={this.onClickAllowLocation} variant="outlined">Allow Location</Button>
-                <div style={{ height: "15px" }}></div>
+                {this.padding(15)}
                 <p>
                     To provide accurate planet information based on your current position and deliver a
                     personalized experience, the app requires your location. This allows it to calculate
@@ -155,19 +160,23 @@ class SearchBar extends Component {
         // - Has Location Permissions -
         var equatorialCoords: EquatorialCoordinates = null
         var horizontalCoords: HorizontalCoordinates = null
+        var constellationInfo: ConstellationInfo = null
         if (this.state.locationPermission == 'granted' && Settings.lookAt as Planet && this.state.location) {
             let planet = Settings.lookAt as Planet
             let date = new Date()
             equatorialCoords = planet.getEquatorialCoordinates(date, this.state.location)
             horizontalCoords = planet.getHorizontalCoordinates(date, this.state.location)
+            constellationInfo = planet.getConstellation(date, this.state.location)
         }
         const hasPermission = (
             <div>
                 <p>Right Ascension: {equatorialCoords ? convertHourToHMS(equatorialCoords.ra, 1) : "Loading"}</p>
                 <p>Declination: {equatorialCoords ? equatorialCoords.dec.toFixed(4) : "Loading"}°</p>
-                <div style={{ height: "10px" }}></div>
-                <p>Azimuth: {horizontalCoords ? horizontalCoords.azimuth.toFixed(4) : "Loading"}°</p>
-                <p>Altitude: {horizontalCoords ? horizontalCoords.altitude.toFixed(4) : "Loading"}°</p>
+                {this.padding()}
+                <p>Azimuth: {horizontalCoords ? horizontalCoords.azimuth.toFixed(4) + "°" : "Loading"}</p>
+                <p>Altitude: {horizontalCoords ? horizontalCoords.altitude.toFixed(4) + "°" : "Loading"}</p>
+                {this.padding()}
+                <p>Constellation: {constellationInfo ? constellationInfo.name : "Loading"}</p>
             </div>
         )
 
@@ -183,6 +192,54 @@ class SearchBar extends Component {
         )
 
         return locationSupported
+    }
+
+    characteristics() {
+        const planet = Settings.lookAt as Planet
+        const solApiData = objectsJson[planet.id]
+        return (
+            <div>
+                <h3>Orbital Characteristics</h3>
+                <p>Aphelion: {solApiData["aphelion"]} km</p>
+                <p>Perihelion: {solApiData["perihelion"]} km</p>
+                <p>Semi-major axis: {solApiData["semimajorAxis"]} km</p>
+                <p>Eccentricity: {solApiData["eccentricity"]}</p>
+                <p>Orbital period: {solApiData["sideralOrbit"]} days</p>
+                {/* <p>Orbital speed: {solApiData["meanRadius"]} km/s</p> */}
+                <p>Mean anomaly: {solApiData["mainAnomaly"]}&deg;</p>
+                <p>Inclination (Ecl): {solApiData["inclination"]}&deg;</p>
+                <p>Longitude of ascending node: {solApiData["longAscNode"]}&deg;</p>
+                {/* {this.padding()}
+                <h4>Satellites</h4>
+                 */}
+                <br />
+                <h3>Physical Characteristics</h3>
+                <p>Mean radius: {solApiData["meanRadius"]} km</p>
+                <p>Equatorial radius: {solApiData["equaRadius"]} km</p>
+                <p>Polar radius: {solApiData["polarRadius"]} km</p>
+                <p>Flattening: {solApiData["flattening"]}</p>
+                <p>Circumference: {(2 * Math.PI * parseFloat(solApiData["meanRadius"])).toFixed(4)} km</p>
+                <p>Surface area: {(4 * Math.PI * Math.pow(parseFloat(solApiData["equaRadius"]), 2)).toFixed(4)} km<sup>2</sup></p>
+                {
+                    solApiData["vol"]
+                        ? <p>Volume: {solApiData["vol"]["volValue"]} × 10<sup>{solApiData["vol"]["volExponent"]}</sup> km<sup>3</sup></p>
+                        : <p>Volume: N/A</p>
+                }
+                <p>Mass: {solApiData["mass"]["massValue"]} × 10<sup>{solApiData["mass"]["massExponent"]}</sup> kg</p>
+                <p>Mean density: {solApiData["density"]} g/cm<sup>3</sup></p>
+                <p>Surface gravity: {solApiData["gravity"]} m/s<sup>2</sup></p>
+                {/* <p>Moment of inertia factor: {solApiData["equaRadius"]}</p> */}
+                <p>Escape velocity: {solApiData["escape"]} km/s</p>
+                {/* <p>Synodic rotation period: {solApiData["equaRadius"]}</p> */}
+                <p>Sidereal rotation period: {solApiData["sideralRotation"]} hours</p>
+                {/* <p>Equatorial rotation velocity: {solApiData["equaRadius"]} </p> */}
+                <p>Axial tilt: {solApiData["axialTilt"]}&deg;</p>
+                {/* <p>Albedo: {solApiData["equaRadius"]}</p> */}
+                <p>Temperature: {solApiData["avgTemp"]}K ({(parseFloat(solApiData["avgTemp"]) - 273.15).toFixed(2)}&deg;C)</p>
+                {/* <p>Surface temperature: {solApiData["equaRadius"]}</p> */}
+                {/* <p>Absolute magnitude: {solApiData["equaRadius"]}</p> */}
+            </div>
+        )
     }
 
     onClickTelescopeIcon() {
@@ -301,6 +358,8 @@ class SearchBar extends Component {
                                     {/* <p>TODO: Table including RA, Dec, Mag, and etc.</p> */}
                                     <br />
                                     {this.planetPositionComponent()}
+                                    <br />
+                                    {this.characteristics()}
                                     <br />
                                     <h4>Photo Details</h4>
                                     <p>License: {this.getPlanetWiki()["photo_credits"]["wiki"]["cc"]}</p>

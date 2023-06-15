@@ -203,9 +203,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1159895867",
-        "tid": "f4619000-09b1-11ee-9cd8-0f4d4f715112",
-        "timestamp": "2023-06-13T06:16:55Z",
+        "revision": "1160190998",
+        "tid": "f314a8e0-0b0a-11ee-847f-6f82c8f7a23a",
+        "timestamp": "2023-06-14T23:26:47Z",
         "description": "Third planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -222,8 +222,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Earth"
             }
         },
-        "extract": "Earth is the third planet from the Sun and the only place known in the universe where life has originated and found habitability. Earth is the only planet to sustain liquid surface water, with ocean water extending over 70.8% of the planet, making it an ocean world. Most of all other water is retained in Earth's polar regions, with large sheets of ice covering ocean and land, dwarfing Earth's groundwater, lakes, rivers and atmospheric water. The other 29.2% of the Earth's surface is land, consisting of continents and islands, and is widely covered by vegetation. Below the planet's surface lies the crust, consisting of several slowly moving tectonic plates, which interact to produce mountain ranges, volcanoes, and earthquakes. Inside the Earth's crust is a liquid outer core that generates the magnetosphere, deflecting most of the destructive solar winds and cosmic radiation.",
-        "extract_html": "<p><b>Earth</b> is the third planet from the Sun and the only place known in the universe where life has originated and found habitability. Earth is the only planet to sustain liquid surface water, with ocean water extending over 70.8% of the planet, making it an ocean world. Most of all other water is retained in Earth's polar regions, with large sheets of ice covering ocean and land, dwarfing Earth's groundwater, lakes, rivers and atmospheric water. The other 29.2% of the Earth's surface is land, consisting of continents and islands, and is widely covered by vegetation. Below the planet's surface lies the crust, consisting of several slowly moving tectonic plates, which interact to produce mountain ranges, volcanoes, and earthquakes. Inside the Earth's crust is a liquid outer core that generates the magnetosphere, deflecting most of the destructive solar winds and cosmic radiation.</p>",
+        "extract": "Earth is the third planet from the Sun and the only place known in the universe where life has originated and found habitability. Earth is the only planet known to sustain liquid surface water, with ocean water extending over 70.8% of the planet, making it an ocean world. Most of all other water is retained in Earth's polar regions, with large sheets of ice covering ocean and land, dwarfing Earth's groundwater, lakes, rivers and atmospheric water. The other 29.2% of the Earth's surface is land, consisting of continents and islands, and is widely covered by vegetation. Below the planet's surface lies the crust, consisting of several slowly moving tectonic plates, which interact to produce mountain ranges, volcanoes, and earthquakes. Inside the Earth's crust is a liquid outer core that generates the magnetosphere, deflecting most of the destructive solar winds and cosmic radiation.",
+        "extract_html": "<p><b>Earth</b> is the third planet from the Sun and the only place known in the universe where life has originated and found habitability. Earth is the only planet known to sustain liquid surface water, with ocean water extending over 70.8% of the planet, making it an ocean world. Most of all other water is retained in Earth's polar regions, with large sheets of ice covering ocean and land, dwarfing Earth's groundwater, lakes, rivers and atmospheric water. The other 29.2% of the Earth's surface is land, consisting of continents and islands, and is widely covered by vegetation. Below the planet's surface lies the crust, consisting of several slowly moving tectonic plates, which interact to produce mountain ranges, volcanoes, and earthquakes. Inside the Earth's crust is a liquid outer core that generates the magnetosphere, deflecting most of the destructive solar winds and cosmic radiation.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -262,9 +262,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1158987778",
-        "tid": "5f16b000-099a-11ee-83cf-7fee37cecf1d",
-        "timestamp": "2023-06-07T14:17:22Z",
+        "revision": "1160056229",
+        "tid": "6d4c0410-0a6f-11ee-a960-c71c7024a1d1",
+        "timestamp": "2023-06-14T04:53:23Z",
         "description": "Natural satellite orbiting the Earth",
         "description_source": "local",
         "content_urls": {

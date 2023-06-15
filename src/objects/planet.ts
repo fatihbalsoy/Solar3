@@ -10,10 +10,11 @@
 import { Material, Mesh, Object3D, SphereGeometry, Vector3 } from "three"
 import * as THREE from "three"
 import * as objectsJson from '../data/objects.json';
-import { HelioVector, Body, Vector, Rotation_EQJ_ECL, Equator, Observer, EquatorialCoordinates, HorizontalCoordinates, Horizon } from 'astronomy-engine';
+import { HelioVector, Body, Vector, Rotation_EQJ_ECL, Equator, Observer, EquatorialCoordinates, HorizontalCoordinates, Horizon, ConstellationInfo, Constellation } from 'astronomy-engine';
 import { Quality, Settings, resFields } from "../settings";
 import { CSS2DObject } from "../modules/CSS2DRenderer";
 import { Orbit } from '../utils/orbit_points';
+import Planets from "./planets";
 
 class Planet {
     // ID
@@ -176,7 +177,15 @@ class Planet {
         const line = new THREE.Line(geometry, material)
         line.renderOrder = -1
 
-        scene.add(line);
+        const isMoon = this.id == "moon"
+        const isJupiterMoon = ["io", "ganymede", "europa", "callisto"].includes(this.id)
+        if (isMoon) {
+            Planets.earth.mesh.add(line)
+        } else if (isJupiterMoon) {
+            Planets.jupiter.mesh.add(line)
+        } else {
+            scene.add(line)
+        }
     }
 
     /**
@@ -303,6 +312,16 @@ class Planet {
             let equator = Equator(Body[this.name], date, observer, true, true)
             let horizontal = Horizon(date, observer, equator.ra, equator.dec)
             return horizontal
+        } else {
+            return null
+        }
+    }
+
+    getConstellation(date: Date, gpsLocation: GeolocationPosition): ConstellationInfo | null {
+        if (navigator.geolocation) {
+            let equator = this.getEquatorialCoordinates(date, gpsLocation)
+            let constellation = Constellation(equator.ra, equator.dec)
+            return constellation
         } else {
             return null
         }

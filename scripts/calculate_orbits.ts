@@ -15,8 +15,13 @@ const supported_bodies = [
     ast.Body.Mercury,
     ast.Body.Venus,
     ast.Body.Earth,
+    ast.Body.Moon,
     ast.Body.Mars,
     ast.Body.Jupiter,
+    "Io",
+    "Ganymede",
+    "Europa",
+    "Callisto",
     ast.Body.Saturn,
     ast.Body.Uranus,
     ast.Body.Neptune,
@@ -56,6 +61,37 @@ function getPositionForDateNotScaled(body: string, date: Date): ast.Vector {
     )
 }
 
+/**
+ * Calculates a non-scaled vector from the center of Earth to the Moon at the given time.
+ * @param date the date in which to calculate the moon's position
+ * @returns a geocentric vector pointing to Moon's position
+ */
+function getMoonPositionForDate(date: Date): ast.Vector {
+    let moonCoords = ast.GeoMoon(date)
+    return new ast.Vector(
+        -moonCoords.y, // x
+        moonCoords.z,  // y
+        -moonCoords.x, // z
+        moonCoords.t
+    )
+}
+
+/**
+ * Calculates a non-scaled vector from the center of Jupiter to a moon at the given time.
+ * @param date the date in which to calculate the moon's position
+ * @returns a jovicentric vector pointing to a moon's position
+ */
+function getJupiterMoonPositionForDate(name: string, date: Date): ast.Vector {
+    let joviCoords = ast.JupiterMoons(date)
+    let moonCoords: ast.StateVector = joviCoords[name.toLowerCase()]
+    return new ast.Vector(
+        -moonCoords.y, // x
+        moonCoords.z,  // y
+        -moonCoords.x, // z
+        moonCoords.t
+    )
+}
+
 // define start date
 const startDate = new Date();
 
@@ -68,14 +104,17 @@ process.stdout.write("\n--- Calculating Orbits ---")
 process.stdout.write("\n" + startDate.toISOString())
 let showCalculations = false
 for (let key in supported_bodies) {
-    let planet: ast.Body = supported_bodies[key];
+    let planet: ast.Body | string = supported_bodies[key];
     if (typeof planet == "string") {
         process.stdout.write("\n" + planet)
+
+        const isMoon = planet == "Moon"
+        const isJupiterMoon = ["Io", "Ganymede", "Europa", "Callisto"].includes(planet)
 
         let obj = objectsJson[planet.toLowerCase()]
         let name: string = obj.name
         let orbitalPeriod = obj.sideralOrbit
-        let lines = Math.floor(366 * (orbitalPeriod / 365))
+        let lines = Math.floor(366 * (orbitalPeriod / 365) * (isJupiterMoon ? 24 : 1)) + 2
         orbitPoints.push(lines.toString())
         process.stdout.write("\n- orbital period: " + orbitalPeriod)
         process.stdout.write("\n- vector lines: " + lines)
@@ -88,8 +127,17 @@ for (let key in supported_bodies) {
         rprint("-- Calculating Orbit...")
         let orbit: string[] = [];
         for (let i = 0; i < lines; i++) {
-            let date = new Date(startDate.getFullYear(), 0, i);
-            let pos = getPositionForDateNotScaled(name, date);
+            let date = new Date(
+                /* year:  */ startDate.getFullYear(),
+                /* month: */ isMoon || isJupiterMoon ? startDate.getMonth() : 0,
+                /* day:   */ isJupiterMoon ? 0 : i,
+                /* hour:  */ isJupiterMoon ? i : 0
+            );
+            let pos = isMoon
+                ? getMoonPositionForDate(date)
+                : isJupiterMoon
+                    ? getJupiterMoonPositionForDate(name, date)
+                    : getPositionForDateNotScaled(name, date);
             let sigFigs = 5
             let posString = `${pos.x.toFixed(sigFigs)},${pos.y.toFixed(sigFigs)},${pos.z.toFixed(sigFigs)}`
             orbit.push(posString);
