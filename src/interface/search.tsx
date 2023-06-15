@@ -197,6 +197,13 @@ class SearchBar extends Component {
     characteristics() {
         const planet = Settings.lookAt as Planet
         const solApiData = objectsJson[planet.id]
+
+        const circumference = (2 * Math.PI * parseFloat(solApiData["meanRadius"])).toFixed(4)
+        const circumferenceEquatorial = parseFloat((2 * Math.PI * parseFloat(solApiData["equaRadius"])).toFixed(4))
+        const surfaceArea = (4 * Math.PI * Math.pow(parseFloat(solApiData["equaRadius"]), 2)).toFixed(4)
+        const siderealRotationSpeed = solApiData["sideralRotation"]
+        const equatorialRotationSpeed = ((circumferenceEquatorial / siderealRotationSpeed) / 60 / 60).toFixed(4)
+        const temperatureCelsius = (parseFloat(solApiData["avgTemp"]) - 273.15).toFixed(2)
         return (
             <div>
                 <h3>Orbital Characteristics</h3>
@@ -218,8 +225,8 @@ class SearchBar extends Component {
                 <p>Equatorial radius: {solApiData["equaRadius"]} km</p>
                 <p>Polar radius: {solApiData["polarRadius"]} km</p>
                 <p>Flattening: {solApiData["flattening"]}</p>
-                <p>Circumference: {(2 * Math.PI * parseFloat(solApiData["meanRadius"])).toFixed(4)} km</p>
-                <p>Surface area: {(4 * Math.PI * Math.pow(parseFloat(solApiData["equaRadius"]), 2)).toFixed(4)} km<sup>2</sup></p>
+                <p>Circumference: {circumference} km</p>
+                <p>Surface area: {surfaceArea} km<sup>2</sup></p>
                 {
                     solApiData["vol"]
                         ? <p>Volume: {solApiData["vol"]["volValue"]} × 10<sup>{solApiData["vol"]["volExponent"]}</sup> km<sup>3</sup></p>
@@ -231,11 +238,11 @@ class SearchBar extends Component {
                 {/* <p>Moment of inertia factor: {solApiData["equaRadius"]}</p> */}
                 <p>Escape velocity: {solApiData["escape"]} km/s</p>
                 {/* <p>Synodic rotation period: {solApiData["equaRadius"]}</p> */}
-                <p>Sidereal rotation period: {solApiData["sideralRotation"]} hours</p>
-                {/* <p>Equatorial rotation velocity: {solApiData["equaRadius"]} </p> */}
+                <p>Sidereal rotation period: {siderealRotationSpeed} hours</p>
+                <p>Equatorial rotation velocity: {equatorialRotationSpeed} km/s</p>
                 <p>Axial tilt: {solApiData["axialTilt"]}&deg;</p>
                 {/* <p>Albedo: {solApiData["equaRadius"]}</p> */}
-                <p>Temperature: {solApiData["avgTemp"]}K ({(parseFloat(solApiData["avgTemp"]) - 273.15).toFixed(2)}&deg;C)</p>
+                <p>Temperature: {solApiData["avgTemp"]}K ({temperatureCelsius}&deg;C)</p>
                 {/* <p>Surface temperature: {solApiData["equaRadius"]}</p> */}
                 {/* <p>Absolute magnitude: {solApiData["equaRadius"]}</p> */}
             </div>
