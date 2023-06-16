@@ -8,15 +8,22 @@
 
 import { Component, ReactNode } from 'react';
 import './drawer.scss'
-import { Divider, Drawer, ListItem, ListItemButton, ListItemIcon, ListItemText, SwipeableDrawer } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Drawer, ListItem, ListItemButton, ListItemIcon, ListItemText, SwipeableDrawer } from '@mui/material';
 import React from 'react';
 import Icon from '@mdi/react';
 import { mdiBookOpen, mdiBookOpenVariant, mdiGiftOutline, mdiGithub, mdiLicense, mdiMapMarkerOutline, mdiShieldAccountOutline, mdiShieldLockOutline, mdiTune, mdiWeb } from '@mdi/js';
+import LicenseDialog from './license_dialog';
 
 class DrawerContent extends Component<{ open?: boolean }> {
+    state = {
+        licenseDialogOpen: false
+    }
 
-    constructor(props) {
+    constructor(props: {}) {
         super(props)
+
+        this.onLicenseDialogOpen = this.onLicenseDialogOpen.bind(this)
+        this.onLicenseDialogClose = this.onLicenseDialogClose.bind(this)
     }
 
     divider() {
@@ -36,6 +43,18 @@ class DrawerContent extends Component<{ open?: boolean }> {
         )
     }
 
+    onLicenseDialogOpen() {
+        this.setState({
+            licenseDialogOpen: true
+        })
+    }
+
+    onLicenseDialogClose() {
+        this.setState({
+            licenseDialogOpen: false
+        })
+    }
+
     render(): ReactNode {
         const website = "fatih.bal.soy"
         const paypalLink = "paypal.me/fatihbalsoy"
@@ -43,6 +62,16 @@ class DrawerContent extends Component<{ open?: boolean }> {
 
         return (
             <div className="drawer">
+                <Dialog
+                    open={this.state.licenseDialogOpen}
+                    onClose={this.onLicenseDialogClose}
+                    scroll='paper'
+                >
+                    <LicenseDialog />
+                    <DialogActions>
+                        <Button onClick={this.onLicenseDialogClose}>CLOSE</Button>
+                    </DialogActions>
+                </Dialog>
                 <h2>SolarSystem.3js</h2>
                 {this.divider()}
                 {this.listItem("Location", mdiMapMarkerOutline)}
@@ -52,7 +81,7 @@ class DrawerContent extends Component<{ open?: boolean }> {
                 {this.listItem("Website", mdiWeb, () => { window.open("https://" + website, "_blank") }, website)}
                 {this.listItem("Donate", mdiGiftOutline, () => { window.open("https://" + paypalLink, "_blank") }, paypalLink)}
                 {this.listItem("Github", mdiGithub, () => { window.open("https://github.com/" + githubLink, "_blank") }, githubLink)}
-                {this.listItem("Licenses", mdiBookOpenVariant)}
+                {this.listItem("Licenses", mdiBookOpenVariant, this.onLicenseDialogOpen)}
                 {this.listItem("Privacy Policy", mdiShieldAccountOutline)}
             </div>
         )

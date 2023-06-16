@@ -230,6 +230,7 @@ class AppScene extends Component {
 
         this.calculatePositions()
         AppScene.controls.update()
+        AppScene.camera.update()
 
         this.renderScene()
         this.frameId = window.requestAnimationFrame(this.animate)

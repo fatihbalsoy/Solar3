@@ -12,9 +12,36 @@ import Planet from "../objects/planet"
 import AppScene from "../scene"
 import Settings from "../settings"
 import Star from "../objects/star"
+import Planets from "../objects/planets"
 
 class SceneCamera extends THREE.PerspectiveCamera {
     isAnimating: boolean = false
+
+    private resetSpeeds() {
+        AppScene.controls.zoomSpeed = 1
+        AppScene.controls.rotateSpeed = 1
+    }
+
+    update() {
+        let camera = this
+        let object = Settings.lookAt
+        if (object instanceof Planet) {
+            AppScene.controls.minDistance = object.getRadius()
+            // TODO: Use the fov distance calculated in SceneCamera.flyTo()?
+            let start = 1 * object.radius / Planets.earth.radius
+            let radius = object.getRadius()
+            let distance = camera.position.distanceTo(object.position) - radius
+            if (distance < start) {
+                const speedFactor = distance / start
+                AppScene.controls.zoomSpeed = speedFactor
+                AppScene.controls.rotateSpeed = speedFactor
+            } else {
+                this.resetSpeeds()
+            }
+        } else {
+            this.resetSpeeds()
+        }
+    }
 
     animateLookAt(object: Planet | Star, duration: number) {
         let camera = this

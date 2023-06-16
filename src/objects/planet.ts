@@ -76,6 +76,8 @@ class Planet {
         this.orbitalInclination = obj.inclination
         this.material = material
         const radiusScale = this.radius * Settings.sizeScale
+        const equatorialRadius = obj.equaRadius == 0 ? radiusScale : obj.equaRadius * Settings.sizeScale
+        const polarRadius = obj.polarRadius == 0 ? radiusScale : obj.polarRadius * Settings.sizeScale
 
         // LEVEL OF DETAIL //
         this.lod = new THREE.LOD()
@@ -91,7 +93,7 @@ class Planet {
 
         // GEOMETRY //
         this.geometry = geometry
-        this.geometry.scale(radiusScale, radiusScale, radiusScale)
+        this.geometry.scale(equatorialRadius, polarRadius, equatorialRadius)
 
         this.mesh = new THREE.Mesh()
         this.realMesh = new THREE.Mesh(geometry, material)
@@ -108,6 +110,7 @@ class Planet {
         }
 
         // ROTATE MESH //
+        // TODO: Implement axial tilt
         // const axisVector = new THREE.Vector3(0, 0, 1)
         // const axisRadians = this.axialTilt * Math.PI / 180
         const rotMat3 = Rotation_EQD_ECL(new Date())
@@ -229,18 +232,21 @@ class Planet {
         let removeInner = inner.includes(this.name.toLowerCase()) && dist > 2000000000
         let removeOuter = outer.includes(this.name.toLowerCase()) && dist > 20000000000
 
+        if (removeInner || removeOuter) {
+            this.labelText.element.textContent = ''
+        }
+
+        this.updateLabelRemoveTarget(camera)
+        this.labelText.element.style.color = 'white'
+    }
+    updateLabelRemoveTarget(camera: THREE.Camera): void {
         let removeTarget = (Settings.lookAt as Planet).id == this.id
             ? this.position.distanceTo(camera.position) / Settings.distanceScale < this.radius * 10
             : false;
-
-        if (removeInner || removeOuter || removeTarget) {
+        if (removeTarget) {
             this.labelText.element.textContent = ''
-            if (removeTarget) {
-                this.labelCircle.element.style.backgroundColor = 'transparent'
-            }
+            this.labelCircle.element.style.backgroundColor = 'transparent'
         }
-
-        this.labelText.element.style.color = 'white'
     }
 
     /**

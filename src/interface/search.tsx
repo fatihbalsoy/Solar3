@@ -336,18 +336,14 @@ class SearchBar extends Component {
         return (
             <div>
                 <Crosshair />
-                {
-                    Settings.isDev
-                        ? <SwipeableDrawer
-                            variant="temporary"
-                            open={this.state.drawerOpen}
-                            onClose={this.onMenuClose}
-                            onOpen={this.onMenuOpen}
-                        >
-                            <DrawerContent />
-                        </SwipeableDrawer>
-                        : null
-                }
+                <SwipeableDrawer
+                    variant="temporary"
+                    open={this.state.drawerOpen}
+                    onClose={this.onMenuClose}
+                    onOpen={this.onMenuOpen}
+                >
+                    <DrawerContent />
+                </SwipeableDrawer>
                 {
                     this.state.showingInfoCard && Settings.lookAt instanceof Planet ?
                         <div className="info-card-body">

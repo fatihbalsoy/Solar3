@@ -61,6 +61,7 @@ class JupiterMoon extends Planet {
         } else {
             this.labelText.element.textContent = ''
         }
+        this.updateLabelRemoveTarget(camera)
         this.labelText.element.style.color = 'white'
     }
 }

@@ -127,7 +127,7 @@ SolarSystem.3js is available under the AGPL v3.0 license. See the LICENSE file f
 This project would not have been possible without these helpful resources:
 
 * [Astronomy Engine by Don Cross - MIT](https://github.com/cosinekitty/astronomy)
-* [HYG Star Database by David Nash - CC BY-SA 2.5](https://github.com/astronexus/HYG-Database)
+* [HYG Stellar Database by David Nash - CC BY-SA 2.5](https://github.com/astronexus/HYG-Database)
 * [Textures by Solar System Scope - CC BY 4.0](https://www.solarsystemscope.com/textures/)
 * [Galilean Moon Textures by Stellarium - GPL v2.0](https://github.com/Stellarium/stellarium)
 * [Computing Planetary Positions by Paul Schlyter](https://www.stjarnhimlen.se/comp/tutorial.html)
