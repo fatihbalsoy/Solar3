@@ -6,7 +6,7 @@
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
-import { AmbientLight, Color, Vector3 } from "three"
+import { AmbientLight, AxesHelper, Color, Object3D, Scene, Vector3 } from "three"
 import { EnumDictionary } from "./utils/extensions"
 import Planet from "./objects/planet"
 import Star from "./objects/star"
@@ -90,10 +90,21 @@ export class Settings {
         return Settings.isDev ? Settings.dev_setHaltLoadingScreen : false
     }
     // Add ambient light to see objects without shadows
+    static dev_ambientLightAdded = false
     static dev_addAmbientLight() {
         if (Settings.isDev) {
             const light = new AmbientLight(new Color(0xffffff), 1)
             AppScene.scene.add(light)
+        }
+    }
+    /**
+     * Add axes helper. The X axis is red. The Y axis is green. The Z axis is blue.
+     * @param addTo To which scene or object to add the axes helper.
+     */
+    static dev_addAxesHelper(addTo: Scene | Object3D, size: number = 1) {
+        if (Settings.isDev) {
+            const axesHelper = new AxesHelper(size);
+            addTo.add(axesHelper);
         }
     }
 }

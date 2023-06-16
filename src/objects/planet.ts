@@ -10,11 +10,12 @@
 import { Material, Mesh, Object3D, SphereGeometry, Vector3 } from "three"
 import * as THREE from "three"
 import * as objectsJson from '../data/objects.json';
-import { HelioVector, Body, Vector, Rotation_EQJ_ECL, Equator, Observer, EquatorialCoordinates, HorizontalCoordinates, Horizon, ConstellationInfo, Constellation } from 'astronomy-engine';
+import { HelioVector, Body, Vector, Rotation_EQJ_ECL, Equator, Observer, EquatorialCoordinates, HorizontalCoordinates, Horizon, ConstellationInfo, Constellation, Rotation_EQD_ECL } from 'astronomy-engine';
 import { Quality, Settings, resFields } from "../settings";
 import { CSS2DObject } from "../modules/CSS2DRenderer";
 import { Orbit } from '../utils/orbit_points';
 import Planets from "./planets";
+import { ComponentEnum, angleBetweenZeroVectorForComponent, convertRotationMatrix3, convertRotationMatrix4 } from "../utils/utils";
 
 class Planet {
     // ID
@@ -109,8 +110,24 @@ class Planet {
         // ROTATE MESH //
         // const axisVector = new THREE.Vector3(0, 0, 1)
         // const axisRadians = this.axialTilt * Math.PI / 180
-        // this.realMesh.setRotationFromAxisAngle(axisVector, axisRadians)
-        // this.realMesh.setRotationFromMatrix(convertRotationMatrix4(Rotation_EQJ_ECL()))
+        const rotMat3 = Rotation_EQD_ECL(new Date())
+
+        const mat3 = convertRotationMatrix3(rotMat3)
+        const mat4 = convertRotationMatrix4(rotMat3)
+        this.realMesh.rotation.setFromRotationMatrix(mat4)
+
+        const angleX = angleBetweenZeroVectorForComponent(ComponentEnum.x, mat3)
+        const angleY = angleBetweenZeroVectorForComponent(ComponentEnum.y, mat3)
+        const angleZ = angleBetweenZeroVectorForComponent(ComponentEnum.z, mat3)
+        this.realMesh.rotation.setFromVector3(new Vector3(-angleX, -angleZ, -angleY))
+        for (let i = 0; i < children.length; i++) {
+            const element = children[i];
+            const rot = element.rotation
+            const x = rot.x - angleX
+            const y = rot.y - angleZ
+            const z = rot.z - angleY
+            element.rotation.setFromVector3(new Vector3(x, y, z))
+        }
 
         // LABEL //
         const circle = document.createElement('div')

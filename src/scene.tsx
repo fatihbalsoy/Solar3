@@ -137,6 +137,7 @@ class AppScene extends Component {
         AppScene.controls.enablePan = false
         // AppScene.controls.maxDistance = (Planets.pluto.distance * Settings.distanceScale) * 3
         AppScene.controls.target = Settings.lookAt.getPosition()
+        // AppScene.controls.zoomSpeed
 
         // * -- GALAXY -- * //
         let galaxyRes = Settings.res2_8k[Settings.quality]

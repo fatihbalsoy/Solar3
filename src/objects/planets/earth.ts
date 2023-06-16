@@ -49,6 +49,7 @@ class Earth extends Planet {
 
         const cloudMaterial = new THREE.MeshStandardMaterial({
             map: earthCloudsTexture,
+            roughness: 0.5,
             transparent: true
         })
 
