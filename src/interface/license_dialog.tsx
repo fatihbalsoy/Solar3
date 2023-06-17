@@ -33,6 +33,7 @@ class LicenseDialog extends Component {
                         {this.listItem("Material UI by MUI", "MIT", "https://github.com/mui/material-ui")}
                         {this.listItem("React by Facebook", "MIT", "https://github.com/facebook/react")}
                         {this.listItem("stats.js by mrdoob", "MIT", "https://github.com/mrdoob/stats.js/")}
+                        {this.listItem("Material Design Icons", "Apache 2.0, MIT", "https://github.com/Templarian/MaterialDesign-JS")}
                         {this.listItem("Galilean Moon Textures by Stellarium", "GPL v2.0", "https://github.com/Stellarium/stellarium")}
                         {this.listItem("HYG Stellar Database by David Nash", "CC BY-SA 2.5", "https://github.com/astronexus/HYG-Database")}
                         {this.listItem("Textures by Solar System Scope", "CC BY 4.0", "https://www.solarsystemscope.com/textures/")}
