@@ -120,11 +120,12 @@ class AppScene extends Component {
         for (const key in Planets) {
             const object = Planets[key] as Planet;
 
-            AppScene.scene.add(object.mesh)
             object.displayLabel(AppScene.scene)
 
             if (key !== "sun") {
                 Planets.sun.mesh.add(object.mesh)
+            } else {
+                AppScene.scene.add(object.mesh)
             }
         }
 
