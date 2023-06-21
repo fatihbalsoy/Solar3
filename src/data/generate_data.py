@@ -1,7 +1,8 @@
 import json
 import requests
 
-only = ["Sun", "Mercury", "Venus", "Earth", "Moon", "Mars",
+only = ["Sun", "Mercury", "Venus",
+        "Earth", "Moon", "Mars", "Phobos", "Deimos",
         "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto",
         "1 Ceres", "Io", "Ganymede", "Europa", "Callisto"]
 wiki_corrections = {
@@ -9,7 +10,9 @@ wiki_corrections = {
     'io': 'io_moon',
     'ganymede': 'ganymede_moon',
     'europa': 'europa_moon',
-    'callisto': 'callisto_moon'
+    'callisto': 'callisto_moon',
+    'phobos': 'phobos_(moon)',
+    'deimos': 'deimos_(moon)'
 }
 photo_credits = {
     'sun': {
@@ -70,6 +73,26 @@ photo_credits = {
         'texture': {
             'cc': 'CC BY 4.0',
             'by': 'Solar System Scope'
+        }
+    },
+    'phobos': {
+        'wiki': {
+            'cc': 'Public Domain',
+            'by': 'NASA/JPL/University of Arizona'
+        },
+        'texture': {
+            'cc': 'None',
+            'by': 'None'
+        }
+    },
+    'deimos': {
+        'wiki': {
+            'cc': 'Public Domain',
+            'by': 'NASA/JPL/University of Arizona'
+        },
+        'texture': {
+            'cc': 'None',
+            'by': 'None'
         }
     },
     'jupiter': {
@@ -169,7 +192,7 @@ types = {
     **dict.fromkeys(['jupiter', 'saturn'], 'Gas Giant'),
     **dict.fromkeys(['uranus', 'neptune'], 'Ice Giant'),
     **dict.fromkeys(['pluto', '1 ceres'], 'Dwarf Planet'),
-    **dict.fromkeys(['moon', 'io', 'ganymede', 'europa', 'callisto'], 'Satellite')
+    **dict.fromkeys(['moon', 'phobos', 'deimos', 'io', 'ganymede', 'europa', 'callisto'], 'Satellite')
 }
 
 # Solar System API
@@ -193,7 +216,9 @@ translation = {
     'io': 'io',
     'ganymede': 'ganymede',
     'europe': 'europa',
-    'callisto': 'callisto'
+    'callisto': 'callisto',
+    'phobos': 'phobos',
+    'deimos': 'deimos'
 }
 
 json_dump = {}

@@ -69,7 +69,8 @@ class Earth extends Planet {
         geometry.setAttribute('uv2', new THREE.BufferAttribute(uv1Array, 2));
         // * Second UV End * //
 
-        super(id, materials, geometry, earthLowResTexure);
+        super(id);
+        this.initialize_MaterialGeometry(materials, geometry, earthLowResTexure)
     }
 
     rotate() {

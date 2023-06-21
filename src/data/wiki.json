@@ -353,6 +353,124 @@
             }
         }
     },
+    "Phobos": {
+        "type": "standard",
+        "title": "Phobos (moon)",
+        "displaytitle": "<span class=\"mw-page-title-main\">Phobos (moon)</span>",
+        "namespace": {
+            "id": 0,
+            "text": ""
+        },
+        "wikibase_item": "Q7547",
+        "titles": {
+            "canonical": "Phobos_(moon)",
+            "normalized": "Phobos (moon)",
+            "display": "<span class=\"mw-page-title-main\">Phobos (moon)</span>"
+        },
+        "pageid": 52999,
+        "thumbnail": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Phobos_colour_2008.jpg/320px-Phobos_colour_2008.jpg",
+            "width": 320,
+            "height": 302
+        },
+        "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Phobos_colour_2008.jpg",
+            "width": 3500,
+            "height": 3300
+        },
+        "lang": "en",
+        "dir": "ltr",
+        "revision": "1161124091",
+        "tid": "92fa6d10-0fa5-11ee-a7a1-b9a50d521ed8",
+        "timestamp": "2023-06-20T20:03:39Z",
+        "description": "Largest and innermost moon of Mars",
+        "description_source": "local",
+        "content_urls": {
+            "desktop": {
+                "page": "https://en.wikipedia.org/wiki/Phobos_(moon)",
+                "revisions": "https://en.wikipedia.org/wiki/Phobos_(moon)?action=history",
+                "edit": "https://en.wikipedia.org/wiki/Phobos_(moon)?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Phobos_(moon)"
+            },
+            "mobile": {
+                "page": "https://en.m.wikipedia.org/wiki/Phobos_(moon)",
+                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Phobos_(moon)",
+                "edit": "https://en.m.wikipedia.org/wiki/Phobos_(moon)?action=edit",
+                "talk": "https://en.m.wikipedia.org/wiki/Talk:Phobos_(moon)"
+            }
+        },
+        "extract": "Phobos is the innermost and larger of the two natural satellites of Mars, the other being Deimos. The two moons were discovered in 1877 by American astronomer Asaph Hall. It is named after Phobos, the Greek god of fear and panic, who is the son of Ares (Mars) and twin brother of Deimos.",
+        "extract_html": "<p><b>Phobos</b> is the innermost and larger of the two natural satellites of Mars, the other being Deimos. The two moons were discovered in 1877 by American astronomer Asaph Hall. It is named after Phobos, the Greek god of fear and panic, who is the son of Ares (Mars) and twin brother of Deimos.</p>",
+        "photo_credits": {
+            "wiki": {
+                "cc": "Public Domain",
+                "by": "NASA/JPL/University of Arizona"
+            },
+            "texture": {
+                "cc": "None",
+                "by": "None"
+            }
+        }
+    },
+    "Deimos": {
+        "type": "standard",
+        "title": "Deimos (moon)",
+        "displaytitle": "<span class=\"mw-page-title-main\">Deimos (moon)</span>",
+        "namespace": {
+            "id": 0,
+            "text": ""
+        },
+        "wikibase_item": "Q7548",
+        "titles": {
+            "canonical": "Deimos_(moon)",
+            "normalized": "Deimos (moon)",
+            "display": "<span class=\"mw-page-title-main\">Deimos (moon)</span>"
+        },
+        "pageid": 67668,
+        "thumbnail": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/NASA-Deimos-MarsMoon-20090221.jpg/320px-NASA-Deimos-MarsMoon-20090221.jpg",
+            "width": 320,
+            "height": 320
+        },
+        "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/8/86/NASA-Deimos-MarsMoon-20090221.jpg",
+            "width": 630,
+            "height": 630
+        },
+        "lang": "en",
+        "dir": "ltr",
+        "revision": "1159620933",
+        "tid": "9a1eec20-08d8-11ee-be6d-d3e2dee5020f",
+        "timestamp": "2023-06-11T13:47:19Z",
+        "description": "Smallest and outermost moon of Mars",
+        "description_source": "local",
+        "content_urls": {
+            "desktop": {
+                "page": "https://en.wikipedia.org/wiki/Deimos_(moon)",
+                "revisions": "https://en.wikipedia.org/wiki/Deimos_(moon)?action=history",
+                "edit": "https://en.wikipedia.org/wiki/Deimos_(moon)?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Deimos_(moon)"
+            },
+            "mobile": {
+                "page": "https://en.m.wikipedia.org/wiki/Deimos_(moon)",
+                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Deimos_(moon)",
+                "edit": "https://en.m.wikipedia.org/wiki/Deimos_(moon)?action=edit",
+                "talk": "https://en.m.wikipedia.org/wiki/Talk:Deimos_(moon)"
+            }
+        },
+        "extract": "Deimos is the smaller and outermost of the two natural satellites of Mars, the other being Phobos. Deimos has a mean radius of 6.2\u00a0km (3.9\u00a0mi) and takes 30.3\u00a0hours to orbit Mars. Deimos is 23,460\u00a0km (14,580\u00a0mi) from Mars, much farther than Mars' other moon, Phobos. It is named after Deimos, the Ancient Greek god and personification of dread and terror.",
+        "extract_html": "<p><b>Deimos</b> is the smaller and outermost of the two natural satellites of Mars, the other being Phobos. Deimos has a mean radius of 6.2\u00a0km (3.9\u00a0mi) and takes 30.3\u00a0hours to orbit Mars. Deimos is 23,460\u00a0km (14,580\u00a0mi) from Mars, much farther than Mars' other moon, Phobos. It is named after Deimos, the Ancient Greek god and personification of dread and terror.</p>",
+        "photo_credits": {
+            "wiki": {
+                "cc": "Public Domain",
+                "by": "NASA/JPL/University of Arizona"
+            },
+            "texture": {
+                "cc": "None",
+                "by": "None"
+            }
+        }
+    },
     "Jupiter": {
         "type": "standard",
         "title": "Jupiter",

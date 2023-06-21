@@ -29,6 +29,8 @@ import Io from './moons/jupiter_io';
 import Callisto from './moons/jupiter_callisto';
 import Europa from './moons/jupiter_europa';
 import Ganymede from './moons/jupiter_ganymede';
+import Phobos from './moons/mars_phobos'
+import Deimos from './moons/mars_deimos'
 
 /// Also includes dwarf planets and moons
 class Planets implements Iterable<Planet> {
@@ -37,6 +39,7 @@ class Planets implements Iterable<Planet> {
     static jupiter: Jupiter; static saturn: Saturn; static uranus: Uranus; static neptune: Neptune;
     static pluto: Pluto;
     static moon: Moon;
+    static phobos: Phobos; static deimos: Deimos;
     static io: Io; static callisto: Callisto; static europa: Europa; static ganymede: Ganymede;
 
     constructor(objects: {}) {
@@ -53,6 +56,7 @@ class Planets implements Iterable<Planet> {
             Planets.jupiter, Planets.saturn, Planets.uranus, Planets.neptune,
             Planets.pluto,
             Planets.moon,
+            Planets.phobos, Planets.deimos,
             Planets.io, Planets.callisto, Planets.europa, Planets.ganymede
         ]
         let sorted = sort ? a.sort((a, b) => Planet.comparator(a, b)) : a

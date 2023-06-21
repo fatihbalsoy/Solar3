@@ -42,6 +42,9 @@ import Ganymede from './objects/moons/jupiter_ganymede';
 import SceneCamera from './scene/camera'
 import SearchBar from './interface/search'
 import SceneLoadingManager from './scene/loading_manager'
+import Phobos from './objects/moons/mars_phobos'
+import Deimos from './objects/moons/mars_deimos'
+import MarsMoon from './objects/moons/mars_moon'
 
 // TODO: Preload textures to prevent lag during runtime
 class AppScene extends Component {
@@ -112,6 +115,7 @@ class AppScene extends Component {
             jupiter: new Jupiter(), saturn: new Saturn(), uranus: new Uranus(), neptune: new Neptune(),
             pluto: new Pluto(), // ceres: objArr[11],
             moon: new Moon(),
+            phobos: new Phobos(), deimos: new Deimos(),
             io: new Io(), callisto: new Callisto(), europa: new Europa(), ganymede: new Ganymede()
         })
         Planets.sun.light.shadow.camera.far = Planets.pluto.distance;
@@ -216,6 +220,8 @@ class AppScene extends Component {
         } else if (Settings.lookAt instanceof Planet) {
             if (Settings.lookAt instanceof JupiterMoon) {
                 Planets.jupiter.animate()
+            } else if (Settings.lookAt instanceof MarsMoon) {
+                Planets.mars.animate()
             }
             Settings.lookAt.animate()
             Settings.lookAt.updateLabel(AppScene.camera)

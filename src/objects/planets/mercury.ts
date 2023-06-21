@@ -19,7 +19,7 @@ class Mercury extends Planet {
         //? -- TEXTURES -- ?//
         const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
         const texture = textureLoader.load(Planet.getTexturePath(id))
-        const lowResTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
+        const lowTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()
@@ -29,7 +29,8 @@ class Mercury extends Planet {
         const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        super(id, [material], geometry, lowResTexture);
+        super(id);
+        this.initialize_MaterialGeometry([material], geometry, lowTexture)
     }
 }
 

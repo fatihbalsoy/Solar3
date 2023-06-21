@@ -11,14 +11,14 @@
 import * as THREE from "three";
 import Planet from "../planet";
 import { Quality, Settings } from "../../settings";
+import AppScene from "../../scene";
 
 class Moon extends Planet {
     constructor() {
         const id = "moon"
 
         //? -- TEXTURES -- ?//
-        const loadingManager = new THREE.LoadingManager()
-        const textureLoader = new THREE.TextureLoader(loadingManager)
+        const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
         const texture = textureLoader.load(Planet.getTexturePath(id))
         const lowTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
         texture.wrapS = THREE.RepeatWrapping
@@ -41,7 +41,8 @@ class Moon extends Planet {
         const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        super(id, [material], geometry, lowTexture);
+        super(id);
+        this.initialize_MaterialGeometry([material], geometry, lowTexture)
 
         // const earthAxisVector = new THREE.Vector3(0, 0, 1)
         // const earthAxisRadians = 23 * Math.PI / 180

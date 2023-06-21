@@ -44,6 +44,96 @@
         "rel": "https://api.le-systeme-solaire.net/rest/bodies/lune",
         "type": "Satellite"
     },
+    "phobos": {
+        "id": "phobos",
+        "name": "Phobos",
+        "englishName": "Phobos",
+        "isPlanet": false,
+        "moons": null,
+        "semimajorAxis": 9378,
+        "perihelion": 9234,
+        "aphelion": 9518,
+        "eccentricity": 0.0151,
+        "inclination": 1.075,
+        "mass": {
+            "massValue": 1.06,
+            "massExponent": 16
+        },
+        "vol": {
+            "volValue": 5.78361,
+            "volExponent": 3
+        },
+        "density": 1.9,
+        "gravity": 0.0057,
+        "escape": 11.39,
+        "meanRadius": 11.1,
+        "equaRadius": 13.0,
+        "polarRadius": 9.1,
+        "flattening": 0.0,
+        "dimension": "26.8 \u00d7 22.4 \u00d7 18.4",
+        "sideralOrbit": 0.31891,
+        "sideralRotation": 0.7653,
+        "aroundPlanet": {
+            "planet": "mars",
+            "rel": "https://api.le-systeme-solaire.net/rest/bodies/mars"
+        },
+        "discoveredBy": "Asaph Hall",
+        "discoveryDate": "12/08/1877",
+        "alternativeName": "",
+        "axialTilt": 0,
+        "avgTemp": 0,
+        "mainAnomaly": 0.0,
+        "argPeriapsis": 0.0,
+        "longAscNode": 0.0,
+        "bodyType": "Moon",
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/phobos",
+        "type": "Satellite"
+    },
+    "deimos": {
+        "id": "deimos",
+        "name": "Deimos",
+        "englishName": "Deimos",
+        "isPlanet": false,
+        "moons": null,
+        "semimajorAxis": 23459,
+        "perihelion": 23456,
+        "aphelion": 23471,
+        "eccentricity": 0.0002,
+        "inclination": 1.075,
+        "mass": {
+            "massValue": 1.4762,
+            "massExponent": 15
+        },
+        "vol": {
+            "volValue": 9.9978,
+            "volExponent": 3
+        },
+        "density": 1.75,
+        "gravity": 0.003,
+        "escape": 5.556,
+        "meanRadius": 6.2,
+        "equaRadius": 7.8,
+        "polarRadius": 5.1,
+        "flattening": 0.0,
+        "dimension": "15.0 \u00d7 12 \u00d7 10.4 ",
+        "sideralOrbit": 1.26244,
+        "sideralRotation": 30.29856,
+        "aroundPlanet": {
+            "planet": "mars",
+            "rel": "https://api.le-systeme-solaire.net/rest/bodies/mars"
+        },
+        "discoveredBy": "Asaph Hall",
+        "discoveryDate": "12/08/1877",
+        "alternativeName": "",
+        "axialTilt": 0,
+        "avgTemp": 0,
+        "mainAnomaly": 0.0,
+        "argPeriapsis": 0.0,
+        "longAscNode": 0.0,
+        "bodyType": "Moon",
+        "rel": "https://api.le-systeme-solaire.net/rest/bodies/deimos",
+        "type": "Satellite"
+    },
     "io": {
         "id": "io",
         "name": "Io",

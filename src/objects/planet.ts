@@ -61,9 +61,14 @@ class Planet {
      */
     labelCircle: CSS2DObject
     labelText: CSS2DObject
+    /**
+     * JSON data
+     */
+    json: any
 
-    constructor(id: string, material: Material[], geometry: SphereGeometry, lowResTexture: THREE.Texture, children: Object3D[] = []) {
+    constructor(id: string) {
         const obj = objectsJson[id.toLowerCase()]
+        this.json = obj
         this.id = id.toLowerCase()
         this.name = obj.name
         this.type = obj.type
@@ -74,10 +79,33 @@ class Planet {
         this.rotationalPeriod = obj.sideralRotation / 24
         this.axialTilt = obj.axialTilt
         this.orbitalInclination = obj.inclination
+
+        // LABEL //
+        const circle = document.createElement('div')
+        circle.style.backgroundColor = 'white'
+        circle.style.borderRadius = '10000px'
+        circle.style.width = '5px'
+        circle.style.height = '5px'
+        this.labelCircle = new CSS2DObject(circle)
+
+        const p = document.createElement('p')
+        p.textContent = this.name
+        p.style.color = 'white'
+        p.style.position = 'absolute'
+        p.style.bottom = '0'
+
+        const div = document.createElement('div')
+        div.style.height = '50px'
+        div.style.position = 'relative'
+        div.appendChild(p)
+        this.labelText = new CSS2DObject(div)
+    }
+
+    initialize_MaterialGeometry(material: Material[], geometry: SphereGeometry, lowResTexture: THREE.Texture, children: Object3D[] = []) {
         this.material = material
         const radiusScale = this.radius * Settings.sizeScale
-        const equatorialRadius = obj.equaRadius == 0 ? radiusScale : obj.equaRadius * Settings.sizeScale
-        const polarRadius = obj.polarRadius == 0 ? radiusScale : obj.polarRadius * Settings.sizeScale
+        const equatorialRadius = this.json.equaRadius == 0 ? radiusScale : this.json.equaRadius * Settings.sizeScale
+        const polarRadius = this.json.polarRadius == 0 ? radiusScale : this.json.polarRadius * Settings.sizeScale
 
         // LEVEL OF DETAIL //
         this.lod = new THREE.LOD()
@@ -131,26 +159,6 @@ class Planet {
             const z = rot.z - angleY
             element.rotation.setFromVector3(new Vector3(x, y, z))
         }
-
-        // LABEL //
-        const circle = document.createElement('div')
-        circle.style.backgroundColor = 'white'
-        circle.style.borderRadius = '10000px'
-        circle.style.width = '5px'
-        circle.style.height = '5px'
-        this.labelCircle = new CSS2DObject(circle)
-
-        const p = document.createElement('p')
-        p.textContent = this.name
-        p.style.color = 'white'
-        p.style.position = 'absolute'
-        p.style.bottom = '0'
-
-        const div = document.createElement('div')
-        div.style.height = '50px'
-        div.style.position = 'relative'
-        div.appendChild(p)
-        this.labelText = new CSS2DObject(div)
     }
 
     /**

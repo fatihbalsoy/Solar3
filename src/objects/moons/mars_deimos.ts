@@ -1,8 +1,8 @@
 /*
- *   phobos.ts
+ *   mars_deimos.ts
  *   solar-system-3js
- *
- *   Created by Fatih Balsoy on 4/30/23
+ * 
+ *   Created by Fatih Balsoy on 6/20/23
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
@@ -12,17 +12,17 @@ import AppScene from "../../scene";
 import Planets from "../planets";
 import MarsMoon from "./mars_moon";
 
-class Phobos extends MarsMoon {
+class Deimos extends MarsMoon {
 
     constructor() {
-        const id = "phobos"
+        const id = "deimos"
         super(id);
 
         //? -- MODEL -- ?//
         const loader = new OBJLoader(AppScene.loadingManager);
         loader.load(
             // resource URL
-            'assets/models/phobos.obj',
+            'assets/models/deimos.obj',
             // called when resource is loaded
             function (object: THREE.Group) {
                 var mesh = object.children[0] as THREE.Mesh
@@ -42,4 +42,4 @@ class Phobos extends MarsMoon {
     }
 }
 
-export default Phobos;
+export default Deimos;

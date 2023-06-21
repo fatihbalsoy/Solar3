@@ -45,7 +45,8 @@ class Uranus extends Planet {
         const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial)
         ringMesh.rotation.x = 15 * Math.PI / 180
 
-        super(id, [material], geometry, texture, [ringMesh]);
+        super(id);
+        this.initialize_MaterialGeometry([material], geometry, texture, [ringMesh])
         // this.realMesh.rotation.z = 23 * Math.PI / 180
     }
 }

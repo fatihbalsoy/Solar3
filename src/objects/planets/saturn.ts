@@ -21,7 +21,7 @@ class Saturn extends Planet {
         //? -- TEXTURES -- ?//
         const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
         const texture = textureLoader.load(Planet.getTexturePath(id))
-        const lowResTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
+        const lowTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
         const ringTexture = textureLoader.load('assets/images/textures/saturn/' + resFields[id][Settings.quality] + '_saturn_ring_alpha.png')
 
         //? -- MATERIAL -- ?//
@@ -64,7 +64,8 @@ class Saturn extends Planet {
         ringMesh.castShadow = true
         ringMesh.receiveShadow = true
 
-        super(id, [material], geometry, lowResTexture, [ringMesh]);
+        super(id);
+        this.initialize_MaterialGeometry([material], geometry, lowTexture, [ringMesh])
     }
 }
 

@@ -30,7 +30,8 @@ class Pluto extends Planet {
         const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
-        super(id, [material], geometry, lowTexture);
+        super(id);
+        this.initialize_MaterialGeometry([material], geometry, lowTexture)
     }
 }
 

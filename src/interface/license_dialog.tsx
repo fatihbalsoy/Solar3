@@ -40,7 +40,7 @@ class LicenseDialog extends Component {
                         {this.listItem("Monthly Earth Images by NASA", "Public Domain", "https://visibleearth.nasa.gov/collection/1484/blue-marble")}
                         {this.listItem("High-res image of Io by USGS", "Public Domain", "https://pubs.usgs.gov/sim/3168/")}
                         {this.listItem("Computing Planetary Positions by Paul Schlyter", null, "https://www.stjarnhimlen.se/comp/tutorial.html")}
-                        {this.listItem("Textures by James Hastings-Trew", null, "https://planetpixelemporium.com/planets.html")}
+                        {this.listItem("Phobos and Deimos 3D Models by James Hastings-Trew", "CC BY 4.0", "https://planetpixelemporium.com/mars.html")}
                         {this.listItem("Solar System Data by Christophe", null, "https://api.le-systeme-solaire.net/en/")}
                         {this.listItem("Ephemeris Data by NASA's Horizons System", null, "https://ssd.jpl.nasa.gov/horizons/app.html#/")}
                         {/* * Licenses for images used in the wiki/info card can be found [here](https://github.com/fatihbalsoy/SolarSystem.3js/tree/master/src/data/generate_data.py). */}
