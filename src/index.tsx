@@ -21,8 +21,8 @@ const root = ReactDOM.createRoot(
 root.render(
     <ThemeProvider theme={WebsiteTheme}>
         <CssBaseline />
-        <AppScene />
+        {/* <AppScene /> */}
         <SearchBar />
-        <LoadingScreen />
+        {/* <LoadingScreen /> */}
     </ThemeProvider>
 );
