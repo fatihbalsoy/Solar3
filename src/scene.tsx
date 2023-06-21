@@ -151,6 +151,7 @@ class AppScene extends Component {
         // * ---- * //
 
         window.addEventListener('resize', this.handleResize)
+        window.addEventListener('click', this.handleClick)
 
         if (this.mount) {
             this.mount.appendChild(this.renderer.domElement)
@@ -167,6 +168,7 @@ class AppScene extends Component {
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleResize)
+        window.removeEventListener('click', this.handleClick)
         this.stop()
         clearInterval(this.timer)
 
@@ -191,6 +193,46 @@ class AppScene extends Component {
         if (AppScene.camera) {
             AppScene.camera.aspect = width / height
             AppScene.camera.updateProjectionMatrix()
+        }
+    }
+
+    pointer = new THREE.Vector2()
+    raycaster = new THREE.Raycaster()
+    handleClick = (event: MouseEvent) => {
+        // calculate pointer position in normalized device coordinates
+        // (-1 to +1) for both components
+        this.pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+        this.pointer.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+        // update the picking ray with the camera and pointer position
+        this.raycaster.setFromCamera(this.pointer, AppScene.camera);
+
+        // calculate objects intersecting the picking ray
+        const intersects = this.raycaster.intersectObject(Planets.earth.realMesh);
+
+        for (let i = 0; i < intersects.length; i++) {
+            // intersects[i].object.material.color.set(0xff0000);
+
+            const earthRotation = Planets.earth.rotation
+            const earthPoint = Planets.earth.getPosition()
+            const mousePoint = intersects[i].point
+
+            // Get the direction vector from the Earth's position to the point's position
+            const direction = mousePoint.clone().sub(earthPoint).normalize();
+
+            // Calculate latitude and longitude
+            const latitude = Math.asin(direction.y) * (180 / Math.PI);
+            var longitude = (Math.atan2(direction.x, direction.z) - earthRotation) * (180 / Math.PI) - 90;
+            longitude = longitude < -180 ? longitude + 360 : longitude
+
+            console.log("lat:", latitude.toFixed(2))
+            console.log("lon:", longitude.toFixed(2))
+
+            const geom = new THREE.SphereGeometry(10 * Settings.sizeScale, 8, 8)
+            const mesh = new THREE.Mesh(geom)
+            const meshPoint = mousePoint.clone().sub(earthPoint).clone().multiplyScalar(1.001)
+            mesh.position.set(meshPoint.x, meshPoint.y, meshPoint.z)
+            Planets.earth.realMesh.add(mesh)
         }
     }
 

@@ -16,6 +16,11 @@ import { Observer, ObserverVector } from "astronomy-engine";
 
 class Earth extends Planet {
 
+    /**
+     * Real-time rotation angle of mesh in radians
+     */
+    rotation: number
+
     constructor() {
         const id = "earth"
 
@@ -105,7 +110,8 @@ class Earth extends Planet {
         const angle = Math.acos(numerator / denominator)
 
         // Rotate mesh so the texture matches real-time rotation of planet
-        this.realMesh.rotation.set(0, (rObZ > 0 ? -1 : +1) * angle, 0)
+        this.rotation = (rObZ > 0 ? -1 : +1) * angle
+        this.realMesh.rotation.set(0, this.rotation, 0)
     }
 }
 
