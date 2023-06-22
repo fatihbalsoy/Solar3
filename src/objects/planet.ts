@@ -364,11 +364,14 @@ class Planet {
      * Get a path to a planet's texture for the given quality
      * @param id the planet's identifier
      * @param quality the resolution of the texture
+     * @param args any additional suffixes applied to the texture (ex: saturn_rings, args = ["rings"])
      * @returns a path to the texture
      */
-    static getTexturePath(id: string, quality: Quality = Settings.quality): string {
-        const venus = id == "venus" ? "_atmosphere" : ""
-        return "assets/images/textures/" + id + "/" + resFields[id][quality] + "_" + id + venus + ".jpeg"
+    static getTexturePath(id: string, quality?: Quality, args: string[] = [], extension: string = "jpeg"): string {
+        quality = quality ? quality : Settings.quality
+        const texture = id + (args.length > 0 ? "_" : "") + args.join("_")
+        const path = "assets/images/textures/" + id + "/" + resFields[texture][quality] + "_" + texture + "." + extension
+        return path
     }
 
     static comparator(a: Planet, b: Planet): number {

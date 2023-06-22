@@ -110,21 +110,24 @@ export class Settings {
 }
 
 export const resFields: EnumDictionary<string, EnumDictionary<Quality, string>> = {
-    "mercury": Settings.res2_8k,
-    "venus": Settings.res2_4k,
-    "earth": Settings.res2_8k,
-    "mars": Settings.res2_8k,
-    "jupiter": Settings.res2_8k,
-    "saturn": Settings.res2_8k,
+    "mercury": Settings.res2_4_8k,
+    "venus_atmosphere": Settings.res2_4k,
+    "venus_surface": Settings.res2_4_8k,
+    "earth": Settings.res2_4_8k,
+    "mars": Settings.res2_4_8k,
+    "jupiter": Settings.res2_4k,
+    "saturn": Settings.res2_4k,
+    "saturn_ring_alpha": Settings.res2_4_8k,
     "uranus": Settings.res2k,
     "neptune": Settings.res2k,
     "pluto": Settings.res1_2k,
     "ceres": Settings.res2_4k,
-    "moon": Settings.res2_8k,
+    "moon": Settings.res2_4_8k,
     "io": Settings.res2_4_8k,
     "europa": Settings.res1k,
     "ganymede": Settings.res1k,
     "callisto": Settings.res1k,
+    "galaxy": Settings.res2_4_8k
 }
 
 export default Settings

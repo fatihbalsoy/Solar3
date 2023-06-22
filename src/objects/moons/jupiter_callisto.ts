@@ -8,14 +8,14 @@
 
 import * as THREE from "three"
 import JupiterMoon from "./jupiter_moon"
+import AppScene from "../../scene"
 
 class Callisto extends JupiterMoon {
     constructor() {
         const id = "callisto"
 
         //? -- TEXTURES -- ?//
-        const loadingManager = new THREE.LoadingManager()
-        const textureLoader = new THREE.TextureLoader(loadingManager)
+        const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
         const texture = textureLoader.load('assets/images/textures/callisto/1k_callisto.jpeg')
 
         //? -- MATERIAL -- ?//

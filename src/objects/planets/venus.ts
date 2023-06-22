@@ -19,8 +19,8 @@ class Venus extends Planet {
 
         //? -- TEXTURES -- ?//
         const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
-        const texture = textureLoader.load(Planet.getTexturePath(id))
-        const lowResTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
+        const texture = textureLoader.load(Planet.getTexturePath(id, null, ["atmosphere"]))
+        const lowResTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low, ["atmosphere"]))
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()
