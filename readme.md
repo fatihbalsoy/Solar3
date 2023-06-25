@@ -7,7 +7,7 @@ SolarSystem.3js is a stunningly realistic representation of the Solar System, co
 
 ## Gameplay
 
-Explore the wonders of our solar system with the Planet Search feature! Discover fascinating details about each planet as you delve into their unique characteristics. By simply searching for a planet, you can access a summary of information pulled from reliable sources like Wikipedia. Additionally, the feature provides essential astronomical coordinates such as Right Ascension (RA), Declination (Dec), Azimuth, and Altitude, granting you a deeper understanding of the planet's position in the celestial sphere. Unveil the secrets of our neighboring worlds and elevate your astronomical knowledge with just a few taps.
+Explore the wonders of our solar system! Discover fascinating details about each planet as you delve into their unique characteristics. By simply searching for a planet, you can access a summary of information pulled from reliable sources like NASA and Wikipedia. Additionally, the feature provides essential astronomical coordinates such as Right Ascension (RA), Declination (Dec), Azimuth, and Altitude, granting you a deeper understanding of the planet's position in the celestial sphere. Unveil the secrets of our neighboring worlds and elevate your astronomical knowledge with just a few taps.
 
 To adjust the camera's distance, simply scroll up or down. If you want to orbit around a particular celestial object, click and drag your mouse. Additionally, you can center an object on your screen by using the search bar located at the top. For instance, you can search for celestial bodies such as the following:
 
