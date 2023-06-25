@@ -61,7 +61,7 @@ class LocationDialog extends Component<LocationDialogProps, LocationDialogState>
     }
 
     componentDidUpdate(prevProps: Readonly<LocationDialogProps>, prevState: Readonly<LocationDialogState>, snapshot?: any): void {
-        if (prevState.locationGeo != this.state.locationGeo) {
+        if (this.props.onLocationUpdate && prevState.locationGeo != this.state.locationGeo) {
             this.props.onLocationUpdate(this.state.locationGeo)
         }
     }
@@ -209,9 +209,15 @@ class LocationDialog extends Component<LocationDialogProps, LocationDialogState>
                     </Box>
                 </DialogContent>
                 <DialogActions sx={{ display: 'flex' }}>
-                    <Button onClick={this.onLocationGetCoordinates}>Use Current Location</Button>
                     {
-                        this.state.locationLoading ? <CircularProgress size={20} sx={{ leftMargin: '20px' }} /> : null
+                        navigator.geolocation
+                            ? <div>
+                                <Button onClick={this.onLocationGetCoordinates}>Use Current Location</Button>
+                                {
+                                    this.state.locationLoading ? <CircularProgress size={20} sx={{ leftMargin: '20px' }} /> : null
+                                }
+                            </div>
+                            : <Button disabled>GPS is not supported on this device</Button>
                     }
                     <div style={{ flexGrow: '100' }} />
                     <Button onClick={this.onClose}>Discard</Button>

@@ -71,8 +71,6 @@ class DrawerContent extends Component<{}, DrawerContentState> {
     }
 
     onLocationSave(position: AppLocation) {
-        console.log(position)
-        console.log(Settings.geolocation)
         this.setState({
             location: position
         })

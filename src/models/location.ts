@@ -24,6 +24,10 @@ class AppLocation {
     altitude: number
 
     constructor(latitude: number = 0, longitude: number = 0, altitude: number = 0) {
+        this.init(latitude, longitude, altitude)
+    }
+
+    init(latitude: number = 0, longitude: number = 0, altitude: number = 0) {
         this.latitude = latitude
         this.longitude = longitude
         this.altitude = altitude
@@ -38,6 +42,21 @@ class AppLocation {
             this[key] = value
         })
         return this
+    }
+
+    toGeolocationPosition(): GeolocationPosition {
+        return {
+            coords: {
+                latitude: this.latitude,
+                longitude: this.longitude,
+                altitude: this.altitude
+            },
+        } as GeolocationPosition
+    }
+
+    fromGeolocationPosition(geoPosition: GeolocationPosition) {
+        const coords = geoPosition.coords
+        this.init(coords.latitude, coords.longitude, coords.altitude)
     }
 }
 export default AppLocation
