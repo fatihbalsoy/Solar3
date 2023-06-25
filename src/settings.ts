@@ -13,6 +13,7 @@ import Star from "./objects/star"
 import Planets from "./objects/planets"
 import { totalmem } from 'os'
 import AppScene from "./scene"
+import AppLocation from "./models/location"
 var platform = require('platform');
 
 export enum Quality {
@@ -24,6 +25,11 @@ export enum Quality {
 export class Settings {
     static isDev = process.env.NODE_ENV !== 'production'
     static lookAt: Planet | Star = Planets.sun // does not work well with stars
+
+    // Geolocation
+    static geolocation: AppLocation = localStorage.getItem('location')
+        ? new AppLocation().setFromString(localStorage.getItem('location'))
+        : null
 
     // Graphics
     private static gigabyteToBytes = 1e+9

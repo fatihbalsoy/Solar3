@@ -23,15 +23,17 @@ import { ConstellationInfo, EquatorialCoordinates, HorizontalCoordinates } from 
 import { convertHourToHMS } from "../utils/utils";
 import Crosshair from "./crosshair";
 import DrawerContent from "./drawer";
+import LocationDialog from "./dialog_location";
+import AppLocation from "../models/location";
 
 class SearchBar extends Component {
     state = {
         value: '',
         showingInfoCard: false,
         results: [] as number[],
-        locationPermission: 'prompt', // 'granted', or 'denied'
-        location: null, // GeolocationPosition
-        drawerOpen: false
+        drawerOpen: false,
+        locationDialogOpen: false,
+        locationUpdater: 0
     }
     interval: NodeJS.Timer
 
@@ -40,19 +42,18 @@ class SearchBar extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.onKeyDown = this.onKeyDown.bind(this);
+
         this.onClickTelescopeIcon = this.onClickTelescopeIcon.bind(this);
         this.onClickFlyIcon = this.onClickFlyIcon.bind(this);
         this.onClickSearchResult = this.onClickSearchResult.bind(this)
         this.onClickSearchBar = this.onClickSearchBar.bind(this)
-        this.onClickAllowLocation = this.onClickAllowLocation.bind(this)
+
         this.onMenuOpen = this.onMenuOpen.bind(this)
         this.onMenuClose = this.onMenuClose.bind(this)
 
-        this.updateLocationPermissionStatus = this.updateLocationPermissionStatus.bind(this)
-        this.getLocation = this.getLocation.bind(this)
-
-        this.updateLocationPermissionStatus()
-        this.getLocation()
+        this.onLocationDialogOpen = this.onLocationDialogOpen.bind(this)
+        this.onLocationDialogClose = this.onLocationDialogClose.bind(this)
+        this.onLocationSave = this.onLocationSave.bind(this)
     }
 
     componentDidMount() {
@@ -100,59 +101,35 @@ class SearchBar extends Component {
         }
     }
 
-    onClickAllowLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(() => { })
-            this.updateLocationPermissionStatus()
-        }
-    }
-
-    updateLocationPermissionStatus() {
-        navigator.permissions.query({ name: 'geolocation' }).then((value) => {
-            this.setState({
-                locationPermission: value.state
-            })
-        })
-    }
-
-    getLocation() {
-        if (navigator.geolocation && this.state.locationPermission == 'granted') {
-            navigator.geolocation.getCurrentPosition((value) => {
-                this.setState({
-                    location: value
-                })
-            })
-        }
-    }
-
     padding(p: number = 10) {
         return <div style={{ height: p.toString() + "px" }}></div>
     }
 
     planetPositionComponent() {
-        // Location is NOT supported //
-        const locationNotSupported = (
-            <div></div>
-        )
+        const setLocationButton =
+            <Button onClick={this.onLocationDialogOpen} variant="outlined">Set Location</Button>
+
+        // Planet is NOT supported //
         let not_supported = ["earth", "io", "europa", "ganymede", "callisto"]
         if (!navigator.geolocation ||
             (Settings.lookAt as Planet && not_supported.includes((Settings.lookAt as Planet).id))) {
-            return locationNotSupported
+            return <div></div>
         }
 
-        // Location IS supported //
-        // - Needs Location Permissions - 
-        // TODO: Refresh view after 'Allow Location' is clicked
-        const needsPermission = (
+        // Planet IS supported //
+        // - Needs Location Setup - //
+        const locationNeedsSetup = (
             <div>
                 {this.padding(15)}
-                <Button onClick={this.onClickAllowLocation} variant="outlined">Allow Location</Button>
+                {setLocationButton}
                 {this.padding(15)}
                 <p>
-                    To provide accurate planet information based on your current position and deliver a
-                    personalized experience, the app requires your location. This allows it to calculate
-                    real-time celestial coordinates like RA, Dec, Azimuth, and Altitude for the planet
-                    you are viewing.
+                    To provide accurate planet information based on your chosen location and
+                    deliver a personalized experience, the app requires your location. This
+                    allows it to calculate real-time celestial coordinates like RA, Dec, Azimuth,
+                    and Altitude for the planet you are viewing. You can choose your location
+                    by pressing a location on the map, manually inputting coordinates, or
+                    automatically fetching it.
                 </p>
             </div>
         )
@@ -161,14 +138,15 @@ class SearchBar extends Component {
         var equatorialCoords: EquatorialCoordinates = null
         var horizontalCoords: HorizontalCoordinates = null
         var constellationInfo: ConstellationInfo = null
-        if (this.state.locationPermission == 'granted' && Settings.lookAt as Planet && this.state.location) {
+        if (Settings.geolocation && Settings.lookAt as Planet) {
             let planet = Settings.lookAt as Planet
             let date = new Date()
-            equatorialCoords = planet.getEquatorialCoordinates(date, this.state.location)
-            horizontalCoords = planet.getHorizontalCoordinates(date, this.state.location)
-            constellationInfo = planet.getConstellation(date, this.state.location)
+            let pos = Settings.geolocation.toGeolocationPosition()
+            equatorialCoords = planet.getEquatorialCoordinates(date, pos)
+            horizontalCoords = planet.getHorizontalCoordinates(date, pos)
+            constellationInfo = planet.getConstellation(date, pos)
         }
-        const hasPermission = (
+        const locationIsSet = (
             <div>
                 <p>Right Ascension: {equatorialCoords ? convertHourToHMS(equatorialCoords.ra, 1) : "Loading"}</p>
                 <p>Declination: {equatorialCoords ? equatorialCoords.dec.toFixed(4) : "Loading"}°</p>
@@ -177,6 +155,8 @@ class SearchBar extends Component {
                 <p>Altitude: {horizontalCoords ? horizontalCoords.altitude.toFixed(4) + "°" : "Loading"}</p>
                 {this.padding()}
                 <p>Constellation: {constellationInfo ? constellationInfo.name : "Loading"}</p>
+                {this.padding()}
+                {setLocationButton}
             </div>
         )
 
@@ -184,9 +164,9 @@ class SearchBar extends Component {
             <div>
                 <h3>Position</h3>
                 {
-                    this.state.locationPermission == 'granted'
-                        ? hasPermission
-                        : needsPermission
+                    Settings.geolocation
+                        ? locationIsSet
+                        : locationNeedsSetup
                 }
             </div>
         )
@@ -294,6 +274,24 @@ class SearchBar extends Component {
         })
     }
 
+    onLocationDialogOpen() {
+        this.setState({
+            locationDialogOpen: true
+        })
+    }
+
+    onLocationDialogClose() {
+        this.setState({
+            locationDialogOpen: false
+        })
+    }
+
+    onLocationSave(position: AppLocation) {
+        this.setState({
+            locationUpdater: (this.state.locationUpdater + 1) % 2
+        })
+    }
+
     static hideSearchResults(state: boolean = true) {
         const searchResults = document.getElementsByClassName('search-results')[0] as HTMLDivElement
         if (searchResults) {
@@ -330,12 +328,11 @@ class SearchBar extends Component {
 
     render() {
         const planet = (Settings.lookAt as Planet)
-        if (!this.state.location) {
-            this.getLocation()
-        }
         return (
             <div>
+                {/* Crosshair (Enabled when a star is selected) */}
                 <Crosshair />
+                {/* Navigation Drawer */}
                 <SwipeableDrawer
                     variant="temporary"
                     open={this.state.drawerOpen}
@@ -344,6 +341,14 @@ class SearchBar extends Component {
                 >
                     <DrawerContent />
                 </SwipeableDrawer>
+                {/* Location Dialog */}
+                <LocationDialog
+                    key={this.state.locationDialogOpen ? 1 : 0}
+                    open={this.state.locationDialogOpen}
+                    onClose={this.onLocationDialogClose}
+                    onSave={this.onLocationSave}
+                />
+                {/* Info Card */}
                 {
                     this.state.showingInfoCard && Settings.lookAt instanceof Planet ?
                         <div className="info-card-body">
@@ -380,6 +385,7 @@ class SearchBar extends Component {
                         </div>
                         : null
                 }
+                {/* Search Bar */}
                 <div className="search">
                     <Paper
                         component="form"
@@ -398,11 +404,9 @@ class SearchBar extends Component {
                         />
                         {this.iconButton("Search", mdiMagnify)}
                         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                        {/* {this.iconButton("Target", mdiTelescope, "primary", this.onClickTelescopeIcon,
-                        !(Planets[this.state.value.toLowerCase()] || Stars.indexedDatabase[this.state.value.toLowerCase()])
-                    )} */}
                         {this.iconButton("Fly", mdiRocketLaunch, "primary", this.onClickFlyIcon, !Planets[this.state.value.toLowerCase()])}
                     </Paper>
+                    {/* Search Results */}
                     {
                         this.state.value == '' || this.state.results.length == 0 ? null :
                             <Paper className="search-bar search-results search-bar-mobile-full-width">
