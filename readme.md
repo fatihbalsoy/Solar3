@@ -29,7 +29,6 @@ To adjust the camera's distance, simply scroll up or down. If you want to orbit 
 <summary>Dwarf Planets</summary>
 
 * Pluto
-* ~~Ceres~~ (Temporarily Removed)
 
 </details>
 
@@ -64,11 +63,7 @@ Jupiter
 ## Screenshots
 
 ![Info Card](.readme/info_card.png  "Info Card")
-
-|||
-|-|-|
-| ![Saturn](.readme/saturn.png  "Saturn") | ![Moon](.readme/moon.png  "Moon") |
-| ![Polaris](.readme/polaris_star.png  "Polaris") | ![Solar System](.readme/solar_system.png  "Solar System") |
+![Screenshots](.readme/screenshots.png  "Screenshots")
 
 ## Known Issues
 
@@ -81,6 +76,8 @@ Here are some known issues that will be worked on in the near future:
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/fatihbalsoy/SolarSystem.3js/webpack.yml)](https://github.com/fatihbalsoy/SolarSystem.3js/actions/workflows/webpack.yml)
 [![Orbit Calculation Status](https://img.shields.io/github/actions/workflow/status/fatihbalsoy/SolarSystem.3js/calculate-orbits.yml?color=blue&label=calculate-orbits)](https://github.com/fatihbalsoy/SolarSystem.3js/actions/workflows/calculate-orbits.yml)
+[![Update Wiki Status](https://img.shields.io/github/actions/workflow/status/fatihbalsoy/SolarSystem.3js/update-wiki.yml?color=blue&label=update-wiki)](https://github.com/fatihbalsoy/SolarSystem.3js/actions/workflows/update-wiki.yml)
+
 ![Web](https://img.shields.io/badge/Web-three.js%20%7C%20WebGL%20%7C%20React-lightgreen)
 
 Download [Node.js](https://nodejs.org/en/download/).
@@ -133,7 +130,9 @@ This project would not have been possible without these helpful resources:
 * [Computing Planetary Positions by Paul Schlyter](https://www.stjarnhimlen.se/comp/tutorial.html)
 * [Textures by James Hastings-Trew](https://planetpixelemporium.com/planets.html)
 * [Solar System Data by Christophe](https://api.le-systeme-solaire.net/en/)
+* [Basic Earth Textures by Tom Patterson](https://www.shadedrelief.com/natural3)
 * [Ephemeris Data by NASA's Horizons System](https://ssd.jpl.nasa.gov/horizons/app.html#/)
 * [Monthly Earth Images by NASA](https://visibleearth.nasa.gov/collection/1484/blue-marble)
 * [High-res image of Io by USGS](https://pubs.usgs.gov/sim/3168/)
-* Licenses for images used in the wiki/info card can be found [here](https://github.com/fatihbalsoy/SolarSystem.3js/tree/master/src/data/generate_data.py).
+* Licenses for images used in the wiki/info card can be found in the [generate_data](/src/data/generate_data.py) file.
+* Licenses not mentioned here can be found in the [dialog_license](/src/interface/dialog_license.tsx) file.
