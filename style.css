@@ -1,0 +1,61 @@
+@font-face {
+    font-family: "Hubot Sans";
+    src:
+        url("assets/fonts/Hubot-Sans.woff2") format('woff2 supports variations'),
+        url("assets/fonts/Hubot-Sans.woff2") format('woff2-variations');
+}
+
+@font-face {
+    font-family: "Hubot Sans Fallback";
+    src:
+        url("https://github.githubassets.com/static/fonts/github/hubot-sans.woff2") format('woff2 supports variations'),
+        url("https://github.githubassets.com/static/fonts/github/hubot-sans.woff2") format('woff2-variations');
+}
+
+@font-face {
+    font-family: "Mona Sans";
+    src:
+        url("assets/fonts/Mona-Sans.woff2") format('woff2 supports variations'),
+        url("assets/fonts/Mona-Sans.woff2") format('woff2-variations');
+}
+
+@font-face {
+    font-family: "Mona Sans Fallback";
+    src:
+        url("https://github.githubassets.com/static/fonts/github/mona-sans.woff2") format('woff2 supports variations'),
+        url("https://github.githubassets.com/static/fonts/github/mona-sans.woff2") format('woff2-variations');
+}
+
+*
+{
+    margin: 0;
+    padding: 0;
+    font-family: "Hubot Sans","Hubot Sans Fallback","Roboto",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+html {
+    background-color: black;
+}
+
+html,
+body
+{
+    height: 100vh;
+}
+
+.webgl
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    outline: none;
+    z-index: 0;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
