@@ -109,22 +109,17 @@ class DrawerContent extends Component<{}, DrawerContentState> {
             <div className="drawer">
                 {/* Location Dialog */}
                 <LocationDialog
-                    key={this.state.locationDialogOpen ? 1 : 0}
+                    key={this.state.locationDialogOpen ? "locationDialog1" : "locationDialog0"}
                     open={this.state.locationDialogOpen}
                     onClose={this.onLocationDialogClose}
                     onSave={this.onLocationSave}
                 />
                 {/* License Dialog */}
-                <Dialog
+                <LicenseDialog
+                    key={this.state.licenseDialogOpen ? "licenseDialog1" : "licenseDialog0"}
                     open={this.state.licenseDialogOpen}
                     onClose={this.onLicenseDialogClose}
-                    scroll='paper'
-                >
-                    <LicenseDialog />
-                    <DialogActions>
-                        <Button onClick={this.onLicenseDialogClose}>Close</Button>
-                    </DialogActions>
-                </Dialog>
+                />
                 <h2>SolarSystem.3js</h2>
                 {this.divider()}
                 {this.listItem("Location", mdiMapMarkerOutline, this.onLocationDialogOpen, this.locationSubtitle())}

@@ -28,7 +28,6 @@ interface LocationDialogState {
     locationGeo: AppLocation // lat, lon, alt
 }
 
-// TODO: Pressing 'current location' causes entire dialog to rebuild and texture size becomes small, therefore the map marker is misplaced.
 class LocationDialog extends Component<LocationDialogProps, LocationDialogState> {
     state: LocationDialogState = {
         open: false,

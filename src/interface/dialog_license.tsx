@@ -6,11 +6,36 @@
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
-import { DialogActions, DialogContent, DialogContentText, DialogTitle, ListItemButton, ListItemText } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, ListItemButton, ListItemText } from "@mui/material";
 import React from "react";
 import { Component } from "react";
 
-class LicenseDialog extends Component {
+interface LicenseDialogProps {
+    open: boolean
+    onClose: () => void
+}
+interface LicenseDialogState {
+    open: boolean
+}
+
+class LicenseDialog extends Component<LicenseDialogProps, LicenseDialogState> {
+    state: LicenseDialogState = {
+        open: false,
+    }
+
+    constructor(props: LicenseDialogProps) {
+        super(props)
+
+        this.onClose = this.onClose.bind(this)
+    }
+
+    componentDidMount(): void {
+        if (this.props.open) {
+            this.setState({
+                open: true
+            })
+        }
+    }
 
     listItem(text: string, subtitle?: string, url?: string) {
         return (
@@ -20,9 +45,20 @@ class LicenseDialog extends Component {
         )
     }
 
+    onClose() {
+        this.setState({
+            open: false
+        })
+        this.props.onClose()
+    }
+
     render() {
         return (
-            <div>
+            <Dialog
+                open={this.state.open}
+                onClose={this.props.onClose}
+                scroll='paper'
+            >
                 <DialogTitle>Licenses</DialogTitle>
                 <DialogContent dividers={true}>
                     <DialogContentText>
@@ -47,7 +83,10 @@ class LicenseDialog extends Component {
                         {/* * Licenses for images used in the wiki/info card can be found [here](https://github.com/fatihbalsoy/SolarSystem.3js/tree/master/src/data/generate_data.py). */}
                     </DialogContentText>
                 </DialogContent>
-            </div>
+                <DialogActions>
+                    <Button onClick={this.onClose}>Close</Button>
+                </DialogActions>
+            </Dialog>
         )
     }
 }
