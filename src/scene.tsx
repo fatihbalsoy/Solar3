@@ -42,6 +42,7 @@ import Ganymede from './objects/moons/jupiter_ganymede';
 import SceneCamera from './scene/camera'
 import SearchBar from './interface/search'
 import SceneLoadingManager from './scene/loading_manager'
+import { EdgeDetectionMode, EffectComposer, EffectPass, GodRaysEffect, KernelSize, RenderPass, SMAAEffect, SMAAPreset } from 'postprocessing'
 
 // TODO: Preload textures to prevent lag during runtime
 class AppScene extends Component {
@@ -51,6 +52,7 @@ class AppScene extends Component {
     static camera: SceneCamera
     static controls: OrbitControls
     private renderer: THREE.WebGLRenderer
+    private composer: EffectComposer
     private cssRenderer: CSS2DRenderer
     private frameId: number
     static loadingManager: SceneLoadingManager
@@ -70,7 +72,12 @@ class AppScene extends Component {
         AppScene.scene = new THREE.Scene()
         AppScene.camera = new SceneCamera(75, width / height, 0.0001, (60000000000 * Settings.distanceScale) * 5)
         AppScene.controls = new OrbitControls(AppScene.camera, this.mount)
-        this.renderer = new THREE.WebGLRenderer({ antialias: true, depth: true })
+        this.renderer = new THREE.WebGLRenderer({
+            powerPreference: "high-performance",
+            antialias: false,
+            depth: false,
+            stencil: false
+        })
         this.cssRenderer = new CSS2DRenderer()
         AppScene.loadingManager = new SceneLoadingManager()
         this.textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
@@ -131,6 +138,25 @@ class AppScene extends Component {
 
         // * -- STARS --  * //
         this.stars.parseData()
+
+        // * -- POST PROCESSING -- * //
+        this.composer = new EffectComposer(this.renderer)
+        const renderPass = new RenderPass(AppScene.scene, AppScene.camera)
+        const effects = {
+            height: 720,
+            kernelSize: KernelSize.MEDIUM,
+            density: 0.96,
+            decay: 0.92,
+            weight: 10,
+            exposure: 0.54,
+            samples: 60,
+            clampMax: 1.0
+        }
+        const effectPass = new EffectPass(AppScene.camera, new GodRaysEffect(AppScene.camera, Planets.sun.lod.levels[0].object as THREE.Mesh, effects))
+        const lodLowEffectPass = new EffectPass(AppScene.camera, new GodRaysEffect(AppScene.camera, Planets.sun.lod.levels[1].object as THREE.Mesh, effects))
+        this.composer.addPass(renderPass)
+        this.composer.addPass(effectPass)
+        this.composer.addPass(lodLowEffectPass)
 
         // * -- CONTROLS -- * //
         Settings.lookAt = Planets.earth
@@ -235,6 +261,7 @@ class AppScene extends Component {
 
         this.renderScene()
         this.frameId = window.requestAnimationFrame(this.animate)
+        this.composer.render()
         TWEEN.update()
 
         this.statistics.end()
@@ -242,7 +269,7 @@ class AppScene extends Component {
 
     renderScene = () => {
         if (this.renderer && this.cssRenderer && AppScene.scene && AppScene.camera) {
-            this.renderer.render(AppScene.scene, AppScene.camera)
+            // this.renderer.render(AppScene.scene, AppScene.camera)
             this.cssRenderer.render(AppScene.scene, AppScene.camera)
         }
     }
