@@ -157,6 +157,8 @@ class AppScene extends Component {
         this.composer.addPass(renderPass)
         this.composer.addPass(effectPass)
         this.composer.addPass(lodLowEffectPass)
+        Planets.sun.realMesh.frustumCulled = false
+        Planets.sun.realMesh.matrixAutoUpdate = false
 
         // * -- CONTROLS -- * //
         Settings.lookAt = Planets.earth
