@@ -83,12 +83,17 @@ $search-width: 400px;
     // Scroll Behavior
     overflow-x: hidden;
     overflow-y: auto;
-    scrollbar-width: thin;
     padding-right: 6px;
+    
+    &::-webkit-scrollbar {
+        height: 0px;
+        width: 0px;
+    }
 
     &:hover {
         padding-right: 0px;
         overflow-y: overlay;
+        scrollbar-width: $scrollbar-width;
 
         &::-webkit-scrollbar {
             height: $scrollbar-width;

@@ -6,11 +6,36 @@
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
-import { DialogActions, DialogContent, DialogContentText, DialogTitle, ListItemButton, ListItemText } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, ListItemButton, ListItemText } from "@mui/material";
 import React from "react";
 import { Component } from "react";
 
-class LicenseDialog extends Component {
+interface LicenseDialogProps {
+    open: boolean
+    onClose: () => void
+}
+interface LicenseDialogState {
+    open: boolean
+}
+
+class LicenseDialog extends Component<LicenseDialogProps, LicenseDialogState> {
+    state: LicenseDialogState = {
+        open: false,
+    }
+
+    constructor(props: LicenseDialogProps) {
+        super(props)
+
+        this.onClose = this.onClose.bind(this)
+    }
+
+    componentDidMount(): void {
+        if (this.props.open) {
+            this.setState({
+                open: true
+            })
+        }
+    }
 
     listItem(text: string, subtitle?: string, url?: string) {
         return (
@@ -20,9 +45,20 @@ class LicenseDialog extends Component {
         )
     }
 
+    onClose() {
+        this.setState({
+            open: false
+        })
+        this.props.onClose()
+    }
+
     render() {
         return (
-            <div>
+            <Dialog
+                open={this.state.open}
+                onClose={this.props.onClose}
+                scroll='paper'
+            >
                 <DialogTitle>Licenses</DialogTitle>
                 <DialogContent dividers={true}>
                     <DialogContentText>
@@ -39,6 +75,7 @@ class LicenseDialog extends Component {
                         {this.listItem("Textures by Solar System Scope", "CC BY 4.0", "https://www.solarsystemscope.com/textures/")}
                         {this.listItem("Monthly Earth Images by NASA", "Public Domain", "https://visibleearth.nasa.gov/collection/1484/blue-marble")}
                         {this.listItem("High-res image of Io by USGS", "Public Domain", "https://pubs.usgs.gov/sim/3168/")}
+                        {this.listItem("Basic Earth Textures by Tom Patterson", "Public Domain", "https://www.shadedrelief.com/natural3")}
                         {this.listItem("Computing Planetary Positions by Paul Schlyter", null, "https://www.stjarnhimlen.se/comp/tutorial.html")}
                         {this.listItem("Textures by James Hastings-Trew", null, "https://planetpixelemporium.com/planets.html")}
                         {this.listItem("Solar System Data by Christophe", null, "https://api.le-systeme-solaire.net/en/")}
@@ -46,7 +83,10 @@ class LicenseDialog extends Component {
                         {/* * Licenses for images used in the wiki/info card can be found [here](https://github.com/fatihbalsoy/SolarSystem.3js/tree/master/src/data/generate_data.py). */}
                     </DialogContentText>
                 </DialogContent>
-            </div>
+                <DialogActions>
+                    <Button onClick={this.onClose}>Close</Button>
+                </DialogActions>
+            </Dialog>
         )
     }
 }
