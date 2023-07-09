@@ -30,6 +30,10 @@ class Planet {
     position: Vector3 = new Vector3(0, 0, 0)
     // Radius in KM
     radius: number
+    // Polar radius in km
+    polarRadius: number
+    // Equatorial radius in km
+    equatorialRadius: number
     // Orbital period in Earth days
     orbitalPeriod: number
     // Rotational period in Earth days
@@ -69,6 +73,8 @@ class Planet {
         this.type = obj.type
         this.mass = obj.mass.massValue * Math.pow(10, obj.mass.massExponent)
         this.radius = obj.meanRadius
+        this.polarRadius = obj.polarRadius
+        this.equatorialRadius = obj.equaRadius
         this.distance = obj.semimajorAxis
         this.orbitalPeriod = obj.sideralOrbit
         this.rotationalPeriod = obj.sideralRotation / 24

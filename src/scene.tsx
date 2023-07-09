@@ -42,13 +42,21 @@ import Ganymede from './objects/moons/jupiter_ganymede';
 import SceneCamera from './scene/camera'
 import SearchBar from './interface/search'
 import SceneLoadingManager from './scene/loading_manager'
+import dat, { GUI } from 'dat.gui'
+import SceneSurfaceCamera from './scene/surface_camera'
 
-// TODO: Preload textures to prevent lag during runtime
+type SurfaceCameraProperties = {
+    zoom: number
+    fov: number
+    altitude: number
+}
+
 class AppScene extends Component {
     private mount: HTMLDivElement
     private clock: THREE.Clock
     static scene: THREE.Scene
     static camera: SceneCamera
+    static surfaceCamera: SceneSurfaceCamera
     static controls: OrbitControls
     private renderer: THREE.WebGLRenderer
     private cssRenderer: CSS2DRenderer
@@ -62,6 +70,12 @@ class AppScene extends Component {
 
     private timer: NodeJS.Timeout;
 
+    static surfaceCameraProps: SurfaceCameraProperties = {
+        zoom: 1,
+        fov: 75,
+        altitude: 0.00001
+    }
+
     componentDidMount() {
         const width = this.mount?.clientWidth || 0
         const height = this.mount?.clientHeight || 0
@@ -69,6 +83,7 @@ class AppScene extends Component {
         this.clock = new THREE.Clock()
         AppScene.scene = new THREE.Scene()
         AppScene.camera = new SceneCamera(75, width / height, 0.0001, (60000000000 * Settings.distanceScale) * 5)
+        AppScene.surfaceCamera = new SceneSurfaceCamera(75, width / height, 0.00001, (60000000000 * Settings.distanceScale) * 5)
         AppScene.controls = new OrbitControls(AppScene.camera, this.mount)
         this.renderer = new THREE.WebGLRenderer({ antialias: true, depth: true })
         this.cssRenderer = new CSS2DRenderer()
@@ -80,6 +95,13 @@ class AppScene extends Component {
         this.stars = new Stars()
 
         AppScene.scene.add(AppScene.camera)
+        AppScene.scene.add(AppScene.surfaceCamera)
+        if (Settings.isDev) {
+            const gui = new dat.GUI()
+            gui.add(AppScene.surfaceCameraProps, 'zoom', 1, 1000)
+            gui.add(AppScene.surfaceCameraProps, 'fov', 0, 180)
+            gui.add(AppScene.surfaceCameraProps, 'altitude')
+        }
 
         // * -- RENDERERS --  * //
         this.renderer.setClearColor('#000000')
@@ -133,7 +155,7 @@ class AppScene extends Component {
         this.stars.parseData()
 
         // * -- CONTROLS -- * //
-        Settings.lookAt = Planets.earth
+        Settings.lookAt = Planets.sun
         AppScene.controls.enableDamping = true
         AppScene.controls.enablePan = false
         // AppScene.controls.maxDistance = (Planets.pluto.distance * Settings.distanceScale) * 3
@@ -192,6 +214,11 @@ class AppScene extends Component {
             AppScene.camera.aspect = width / height
             AppScene.camera.updateProjectionMatrix()
         }
+
+        if (AppScene.surfaceCamera) {
+            AppScene.surfaceCamera.aspect = width / height
+            AppScene.surfaceCamera.updateProjectionMatrix()
+        }
     }
 
     start = () => {
@@ -233,6 +260,12 @@ class AppScene extends Component {
         AppScene.controls.update()
         AppScene.camera.update()
 
+        const earthPos = Planets.earth.position
+        AppScene.surfaceCamera.position.set(earthPos.x, earthPos.y + Planets.earth.polarRadius * Settings.sizeScale + AppScene.surfaceCameraProps.altitude, earthPos.z)
+        AppScene.surfaceCamera.zoom = AppScene.surfaceCameraProps.zoom
+        AppScene.surfaceCamera.fov = AppScene.surfaceCameraProps.fov
+        AppScene.surfaceCamera.update()
+
         this.renderScene()
         this.frameId = window.requestAnimationFrame(this.animate)
         TWEEN.update()
@@ -241,9 +274,9 @@ class AppScene extends Component {
     }
 
     renderScene = () => {
-        if (this.renderer && this.cssRenderer && AppScene.scene && AppScene.camera) {
-            this.renderer.render(AppScene.scene, AppScene.camera)
-            this.cssRenderer.render(AppScene.scene, AppScene.camera)
+        if (this.renderer && this.cssRenderer && AppScene.scene && AppScene.camera && AppScene.surfaceCamera) {
+            this.renderer.render(AppScene.scene, AppScene.surfaceCamera)
+            this.cssRenderer.render(AppScene.scene, AppScene.surfaceCamera)
         }
     }
 
