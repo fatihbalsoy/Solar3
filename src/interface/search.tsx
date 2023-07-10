@@ -240,6 +240,7 @@ class SearchBar extends Component {
         if (planet) {
             Settings.lookAt = planet
             AppScene.camera.flyTo(planet, 2000)
+            AppScene.surfaceCamera.switchTo(planet)
         }
         SearchBar.hideSearchResults()
     }

@@ -81,9 +81,10 @@ class Planet {
         this.axialTilt = obj.axialTilt
         this.orbitalInclination = obj.inclination
         this.material = material
+
         const radiusScale = this.radius * Settings.sizeScale
-        const equatorialRadius = obj.equaRadius == 0 ? radiusScale : obj.equaRadius * Settings.sizeScale
-        const polarRadius = obj.polarRadius == 0 ? radiusScale : obj.polarRadius * Settings.sizeScale
+        const equatorialRadius = this.equatorialRadius == 0 ? radiusScale : this.equatorialRadius * Settings.sizeScale
+        const polarRadius = this.polarRadius == 0 ? radiusScale : this.polarRadius * Settings.sizeScale
 
         // LEVEL OF DETAIL //
         this.lod = new THREE.LOD()
@@ -91,9 +92,9 @@ class Planet {
         // const lowPolyGeometry = new SphereGeometry(radiusScale, 16, 16)
         // const lowResMaterial = new THREE.MeshBasicMaterial({ map: lowResTexture })
         // const lowResMesh = new THREE.Mesh(lowPolyGeometry, lowResMaterial)
-        // this.lod.addLevel(lowResMesh, 200 * this.radius * Settings.distanceScale) // 2mil * Settings.distanceScale
+        // this.lod.addLevel(lowResMesh, 314 * this.radius * Settings.distanceScale) // 3.14mil * Settings.distanceScale
 
-        const lowPoly0Geometry = new SphereGeometry(radiusScale, 4, 4)
+        const lowPoly0Geometry = new SphereGeometry(radiusScale, 16, 16)
         const lowRes0Mesh = new THREE.Mesh(lowPoly0Geometry)
         this.lod.addLevel(lowRes0Mesh, 314 * this.radius * Settings.distanceScale)
 

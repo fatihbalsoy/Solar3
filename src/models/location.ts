@@ -58,5 +58,9 @@ class AppLocation {
         const coords = geoPosition.coords
         this.init(coords.latitude, coords.longitude, coords.altitude)
     }
+
+    equals(to: AppLocation | null): boolean {
+        return to != null && this.latitude == to.latitude && this.longitude == to.longitude && this.altitude == to.altitude
+    }
 }
 export default AppLocation

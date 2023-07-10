@@ -55,6 +55,7 @@ class AppScene extends Component {
     private mount: HTMLDivElement
     private clock: THREE.Clock
     static scene: THREE.Scene
+    static currentCamera: THREE.Camera
     static camera: SceneCamera
     static surfaceCamera: SceneSurfaceCamera
     static controls: OrbitControls
@@ -72,7 +73,7 @@ class AppScene extends Component {
 
     static surfaceCameraProps: SurfaceCameraProperties = {
         zoom: 1,
-        fov: 75,
+        fov: 100,
         altitude: 0.00001
     }
 
@@ -83,7 +84,8 @@ class AppScene extends Component {
         this.clock = new THREE.Clock()
         AppScene.scene = new THREE.Scene()
         AppScene.camera = new SceneCamera(75, width / height, 0.0001, (60000000000 * Settings.distanceScale) * 5)
-        AppScene.surfaceCamera = new SceneSurfaceCamera(75, width / height, 0.00001, (60000000000 * Settings.distanceScale) * 5)
+        AppScene.surfaceCamera = new SceneSurfaceCamera(100, width / height, 0.0000001, (60000000000 * Settings.distanceScale) * 5)
+        AppScene.currentCamera = AppScene.surfaceCamera
         AppScene.controls = new OrbitControls(AppScene.camera, this.mount)
         this.renderer = new THREE.WebGLRenderer({ antialias: true, depth: true })
         this.cssRenderer = new CSS2DRenderer()
@@ -95,13 +97,6 @@ class AppScene extends Component {
         this.stars = new Stars()
 
         AppScene.scene.add(AppScene.camera)
-        AppScene.scene.add(AppScene.surfaceCamera)
-        if (Settings.isDev) {
-            const gui = new dat.GUI()
-            gui.add(AppScene.surfaceCameraProps, 'zoom', 1, 1000)
-            gui.add(AppScene.surfaceCameraProps, 'fov', 0, 180)
-            gui.add(AppScene.surfaceCameraProps, 'altitude')
-        }
 
         // * -- RENDERERS --  * //
         this.renderer.setClearColor('#000000')
@@ -155,12 +150,21 @@ class AppScene extends Component {
         this.stars.parseData()
 
         // * -- CONTROLS -- * //
-        Settings.lookAt = Planets.sun
+        Settings.lookAt = Planets.earth
         AppScene.controls.enableDamping = true
         AppScene.controls.enablePan = false
         // AppScene.controls.maxDistance = (Planets.pluto.distance * Settings.distanceScale) * 3
         AppScene.controls.target = Settings.lookAt.getPosition()
         // AppScene.controls.zoomSpeed
+
+        // * -- SURFACE CAMERA -- * //
+        if (Settings.isDev) {
+            const gui = new dat.GUI()
+            gui.add(AppScene.surfaceCameraProps, 'zoom', 1, 1000)
+            gui.add(AppScene.surfaceCameraProps, 'fov', 1, 179)
+            gui.add(AppScene.surfaceCameraProps, 'altitude')
+        }
+        AppScene.surfaceCamera.init(Settings.lookAt)
 
         // * -- GALAXY -- * //
         let galaxyRes = Settings.res2_8k[Settings.quality]
@@ -234,6 +238,10 @@ class AppScene extends Component {
     }
 
     calculatePositions(all: boolean = false) {
+        if (AppScene.currentCamera instanceof SceneSurfaceCamera) {
+            AppScene.surfaceCamera.planet.animate(true)
+        }
+
         if (all) {
             for (const key in Planets) {
                 const object: Planet = Planets[key];
@@ -247,7 +255,9 @@ class AppScene extends Component {
             Settings.lookAt.animate()
             Settings.lookAt.updateLabel(AppScene.camera)
         }
+
         Planets.moon.mesh.lookAt(Planets.earth.mesh.position)
+
         if (!AppScene.camera.isAnimating) {
             AppScene.controls.target = Settings.lookAt.getPosition()
         }
@@ -260,8 +270,6 @@ class AppScene extends Component {
         AppScene.controls.update()
         AppScene.camera.update()
 
-        const earthPos = Planets.earth.position
-        AppScene.surfaceCamera.position.set(earthPos.x, earthPos.y + Planets.earth.polarRadius * Settings.sizeScale + AppScene.surfaceCameraProps.altitude, earthPos.z)
         AppScene.surfaceCamera.zoom = AppScene.surfaceCameraProps.zoom
         AppScene.surfaceCamera.fov = AppScene.surfaceCameraProps.fov
         AppScene.surfaceCamera.update()
@@ -275,8 +283,8 @@ class AppScene extends Component {
 
     renderScene = () => {
         if (this.renderer && this.cssRenderer && AppScene.scene && AppScene.camera && AppScene.surfaceCamera) {
-            this.renderer.render(AppScene.scene, AppScene.surfaceCamera)
-            this.cssRenderer.render(AppScene.scene, AppScene.surfaceCamera)
+            this.renderer.render(AppScene.scene, AppScene.currentCamera)
+            this.cssRenderer.render(AppScene.scene, AppScene.currentCamera)
         }
     }
 
