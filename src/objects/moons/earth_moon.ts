@@ -12,6 +12,7 @@ import * as THREE from "three";
 import Planet from "../planet";
 import { Quality, Settings } from "../../settings";
 import AppScene from "../../scene";
+import SceneSurfaceCamera from "../../scene/surface_camera";
 
 class Moon extends Planet {
     constructor() {
@@ -52,7 +53,7 @@ class Moon extends Planet {
         let dist = this.getPosition().distanceTo(camera.position) / Settings.distanceScale
         if (dist < 4605000) {
             this.labelText.element.textContent = 'Moon'
-        } else {
+        } else if (!(AppScene.camera instanceof SceneSurfaceCamera)) {
             this.labelText.element.textContent = ''
         }
         this.updateLabelRemoveTarget(camera)

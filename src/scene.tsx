@@ -179,6 +179,7 @@ class AppScene extends Component {
         // * ---- * //
 
         window.addEventListener('resize', this.handleResize)
+        // window.addEventListener('keydown', this.handleKey, false)
 
         if (this.mount) {
             this.mount.appendChild(this.renderer.domElement)
@@ -192,6 +193,18 @@ class AppScene extends Component {
         this.start()
         AppScene.spaceCamera.animateFlyTo(Planets.earth, 0)
     }
+
+    // handleKey(event) {
+    //     console.log("HANDLEKEY")
+    //     if (event.keyCode == 75) {
+    //         console.log("K")
+    //         if (AppScene.camera instanceof SceneSpaceCamera) {
+    //             AppScene.camera.switchCamera(AppScene.surfaceCamera)
+    //         } else {
+    //             AppScene.camera.switchCamera(AppScene.spaceCamera)
+    //         }
+    //     }
+    // }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleResize)

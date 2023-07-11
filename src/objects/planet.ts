@@ -16,6 +16,8 @@ import { CSS2DObject } from "../modules/CSS2DRenderer";
 import { Orbit } from '../utils/orbit_points';
 import Planets from "./planets";
 import { ComponentEnum, angleBetweenZeroVectorForComponent, convertRotationMatrix3, convertRotationMatrix4 } from "../utils/utils";
+import AppScene from "../scene";
+import SceneSurfaceCamera from "../scene/surface_camera";
 
 class Planet {
     // ID
@@ -236,14 +238,16 @@ class Planet {
         this.labelText.element.textContent = this.name
         this.labelCircle.element.style.backgroundColor = 'white'
 
-        let removeInner = inner.includes(this.name.toLowerCase()) && dist > 2000000000
-        let removeOuter = outer.includes(this.name.toLowerCase()) && dist > 20000000000
+        if (!(AppScene.camera instanceof SceneSurfaceCamera)) {
+            let removeInner = inner.includes(this.name.toLowerCase()) && dist > 2000000000
+            let removeOuter = outer.includes(this.name.toLowerCase()) && dist > 20000000000
 
-        if (removeInner || removeOuter) {
-            this.labelText.element.textContent = ''
+            if (!(AppScene.camera instanceof SceneSurfaceCamera) && (removeInner || removeOuter)) {
+                this.labelText.element.textContent = ''
+            }
+
+            this.updateLabelRemoveTarget(camera)
         }
-
-        this.updateLabelRemoveTarget(camera)
         this.labelText.element.style.color = 'white'
     }
     updateLabelRemoveTarget(camera: THREE.Camera): void {
