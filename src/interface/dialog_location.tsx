@@ -189,7 +189,7 @@ class LocationDialog extends Component<LocationDialogProps, LocationDialogState>
                             }}
                             src={
                                 // TODO: How should this act if user is only setting for ra/dec,alt/az?
-                                //     : Have two separate locations in Settings?
+                                //     : Have two separate locations in Settings? Earth & Other Planets
                                 !Settings.cameraLocation ? "" : Settings.cameraLocation.id == "earth"
                                     ? "assets/images/textures/earth/2k/basic.jpeg"
                                     // TODO: These textures do not map with spherical coordinates
