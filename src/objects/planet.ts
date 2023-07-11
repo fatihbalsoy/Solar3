@@ -167,10 +167,8 @@ class Planet {
      * @param calledByTimer - whether the function is called by a timer. useful if calculating things every second or so.
      */
     animate(calledByTimer: boolean = false) {
-        // Since earth's rotation speed is not noticable, it will be calculated when called by a timer
-        const notMoonOrEarth = this.name !== "Moon" && this.name !== "Earth"
-        const isEarthAndCalledByTimer = this.name == "Earth" && calledByTimer
-        if (notMoonOrEarth || isEarthAndCalledByTimer) {
+        // Since the planet's rotation speed is not noticable, it will be calculated when called by a timer
+        if (calledByTimer && (this.name !== "Moon")) {
             this.rotate()
         }
 
@@ -183,12 +181,20 @@ class Planet {
         this.labelCircle.position.set(coordinates.x, coordinates.y, coordinates.z)
     }
 
+    lastMilliseconds = 0
     /**
      * Rotates the planet to match current rotation.
      * @param time - the time elapsed since start in seconds
-     */
+    */
     rotate() {
-        // this.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 1 / 10000)
+        // TODO: The in-game rotation is not yet accurate in relation to their real-life counterparts
+        const millisecondsSince1970 = Date.now()
+        const milliseconds = millisecondsSince1970 - this.lastMilliseconds
+        const rotPeriodMilliseconds = this.rotationalPeriod * 24 * 60 * 60 * 1000
+        const currentRadian = 2 * Math.PI * (milliseconds / rotPeriodMilliseconds)
+
+        this.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), currentRadian)
+        this.lastMilliseconds = millisecondsSince1970
     }
 
     /**
