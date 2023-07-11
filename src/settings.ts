@@ -25,6 +25,7 @@ export enum Quality {
 export class Settings {
     static isDev = process.env.NODE_ENV !== 'production'
     static lookAt: Planet | Star = Planets.sun // does not work well with stars
+    static cameraLocation: Planet
 
     // Geolocation
     static geolocation: AppLocation = localStorage.getItem('location')

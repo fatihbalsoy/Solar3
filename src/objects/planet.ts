@@ -371,6 +371,16 @@ class Planet {
      * Get a path to a planet's texture for the given quality
      * @param id the planet's identifier
      * @param quality the resolution of the texture
+     * @returns a path to the texture
+     */
+    getTexturePath(quality?: Quality, extension: string = "jpeg"): string {
+        return Planet.getTexturePath(this.id, quality, [], extension)
+    }
+
+    /**
+     * Get a path to a planet's texture for the given quality
+     * @param id the planet's identifier
+     * @param quality the resolution of the texture
      * @param args any additional suffixes applied to the texture (ex: saturn_rings, args = ["rings"])
      * @returns a path to the texture
      */

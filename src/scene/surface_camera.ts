@@ -22,9 +22,10 @@ import Settings from "../settings"
 import Star from "../objects/star"
 import Planets from "../objects/planets"
 import AppLocation from "../models/location"
+import SceneCamera from "./camera"
 
 // TODO: The planet's height and width segments must be extremely large to display the horizon as flat as possible
-class SceneSurfaceCamera extends THREE.PerspectiveCamera {
+class SceneSurfaceCamera extends SceneCamera {
     isAnimating: boolean = false
     lastGeolocation: AppLocation
     planet: Planet
@@ -32,8 +33,6 @@ class SceneSurfaceCamera extends THREE.PerspectiveCamera {
     init(planet: Planet) {
         this.planet = planet
         this.planet.realMesh.add(this)
-
-        Settings.dev_addAmbientLight()
 
         const geometry = new THREE.SphereGeometry(10 * Settings.sizeScale, 8, 8)
         const material = new THREE.MeshToonMaterial()
@@ -45,8 +44,10 @@ class SceneSurfaceCamera extends THREE.PerspectiveCamera {
 
     switchTo(planet: Planet) {
         this.planet.realMesh.remove(this)
+        AppScene.scene.remove(this)
         this.planet = planet
         this.planet.realMesh.add(this)
+        Settings.cameraLocation = planet
         this.update(true)
     }
 
@@ -99,27 +100,55 @@ class SceneSurfaceCamera extends THREE.PerspectiveCamera {
         this.updateProjectionMatrix()
     }
 
-    // TODO: Literal copy of SceneCamera.animateLookAt()
-    // TODO: Animate flyTo as well
-    animateLookAt(object: Planet | Star, duration: number) {
-        let camera = this
-        let nextPlanetCoords = object.position
-        let currentPlanetCoords = Settings.lookAt.position
-        let cameraLookCoords = { x: currentPlanetCoords.x, y: currentPlanetCoords.y, z: currentPlanetCoords.z }
+    lookAtOnUpdate(coords: { x: number, y: number, z: number }) {
+        this.lookAt(new THREE.Vector3(coords.x, coords.y, coords.z))
+    }
 
-        new TWEEN.Tween(cameraLookCoords)
-            .to(nextPlanetCoords)
+    animateFlyTo(planet: Planet, duration: number): void {
+        const newCamera = new SceneSurfaceCamera(this.fov, this.aspect, this.near, this.far)
+        newCamera.init(planet)
+        newCamera.update(true)
+        let newCameraCoords = planet.position.clone().add(newCamera.position)
+        let newCameraUp = newCamera.up
+
+        let camera = this
+        let cameraCoordsVec = this.planet.position.clone().add(camera.position)
+        let cameraCoords = { x: cameraCoordsVec.x, y: cameraCoordsVec.y, z: cameraCoordsVec.z }
+        let cameraUp = { x: camera.up.x, y: camera.up.y, z: camera.up.z }
+
+        this.planet.realMesh.remove(this)
+        AppScene.scene.add(this)
+        this.position.set(cameraCoords.x, cameraCoords.y, cameraCoords.z)
+
+        new TWEEN.Tween(cameraCoords)
+            .to(newCameraCoords)
             .duration(duration)
             .easing(TWEEN.Easing.Cubic.InOut)
             .onStart(() => {
                 this.isAnimating = true
-                Settings.lookAt = object
             })
             .onUpdate(() => {
-                this.lookAt(new THREE.Vector3(cameraLookCoords.x, cameraLookCoords.y, cameraLookCoords.z))
+                camera.position.set(cameraCoords.x, cameraCoords.y, cameraCoords.z)
             })
             .onComplete(() => {
                 this.isAnimating = false
+            })
+            .start()
+
+        new TWEEN.Tween(cameraUp)
+            .to(newCameraUp)
+            .duration(duration)
+            .easing(TWEEN.Easing.Cubic.InOut)
+            .onStart(() => {
+                this.isAnimating = true
+            })
+            .onUpdate(() => {
+                camera.up.set(cameraUp.x, cameraUp.y, cameraUp.z)
+            })
+            .onComplete(() => {
+                this.isAnimating = false
+                this.animateLookAt(this.planet, 2000)
+                this.switchTo(planet)
             })
             .start()
     }

@@ -13,7 +13,7 @@ import React from "react"
 import { Component } from "react"
 import { Vector2, Vector3 } from "three"
 import AppLocation from "../models/location"
-import Settings from "../settings"
+import Settings, { Quality } from "../settings"
 
 interface LocationDialogProps {
     open: boolean
@@ -187,7 +187,14 @@ class LocationDialog extends Component<LocationDialogProps, LocationDialogState>
                                 pointerEvents: 'none',
                                 userSelect: 'none'
                             }}
-                            src="assets/images/textures/earth/2k/basic.jpeg"
+                            src={
+                                // TODO: How should this act if user is only setting for ra/dec,alt/az?
+                                //     : Have two separate locations in Settings?
+                                !Settings.cameraLocation ? "" : Settings.cameraLocation.id == "earth"
+                                    ? "assets/images/textures/earth/2k/basic.jpeg"
+                                    // TODO: These textures do not map with spherical coordinates
+                                    : Settings.cameraLocation.getTexturePath(Quality.low)
+                            }
                         />
                         <Icon
                             style={{

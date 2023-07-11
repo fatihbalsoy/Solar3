@@ -69,7 +69,6 @@ class SearchBar extends Component {
         const solObject: Planet = Planets[s]
         if (solObject || star) {
             AppScene.camera.animateLookAt(solObject || star, 2000)
-            AppScene.surfaceCamera.animateLookAt(solObject || star, 2000)
         } else {
             // TODO: UI
             console.log("No such object:", s)
@@ -239,8 +238,7 @@ class SearchBar extends Component {
         let planet: Planet = Planets[this.state.value.toLowerCase()]
         if (planet) {
             Settings.lookAt = planet
-            AppScene.camera.flyTo(planet, 2000)
-            AppScene.surfaceCamera.switchTo(planet)
+            AppScene.camera.animateFlyTo(planet, 2000)
         }
         SearchBar.hideSearchResults()
     }

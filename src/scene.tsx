@@ -39,11 +39,12 @@ import Io from './objects/moons/jupiter_io';
 import Callisto from './objects/moons/jupiter_callisto';
 import Europa from './objects/moons/jupiter_europa';
 import Ganymede from './objects/moons/jupiter_ganymede';
-import SceneCamera from './scene/camera'
+import SceneSpaceCamera from './scene/space_camera'
 import SearchBar from './interface/search'
 import SceneLoadingManager from './scene/loading_manager'
 import dat, { GUI } from 'dat.gui'
 import SceneSurfaceCamera from './scene/surface_camera'
+import SceneCamera from './scene/camera'
 
 type SurfaceCameraProperties = {
     zoom: number
@@ -55,8 +56,8 @@ class AppScene extends Component {
     private mount: HTMLDivElement
     private clock: THREE.Clock
     static scene: THREE.Scene
-    static currentCamera: THREE.Camera
     static camera: SceneCamera
+    static spaceCamera: SceneSpaceCamera
     static surfaceCamera: SceneSurfaceCamera
     static controls: OrbitControls
     private renderer: THREE.WebGLRenderer
@@ -83,10 +84,10 @@ class AppScene extends Component {
 
         this.clock = new THREE.Clock()
         AppScene.scene = new THREE.Scene()
-        AppScene.camera = new SceneCamera(75, width / height, 0.0001, (60000000000 * Settings.distanceScale) * 5)
+        AppScene.spaceCamera = new SceneSpaceCamera(75, width / height, 0.0001, (60000000000 * Settings.distanceScale) * 5)
         AppScene.surfaceCamera = new SceneSurfaceCamera(100, width / height, 0.0000001, (60000000000 * Settings.distanceScale) * 5)
-        AppScene.currentCamera = AppScene.surfaceCamera
-        AppScene.controls = new OrbitControls(AppScene.camera, this.mount)
+        AppScene.camera = AppScene.surfaceCamera
+        AppScene.controls = new OrbitControls(AppScene.spaceCamera, this.mount)
         this.renderer = new THREE.WebGLRenderer({ antialias: true, depth: true })
         this.cssRenderer = new CSS2DRenderer()
         AppScene.loadingManager = new SceneLoadingManager()
@@ -96,7 +97,7 @@ class AppScene extends Component {
         this.orbits = new Orbits()
         this.stars = new Stars()
 
-        AppScene.scene.add(AppScene.camera)
+        AppScene.scene.add(AppScene.spaceCamera)
 
         // * -- RENDERERS --  * //
         this.renderer.setClearColor('#000000')
@@ -164,7 +165,8 @@ class AppScene extends Component {
             gui.add(AppScene.surfaceCameraProps, 'fov', 1, 179)
             gui.add(AppScene.surfaceCameraProps, 'altitude')
         }
-        AppScene.surfaceCamera.init(Settings.lookAt)
+        Settings.cameraLocation = Planets.earth
+        AppScene.surfaceCamera.init(Settings.cameraLocation)
 
         // * -- GALAXY -- * //
         let galaxyRes = Settings.res2_8k[Settings.quality]
@@ -188,7 +190,7 @@ class AppScene extends Component {
         }, 1000);
 
         this.start()
-        AppScene.camera.flyTo(Planets.earth, 0)
+        AppScene.spaceCamera.animateFlyTo(Planets.earth, 0)
     }
 
     componentWillUnmount() {
@@ -214,9 +216,9 @@ class AppScene extends Component {
             this.cssRenderer.setSize(width, height)
         }
 
-        if (AppScene.camera) {
-            AppScene.camera.aspect = width / height
-            AppScene.camera.updateProjectionMatrix()
+        if (AppScene.spaceCamera) {
+            AppScene.spaceCamera.aspect = width / height
+            AppScene.spaceCamera.updateProjectionMatrix()
         }
 
         if (AppScene.surfaceCamera) {
@@ -238,7 +240,7 @@ class AppScene extends Component {
     }
 
     calculatePositions(all: boolean = false) {
-        if (AppScene.currentCamera instanceof SceneSurfaceCamera) {
+        if (AppScene.camera instanceof SceneSurfaceCamera) {
             AppScene.surfaceCamera.planet.animate(true)
         }
 
@@ -258,7 +260,7 @@ class AppScene extends Component {
 
         Planets.moon.mesh.lookAt(Planets.earth.mesh.position)
 
-        if (!AppScene.camera.isAnimating) {
+        if (!AppScene.spaceCamera.isAnimating) {
             AppScene.controls.target = Settings.lookAt.getPosition()
         }
     }
@@ -272,7 +274,6 @@ class AppScene extends Component {
 
         AppScene.surfaceCamera.zoom = AppScene.surfaceCameraProps.zoom
         AppScene.surfaceCamera.fov = AppScene.surfaceCameraProps.fov
-        AppScene.surfaceCamera.update()
 
         this.renderScene()
         this.frameId = window.requestAnimationFrame(this.animate)
@@ -282,9 +283,9 @@ class AppScene extends Component {
     }
 
     renderScene = () => {
-        if (this.renderer && this.cssRenderer && AppScene.scene && AppScene.camera && AppScene.surfaceCamera) {
-            this.renderer.render(AppScene.scene, AppScene.currentCamera)
-            this.cssRenderer.render(AppScene.scene, AppScene.currentCamera)
+        if (this.renderer && this.cssRenderer && AppScene.scene && AppScene.spaceCamera && AppScene.surfaceCamera) {
+            this.renderer.render(AppScene.scene, AppScene.camera)
+            this.cssRenderer.render(AppScene.scene, AppScene.camera)
         }
     }
 
