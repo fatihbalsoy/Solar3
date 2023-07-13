@@ -56,8 +56,8 @@ class SceneSurfaceCamera extends SceneCamera {
 
         const material = new THREE.LineBasicMaterial({ color: 0xffffff });
         const points = [];
-        points.push(new THREE.Vector3(0, 0, 0));
-        points.push(new THREE.Vector3(x * 100000, y * 100000, z * 100000));
+        points.push(new THREE.Vector3(this.position.x, this.position.y, this.position.z));
+        points.push(new THREE.Vector3(this.position.x + x * 1000000, this.position.y + y * 1000000, this.position.z + z * 1000000));
         const geometry = new THREE.BufferGeometry().setFromPoints(points);
         const line = new THREE.Line(geometry, material);
         this.planet.realMesh.add(line);
@@ -89,6 +89,10 @@ class SceneSurfaceCamera extends SceneCamera {
             // Set coordinates as vector3 and scale
             const vector = new THREE.Vector3(rX, rY, rZ)
             vector.multiplyScalar(Settings.sizeScale)
+            const length = vector.length()
+            const newLength = altitude + length
+            vector.multiplyScalar(newLength)
+            vector.divideScalar(length)
 
             // Set camera's location in relation to Earth
             this.position.set(vector.x, vector.y, vector.z)
