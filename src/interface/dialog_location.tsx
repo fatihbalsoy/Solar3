@@ -14,7 +14,6 @@ import { Component } from "react"
 import { Vector2, Vector3 } from "three"
 import AppLocation from "../models/location"
 import Settings from "../settings"
-var elementResizeDetectorMaker = require("element-resize-detector");
 
 interface LocationDialogProps {
     open: boolean
