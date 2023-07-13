@@ -31,7 +31,7 @@ class SceneSurfaceCamera extends SceneCamera {
         const mesh = new THREE.Mesh(geometry, material)
         this.add(mesh)
 
-        Settings.dev_addAxesHelper(this, 10)
+        // Settings.dev_addAxesHelper(this, 10)
     }
 
     switchTo(planet: Planet) {
@@ -109,8 +109,8 @@ class SceneSurfaceCamera extends SceneCamera {
             this.up.set(nX, nZ, -nY)
 
             if (Settings.isDev) {
-                this.dev_addMesh(nX, nZ, -nY)
-                this.dev_addMesh(0, 0, 0)
+                // this.dev_addMesh(nX, nZ, -nY)
+                // this.dev_addMesh(0, 0, 0)
             }
         } else if (!Settings.geolocation) {
             this.position.set(0, this.planet.polarRadius * Settings.sizeScale + AppScene.surfaceCameraProps.altitude, 0)
