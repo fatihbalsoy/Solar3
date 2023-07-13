@@ -9,7 +9,7 @@
 import { mdiCrosshairsGps, mdiMapMarker } from "@mdi/js"
 import Icon from "@mdi/react"
 import { Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material"
-import React from "react"
+import React, { RefObject } from "react"
 import { Component } from "react"
 import { Vector2, Vector3 } from "three"
 import AppLocation from "../models/location"
@@ -24,6 +24,7 @@ interface LocationDialogProps {
 interface LocationDialogState {
     open: boolean
     locationLoading: boolean
+    locationField: { lat: string, lon: string, alt: string }
     location2D: Vector2
     locationGeo: AppLocation // lat, lon, alt
 }
@@ -32,6 +33,7 @@ class LocationDialog extends Component<LocationDialogProps, LocationDialogState>
     state: LocationDialogState = {
         open: false,
         locationLoading: false,
+        locationField: { lat: "", lon: "", alt: "" },
         location2D: new Vector2(0, 0),
         locationGeo: Settings.geolocation ?? new AppLocation(0, 0, 0),
     }
@@ -39,6 +41,8 @@ class LocationDialog extends Component<LocationDialogProps, LocationDialogState>
     topLeftLon = -180.0;
     bottomRightLat = -90.0;
     bottomRightLon = 180.0;
+
+    textureDomId = 'earth-texture'
 
     constructor(props: LocationDialogProps) {
         super(props)
@@ -57,6 +61,22 @@ class LocationDialog extends Component<LocationDialogProps, LocationDialogState>
                 open: true
             })
         }
+
+        if (Settings.geolocation) {
+            const loc = Settings.geolocation
+            this.setState({
+                locationField: {
+                    lat: loc.latitude.toString(),
+                    lon: loc.longitude.toString(),
+                    alt: loc.altitude.toString()
+                }
+            })
+        }
+
+        // if (Settings.geolocation) {
+        //     const coords = Settings.geolocation
+        //     this.setLocation(coords.latitude, coords.longitude, coords.altitude)
+        // }
     }
 
     componentDidUpdate(prevProps: Readonly<LocationDialogProps>, prevState: Readonly<LocationDialogState>, snapshot?: any): void {
@@ -79,20 +99,24 @@ class LocationDialog extends Component<LocationDialogProps, LocationDialogState>
         const lon = this.topLeftLon + (this.bottomRightLon - this.topLeftLon) * normalizedX;
 
         this.setState({
+            locationField: {
+                lat: lat.toString(), lon: lon.toString(),
+                alt: this.state.locationGeo.altitude.toString()
+            },
             location2D: new Vector2(x, y),
             locationGeo: new AppLocation(lat, lon, this.state.locationGeo.altitude)
         })
     }
 
     textureRect(): DOMRect {
-        return document.getElementById('earth-texture').getBoundingClientRect()
+        return document.getElementById(this.textureDomId).getBoundingClientRect()
     }
 
     setLocation(lat?: number, lon?: number, alt?: number) {
         var location2DLocal = this.state.location2D
         var locationGeoLocal = this.state.locationGeo
 
-        if (lat) {
+        if (lat || lat == 0) {
             const height = this.textureRect().height;
             const normalizedLat = (lat - this.bottomRightLat) / (this.topLeftLat - this.bottomRightLat)
 
@@ -101,7 +125,7 @@ class LocationDialog extends Component<LocationDialogProps, LocationDialogState>
             locationGeoLocal.latitude = lat
         }
 
-        if (lon) {
+        if (lon || lon == 0) {
             const width = this.textureRect().width;
             const normalizedLon = (lon - this.topLeftLon) / (this.bottomRightLon - this.topLeftLon)
 
@@ -110,7 +134,7 @@ class LocationDialog extends Component<LocationDialogProps, LocationDialogState>
             locationGeoLocal.longitude = lon
         }
 
-        if (alt) {
+        if (alt || alt == 0) {
             locationGeoLocal.altitude = alt
         }
 
@@ -121,18 +145,36 @@ class LocationDialog extends Component<LocationDialogProps, LocationDialogState>
     }
 
     changedLatitude(event) {
-        const lat = event.target.value
+        const lat = parseFloat(event.target.value)
         this.setLocation(lat, null, null)
+
+        var loc = this.state.locationField
+        loc.lat = event.target.value
+        this.setState({
+            locationField: loc
+        })
     }
 
     changedLongitude(event) {
-        const lon = event.target.value
+        const lon = parseFloat(event.target.value)
         this.setLocation(null, lon, null)
+
+        var loc = this.state.locationField
+        loc.lon = event.target.value
+        this.setState({
+            locationField: loc
+        })
     }
 
     changedAltitude(event) {
-        const alt = event.target.value
+        const alt = parseFloat(event.target.value)
         this.setLocation(null, null, alt)
+
+        var loc = this.state.locationField
+        loc.alt = event.target.value
+        this.setState({
+            locationField: loc
+        })
     }
 
     onLocationGetCoordinates() {
@@ -144,6 +186,11 @@ class LocationDialog extends Component<LocationDialogProps, LocationDialogState>
                 (value) => {
                     this.setState({
                         locationLoading: false,
+                        locationField: {
+                            lat: (value.coords.latitude ?? 0).toString(),
+                            lon: (value.coords.longitude ?? 0).toString(),
+                            alt: (value.coords.altitude ?? 0).toString()
+                        }
                     })
                     this.setLocation(value.coords.latitude, value.coords.longitude, value.coords.altitude)
                 }, (error) => {
@@ -180,7 +227,7 @@ class LocationDialog extends Component<LocationDialogProps, LocationDialogState>
             >
                 <DialogTitle>Location</DialogTitle>
                 <DialogContent sx={{ padding: 0 }} dividers={true}>
-                    <div id="earth-texture" onClick={this.clickedOnMap}>
+                    <div id={this.textureDomId} onClick={this.clickedOnMap}>
                         <img
                             style={{
                                 maxWidth: '100%',
@@ -209,9 +256,9 @@ class LocationDialog extends Component<LocationDialogProps, LocationDialogState>
                         />
                     </div>
                     <Box sx={{ '& > :not(style)': { m: 1, marginBottom: '12px', width: '25ch' }, display: 'flex', justifyContent: 'center' }}>
-                        <TextField label="Latitude" variant="outlined" value={this.state.locationGeo.latitude} onChange={this.changedLatitude} />
-                        <TextField label="Longitude" variant="outlined" value={this.state.locationGeo.longitude} onChange={this.changedLongitude} />
-                        <TextField label="Altitude" variant="outlined" value={this.state.locationGeo.altitude} onChange={this.changedAltitude} />
+                        <TextField label="Latitude" variant="outlined" value={this.state.locationField.lat} onChange={this.changedLatitude} />
+                        <TextField label="Longitude" variant="outlined" value={this.state.locationField.lon} onChange={this.changedLongitude} />
+                        <TextField label="Altitude" variant="outlined" value={this.state.locationField.alt} onChange={this.changedAltitude} />
                     </Box>
                 </DialogContent>
                 <DialogActions sx={{ display: 'flex' }}>
