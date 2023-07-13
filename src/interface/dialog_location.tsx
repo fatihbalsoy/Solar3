@@ -14,7 +14,6 @@ import { Component } from "react"
 import { Vector2, Vector3 } from "three"
 import AppLocation from "../models/location"
 import Settings from "../settings"
-var elementResizeDetectorMaker = require("element-resize-detector");
 
 interface LocationDialogProps {
     open: boolean
@@ -51,6 +50,7 @@ class LocationDialog extends Component<LocationDialogProps, LocationDialogState>
         this.clickedOnMap = this.clickedOnMap.bind(this)
         this.changedLatitude = this.changedLatitude.bind(this)
         this.changedLongitude = this.changedLongitude.bind(this)
+        this.changedAltitude = this.changedAltitude.bind(this)
         this.onLocationGetCoordinates = this.onLocationGetCoordinates.bind(this)
         this.onClose = this.onClose.bind(this)
         this.onSaveAndClose = this.onSaveAndClose.bind(this)
