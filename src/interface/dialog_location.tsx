@@ -50,6 +50,7 @@ class LocationDialog extends Component<LocationDialogProps, LocationDialogState>
         this.clickedOnMap = this.clickedOnMap.bind(this)
         this.changedLatitude = this.changedLatitude.bind(this)
         this.changedLongitude = this.changedLongitude.bind(this)
+        this.changedAltitude = this.changedAltitude.bind(this)
         this.onLocationGetCoordinates = this.onLocationGetCoordinates.bind(this)
         this.onClose = this.onClose.bind(this)
         this.onSaveAndClose = this.onSaveAndClose.bind(this)
