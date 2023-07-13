@@ -6,14 +6,6 @@
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
-/*
- *   camera.tsx
- *   solar-system-3js
- * 
- *   Created by Fatih Balsoy on 5/4/23
- *   Copyright © 2023 Fatih Balsoy. All rights reserved.
- */
-
 import * as THREE from "three"
 import * as TWEEN from '@tweenjs/tween.js'
 import Planet from "../objects/planet"
@@ -51,6 +43,26 @@ class SceneSurfaceCamera extends SceneCamera {
         this.update(true)
     }
 
+    dev_addMesh(x: number, y: number, z: number) {
+        let geo = new THREE.SphereGeometry(10 * Settings.sizeScale, 8, 8)
+        var color = new THREE.Color();
+        color.setHSL(Math.random(), 1, 0.5);
+        let mat = new THREE.MeshToonMaterial({
+            color: color
+        })
+        let mesh = new THREE.Mesh(geo, mat)
+        mesh.position.set(x, y, z)
+        this.planet.realMesh.add(mesh)
+
+        const material = new THREE.LineBasicMaterial({ color: 0xffffff });
+        const points = [];
+        points.push(new THREE.Vector3(0, 0, 0));
+        points.push(new THREE.Vector3(x * 100000, y * 100000, z * 100000));
+        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+        const line = new THREE.Line(geometry, material);
+        this.planet.realMesh.add(line);
+    }
+
     update(force: boolean = false) {
         // TODO: Setting back to current location doesn't set the camera's location to current location
         if (Settings.geolocation && (force || !Settings.geolocation.equals(this.lastGeolocation))) {
@@ -65,30 +77,37 @@ class SceneSurfaceCamera extends SceneCamera {
 
             // Convert geographic coordinates to cartesian coordinates
             // (Precomputed)
-            const x = Math.cos(lat) * Math.cos(lon)
-            const y = Math.cos(lat) * Math.sin(lon)
-            const z = Math.sin(lat)
+            const x = Math.cos(lat) * Math.cos(lon) * this.planet.equatorialRadius     // (2d flat)
+            const y = Math.cos(lat) * Math.sin(lon) * this.planet.equatorialRadius     // (2d flat)
+            const z = Math.sin(lat) * this.planet.polarRadius                          // (3d depth)
 
             // Coordinates in relation to texture and scene (universe)
-            const rX = +x // -y
-            const rY = +z
-            const rZ = -y // -x
+            const rX = +x                               // (2d flat)
+            const rY = +z                               // (3d depth)
+            const rZ = -y                               // (2d flat)
 
-            // Set coordinates as vector3, normalize, and set altitude
+            // Set coordinates as vector3 and scale
             const vector = new THREE.Vector3(rX, rY, rZ)
-            vector.normalize()
-            vector.multiplyScalar(this.planet.radius * Settings.sizeScale + altitude)
-
-            const equaRatio = this.planet.equatorialRadius == 0 ? 1 : this.planet.equatorialRadius / this.planet.radius
-            const polarRatio = this.planet.polarRadius == 0 ? 1 : this.planet.polarRadius / this.planet.radius
-            vector.multiply(new THREE.Vector3(equaRatio, polarRatio, equaRatio))
+            vector.multiplyScalar(Settings.sizeScale)
 
             // Set camera's location in relation to Earth
             this.position.set(vector.x, vector.y, vector.z)
 
-            // TODO: Up direction is not perpendicular (or normal) to planet's surface even though the axes helpers say otherwise
+            // Calculate normal vector to tangent plane for the point on the spheroid
+            // Spheroid equation: (x/q)^2 + (y/q)^2 + (z/p)^2 = 1
+            // Spheroid gradient: [2x/(q^2), 2y/(q^2), 2z/(p^2)]
+            const nX = 2 * x / this.planet.equatorialRadius ** 2
+            const nY = 2 * y / this.planet.equatorialRadius ** 2
+            const nZ = 2 * z / this.planet.polarRadius ** 2
+
+            // TODO: Will need to spend more time on how THREE.Camera.up works.
             // Set camera's up direction
-            this.up.set(vector.x, vector.y, vector.z)
+            this.up.set(nX, nZ, -nY)
+
+            if (Settings.isDev) {
+                this.dev_addMesh(nX, nZ, -nY)
+                this.dev_addMesh(0, 0, 0)
+            }
         } else if (!Settings.geolocation) {
             this.position.set(0, this.planet.polarRadius * Settings.sizeScale + AppScene.surfaceCameraProps.altitude, 0)
         }

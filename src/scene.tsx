@@ -284,6 +284,8 @@ class AppScene extends Component {
         this.calculatePositions()
         AppScene.controls.update()
         AppScene.camera.update()
+        // AppScene.spaceCamera.update()
+        // AppScene.surfaceCamera.update()
 
         AppScene.surfaceCamera.zoom = AppScene.surfaceCameraProps.zoom
         AppScene.surfaceCamera.fov = AppScene.surfaceCameraProps.fov
