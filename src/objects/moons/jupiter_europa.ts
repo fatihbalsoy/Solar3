@@ -8,14 +8,14 @@
 
 import * as THREE from "three"
 import JupiterMoon from "./jupiter_moon"
+import AppScene from "../../scene"
 
 class Europa extends JupiterMoon {
     constructor() {
         const id = "europa"
 
         //? -- TEXTURES -- ?//
-        const loadingManager = new THREE.LoadingManager()
-        const textureLoader = new THREE.TextureLoader(loadingManager)
+        const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
         const texture = textureLoader.load('assets/images/textures/europa/1k_europa.jpeg')
 
         //? -- MATERIAL -- ?//

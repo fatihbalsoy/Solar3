@@ -12,6 +12,7 @@
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
     "serve": "webpack serve",
+    "serve:prod": "npm run build:prod:all && serve -s dist/",
     "calculate-orbits": "npx ts-node -P ./scripts/tsconfig.json ./scripts/calculate_orbits.ts",
     "update-wiki": "python3 src/data/generate_data.py"
   },

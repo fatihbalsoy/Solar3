@@ -7,6 +7,11 @@
  */
 
 $max-width: 600px;
+$content-padding: 20px;
+$scrollbar-width: 6px;
+$search-margin: 10px;
+$search-height: 44px;
+$search-width: 400px;
 
 .search {
     position: relative;
@@ -15,25 +20,30 @@ $max-width: 600px;
     z-index: 99;
 }
 
+.search-bar-self {
+    height: $search-height;
+}
+
+// + .search-results
 .search-bar {
-    margin: 10px;
+    margin: $search-margin;
     padding: 2px 4px;
     display: flex;
     align-items: center;
-    width: 400px;
+    width: $search-width;
     position: fixed;
     box-sizing: border-box;
 
     @media (max-width: $max-width) {
         width: unset;
-        margin: 10px;
+        margin: $search-margin;
         right: 0;
         left: 0;
     }
 }
 
 .search-results {
-    margin-top: 65px !important;
+    margin-top: calc($search-margin * 2 + $search-height) !important;
 }
 
 .search-bar-icon-button {
@@ -48,20 +58,55 @@ $max-width: 600px;
 }
 
 .info-card {
-    /* margin: 10px;  */
-    /* display: ;  */
     align-items: center;
     width: 420px;
     height: 100%;
     position: fixed;
     box-sizing: border-box;
     align-items: start;
-    overflow-y: auto;
 
+    // Full-width on mobile
     @media (max-width: $max-width) {
         width: unset;
         right: 0;
         left: 0;
+    }
+
+    &:before {
+        content: "";
+        height: calc($search-height + $search-margin * 2 + 10px);
+        width: calc($search-width + $search-margin * 2);
+        position: fixed;
+        background: linear-gradient(to bottom, rgb(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
+    }
+
+    // Scroll Behavior
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-right: 6px;
+    
+    &::-webkit-scrollbar {
+        height: 0px;
+        width: 0px;
+    }
+
+    &:hover {
+        padding-right: 0px;
+        overflow-y: overlay;
+        scrollbar-width: $scrollbar-width;
+
+        &::-webkit-scrollbar {
+            height: $scrollbar-width;
+            width: $scrollbar-width;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #7a7a7a;
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: #2e2e2e;
+        }
     }
 }
 
@@ -76,10 +121,20 @@ $max-width: 600px;
 }
 
 .info-card-content {
-    padding: 10px 20px;
+    padding: $content-padding;
+    padding-top: 10px;
 }
 
 .info-card-close-button {
+    $close-btn-padding: 4px;
     position: absolute;
-    right: calc(20px - 4px);
+    right: calc($content-padding - $close-btn-padding);
+
+    .info-card:hover>.info-card-content>& {
+        right: calc($content-padding - $close-btn-padding - $scrollbar-width);
+    }
+}
+
+.info-card-update-text {
+    color: #7f7f7f !important;
 }

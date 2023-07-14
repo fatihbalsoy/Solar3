@@ -49,6 +49,7 @@ class Earth extends Planet {
 
         const cloudMaterial = new THREE.MeshStandardMaterial({
             map: earthCloudsTexture,
+            roughness: 0.5,
             transparent: true
         })
 
@@ -77,9 +78,10 @@ class Earth extends Planet {
         const lon = 0
 
         // Convert geographic coordinates to cartesian coordinates
-        const x = Math.cos(lat) * Math.cos(lon)
-        const y = Math.cos(lat) * Math.sin(lon)
-        const z = Math.sin(lat)
+        // (Precomputed)
+        const x = 1 * 1 // Math.cos(lat) * Math.cos(lon)
+        const y = 1 * 0 // Math.cos(lat) * Math.sin(lon)
+        const z = 0     // Math.sin(lat)
 
         // Coordinates in relation to texture and scene (universe)
         const rX = +x // -y
@@ -96,10 +98,14 @@ class Earth extends Planet {
         const rObZ = -obVec.x
 
         // Angle between real-time coordinates and texture coordinates
-        const angle = Math.acos((rX * rObX + rY * rObY + rZ * rObZ) / (Math.sqrt(Math.pow(rX, 2) + Math.pow(rY, 2) + Math.pow(rZ, 2)) * Math.sqrt(Math.pow(rObX, 2) + Math.pow(rObY, 2) + Math.pow(rObZ, 2))))
+        const numerator = rX * rObX + rY * rObY + rZ * rObZ
+        const textureVectorDistance = Math.sqrt(Math.pow(rX, 2) + Math.pow(rY, 2) + Math.pow(rZ, 2))
+        const realTimeVectorDistance = Math.sqrt(Math.pow(rObX, 2) + Math.pow(rObY, 2) + Math.pow(rObZ, 2))
+        const denominator = textureVectorDistance * realTimeVectorDistance
+        const angle = Math.acos(numerator / denominator)
 
         // Rotate mesh so the texture matches real-time rotation of planet
-        this.realMesh.rotation.set(0, -angle, 0)
+        this.realMesh.rotation.set(0, (rObZ > 0 ? -1 : +1) * angle, 0)
     }
 }
 

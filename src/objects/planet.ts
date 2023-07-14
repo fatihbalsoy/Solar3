@@ -10,10 +10,12 @@
 import { Material, Mesh, Object3D, SphereGeometry, Vector3 } from "three"
 import * as THREE from "three"
 import * as objectsJson from '../data/objects.json';
-import { HelioVector, Body, Vector, Rotation_EQJ_ECL, Equator, Observer, EquatorialCoordinates, HorizontalCoordinates, Horizon } from 'astronomy-engine';
+import { HelioVector, Body, Vector, Rotation_EQJ_ECL, Equator, Observer, EquatorialCoordinates, HorizontalCoordinates, Horizon, ConstellationInfo, Constellation, Rotation_EQD_ECL } from 'astronomy-engine';
 import { Quality, Settings, resFields } from "../settings";
 import { CSS2DObject } from "../modules/renderers/CSS2DRenderer";
 import { Orbit } from '../utils/orbit_points';
+import Planets from "./planets";
+import { ComponentEnum, angleBetweenZeroVectorForComponent, convertRotationMatrix3, convertRotationMatrix4 } from "../utils/utils";
 
 class Planet {
     // ID
@@ -74,6 +76,8 @@ class Planet {
         this.orbitalInclination = obj.inclination
         this.material = material
         const radiusScale = this.radius * Settings.sizeScale
+        const equatorialRadius = obj.equaRadius == 0 ? radiusScale : obj.equaRadius * Settings.sizeScale
+        const polarRadius = obj.polarRadius == 0 ? radiusScale : obj.polarRadius * Settings.sizeScale
 
         // LEVEL OF DETAIL //
         this.lod = new THREE.LOD()
@@ -89,7 +93,7 @@ class Planet {
 
         // GEOMETRY //
         this.geometry = geometry
-        this.geometry.scale(radiusScale, radiusScale, radiusScale)
+        this.geometry.scale(equatorialRadius, polarRadius, equatorialRadius)
 
         this.mesh = new THREE.Mesh()
         this.realMesh = new THREE.Mesh(geometry, material)
@@ -106,10 +110,27 @@ class Planet {
         }
 
         // ROTATE MESH //
+        // TODO: Implement axial tilt
         // const axisVector = new THREE.Vector3(0, 0, 1)
         // const axisRadians = this.axialTilt * Math.PI / 180
-        // this.realMesh.setRotationFromAxisAngle(axisVector, axisRadians)
-        // this.realMesh.setRotationFromMatrix(convertRotationMatrix4(Rotation_EQJ_ECL()))
+        const rotMat3 = Rotation_EQD_ECL(new Date())
+
+        const mat3 = convertRotationMatrix3(rotMat3)
+        const mat4 = convertRotationMatrix4(rotMat3)
+        this.realMesh.rotation.setFromRotationMatrix(mat4)
+
+        const angleX = angleBetweenZeroVectorForComponent(ComponentEnum.x, mat3)
+        const angleY = angleBetweenZeroVectorForComponent(ComponentEnum.y, mat3)
+        const angleZ = angleBetweenZeroVectorForComponent(ComponentEnum.z, mat3)
+        this.realMesh.rotation.setFromVector3(new Vector3(-angleX, -angleZ, -angleY))
+        for (let i = 0; i < children.length; i++) {
+            const element = children[i];
+            const rot = element.rotation
+            const x = rot.x - angleX
+            const y = rot.y - angleZ
+            const z = rot.z - angleY
+            element.rotation.setFromVector3(new Vector3(x, y, z))
+        }
 
         // LABEL //
         const circle = document.createElement('div')
@@ -134,11 +155,11 @@ class Planet {
 
     /**
      * Animates the planet by applying rotation and translation.
-     * @param time - the time elapsed since start in seconds
-     * @param parent - parent object to orbit around
+     * @param calledByTimer - whether the function is called by a timer. useful if calculating things every second or so.
      */
-    animate() {
-        if (this.name !== "Moon") {
+    animate(calledByTimer: boolean = false) {
+        // Since the planet's rotation speed is not noticable, it will be calculated when called by a timer
+        if (calledByTimer && (this.name !== "Moon")) {
             this.rotate()
         }
 
@@ -151,12 +172,20 @@ class Planet {
         this.labelCircle.position.set(coordinates.x, coordinates.y, coordinates.z)
     }
 
+    lastMilliseconds = 0
     /**
-     * Rotates the planet according to its rotational period.
+     * Rotates the planet to match current rotation.
      * @param time - the time elapsed since start in seconds
-     */
+    */
     rotate() {
-        // this.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), 1 / 10000)
+        // TODO: The in-game rotation is not yet accurate in relation to their real-life counterparts
+        const millisecondsSince1970 = Date.now()
+        const milliseconds = millisecondsSince1970 - this.lastMilliseconds
+        const rotPeriodMilliseconds = this.rotationalPeriod * 24 * 60 * 60 * 1000
+        const currentRadian = 2 * Math.PI * (milliseconds / rotPeriodMilliseconds)
+
+        this.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), currentRadian)
+        this.lastMilliseconds = millisecondsSince1970
     }
 
     /**
@@ -174,7 +203,15 @@ class Planet {
         const line = new THREE.Line(geometry, material)
         line.renderOrder = -1
 
-        scene.add(line);
+        const isMoon = this.id == "moon"
+        const isJupiterMoon = ["io", "ganymede", "europa", "callisto"].includes(this.id)
+        if (isMoon) {
+            Planets.earth.mesh.add(line)
+        } else if (isJupiterMoon) {
+            Planets.jupiter.mesh.add(line)
+        } else {
+            scene.add(line)
+        }
     }
 
     /**
@@ -201,18 +238,21 @@ class Planet {
         let removeInner = inner.includes(this.name.toLowerCase()) && dist > 2000000000
         let removeOuter = outer.includes(this.name.toLowerCase()) && dist > 20000000000
 
+        if (removeInner || removeOuter) {
+            this.labelText.element.textContent = ''
+        }
+
+        this.updateLabelRemoveTarget(camera)
+        this.labelText.element.style.color = 'white'
+    }
+    updateLabelRemoveTarget(camera: THREE.Camera): void {
         let removeTarget = (Settings.lookAt as Planet).id == this.id
             ? this.position.distanceTo(camera.position) / Settings.distanceScale < this.radius * 10
             : false;
-
-        if (removeInner || removeOuter || removeTarget) {
+        if (removeTarget) {
             this.labelText.element.textContent = ''
-            if (removeTarget) {
-                this.labelCircle.element.style.backgroundColor = 'transparent'
-            }
+            this.labelCircle.element.style.backgroundColor = 'transparent'
         }
-
-        this.labelText.element.style.color = 'white'
     }
 
     /**
@@ -306,6 +346,16 @@ class Planet {
         }
     }
 
+    getConstellation(date: Date, gpsLocation: GeolocationPosition): ConstellationInfo | null {
+        if (navigator.geolocation) {
+            let equator = this.getEquatorialCoordinates(date, gpsLocation)
+            let constellation = Constellation(equator.ra, equator.dec)
+            return constellation
+        } else {
+            return null
+        }
+    }
+
     /**
      * Get a value from the planet's JSON object provided by https://api.le-systeme-solaire.net/en/
      * @param key the key used to fetch a value from the json.
@@ -320,11 +370,14 @@ class Planet {
      * Get a path to a planet's texture for the given quality
      * @param id the planet's identifier
      * @param quality the resolution of the texture
+     * @param args any additional suffixes applied to the texture (ex: saturn_rings, args = ["rings"])
      * @returns a path to the texture
      */
-    static getTexturePath(id: string, quality: Quality = Settings.quality): string {
-        const venus = id == "venus" ? "_atmosphere" : ""
-        return "assets/images/textures/" + id + "/" + resFields[id][quality] + "_" + id + venus + ".jpeg"
+    static getTexturePath(id: string, quality?: Quality, args: string[] = [], extension: string = "jpeg"): string {
+        quality = quality ? quality : Settings.quality
+        const texture = id + (args.length > 0 ? "_" : "") + args.join("_")
+        const path = "assets/images/textures/" + id + "/" + resFields[texture][quality] + "_" + texture + "." + extension
+        return path
     }
 
     static comparator(a: Planet, b: Planet): number {

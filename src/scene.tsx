@@ -176,15 +176,17 @@ class AppScene extends Component {
             io: new Io(), callisto: new Callisto(), europa: new Europa(), ganymede: new Ganymede()
         })
         Planets.sun.light.shadow.camera.far = Planets.pluto.distance;
-        this.orbits.addOrbits((Planets.array() as Planet[]).slice(1, 10), AppScene.scene) // Mercury to Pluto
+        const plArray = Planets.array() as Planet[]
+        this.orbits.addOrbits(plArray.slice(1, plArray.length), AppScene.scene) // Mercury to Pluto
         for (const key in Planets) {
             const object = Planets[key] as Planet;
 
-            AppScene.scene.add(object.mesh)
             object.displayLabel(AppScene.scene)
 
             if (key !== "sun") {
                 Planets.sun.mesh.add(object.mesh)
+            } else {
+                AppScene.scene.add(object.mesh)
             }
         }
 
@@ -195,8 +197,9 @@ class AppScene extends Component {
         Settings.lookAt = Planets.earth
         AppScene.controls.enableDamping = true
         AppScene.controls.enablePan = false
-        AppScene.controls.maxDistance = (Planets.pluto.distance * Settings.distanceScale) * 3
+        // AppScene.controls.maxDistance = (Planets.pluto.distance * Settings.distanceScale) * 3
         AppScene.controls.target = Settings.lookAt.getPosition()
+        // AppScene.controls.zoomSpeed
 
         // * -- GALAXY -- * //
         // let galaxyRes = Settings.res2_8k[Settings.quality]
@@ -263,7 +266,7 @@ class AppScene extends Component {
         if (all) {
             for (const key in Planets) {
                 const object: Planet = Planets[key];
-                object.animate()
+                object.animate(true)
                 object.updateLabel(AppScene.camera)
             }
         } else if (Settings.lookAt instanceof Planet) {
@@ -274,7 +277,9 @@ class AppScene extends Component {
             Settings.lookAt.updateLabel(AppScene.camera)
         }
         Planets.moon.mesh.lookAt(Planets.earth.mesh.position)
-        AppScene.controls.target = Settings.lookAt.getPosition()
+        if (!AppScene.camera.isAnimating) {
+            AppScene.controls.target = Settings.lookAt.getPosition()
+        }
     }
 
     animate = () => {
@@ -283,6 +288,7 @@ class AppScene extends Component {
         this.calculatePositions()
         ThreeMeshUI.update()
         AppScene.controls.update()
+        AppScene.camera.update()
 
         this.renderScene()
         TWEEN.update()
