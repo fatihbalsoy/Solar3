@@ -35,6 +35,11 @@ class Mars extends Planet {
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
         super(id, [material], geometry, lowTexture);
+
+        // Rotate mesh so the surface aligns with the real-life counterpart (without time dilation)
+        // Angle Reference: Stellarium (Approx)
+        const radians = 220 * Math.PI / 180
+        this.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), radians)
     }
 }
 
