@@ -45,6 +45,9 @@ import SceneLoadingManager from './scene/loading_manager'
 import dat, { GUI } from 'dat.gui'
 import SceneSurfaceCamera from './scene/surface_camera'
 import SceneCamera from './scene/camera'
+import CameraControls from "camera-controls"
+
+CameraControls.install({ THREE: THREE })
 
 type SurfaceCameraProperties = {
     zoom: number
@@ -60,6 +63,7 @@ class AppScene extends Component {
     static spaceCamera: SceneSpaceCamera
     static surfaceCamera: SceneSurfaceCamera
     static controls: OrbitControls
+    static fpvControls: CameraControls
     private renderer: THREE.WebGLRenderer
     private cssRenderer: CSS2DRenderer
     private frameId: number
@@ -88,6 +92,7 @@ class AppScene extends Component {
         AppScene.surfaceCamera = new SceneSurfaceCamera(100, width / height, 0.0000001, (60000000000 * Settings.distanceScale) * 5)
         AppScene.camera = AppScene.surfaceCamera
         AppScene.controls = new OrbitControls(AppScene.spaceCamera, this.mount)
+        AppScene.fpvControls = new CameraControls(AppScene.surfaceCamera, this.mount)
         this.renderer = new THREE.WebGLRenderer({ antialias: true, depth: true })
         this.cssRenderer = new CSS2DRenderer()
         AppScene.loadingManager = new SceneLoadingManager()
@@ -157,6 +162,14 @@ class AppScene extends Component {
         // AppScene.controls.maxDistance = (Planets.pluto.distance * Settings.distanceScale) * 3
         AppScene.controls.target = Settings.lookAt.getPosition()
         // AppScene.controls.zoomSpeed
+
+        AppScene.fpvControls.minDistance = AppScene.fpvControls.maxDistance = 1;
+        AppScene.fpvControls.azimuthRotateSpeed = - 5; // negative value to invert rotation direction
+        AppScene.fpvControls.polarRotateSpeed = - 5; // negative value to invert rotation direction
+        AppScene.fpvControls.truckSpeed = 10;
+        AppScene.fpvControls.mouseButtons.wheel = CameraControls.ACTION.ZOOM;
+        AppScene.fpvControls.touches.two = CameraControls.ACTION.TOUCH_ZOOM_TRUCK;
+        AppScene.fpvControls.saveState();
 
         // * -- SURFACE CAMERA -- * //
         if (Settings.isDev) {
@@ -280,25 +293,30 @@ class AppScene extends Component {
 
     animate = () => {
         this.statistics.begin()
+        const delta = this.clock.getDelta();
+        const elapsed = this.clock.getElapsedTime();
 
         this.calculatePositions()
         AppScene.controls.update()
-        AppScene.camera.update()
+        const updated = AppScene.fpvControls.update(delta)
+        // AppScene.camera.update()
         // AppScene.spaceCamera.update()
         // AppScene.surfaceCamera.update()
 
-        AppScene.surfaceCamera.zoom = AppScene.surfaceCameraProps.zoom
-        AppScene.surfaceCamera.fov = AppScene.surfaceCameraProps.fov
+        // AppScene.fpvControls.zoomTo(AppScene.surfaceCameraProps.zoom, false)
+        // AppScene.surfaceCamera.fov = AppScene.surfaceCameraProps.fov
 
-        this.renderScene()
         this.frameId = window.requestAnimationFrame(this.animate)
+        if (updated) {
+            this.renderScene()
+        }
         TWEEN.update()
 
         this.statistics.end()
     }
 
     renderScene = () => {
-        if (this.renderer && this.cssRenderer && AppScene.scene && AppScene.spaceCamera && AppScene.surfaceCamera) {
+        if (this.renderer && this.cssRenderer && AppScene.scene && AppScene.camera) {
             this.renderer.render(AppScene.scene, AppScene.camera)
             this.cssRenderer.render(AppScene.scene, AppScene.camera)
         }

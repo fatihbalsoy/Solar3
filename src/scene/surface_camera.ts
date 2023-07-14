@@ -95,7 +95,8 @@ class SceneSurfaceCamera extends SceneCamera {
             vector.divideScalar(length)
 
             // Set camera's location in relation to Earth
-            this.position.set(vector.x, vector.y, vector.z)
+            // this.position.set(vector.x, vector.y, vector.z)
+            AppScene.fpvControls.setPosition(vector.x, vector.y, vector.z)
 
             // Calculate normal vector to tangent plane for the point on the spheroid
             // Spheroid equation: (x/q)^2 + (y/q)^2 + (z/p)^2 = 1
@@ -107,6 +108,7 @@ class SceneSurfaceCamera extends SceneCamera {
             // TODO: Will need to spend more time on how THREE.Camera.up works.
             // Set camera's up direction
             this.up.set(nX, nZ, -nY)
+            AppScene.fpvControls.applyCameraUp()
 
             if (Settings.isDev) {
                 // this.dev_addMesh(nX, nZ, -nY)
@@ -117,14 +119,16 @@ class SceneSurfaceCamera extends SceneCamera {
         }
 
         if (!this.isAnimating) {
-            this.lookAt(Settings.lookAt.position)
+            // this.lookAt(Settings.lookAt.position)
         }
 
-        this.updateProjectionMatrix()
+        // this.updateProjectionMatrix()
     }
 
     lookAtOnUpdate(coords: { x: number, y: number, z: number }) {
-        this.lookAt(new THREE.Vector3(coords.x, coords.y, coords.z))
+        // this.lookAt(new THREE.Vector3(coords.x, coords.y, coords.z))
+        // const p = this.position
+        // AppScene.fpvControls.setLookAt(p.x, p.y, p.z, coords.x, coords.y, coords.z, false)
     }
 
     animateFlyTo(planet: Planet, duration: number): void {
@@ -151,7 +155,8 @@ class SceneSurfaceCamera extends SceneCamera {
                 this.isAnimating = true
             })
             .onUpdate(() => {
-                camera.position.set(cameraCoords.x, cameraCoords.y, cameraCoords.z)
+                // camera.position.set(cameraCoords.x, cameraCoords.y, cameraCoords.z)
+                AppScene.fpvControls.setPosition(cameraCoords.x, cameraCoords.y, cameraCoords.z, false)
             })
             .onComplete(() => {
                 this.isAnimating = false

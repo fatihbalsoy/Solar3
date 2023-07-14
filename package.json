@@ -26,6 +26,7 @@
     "@tweenjs/tween.js": "^20.0.3",
     "@types/three": "^0.148.0",
     "astronomy-engine": "^2.1.17",
+    "camera-controls": "^2.7.0",
     "os-browserify": "^0.3.0",
     "platform": "^1.3.6",
     "react": "^18.2.0",
