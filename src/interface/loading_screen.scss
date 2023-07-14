@@ -1,0 +1,38 @@
+/*
+ *   loading_screen.scss
+ *   solar-system-3js
+ * 
+ *   Created by Fatih Balsoy on 6/10/23
+ *   Copyright © 2023 Fatih Balsoy. All rights reserved.
+ */
+
+#loading-screen {
+    z-index: 99;
+    position: absolute;
+    transition: opacity 1s;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.loading-screen-image {
+    object-fit: cover;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.loading-screen-content {
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+.loading-screen-title {
+    color: white;
+    font-size: 5vw;
+}

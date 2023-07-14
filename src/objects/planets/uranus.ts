@@ -12,6 +12,7 @@ import * as THREE from "three";
 import Earth from "./earth";
 import Planet from "../planet";
 import { Quality, Settings } from "../../settings";
+import AppScene from "../../scene";
 
 class Uranus extends Planet {
 
@@ -19,8 +20,7 @@ class Uranus extends Planet {
         const id = "uranus"
 
         //? -- TEXTURES -- ?//
-        const loadingManager = new THREE.LoadingManager()
-        const textureLoader = new THREE.TextureLoader(loadingManager)
+        const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
         const texture = textureLoader.load(Planet.getTexturePath(id))
 
         //? -- MATERIAL -- ?//

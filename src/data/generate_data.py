@@ -13,64 +13,154 @@ wiki_corrections = {
 }
 photo_credits = {
     'sun': {
-        'cc': 'Unsplash',
-        'by': 'NASA'
+        'wiki': {
+            'cc': 'Unsplash',
+            'by': 'NASA'
+        },
+        'texture': {
+            'cc': 'None',
+            'by': 'None'
+        }
     },
     'mercury': {
-        'cc': 'Unsplash',
-        'by': 'NASA'
+        'wiki': {
+            'cc': 'Unsplash',
+            'by': 'NASA'
+        },
+        'texture': {
+            'cc': 'CC BY 4.0',
+            'by': 'Solar System Scope'
+        }
     },
     'venus': {
-        'cc': 'Public Domain',
-        'by': 'NASA/JPL-Caltech'
+        'wiki': {
+            'cc': 'Public Domain',
+            'by': 'NASA/JPL-Caltech'
+        },
+        'texture': {
+            'cc': 'CC BY 4.0',
+            'by': 'Solar System Scope'
+        }
     },
     'earth': {
-        'cc': 'Unsplash',
-        'by': 'ANIRUDH'
+        'wiki': {
+            'cc': 'Unsplash',
+            'by': 'ANIRUDH'
+        },
+        'texture': {
+            'cc': 'Public Domain',
+            'by': 'NASA Blue Marble / MODIS'
+        }
     },
     'moon': {
-        'cc': 'Unsplash',
-        'by': 'NASA'
+        'wiki': {
+            'cc': 'Unsplash',
+            'by': 'NASA'
+        },
+        'texture': {
+            'cc': 'CC BY 4.0',
+            'by': 'Solar System Scope'
+        }
     },
     'mars': {
-        'cc': 'Unsplash',
-        'by': 'Planet Volumes'
+        'wiki': {
+            'cc': 'Unsplash',
+            'by': 'Planet Volumes'
+        },
+        'texture': {
+            'cc': 'CC BY 4.0',
+            'by': 'Solar System Scope'
+        }
     },
     'jupiter': {
-        'cc': 'Unsplash',
-        'by': 'Planet Volumes'
+        'wiki': {
+            'cc': 'Unsplash',
+            'by': 'Planet Volumes'
+        },
+        'texture': {
+            'cc': 'CC BY 4.0',
+            'by': 'Solar System Scope'
+        }
     },
     'ganymede': {
-        'cc': 'CC BY 2.0',
-        'by': 'NASA/JPL-Caltech/SwRI/MSSS/Kevin M. Gill'
+        'wiki': {
+            'cc': 'CC BY 2.0',
+            'by': 'NASA/JPL-Caltech/SwRI/MSSS/Kevin M. Gill'
+        },
+        'texture': {
+            'cc': 'GPL v2.0',
+            'by': 'Stellarium'
+        }
     },
     'europa': {
-        'cc': 'CC BY 2.0',
-        'by': 'NASA/JPL-Caltech/SwRI/MSSS/Kevin M. Gill'
+        'wiki': {
+            'cc': 'CC BY 2.0',
+            'by': 'NASA/JPL-Caltech/SwRI/MSSS/Kevin M. Gill'
+        },
+        'texture': {
+            'cc': 'GPL v2.0',
+            'by': 'Stellarium'
+        }
     },
     'callisto': {
-        'cc': 'CC BY 2.0',
-        'by': 'NASA/JPL-Caltech/Kevin M. Gill'
+        'wiki': {
+            'cc': 'CC BY 2.0',
+            'by': 'NASA/JPL-Caltech/Kevin M. Gill'
+        },
+        'texture': {
+            'cc': 'GPL v2.0',
+            'by': 'Stellarium'
+        }
     },
     'io': {
-        'cc': 'Public Domain',
-        'by': 'NASA / JPL / University of Arizona'
+        'wiki': {
+            'cc': 'Public Domain',
+            'by': 'NASA / JPL / University of Arizona'
+        },
+        'texture': {
+            'cc': 'Public Domain',
+            'by': 'USGS'
+        }
     },
     'saturn': {
-        'cc': 'Unsplash',
-        'by': 'NASA'
+        'wiki': {
+            'cc': 'Unsplash',
+            'by': 'NASA'
+        },
+        'texture': {
+            'cc': 'CC BY 4.0',
+            'by': 'Solar System Scope'
+        }
     },
     'uranus': {
-        'cc': 'Unsplash',
-        'by': 'Planet Volumes'
+        'wiki': {
+            'cc': 'Unsplash',
+            'by': 'Planet Volumes'
+        },
+        'texture': {
+            'cc': 'CC BY 4.0',
+            'by': 'Solar System Scope'
+        }
     },
     'neptune': {
-        'cc': 'Unsplash',
-        'by': 'Planet Volumes'
+        'wiki': {
+            'cc': 'Unsplash',
+            'by': 'Planet Volumes'
+        },
+        'texture': {
+            'cc': 'CC BY 4.0',
+            'by': 'Solar System Scope'
+        }
     },
     'pluto': {
-        'cc': 'Unsplash',
-        'by': 'NASA'
+        'wiki': {
+            'cc': 'Unsplash',
+            'by': 'NASA'
+        },
+        'texture': {
+            'cc': 'CC BY 4.0',
+            'by': 'Solar System Scope'
+        }
     }
 }
 types = {

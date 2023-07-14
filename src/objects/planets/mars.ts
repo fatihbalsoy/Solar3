@@ -11,6 +11,7 @@
 import * as THREE from "three";
 import Planet from "../planet";
 import { Quality, Settings } from "../../settings";
+import AppScene from "../../scene";
 
 class Mars extends Planet {
 
@@ -18,22 +19,27 @@ class Mars extends Planet {
         const id = "mars"
 
         //? -- TEXTURES -- ?//
-        const loadingManager = new THREE.LoadingManager()
-        const textureLoader = new THREE.TextureLoader(loadingManager)
+        const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
         const texture = textureLoader.load(Planet.getTexturePath(id))
         const lowTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
+        // TODO: The resolution of this normal map is too low.
         const normalTexture = textureLoader.load('assets/images/textures/mars/1k_mars_normal.jpeg')
 
         //? -- MATERIAL -- ?//
         const material = new THREE.MeshStandardMaterial()
         material.map = texture
-        material.normalMap = normalTexture
+        // material.normalMap = normalTexture
 
         //? -- GEOMETRY -- ?//
         const geometry = new THREE.SphereGeometry(1, 64, 64)
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
         super(id, [material], geometry, lowTexture);
+
+        // Rotate mesh so the surface aligns with the real-life counterpart (without time dilation)
+        // Angle Reference: Stellarium (Approx)
+        const radians = 220 * Math.PI / 180
+        this.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), radians)
     }
 }
 

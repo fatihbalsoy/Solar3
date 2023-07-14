@@ -10,14 +10,14 @@
 import * as THREE from "three";
 import Planet from "../planet";
 import { Quality, Settings } from "../../settings";
+import AppScene from "../../scene";
 
 class Mercury extends Planet {
     constructor() {
         const id = "mercury"
 
         //? -- TEXTURES -- ?//
-        const loadingManager = new THREE.LoadingManager()
-        const textureLoader = new THREE.TextureLoader(loadingManager)
+        const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
         const texture = textureLoader.load(Planet.getTexturePath(id))
         const lowResTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
 

@@ -6,36 +6,61 @@
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
-import { mdiClose, mdiEarth, mdiMagnify, mdiRocketLaunch, mdiStarFourPoints, mdiStarFourPointsSmall, mdiTelescope, mdiWeb } from "@mdi/js";
+import { mdiClose, mdiEarth, mdiMagnify, mdiMenu, mdiRocketLaunch, mdiStarFourPoints, mdiStarFourPointsSmall, mdiTelescope, mdiWeb } from "@mdi/js";
 import Icon from "@mdi/react";
-import { Divider, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Tooltip } from "@mui/material";
-import React from "react";
-import { Component } from "react";
+import { Button, Divider, Drawer, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, SwipeableDrawer, Tooltip } from "@mui/material";
+import React, { Component } from "react";
 import Stars from "../objects/stars";
 import { Settings } from "../settings";
 import Planet from "../objects/planet";
 import Planets from "../objects/planets";
-import './search.css';
+import './search.scss';
 import { Star } from "../objects/star";
 import AppScene from "../scene";
 import * as wikiJson from '../data/wiki.json';
+import * as objectsJson from '../data/objects.json';
+import { ConstellationInfo, EquatorialCoordinates, HorizontalCoordinates } from "astronomy-engine";
+import { convertHourToHMS } from "../utils/utils";
+import Crosshair from "./crosshair";
+import DrawerContent from "./drawer";
+import LocationDialog from "./dialog_location";
+import AppLocation from "../models/location";
 
 class SearchBar extends Component {
     state = {
         value: '',
         showingInfoCard: false,
         results: [] as number[],
+        drawerOpen: false,
+        locationDialogOpen: false,
+        locationUpdater: 0
     }
+    interval: NodeJS.Timer
 
     constructor(props: {}) {
         super(props);
 
         this.handleChange = this.handleChange.bind(this);
         this.onKeyDown = this.onKeyDown.bind(this);
+
         this.onClickTelescopeIcon = this.onClickTelescopeIcon.bind(this);
         this.onClickFlyIcon = this.onClickFlyIcon.bind(this);
         this.onClickSearchResult = this.onClickSearchResult.bind(this)
         this.onClickSearchBar = this.onClickSearchBar.bind(this)
+
+        this.onMenuOpen = this.onMenuOpen.bind(this)
+        this.onMenuClose = this.onMenuClose.bind(this)
+
+        this.onLocationDialogOpen = this.onLocationDialogOpen.bind(this)
+        this.onLocationDialogClose = this.onLocationDialogClose.bind(this)
+        this.onLocationSave = this.onLocationSave.bind(this)
+    }
+
+    componentDidMount() {
+        this.interval = setInterval(() => this.setState({ time: Date.now() }), 333);
+    }
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     searchAndLookAt(s: string) {
@@ -43,7 +68,7 @@ class SearchBar extends Component {
         const star: Star = Stars.indexedDatabase[s]
         const solObject: Planet = Planets[s]
         if (solObject || star) {
-            Settings.lookAt = solObject || star
+            AppScene.camera.animateLookAt(solObject || star, 2000)
         } else {
             // TODO: UI
             console.log("No such object:", s)
@@ -74,6 +99,134 @@ class SearchBar extends Component {
         if (e.key == "Enter") {
             this.searchAndLookAt(this.state.value)
         }
+    }
+
+    padding(p: number = 10) {
+        return <div style={{ height: p.toString() + "px" }}></div>
+    }
+
+    planetPositionComponent() {
+        const setLocationButton =
+            <Button onClick={this.onLocationDialogOpen} variant="outlined">Set Location</Button>
+
+        // Planet is NOT supported //
+        let not_supported = ["earth", "io", "europa", "ganymede", "callisto"]
+        if (!navigator.geolocation ||
+            (Settings.lookAt as Planet && not_supported.includes((Settings.lookAt as Planet).id))) {
+            return <div></div>
+        }
+
+        // Planet IS supported //
+        // - Needs Location Setup - //
+        const locationNeedsSetup = (
+            <div>
+                {this.padding(15)}
+                {setLocationButton}
+                {this.padding(15)}
+                <p>
+                    To provide accurate planet information based on your chosen location and
+                    deliver a personalized experience, the app requires your location. This
+                    allows it to calculate real-time celestial coordinates like RA, Dec, Azimuth,
+                    and Altitude for the planet you are viewing. You can choose your location
+                    by pressing a location on the map, manually inputting coordinates, or
+                    automatically fetching it.
+                </p>
+            </div>
+        )
+
+        // - Has Location Permissions -
+        var equatorialCoords: EquatorialCoordinates = null
+        var horizontalCoords: HorizontalCoordinates = null
+        var constellationInfo: ConstellationInfo = null
+        if (Settings.geolocation && Settings.lookAt as Planet) {
+            let planet = Settings.lookAt as Planet
+            let date = new Date()
+            let pos = Settings.geolocation.toGeolocationPosition()
+            equatorialCoords = planet.getEquatorialCoordinates(date, pos)
+            horizontalCoords = planet.getHorizontalCoordinates(date, pos)
+            constellationInfo = planet.getConstellation(date, pos)
+        }
+        const locationIsSet = (
+            <div>
+                <p>Right Ascension: {equatorialCoords ? convertHourToHMS(equatorialCoords.ra, 1) : "Loading"}</p>
+                <p>Declination: {equatorialCoords ? equatorialCoords.dec.toFixed(4) : "Loading"}°</p>
+                {this.padding()}
+                <p>Azimuth: {horizontalCoords ? horizontalCoords.azimuth.toFixed(4) + "°" : "Loading"}</p>
+                <p>Altitude: {horizontalCoords ? horizontalCoords.altitude.toFixed(4) + "°" : "Loading"}</p>
+                {this.padding()}
+                <p>Constellation: {constellationInfo ? constellationInfo.name : "Loading"}</p>
+                {this.padding()}
+                {setLocationButton}
+            </div>
+        )
+
+        const locationSupported = (
+            <div>
+                <h3>Position</h3>
+                {
+                    Settings.geolocation
+                        ? locationIsSet
+                        : locationNeedsSetup
+                }
+            </div>
+        )
+
+        return locationSupported
+    }
+
+    characteristics() {
+        const planet = Settings.lookAt as Planet
+        const solApiData = objectsJson[planet.id]
+
+        const circumference = (2 * Math.PI * parseFloat(solApiData["meanRadius"])).toFixed(4)
+        const circumferenceEquatorial = parseFloat((2 * Math.PI * parseFloat(solApiData["equaRadius"])).toFixed(4))
+        const surfaceArea = (4 * Math.PI * Math.pow(parseFloat(solApiData["equaRadius"]), 2)).toFixed(4)
+        const siderealRotationSpeed = solApiData["sideralRotation"]
+        const equatorialRotationSpeed = ((circumferenceEquatorial / siderealRotationSpeed) / 60 / 60).toFixed(4)
+        const temperatureCelsius = (parseFloat(solApiData["avgTemp"]) - 273.15).toFixed(2)
+        return (
+            <div>
+                <h3>Orbital Characteristics</h3>
+                <p>Aphelion: {solApiData["aphelion"]} km</p>
+                <p>Perihelion: {solApiData["perihelion"]} km</p>
+                <p>Semi-major axis: {solApiData["semimajorAxis"]} km</p>
+                <p>Eccentricity: {solApiData["eccentricity"]}</p>
+                <p>Orbital period: {solApiData["sideralOrbit"]} days</p>
+                {/* <p>Orbital speed: {solApiData["meanRadius"]} km/s</p> */}
+                <p>Mean anomaly: {solApiData["mainAnomaly"]}&deg;</p>
+                <p>Inclination (Ecl): {solApiData["inclination"]}&deg;</p>
+                <p>Longitude of ascending node: {solApiData["longAscNode"]}&deg;</p>
+                {/* {this.padding()}
+                <h4>Satellites</h4>
+                 */}
+                <br />
+                <h3>Physical Characteristics</h3>
+                <p>Mean radius: {solApiData["meanRadius"]} km</p>
+                <p>Equatorial radius: {solApiData["equaRadius"]} km</p>
+                <p>Polar radius: {solApiData["polarRadius"]} km</p>
+                <p>Flattening: {solApiData["flattening"]}</p>
+                <p>Circumference: {circumference} km</p>
+                <p>Surface area: {surfaceArea} km<sup>2</sup></p>
+                {
+                    solApiData["vol"]
+                        ? <p>Volume: {solApiData["vol"]["volValue"]} × 10<sup>{solApiData["vol"]["volExponent"]}</sup> km<sup>3</sup></p>
+                        : <p>Volume: N/A</p>
+                }
+                <p>Mass: {solApiData["mass"]["massValue"]} × 10<sup>{solApiData["mass"]["massExponent"]}</sup> kg</p>
+                <p>Mean density: {solApiData["density"]} g/cm<sup>3</sup></p>
+                <p>Surface gravity: {solApiData["gravity"]} m/s<sup>2</sup></p>
+                {/* <p>Moment of inertia factor: {solApiData["equaRadius"]}</p> */}
+                <p>Escape velocity: {solApiData["escape"]} km/s</p>
+                {/* <p>Synodic rotation period: {solApiData["equaRadius"]}</p> */}
+                <p>Sidereal rotation period: {siderealRotationSpeed} hours</p>
+                <p>Equatorial rotation velocity: {equatorialRotationSpeed} km/s</p>
+                <p>Axial tilt: {solApiData["axialTilt"]}&deg;</p>
+                {/* <p>Albedo: {solApiData["equaRadius"]}</p> */}
+                <p>Temperature: {solApiData["avgTemp"]}K ({temperatureCelsius}&deg;C)</p>
+                {/* <p>Surface temperature: {solApiData["equaRadius"]}</p> */}
+                {/* <p>Absolute magnitude: {solApiData["equaRadius"]}</p> */}
+            </div>
+        )
     }
 
     onClickTelescopeIcon() {
@@ -109,6 +262,36 @@ class SearchBar extends Component {
         })
     }
 
+    onMenuOpen = () => {
+        this.setState({
+            drawerOpen: true
+        })
+    }
+
+    onMenuClose = () => {
+        this.setState({
+            drawerOpen: false
+        })
+    }
+
+    onLocationDialogOpen() {
+        this.setState({
+            locationDialogOpen: true
+        })
+    }
+
+    onLocationDialogClose() {
+        this.setState({
+            locationDialogOpen: false
+        })
+    }
+
+    onLocationSave(position: AppLocation) {
+        this.setState({
+            locationUpdater: (this.state.locationUpdater + 1) % 2
+        })
+    }
+
     static hideSearchResults(state: boolean = true) {
         const searchResults = document.getElementsByClassName('search-results')[0] as HTMLDivElement
         if (searchResults) {
@@ -132,14 +315,44 @@ class SearchBar extends Component {
         return wiki
     }
 
+    getPlanetWikiDate(): string {
+        const dateString = this.getPlanetWiki()["timestamp"]
+        const date = new Date(dateString)
+        const formattedDate = date.toLocaleDateString(undefined, {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric'
+        });
+        return formattedDate
+    }
+
     render() {
         const planet = (Settings.lookAt as Planet)
         return (
             <div>
+                {/* Crosshair (Enabled when a star is selected) */}
+                <Crosshair />
+                {/* Navigation Drawer */}
+                <SwipeableDrawer
+                    variant="temporary"
+                    open={this.state.drawerOpen}
+                    onClose={this.onMenuClose}
+                    onOpen={this.onMenuOpen}
+                >
+                    <DrawerContent />
+                </SwipeableDrawer>
+                {/* Location Dialog */}
+                <LocationDialog
+                    key={this.state.locationDialogOpen ? 1 : 0}
+                    open={this.state.locationDialogOpen}
+                    onClose={this.onLocationDialogClose}
+                    onSave={this.onLocationSave}
+                />
+                {/* Info Card */}
                 {
                     this.state.showingInfoCard && Settings.lookAt instanceof Planet ?
                         <div className="info-card-body">
-                            <Paper className="info-card">
+                            <Paper className="info-card search-bar-mobile-full-width">
                                 <div>
                                     {/* TODO: Compress images, they are too big. */}
                                     <img src={'assets/images/info/' + planet.id + '.jpeg'} className="info-card-image"></img>
@@ -152,21 +365,34 @@ class SearchBar extends Component {
                                     <p>{this.getPlanetWiki()["extract"]} <a style={{ color: "lightblue" }} target="_blank" rel="noopener noreferrer" href={this.getPlanetWiki()["content_urls"]["desktop"]["page"]}><i><b>Wikipedia</b></i></a></p>
                                     {/* <p>TODO: Table including RA, Dec, Mag, and etc.</p> */}
                                     <br />
+                                    {this.planetPositionComponent()}
+                                    <br />
+                                    {this.characteristics()}
+                                    <br />
                                     <h4>Photo Details</h4>
-                                    <p>License: {this.getPlanetWiki()["photo_credits"]["cc"]}</p>
-                                    <p>Author: {this.getPlanetWiki()["photo_credits"]["by"]}</p>
+                                    <p>License: {this.getPlanetWiki()["photo_credits"]["wiki"]["cc"]}</p>
+                                    <p>Author: {this.getPlanetWiki()["photo_credits"]["wiki"]["by"]}</p>
+                                    <br />
+                                    <h4>Texture Details</h4>
+                                    <p>License: {this.getPlanetWiki()["photo_credits"]["texture"]["cc"]}</p>
+                                    <p>Author: {this.getPlanetWiki()["photo_credits"]["texture"]["by"]}</p>
+                                    <br />
+                                    <p className="info-card-update-text">
+                                        Updated on {this.getPlanetWikiDate()} | <a target="_blank" rel="noopener noreferrer" className="info-card-update-text" href={this.getPlanetWiki()["content_urls"]["desktop"]["revisions"]}>Revisions</a> | <a target="_blank" rel="noopener noreferrer" className="info-card-update-text" href={this.getPlanetWiki()["content_urls"]["desktop"]["edit"]}>Edit</a>
+                                    </p>
                                 </div>
                             </Paper>
                         </div>
                         : null
                 }
+                {/* Search Bar */}
                 <div className="search">
                     <Paper
                         component="form"
                         onSubmit={(e) => e.preventDefault()}
-                        className="search-bar"
+                        className="search-bar search-bar-self search-bar-mobile-full-width"
                     >
-                        {/* {this.iconButton("Menu", mdiMenu)} */}
+                        {this.iconButton("Menu", mdiMenu, "white", this.onMenuOpen)}
                         <InputBase
                             sx={{ ml: 1, flex: 1 }}
                             placeholder="Search"
@@ -178,14 +404,12 @@ class SearchBar extends Component {
                         />
                         {this.iconButton("Search", mdiMagnify)}
                         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                        {/* {this.iconButton("Target", mdiTelescope, "primary", this.onClickTelescopeIcon,
-                        !(Planets[this.state.value.toLowerCase()] || Stars.indexedDatabase[this.state.value.toLowerCase()])
-                    )} */}
                         {this.iconButton("Fly", mdiRocketLaunch, "primary", this.onClickFlyIcon, !Planets[this.state.value.toLowerCase()])}
                     </Paper>
+                    {/* Search Results */}
                     {
                         this.state.value == '' || this.state.results.length == 0 ? null :
-                            <Paper className="search-bar search-results">
+                            <Paper className="search-bar search-results search-bar-mobile-full-width">
                                 <List sx={{ width: '100%' }}>
                                     {
                                         this.state.results.map((item, index, array) => {

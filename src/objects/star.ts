@@ -19,12 +19,17 @@ export interface StarData {
     X: number, Y: number, Z: number, VX: number, VY: number, VZ: number
 }
 
+export interface StarDataMini {
+    StarID: number, ProperName: string, RA: number, Dec: number, Distance: number,
+    Mag: number, AbsMag: number, X: number, Y: number, Z: number,
+}
+
 export class Star {
-    data: StarData
+    data: StarDataMini
     position: THREE.Vector3
     x: number; y: number; z: number;
 
-    constructor(data: StarData) {
+    constructor(data: StarDataMini) {
         this.data = data
         this.position = Star.scaleVectorNumbers(this.getX(), this.getY(), this.getZ())
         this.x = this.position.x
@@ -52,10 +57,8 @@ export class Star {
 
     static empty(): Star {
         return new Star({
-            StarID: -1, HIP: -1, HD: -1, HR: -1, Gliese: -1, BayerFlamsteed: -1,
-            ProperName: "NULL", RA: -1, Dec: -1, Distance: -1, PMRA: -1, PMDec: -1,
-            RV: -1, Mag: -1, AbsMag: -1, Spectrum: "NULL", ColorIndex: -1,
-            X: -1, Y: -1, Z: -1, VX: -1, VY: -1, VZ: -1
+            StarID: -1, ProperName: "NULL", RA: -1, Dec: -1, Distance: -1,
+            Mag: -1, AbsMag: -1, X: -1, Y: -1, Z: -1
         })
     }
 }

@@ -14,8 +14,7 @@
 
 //     constructor() {
 //         //? -- TEXTURES -- ?//
-//         const loadingManager = new THREE.LoadingManager()
-//         const textureLoader = new THREE.TextureLoader(loadingManager)
+//         const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
 //         const res = quality == Quality.high ? '8k' : '2k'
 //         const texture = textureLoader.load('assets/images/textures/mars/' + res + '_mars.jpeg')
 

@@ -10,14 +10,14 @@
 
 import * as THREE from "three";
 import Planet from "../planet";
+import AppScene from "../../scene";
 
 class Neptune extends Planet {
     constructor() {
         const id = "neptune"
 
         //? -- TEXTURES -- ?//
-        const loadingManager = new THREE.LoadingManager()
-        const textureLoader = new THREE.TextureLoader(loadingManager)
+        const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
         const texture = textureLoader.load(Planet.getTexturePath(id))
 
         //? -- MATERIAL -- ?//
@@ -29,6 +29,11 @@ class Neptune extends Planet {
         geometry.clearGroups()
         geometry.addGroup(0, Infinity, 0)
         super(id, [material], geometry, texture);
+
+        // Rotate mesh so the Great Dark Spot aligns with the real-life counterpart (without time dilation)
+        // Angle Reference: Stellarium (Approx)
+        const radians = 35 * Math.PI / 180
+        this.realMesh.rotateOnAxis(new THREE.Vector3(0, 1, 0), radians)
     }
 }
 

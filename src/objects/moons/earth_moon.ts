@@ -11,14 +11,14 @@
 import * as THREE from "three";
 import Planet from "../planet";
 import { Quality, Settings } from "../../settings";
+import AppScene from "../../scene";
 
 class Moon extends Planet {
     constructor() {
         const id = "moon"
 
         //? -- TEXTURES -- ?//
-        const loadingManager = new THREE.LoadingManager()
-        const textureLoader = new THREE.TextureLoader(loadingManager)
+        const textureLoader = new THREE.TextureLoader(AppScene.loadingManager)
         const texture = textureLoader.load(Planet.getTexturePath(id))
         const lowTexture = textureLoader.load(Planet.getTexturePath(id, Quality.low))
         texture.wrapS = THREE.RepeatWrapping
@@ -55,6 +55,7 @@ class Moon extends Planet {
         } else {
             this.labelText.element.textContent = ''
         }
+        this.updateLabelRemoveTarget(camera)
         this.labelText.element.style.color = 'white'
     }
 }

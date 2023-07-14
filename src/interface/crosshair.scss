@@ -1,0 +1,17 @@
+/*
+ *   crosshair.scss
+ *   solar-system-3js
+ * 
+ *   Created by Fatih Balsoy on 6/14/23
+ *   Copyright © 2023 Fatih Balsoy. All rights reserved.
+ */
+
+.crosshair {
+    color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    bottom: 1px;
+}

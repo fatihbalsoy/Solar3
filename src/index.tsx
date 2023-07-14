@@ -12,6 +12,7 @@ import { WebsiteTheme } from './theme';
 import SearchBar from './interface/search';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import './style.css';
+import LoadingScreen from './interface/loading_screen';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -22,5 +23,6 @@ root.render(
         <CssBaseline />
         <AppScene />
         <SearchBar />
+        <LoadingScreen />
     </ThemeProvider>
 );
