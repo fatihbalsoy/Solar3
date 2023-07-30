@@ -61,5 +61,71 @@
         "HIP 112716",
         "Skat",
         "HIP 114341"
+    ],
+    "Aquila": [
+        "Alshain",
+        "Altair",
+        "Tarazed",
+        "Altair",
+        "HIP 95501",
+        "HIP 97804",
+        "HIP 99473",
+        "HIP 97804",
+        "HIP 95501",
+        "HIP 93805",
+        "HIP 95501",
+        "Okab",
+        "HIP 93244"
+    ],
+    "Ara": [
+        "HIP 85258",
+        "HIP 88714",
+        "HIP 85792",
+        "HIP 83081",
+        "HIP 82363",
+        "HIP 85727",
+        "HIP 85267",
+        "HIP 85258"
+    ],
+    "Aries": [
+        "Bharani",
+        "Hamal",
+        "Sheratan",
+        "Mesarthim"
+    ],
+    "Auriga": [
+        "Elnath",
+        "Mahasim",
+        "Menkalinan",
+        "Capella",
+        "Saclateni",
+        "Hassaleh",
+        "Elnath"
+    ],
+    "Boötes": [
+        "HIP 67459",
+        "Muphrid",
+        "Arcturus",
+        "HIP 71795",
+        "Arcturus",
+        "Izar",
+        "HIP 74666",
+        "Nekkar",
+        "Seginus",
+        "HIP 71053",
+        "Arcturus"
+    ],
+    "Caelum": [
+        "HIP 21060",
+        "HIP 21770",
+        "HIP 21861"
+    ],
+    "Camelopardalis": [
+        "HIP 25110",
+        "HIP 17959",
+        "HIP 16228",
+        "HIP 18505",
+        "HIP 22783",
+        "HIP 17959"
     ]
 }

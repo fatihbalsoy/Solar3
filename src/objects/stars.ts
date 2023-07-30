@@ -11,6 +11,7 @@ import '../utils/extensions';
 import constellations from '../data/constellations.json';
 import * as THREE from "three";
 import AppScene from "../scene";
+import Planets from "./planets";
 
 export class Stars {
     // Parsed HYG star database
@@ -69,31 +70,27 @@ export class Stars {
     // TODO: Must normalize points onto sphere and add line mesh onto camera
     displayConstellations() {
         for (var constellation in constellations) {
-            const trace: (String | number)[] = constellations[constellation]
+            const starPathTrace: string[] = constellations[constellation]
             var points = []
 
-            for (var starIndex in trace) {
-                const star = trace[starIndex]
+            for (var starIndex in starPathTrace) {
+                const star = starPathTrace[starIndex]
                 if (typeof star == "string") {
+                    var starObj: Star
                     if (star.startsWith("HIP")) {
                         const hip = parseInt(star.split(" ")[1])
-                        const starObj = this.getStarByHIP(hip)
-                        points.push(starObj.position)
+                        starObj = this.getStarByHIP(hip)
                     } else {
-                        const starObj = this.getStarByName(star)
-                        points.push(starObj.position)
+                        starObj = this.getStarByName(star)
                     }
-                } else if (typeof star == "number") {
-                    const s: string = trace[star] as string
-                    const starObj = this.getStarByName(s)
-                    points.push(starObj.position)
+                    points.push(starObj.position.normalize().multiplyScalar(Planets.earth.getRadius()).multiplyScalar(1.5))
                 }
             }
 
             const material = new THREE.LineBasicMaterial({ color: 0x0000ff });
             const geometry = new THREE.BufferGeometry().setFromPoints(points);
             const line = new THREE.Line(geometry, material);
-            AppScene.scene.add(line)
+            Planets.earth.mesh.add(line)
         }
     }
 
