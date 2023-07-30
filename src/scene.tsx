@@ -130,7 +130,9 @@ class AppScene extends Component {
         }
 
         // * -- STARS --  * //
-        this.stars.parseData()
+        this.stars.parseData().then(() => {
+            this.stars.displayConstellations()
+        })
 
         // * -- CONTROLS -- * //
         Settings.lookAt = Planets.earth
