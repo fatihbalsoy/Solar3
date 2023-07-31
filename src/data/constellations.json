@@ -853,6 +853,94 @@
         ]
     ],
     "Orion": [
-        []
+        [
+            "Alnitak",
+            "Saiph",
+            "Rigel",
+            "HIP 24674",
+            "Mintaka",
+            "Bellatrix",
+            "Meissa",
+            "Betelgeuse",
+            "Alnitak"
+        ],
+        [
+            "Alnitak",
+            "Alnilam",
+            "Mintaka"
+        ],
+        [
+            "Bellatrix",
+            "Tabit"
+        ],
+        [
+            "HIP 22845",
+            "HIP 22509",
+            "Tabit",
+            "HIP 22549",
+            "HIP 22730",
+            "HIP 23123"
+        ],
+        [
+            "Betelgeuse",
+            "HIP 28614",
+            "HIP 29426",
+            "HIP 29434",
+            "HIP 28716",
+            "HIP 27913",
+            "HIP 29038",
+            "HIP 28614"
+        ],
+        [
+            "HIP 29426",
+            "HIP 29038"
+        ]
+    ],
+    "Pavo": [
+        [
+            "Peacock",
+            "HIP 105858",
+            "HIP 102395",
+            "HIP 99240",
+            "Peacock"
+        ],
+        [
+            "HIP 99240",
+            "HIP 98495",
+            "HIP 91792",
+            "HIP 93015",
+            "HIP 99240"
+        ],
+        [
+            "HIP 93015",
+            "HIP 92609",
+            "HIP 90098",
+            "HIP 88866",
+            "HIP 86929",
+            "HIP 88866",
+            "HIP 92609"
+        ]
+    ],
+    "Pegasus": [
+        [
+            "Algenib",
+            "Markab",
+            "HIP 112447",
+            "Homam",
+            "Biham",
+            "Enif"
+        ],
+        [
+            "Markab",
+            "Scheat",
+            "Matar",
+            "HIP 109410"
+        ],
+        [
+            "HIP 107354",
+            "HIP 109176",
+            "HIP 112440",
+            "Scheat"
+        ]
     ]
 }
