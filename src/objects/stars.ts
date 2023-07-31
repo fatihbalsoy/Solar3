@@ -80,6 +80,8 @@ export class Stars {
                     const star = group[starIndex]
                     if (typeof star == "string") {
                         var starObj: Star
+                        // console.log(star)
+                        // console.log(starObj)
                         if (star.startsWith("HIP")) {
                             const hip = parseInt(star.split(" ")[1])
                             starObj = this.getStarByHIP(hip)
