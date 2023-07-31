@@ -1,131 +1,448 @@
 {
     "Andromeda": [
-        "Almach",
-        "Mirach",
-        "HIP 4436",
-        "HIP 3881",
-        "HIP 4436",
-        "Mirach",
-        "HIP 3092",
-        "Alpheratz",
-        "Scheat",
-        "Matar",
-        "HIP 109410",
-        "Matar",
-        "Scheat",
-        "Sadalbari",
-        "HIP 112440",
-        "HIP 109176",
-        "HIP 107354",
-        "HIP 109176",
-        "HIP 112440",
-        "Sadalbari",
-        "Scheat",
-        "Markab",
-        "HIP 112447",
-        "Homam",
-        "Biham",
-        "Enif",
-        "Biham",
-        "Homam",
-        "HIP 112447",
-        "Markab",
-        "Algenib",
-        "Alpheratz"
+        [
+            "Almach",
+            "Mirach",
+            "HIP 3092",
+            "Alpheratz",
+            "Scheat"
+        ],
+        [
+            "Mirach",
+            "HIP 4436",
+            "HIP 3881"
+        ],
+        [
+            "Alpheratz",
+            "Algenib"
+        ]
     ],
     "Antlia": [
-        "HIP 48926",
-        "HIP 51172"
+        [
+            "HIP 48926",
+            "HIP 51172"
+        ]
     ],
     "Apus": [
-        "HIP 81852",
-        "HIP 81065",
-        "HIP 72370"
+        [
+            "HIP 81852",
+            "HIP 81065",
+            "HIP 72370"
+        ]
     ],
     "Aquarius": [
-        "HIP 115438",
-        "HIP 114855",
-        "HIP 112961",
-        "HIP 111497",
-        "HIP 110960",
-        "Sadachbia",
-        "Sadalmelik",
-        "Sadalsuud",
-        "Albali",
-        "Sadalsuud",
-        "Sadalmelik",
-        "Ancha",
-        "HIP 109139",
-        "Ancha",
-        "HIP 111123",
-        "HIP 112716",
-        "Skat",
-        "HIP 114341"
+        [
+            "HIP 115438",
+            "HIP 114855",
+            "HIP 112961",
+            "HIP 111497",
+            "HIP 110960",
+            "Sadachbia",
+            "Sadalmelik"
+        ],
+        [
+            "Sadalmelik",
+            "Sadalsuud",
+            "Albali"
+        ],
+        [
+            "Sadalmelik",
+            "Ancha",
+            "HIP 109139"
+        ],
+        [
+            "Ancha",
+            "HIP 111123",
+            "HIP 112716",
+            "Skat",
+            "HIP 114341"
+        ]
     ],
     "Aquila": [
-        "Alshain",
-        "Altair",
-        "Tarazed",
-        "Altair",
-        "HIP 95501",
-        "HIP 97804",
-        "HIP 99473",
-        "HIP 97804",
-        "HIP 95501",
-        "HIP 93805",
-        "HIP 95501",
-        "Okab",
-        "HIP 93244"
+        [
+            "Alshain",
+            "Altair",
+            "Tarazed"
+        ],
+        [
+            "Altair",
+            "HIP 95501",
+            "HIP 93805"
+        ],
+        [
+            "HIP 95501",
+            "HIP 97804",
+            "HIP 99473"
+        ],
+        [
+            "HIP 95501",
+            "Okab",
+            "HIP 93244"
+        ]
     ],
     "Ara": [
-        "HIP 85258",
-        "HIP 88714",
-        "HIP 85792",
-        "HIP 83081",
-        "HIP 82363",
-        "HIP 85727",
-        "HIP 85267",
-        "HIP 85258"
+        [
+            "HIP 85258",
+            "HIP 88714",
+            "HIP 85792",
+            "HIP 83081",
+            "HIP 82363",
+            "HIP 85727",
+            "HIP 85267",
+            "HIP 85258"
+        ]
     ],
     "Aries": [
-        "Bharani",
-        "Hamal",
-        "Sheratan",
-        "Mesarthim"
+        [
+            "Bharani",
+            "Hamal",
+            "Sheratan",
+            "Mesarthim"
+        ]
     ],
     "Auriga": [
-        "Elnath",
-        "Mahasim",
-        "Menkalinan",
-        "Capella",
-        "Saclateni",
-        "Hassaleh",
-        "Elnath"
+        [
+            "Elnath",
+            "Mahasim",
+            "Menkalinan",
+            "Capella",
+            "Saclateni",
+            "Hassaleh",
+            "Elnath"
+        ]
     ],
     "Boötes": [
-        "HIP 67459",
-        "Muphrid",
-        "Arcturus",
-        "HIP 71795",
-        "Arcturus",
-        "Izar",
-        "HIP 74666",
-        "Nekkar",
-        "Seginus",
-        "HIP 71053",
-        "Arcturus"
+        [
+            "HIP 67459",
+            "Muphrid",
+            "Arcturus",
+            "HIP 71795",
+            "Arcturus",
+            "Izar",
+            "HIP 74666",
+            "Nekkar",
+            "Seginus",
+            "HIP 71053",
+            "Arcturus"
+        ]
     ],
     "Caelum": [
-        "HIP 21060",
-        "HIP 21770",
-        "HIP 21861"
+        [
+            "HIP 21060",
+            "HIP 21770",
+            "HIP 21861"
+        ]
     ],
     "Camelopardalis": [
-        "HIP 25110",
-        "HIP 17959",
-        "HIP 16228",
-        "HIP 18505",
-        "HIP 22783",
-        "HIP 17959"
+        [
+            "HIP 25110",
+            "HIP 17959",
+            "HIP 16228",
+            "HIP 18505",
+            "HIP 22783",
+            "HIP 17959"
+        ]
+    ],
+    "Cancer": [
+        [
+            "Acubens",
+            "Asellus Australis",
+            "Tarf"
+        ],
+        [
+            "Asellus Australis",
+            "Asellus Borealis"
+        ],
+        [
+            "HIP 43103",
+            "Asellus Borealis",
+            "HIP 40843"
+        ]
+    ],
+    "Canes Venatici": [
+        [
+            "Cor Caroli",
+            "Chara"
+        ]
+    ],
+    "Canis Major": [
+        [
+            "Mirzam",
+            "HIP 31592",
+            "HIP 31416"
+        ],
+        [
+            "Furud",
+            "Adhara",
+            "HIP 32759"
+        ],
+        [
+            "Adhara",
+            "HIP 33856"
+        ],
+        [
+            "Wezen",
+            "HIP 35037",
+            "HIP 35904"
+        ],
+        [
+            "Sirius",
+            "HIP 33347",
+            "HIP 34045",
+            "HIP 33160",
+            "HIP 33347"
+        ],
+        [
+            "Sirius",
+            "HIP 31592",
+            "HIP 33165",
+            "HIP 33856",
+            "Wezen",
+            "HIP 33977",
+            "Sirius"
+        ]
+    ],
+    "Canis Minor": [
+        [
+            "Procyon",
+            "Gomeisa"
+        ]
+    ],
+    "Capricornus": [
+        [
+            "Deneb Algedi",
+            "Nashira",
+            "HIP 105515",
+            "HIP 104139",
+            "Dabih"
+        ],
+        [
+            "HIP 105515",
+            "HIP 105881",
+            "HIP 104139"
+        ],
+        [
+            "HIP 104139",
+            "HIP 102978"
+        ],
+        [
+            "Algedi",
+            "Dabih",
+            "HIP 102485"
+        ]
+    ],
+    "Carina": [
+        [
+            "Miaplacidus",
+            "HIP 50099",
+            "HIP 52419",
+            "HIP 52468",
+            "HIP 54463",
+            "HIP 53253",
+            "HIP 51232",
+            "HIP 50371",
+            "Aspidiske",
+            "HIP 45080",
+            "HIP 42568",
+            "Avior",
+            "HIP 39953",
+            "Avior",
+            "Canopus",
+            "HIP 31685"
+        ]
+    ],
+    "Cassiopeia": [
+        [
+            "Segin",
+            "Ruchbah",
+            "HIP 4427",
+            "Schedar",
+            "Caph"
+        ]
+    ],
+    "Centaurus": [
+        [
+            "HIP 73334",
+            "HIP 71352",
+            "HIP 67472"
+        ],
+        [
+            "HIP 65109",
+            "HIP 65936",
+            "HIP 67464"
+        ],
+        [
+            "HIP 56561",
+            "HIP 56480",
+            "HIP 59196",
+            "HIP 60823",
+            "HIP 68002"
+        ],
+        [
+            "Menkent",
+            "HIP 67464",
+            "HIP 67472",
+            "HIP 68282",
+            "HIP 68002",
+            "HIP 66657",
+            "Hadar",
+            "Rigil Kentaurus"
+        ]
+    ],
+    "Cepheus": [
+        [
+            "HIP 112724",
+            "Errai",
+            "Alfirk",
+            "Alderamin",
+            "HIP 109492",
+            "HIP 112724",
+            "Alfirk"
+        ]
+    ],
+    "Cetus": [
+        [
+            "HIP 10324",
+            "HIP 11484",
+            "HIP 12093",
+            "HIP 12706",
+            "HIP 12387",
+            "Mira",
+            "HIP 12390",
+            "HIP 12770",
+            "HIP 11783",
+            "HIP 8102",
+            "Diphda",
+            "HIP 1562"
+        ],
+        [
+            "HIP 11484",
+            "HIP 12828",
+            "HIP 13954",
+            "Menkar",
+            "HIP 12706"
+        ],
+        [
+            "HIP 12390",
+            "HIP 11345",
+            "Baten Kaitos",
+            "HIP 6537",
+            "HIP 5364",
+            "Diphda"
+        ]
+    ],
+    "Chamaeleon": [
+        [
+            "HIP 60000",
+            "HIP 51839",
+            "HIP 40702"
+        ]
+    ],
+    "Circinus": [
+        [
+            "HIP 74824",
+            "HIP 71908",
+            "HIP 75323"
+        ]
+    ],
+    "Columba": [
+        [
+            "HIP 28328",
+            "Wazn"
+        ],
+        [
+            "HIP 30277",
+            "HIP 29807",
+            "HIP 28199",
+            "Wazn",
+            "Phact",
+            "HIP 25859"
+        ]
+    ],
+    "Coma Berenices": [
+        [
+            "Diadem",
+            "HIP 64394",
+            "HIP 60742"
+        ]
+    ],
+    "Corona Australis": [
+        [
+            "HIP 90887",
+            "HIP 91875",
+            "HIP 92989",
+            "HIP 93174",
+            "HIP 93825",
+            "Meridiana",
+            "HIP 94160",
+            "HIP 94005",
+            "HIP 93542",
+            "HIP 92953"
+        ]
+    ],
+    "Corona Borealis": [
+        [
+            "HIP 76127",
+            "Nusakan",
+            "Alphecca",
+            "HIP 76952",
+            "HIP 77512",
+            "HIP 78159",
+            "HIP 78493"
+        ]
+    ],
+    "Corvus": [
+        [
+            "HIP 61174",
+            "Algorab",
+            "Gienah",
+            "HIP 59316",
+            "Alchiba"
+        ],
+        [
+            "Algorab",
+            "Kraz",
+            "HIP 59316"
+        ]
+    ],
+    "Crater": [
+        [
+            "HIP 55282",
+            "HIP 55687",
+            "HIP 56633",
+            "HIP 58188",
+            "HIP 57283",
+            "HIP 55705",
+            "HIP 54682",
+            "Alkes",
+            "HIP 55282",
+            "HIP 55705"
+        ]
+    ],
+    "Crux": [
+        [
+            "Mimosa",
+            "Imai"
+        ],
+        [
+            "Acrux",
+            "Gacrux"
+        ]
+    ],
+    "Cygnus": [
+        [
+            "Deneb",
+            "Sadr",
+            "Albireo"
+        ],
+        [
+            "HIP 94779",
+            "HIP 95853",
+            "HIP 97165",
+            "Sadr",
+            "Aljanah",
+            "HIP 104732",
+            "HIP 107310"
+        ]
     ]
 }

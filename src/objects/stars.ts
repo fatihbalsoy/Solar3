@@ -70,27 +70,32 @@ export class Stars {
     // TODO: Must normalize points onto sphere and add line mesh onto camera
     displayConstellations() {
         for (var constellation in constellations) {
-            const starPathTrace: string[] = constellations[constellation]
-            var points = []
+            const lineGroups: string[][] = constellations[constellation]
 
-            for (var starIndex in starPathTrace) {
-                const star = starPathTrace[starIndex]
-                if (typeof star == "string") {
-                    var starObj: Star
-                    if (star.startsWith("HIP")) {
-                        const hip = parseInt(star.split(" ")[1])
-                        starObj = this.getStarByHIP(hip)
-                    } else {
-                        starObj = this.getStarByName(star)
+            for (var groupIndex in lineGroups) {
+                const group = lineGroups[groupIndex]
+                var points = []
+
+                for (var starIndex in group) {
+                    const star = group[starIndex]
+                    if (typeof star == "string") {
+                        var starObj: Star
+                        if (star.startsWith("HIP")) {
+                            const hip = parseInt(star.split(" ")[1])
+                            starObj = this.getStarByHIP(hip)
+                        } else {
+                            starObj = this.getStarByName(star)
+                        }
+                        points.push(starObj.position.normalize().multiplyScalar(Planets.earth.getRadius()).multiplyScalar(1.5))
                     }
-                    points.push(starObj.position.normalize().multiplyScalar(Planets.earth.getRadius()).multiplyScalar(1.5))
                 }
+
+                const material = new THREE.LineBasicMaterial({ color: 0x0000ff });
+                const geometry = new THREE.BufferGeometry().setFromPoints(points);
+                const line = new THREE.Line(geometry, material);
+                Planets.earth.mesh.add(line)
             }
 
-            const material = new THREE.LineBasicMaterial({ color: 0x0000ff });
-            const geometry = new THREE.BufferGeometry().setFromPoints(points);
-            const line = new THREE.Line(geometry, material);
-            Planets.earth.mesh.add(line)
         }
     }
 
