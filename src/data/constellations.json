@@ -942,5 +942,188 @@
             "HIP 112440",
             "Scheat"
         ]
+    ],
+    "Perseus": [
+        [
+            "Miram",
+            "HIP 14328",
+            "Mirfak",
+            "HIP 17358",
+            "HIP 18532",
+            "Menkib",
+            "Atik"
+        ],
+        [
+            "Mirfak",
+            "Algol",
+            "HIP 14354",
+            "HIP 13254"
+        ]
+    ],
+    "Phoenix": [
+        [
+            "HIP 5165",
+            "HIP 8837",
+            "HIP 7083",
+            "HIP 5165",
+            "HIP 2072",
+            "Ankaa",
+            "HIP 765",
+            "HIP 2072",
+            "Wurren",
+            "HIP 5165",
+            "HIP 6867",
+            "HIP 2072"
+        ]
+    ],
+    "Pictor": [
+        [
+            "HIP 27321",
+            "HIP 27530",
+            "HIP 32607"
+        ]
+    ],
+    "Pisces": [
+        [
+            "HIP 5742",
+            "HIP 4889",
+            "HIP 6193",
+            "HIP 5742",
+            "Alpherg",
+            "Torcular",
+            "HIP 9487",
+            "HIP 8833",
+            "HIP 7884",
+            "HIP 7007",
+            "HIP 4906",
+            "HIP 3760",
+            "HIP 1645",
+            "HIP 118268",
+            "HIP 116771",
+            "HIP 115830",
+            "HIP 114971",
+            "HIP 115738",
+            "HIP 116928",
+            "HIP 116771"
+        ]
+    ],
+    "Piscis Austrinus": [
+        [
+            "Fomalhaut",
+            "HIP 111954",
+            "HIP 108661",
+            "HIP 107608",
+            "HIP 109422",
+            "HIP 111188",
+            "HIP 113246"
+        ]
+    ],
+    "Puppis": [
+        [
+            "HIP 39953",
+            "Naos",
+            "Tureis",
+            "Azmidi",
+            "HIP 35264",
+            "HIP 31685",
+            "Canopus",
+            "HIP 31685",
+            "HIP 32768",
+            "HIP 36377",
+            "Naos"
+        ]
+    ],
+    "Pyxis": [
+        [
+            "HIP 43409",
+            "HIP 42828",
+            "HIP 42515"
+        ]
+    ],
+    "Reticulum": [
+        [
+            "HIP 19780",
+            "HIP 19921",
+            "HIP 18597",
+            "HIP 17440",
+            "HIP 19780"
+        ]
+    ],
+    "Sagitta": [
+        [
+            "HIP 98920",
+            "HIP 98337",
+            "HIP 97365",
+            "HIP 96837",
+            "HIP 97365",
+            "Sham"
+        ]
+    ],
+    "Sagittarius": [
+        [
+            "Arkab Posterior",
+            "HIP 98032",
+            "Rukbat",
+            "HIP 98032",
+            "HIP 98412",
+            "HIP 98688",
+            "HIP 96406",
+            "HIP 93864",
+            "Ascella",
+            "Kaus Australis",
+            "HIP 89642"
+        ],
+        [
+            "Kaus Australis",
+            "Alnasl",
+            "HIP 87072",
+            "Alnasl",
+            "Kaus Media",
+            "Kaus Australis"
+        ],
+        [
+            "Kaus Media",
+            "Kaus Borealis",
+            "HIP 92041",
+            "Kaus Media",
+            "HIP 92041",
+            "Ascella"
+        ],
+        [
+            "HIP 92041",
+            "Nunki",
+            "HIP 93864",
+            "Nunki",
+            "HIP 93085",
+            "HIP 93683",
+            "HIP 94820",
+            "HIP 95168"
+        ]
+    ],
+    "Scorpius": [
+        [
+            "Shaula",
+            "HIP 86670",
+            "HIP 87073",
+            "Sargas",
+            "HIP 84143",
+            "HIP 82671",
+            "Xamidimura",
+            "Larawag",
+            "Paikauhale",
+            "Antares",
+            "Acrab",
+            "Antares",
+            "Dshubba",
+            "Antares",
+            "HIP 78265"
+        ]
+    ],
+    "Sculptor": [
+        [
+            "HIP 4577",
+            "HIP 116231",
+            "HIP 115102"
+        ]
     ]
 }
