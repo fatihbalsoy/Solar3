@@ -1154,6 +1154,156 @@
         ]
     ],
     "Taurus": [
-        []
+        [
+            "HIP 15900",
+            "HIP 18724",
+            "Prima Hyadum",
+            "Chamukuy",
+            "Aldebaran",
+            "Ain",
+            "Aldebaran",
+            "Tianguan"
+        ],
+        [
+            "Prima Hyadum",
+            "Secunda Hyadum",
+            "Atlas",
+            "Secunda Hyadum",
+            "HIP 20648",
+            "Ain",
+            "HIP 21881",
+            "Elnath"
+        ]
+    ],
+    "Telescopium": [
+        [
+            "HIP 90422",
+            "HIP 90568"
+        ]
+    ],
+    "Triangulum": [
+        [
+            "HIP 10670",
+            "HIP 10064",
+            "Mothallah",
+            "HIP 10670"
+        ]
+    ],
+    "Triangulum Australe": [
+        [
+            "HIP 77952",
+            "HIP 74946",
+            "Atria",
+            "HIP 77952"
+        ]
+    ],
+    "Tucana": [
+        [
+            "HIP 1599",
+            "HIP 114996",
+            "HIP 2484",
+            "HIP 114996",
+            "HIP 110130"
+        ]
+    ],
+    "Ursa Major": [
+        [
+            "Tania Australis",
+            "HIP 54539",
+            "Tania Borealis",
+            "HIP 54539",
+            "Taiyangshou",
+            "Phecda",
+            "Megrez",
+            "Alioth",
+            "Mizar",
+            "Alkaid"
+        ],
+        [
+            "Phecda",
+            "Merak",
+            "HIP 48402",
+            "HIP 46853",
+            "HIP 44471",
+            "HIP 46853",
+            "Talitha"
+        ],
+        [
+            "HIP 48402",
+            "HIP 48319",
+            "Muscida",
+            "HIP 46733",
+            "Dubhe",
+            "Merak",
+            "Dubhe",
+            "Megrez"
+        ]
+    ],
+    "Ursa Minor": [
+        [
+            "Polaris",
+            "Yildun",
+            "HIP 82080",
+            "HIP 77055",
+            "Kochab",
+            "Pherkad",
+            "HIP 79822",
+            "HIP 77055"
+        ]
+    ],
+    "Vela": [
+        [
+            "HIP 39953",
+            "HIP 42536",
+            "Alsephina",
+            "Markeb",
+            "HIP 48774",
+            "HIP 52727",
+            "HIP 51986",
+            "HIP 50191",
+            "HIP 46651",
+            "Suhail",
+            "HIP 39953"
+        ]
+    ],
+    "Virgo": [
+        [
+            "HIP 71957",
+            "Syrma",
+            "Kang",
+            "Spica",
+            "Heze",
+            "Spica",
+            "Porrima",
+            "Minelauva",
+            "Porrima",
+            "Zaniah",
+            "HIP 57380"
+        ],
+        [
+            "HIP 72220",
+            "HIP 68520",
+            "Heze",
+            "Minelauva",
+            "Vindemiatrix"
+        ]
+    ],
+    "Volans": [
+        [
+            "HIP 35228",
+            "HIP 39794",
+            "HIP 44382",
+            "HIP 41312",
+            "HIP 39794",
+            "HIP 37504",
+            "HIP 34481",
+            "HIP 39794"
+        ]
+    ],
+    "Vulpecula": [
+        [
+            "HIP 98543",
+            "Anser"
+        ]
     ]
 }
