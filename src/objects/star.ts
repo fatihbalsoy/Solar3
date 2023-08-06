@@ -20,7 +20,7 @@ export interface StarData {
 }
 
 export interface StarDataMini {
-    StarID: number, ProperName: string, RA: number, Dec: number, Distance: number,
+    StarID: number, HIP: number, ProperName: string, RA: number, Dec: number, Distance: number,
     Mag: number, AbsMag: number, X: number, Y: number, Z: number,
 }
 
@@ -57,7 +57,7 @@ export class Star {
 
     static empty(): Star {
         return new Star({
-            StarID: -1, ProperName: "NULL", RA: -1, Dec: -1, Distance: -1,
+            StarID: -1, HIP: -1, ProperName: "NULL", RA: -1, Dec: -1, Distance: -1,
             Mag: -1, AbsMag: -1, X: -1, Y: -1, Z: -1
         })
     }
