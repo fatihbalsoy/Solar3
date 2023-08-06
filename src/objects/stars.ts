@@ -88,7 +88,7 @@ export class Stars {
                         } else {
                             starObj = this.getStarByName(star)
                         }
-                        points.push(starObj.position.normalize().multiplyScalar(Planets.earth.getRadius()).multiplyScalar(1.5))
+                        points.push(starObj.position.normalize().multiplyScalar(Planets.pluto.getDistance() * 2))
                     }
                 }
 
@@ -96,8 +96,9 @@ export class Stars {
                 const geometry = new THREE.BufferGeometry().setFromPoints(points);
                 const line = new THREE.Line(geometry, material);
                 Planets.earth.mesh.add(line)
+                const cameraPosition = AppScene.surfaceCamera.position
+                line.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z)
             }
-
         }
     }
 
