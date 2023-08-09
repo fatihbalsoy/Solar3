@@ -8,26 +8,30 @@
 
 import { Component, ReactNode } from 'react';
 import './drawer.scss'
-import { Divider, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Divider, ListItem, ListItemButton, ListItemIcon, ListItemText, Switch } from '@mui/material';
 import React from 'react';
 import Icon from '@mdi/react';
-import { mdiBookOpenVariant, mdiBug, mdiGiftOutline, mdiGithub, mdiMapMarkerOutline, mdiShieldAccountOutline, mdiTune, mdiWeb } from '@mdi/js';
+import { mdiBookOpenVariant, mdiBug, mdiChartTimelineVariantShimmer, mdiGiftOutline, mdiGithub, mdiMapMarkerOutline, mdiShieldAccountOutline, mdiTune, mdiWeb } from '@mdi/js';
 import LicenseDialog from './dialog_license';
 import LocationDialog from './dialog_location';
 import AppLocation from '../models/location';
 import Settings from '../settings';
+import Stars from '../objects/stars';
+import AppScene from '../scene';
 
 interface DrawerContentState {
     location: AppLocation
     locationDialogOpen: boolean
-    licenseDialogOpen: boolean
+    licenseDialogOpen: boolean,
+    constellationsVisible: boolean
 }
 
 class DrawerContent extends Component<{}, DrawerContentState> {
     state: DrawerContentState = {
         location: Settings.geolocation,
         locationDialogOpen: false,
-        licenseDialogOpen: false
+        licenseDialogOpen: false,
+        constellationsVisible: Stars.constellationsVisible ?? false
     }
 
     constructor(props: {}) {
@@ -39,13 +43,15 @@ class DrawerContent extends Component<{}, DrawerContentState> {
 
         this.onLicenseDialogOpen = this.onLicenseDialogOpen.bind(this)
         this.onLicenseDialogClose = this.onLicenseDialogClose.bind(this)
+
+        this.onToggleConstellations = this.onToggleConstellations.bind(this)
     }
 
     divider() {
         return (<Divider sx={{ marginTop: '15px', marginBottom: '15px' }}></Divider>)
     }
 
-    listItem(name: string, icon: string, action?: () => void, subtitle?: string) {
+    listItem(name: string, icon: string, action?: () => void, subtitle?: string, trailing?: JSX.Element) {
         return (
             <ListItem disablePadding key={name.toLowerCase()}>
                 <ListItemButton disabled={action == null} onClick={action}>
@@ -53,6 +59,7 @@ class DrawerContent extends Component<{}, DrawerContentState> {
                         <Icon size={1} path={icon}></Icon>
                     </ListItemIcon>
                     <ListItemText primary={name} secondary={subtitle} />
+                    {trailing}
                 </ListItemButton>
             </ListItem>
         )
@@ -88,6 +95,14 @@ class DrawerContent extends Component<{}, DrawerContentState> {
         return `${lat}° ${latSymbol}, ${lon}° ${lonSymbol}, ${alt} meters`
     }
 
+    constellationsSwitch() {
+        return <Switch
+            key={this.state.constellationsVisible ? "constellationsVisible" : "constellationsNotVisible"}
+            checked={this.state.constellationsVisible}
+            style={{ pointerEvents: 'none' }}
+        />
+    }
+
     onLicenseDialogOpen() {
         this.setState({
             licenseDialogOpen: true
@@ -97,6 +112,13 @@ class DrawerContent extends Component<{}, DrawerContentState> {
     onLicenseDialogClose() {
         this.setState({
             licenseDialogOpen: false
+        })
+    }
+
+    onToggleConstellations() {
+        Stars.toggleConstellations(AppScene.constellations)
+        this.setState({
+            constellationsVisible: Stars.constellationsVisible
         })
     }
 
@@ -123,6 +145,7 @@ class DrawerContent extends Component<{}, DrawerContentState> {
                 <h2>SolarSystem.3js</h2>
                 {this.divider()}
                 {this.listItem("Location", mdiMapMarkerOutline, this.onLocationDialogOpen, this.locationSubtitle())}
+                {this.listItem("Constellations", mdiChartTimelineVariantShimmer, this.onToggleConstellations, null, this.constellationsSwitch())}
                 {this.listItem("Settings", mdiTune)}
                 {this.divider()}
                 <h3>About</h3>

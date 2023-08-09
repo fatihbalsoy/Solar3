@@ -200,7 +200,7 @@ class AppScene extends Component {
 
     handleKey(event) {
         console.log("HANDLEKEY")
-        // if (event.keyCode == 75) {
+        // if (event.keyCode == 75) { // k
         //     console.log("K")
         //     if (AppScene.camera instanceof SceneSpaceCamera) {
         //         AppScene.camera.switchCamera(AppScene.surfaceCamera)
