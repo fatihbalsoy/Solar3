@@ -19,6 +19,7 @@ export class Stars {
     static indexedDatabase: { [key: string]: Star } = {}
     static indexedDatabaseByHIP: { [key: number]: Star } = {}
     static indexedTree: string[] = []
+    static constellationsVisible: boolean
 
     constructor() { }
 
@@ -68,7 +69,8 @@ export class Stars {
     }
 
     // TODO: Must normalize points onto sphere and add line mesh onto camera
-    displayConstellations() {
+    static createConstellations(): THREE.Line[] {
+        var result: THREE.Line[] = []
         for (var constellation in constellations) {
             const lineGroups: string[][] = constellations[constellation]
 
@@ -98,19 +100,46 @@ export class Stars {
                 Planets.earth.mesh.add(line)
                 const cameraPosition = AppScene.surfaceCamera.position
                 line.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z)
+
+                result.push(line)
             }
+        }
+        return result
+    }
+
+    static hideConstellations(lines: THREE.Line[]): void {
+        for (var lineIndex in lines) {
+            var line = lines[lineIndex]
+            line.visible = false;
+            Stars.constellationsVisible = false
         }
     }
 
-    getStarByName(name: string): Star {
+    static showConstellations(lines: THREE.Line[]): void {
+        for (var lineIndex in lines) {
+            var line = lines[lineIndex]
+            line.visible = true
+            Stars.constellationsVisible = true
+        }
+    }
+
+    static toggleConstellations(lines: THREE.Line[]): void {
+        if (Stars.constellationsVisible) {
+            this.hideConstellations(lines)
+        } else {
+            this.showConstellations(lines)
+        }
+    }
+
+    static getStarByName(name: string): Star {
         return Stars.indexedDatabase[name.toLowerCase()] ?? Star.empty()
     }
 
-    getStarByHIP(hip: number): Star {
+    static getStarByHIP(hip: number): Star {
         return Stars.indexedDatabaseByHIP[hip]
     }
 
-    getStarById(id: number): Star {
+    static getStarById(id: number): Star {
         return Stars.database[id]
     }
 }
