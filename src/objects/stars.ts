@@ -68,7 +68,6 @@ export class Stars {
         return stars
     }
 
-    // TODO: Must normalize points onto sphere and add line mesh onto camera
     static createConstellations(): THREE.Line[] {
         var result: THREE.Line[] = []
         for (var constellation in constellations) {
@@ -90,7 +89,8 @@ export class Stars {
                         } else {
                             starObj = this.getStarByName(star)
                         }
-                        points.push(starObj.position.normalize().multiplyScalar(Planets.pluto.getDistance() * 2))
+                        // TODO: Must mount constellations onto camera
+                        points.push(starObj.position.normalize().multiplyScalar(Planets.pluto.getDistance() * 20))
                     }
                 }
 

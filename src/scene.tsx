@@ -208,6 +208,7 @@ class AppScene extends Component {
         //         AppScene.camera.switchCamera(AppScene.spaceCamera)
         //     }
         // }
+        // TODO: Switch at src/interface/drawer.tsx does not update when triggered with the 'c' key
         if (event.keyCode == 67) { // c
             Stars.toggleConstellations(AppScene.constellations)
         }

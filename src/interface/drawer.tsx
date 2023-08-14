@@ -115,6 +115,7 @@ class DrawerContent extends Component<{}, DrawerContentState> {
         })
     }
 
+    // TODO: Switch does not update when triggered with the 'c' key at src/scene.tsx
     onToggleConstellations() {
         Stars.toggleConstellations(AppScene.constellations)
         this.setState({
