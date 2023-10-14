@@ -26,9 +26,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1175817459",
-        "tid": "ac28a860-572b-11ee-a59a-e1ba9bf60c1c",
-        "timestamp": "2023-09-17T16:57:18Z",
+        "revision": "1179139125",
+        "tid": "a1f29dc0-6a94-11ee-a15f-536f0e0f3007",
+        "timestamp": "2023-10-08T04:38:11Z",
         "description": "Star in the Solar System",
         "description_source": "local",
         "content_urls": {
@@ -85,9 +85,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1176408321",
-        "tid": "c390fa10-588f-11ee-a998-d33912bdd338",
-        "timestamp": "2023-09-21T15:01:29Z",
+        "revision": "1179045786",
+        "tid": "8cea0190-67bd-11ee-8a42-5f86cb9c1946",
+        "timestamp": "2023-10-07T14:27:27Z",
         "description": "First planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -104,8 +104,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Mercury_(planet)"
             }
         },
-        "extract": "Mercury is the first planet from the Sun and the smallest in the Solar System. It is a terrestrial planet with a heavily cratered surface due to overlapping impact events. These features are well preserved since the planet has no geological activity and an extremely tenuous atmosphere. Despite being the smallest planet in the Solar System with a mean diameter of 4,880\u00a0km (3,030\u00a0mi), 38% of that of Earth, Mercury is dense enough to have roughly the same surface gravity as Mars. Mercury has a dynamic magnetic field with a strength about 1% of that of Earth's and has no natural satellites.",
-        "extract_html": "<p><b>Mercury</b> is the first planet from the Sun and the smallest in the Solar System. It is a terrestrial planet with a heavily cratered surface due to overlapping impact events. These features are well preserved since the planet has no geological activity and an extremely tenuous atmosphere. Despite being the smallest planet in the Solar System with a mean diameter of 4,880\u00a0km (3,030\u00a0mi), 38% of that of Earth, Mercury is dense enough to have roughly the same surface gravity as Mars. Mercury has a dynamic magnetic field with a strength about 1% of that of Earth's and has no natural satellites.</p>",
+        "extract": "Mercury is the first planet from the Sun and the smallest in the Solar System. It is a terrestrial planet with a heavily cratered surface due to overlapping impact events. These features are well preserved since the planet has no geological activity and an extremely tenuous atmosphere called an exosphere. Despite being the smallest planet in the Solar System with a mean diameter of 4,880\u00a0km (3,030\u00a0mi), 38% of that of Earth, Mercury is dense enough to have roughly the same surface gravity as Mars. Mercury has a dynamic magnetic field with a strength about 1% of that of Earth's and has no natural satellites.",
+        "extract_html": "<p><b>Mercury</b> is the first planet from the Sun and the smallest in the Solar System. It is a terrestrial planet with a heavily cratered surface due to overlapping impact events. These features are well preserved since the planet has no geological activity and an extremely tenuous atmosphere called an exosphere. Despite being the smallest planet in the Solar System with a mean diameter of 4,880\u00a0km (3,030\u00a0mi), 38% of that of Earth, Mercury is dense enough to have roughly the same surface gravity as Mars. Mercury has a dynamic magnetic field with a strength about 1% of that of Earth's and has no natural satellites.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -144,9 +144,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1176261383",
-        "tid": "58e997c0-57cd-11ee-ab71-e59d419c870a",
-        "timestamp": "2023-09-20T15:49:47Z",
+        "revision": "1177369745",
+        "tid": "18b200b0-67be-11ee-b5b2-cfdbc2c1842e",
+        "timestamp": "2023-09-27T09:54:48Z",
         "description": "Second planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -203,9 +203,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1176262570",
-        "tid": "60180350-57ce-11ee-8dce-afb7985c97e8",
-        "timestamp": "2023-09-20T15:57:05Z",
+        "revision": "1179399146",
+        "tid": "7731b410-67bd-11ee-9aab-dd8b5b7b28ee",
+        "timestamp": "2023-10-09T21:49:58Z",
         "description": "Third planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -262,10 +262,10 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1176396165",
-        "tid": "dad7fbb0-5880-11ee-bd5f-b587e3323d93",
-        "timestamp": "2023-09-21T13:14:32Z",
-        "description": "Natural satellite orbiting the Earth",
+        "revision": "1180116630",
+        "tid": "b23d2a60-6ab2-11ee-87d6-a9bc21586561",
+        "timestamp": "2023-10-14T16:56:49Z",
+        "description": "Natural satellite orbiting Earth",
         "description_source": "local",
         "content_urls": {
             "desktop": {
@@ -281,8 +281,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Moon"
             }
         },
-        "extract": "The Moon is Earth's only natural satellite. It orbits around Earth at an average distance of 384,400\u00a0km (238,900\u00a0mi), or about 30 times Earth's diameter, having a sidereal period of 27.3 days and a synodic period of 29.5 days. The Moon faces Earth always with its near side by having a rotation period that equals its orbital period, resulting from being tidally locked to Earth.\nIts gravitational influence is the main driver of Earth's tides and causes Earth's day to lengthen very slowly. Its diameter is 3,474\u00a0km (2,159\u00a0mi), which is roughly one-quarter that of Earth or twice the width of Australia, making it by far the largest and most massive satellite in the Solar System in relation to its parent planet and the fifth-largest Solar System satellite overall. The Moon is a satellite planet in geophysical terms and among all planetary-mass objects of the Solar System larger and more massive than all known solar dwarf planets. The Moon's mass, density and surface gravity of about one-sixth of Earth's, are rivaled among Solar System satellites only by Jupiter's moon Io. The body of the Moon is differentiated and terrestrial, with no significant atmosphere, hydrosphere, or magnetic field.",
-        "extract_html": "<p>The <b>Moon</b> is Earth's only natural satellite. It orbits around Earth at an average distance of 384,400\u00a0km (238,900\u00a0mi), or about 30 times Earth's diameter, having a sidereal period of 27.3 days and a synodic period of 29.5 days. The Moon faces Earth always with its near side by having a rotation period that equals its orbital period, resulting from being tidally locked to Earth.\nIts gravitational influence is the main driver of Earth's tides and causes Earth's day to lengthen very slowly. Its diameter is 3,474\u00a0km (2,159\u00a0mi), which is roughly one-quarter that of Earth or twice the width of Australia, making it by far the largest and most massive satellite in the Solar System in relation to its parent planet and the fifth-largest Solar System satellite overall. The Moon is a satellite planet in geophysical terms and among all planetary-mass objects of the Solar System larger and more massive than all known solar dwarf planets. The Moon's mass, density and surface gravity of about one-sixth of Earth's, are rivaled among Solar System satellites only by Jupiter's moon Io. The body of the Moon is differentiated and terrestrial, with no significant atmosphere, hydrosphere, or magnetic field.</p>",
+        "extract": "The Moon is Earth's only natural satellite. It orbits Earth at an average distance of 384400\u00a0km, about 30 times Earth's diameter. The Moon's near side always faces Earth because of rotating exactly once per orbit, from being tidally locked to Earth. The resulting lunar day is 29.5 Earth days long, going through observable cycles of phases. Its influence on Earth is significant, being the main driver of Earth's tides along with the Sun.",
+        "extract_html": "<p>The <b>Moon</b> is Earth's only natural satellite. It orbits Earth at an average distance of <span class=\"nowrap\">384<span>400</span>\u00a0km</span>, about 30 times Earth's diameter. The Moon's near side always faces Earth because of rotating exactly once per orbit, from being tidally locked to Earth. The resulting lunar day is 29.5 Earth days long, going through observable cycles of phases. Its influence on Earth is significant, being the main driver of Earth's tides along with the Sun.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -321,9 +321,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1176262834",
-        "tid": "9bf7eca0-57ce-11ee-ac40-f1f396637ca1",
-        "timestamp": "2023-09-20T15:58:49Z",
+        "revision": "1177418186",
+        "tid": "d7da3eb0-69dc-11ee-9163-654a380ed4b6",
+        "timestamp": "2023-09-27T14:20:16Z",
         "description": "Fourth planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -380,9 +380,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1175660636",
-        "tid": "e3c317b0-569a-11ee-b7ca-9957f4692129",
-        "timestamp": "2023-09-16T14:37:16Z",
+        "revision": "1179947559",
+        "tid": "de0a5370-69e5-11ee-826f-3bef8ba8a59e",
+        "timestamp": "2023-10-13T13:58:31Z",
         "description": "Fifth planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -439,9 +439,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1174143867",
-        "tid": "4f181490-5009-11ee-9339-0723d5ed1e69",
-        "timestamp": "2023-09-06T16:19:16Z",
+        "revision": "1177761073",
+        "tid": "e48b6a00-69d0-11ee-ae61-f5423448ad4b",
+        "timestamp": "2023-09-29T12:15:54Z",
         "description": "Sixth planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -498,9 +498,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1175902706",
-        "tid": "e2f2cf60-569a-11ee-b9d9-3ba47a06d385",
-        "timestamp": "2023-09-18T05:33:02Z",
+        "revision": "1179046625",
+        "tid": "6b8b0aa0-69dc-11ee-9ce9-bb0011131958",
+        "timestamp": "2023-10-07T14:35:01Z",
         "description": "Seventh planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -557,9 +557,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1175839895",
-        "tid": "3f8dc340-5594-11ee-9dbf-f5823727c4e5",
-        "timestamp": "2023-09-17T19:56:00Z",
+        "revision": "1179945096",
+        "tid": "e3082cc0-69cd-11ee-9b7b-5bf4329fe5b7",
+        "timestamp": "2023-10-13T13:39:01Z",
         "description": "Eighth planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -576,8 +576,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Neptune"
             }
         },
-        "extract": "Neptune is the eighth planet from the Sun and the farthest IAU-recognized planet in the Solar System. It is the fourth-largest planet in the Solar System by diameter, the third-most-massive planet, and the densest giant planet. It is 17\u00a0times the mass of Earth, and slightly more massive than its near-twin Uranus. Neptune is denser and physically smaller than Uranus because its greater mass causes more gravitational compression of its atmosphere. Being composed primarily of gases and liquids, it has no well-defined solid surface. The planet orbits the Sun once every 164.8\u00a0years at an average distance of 30.1 astronomical units. It is named after the Roman god of the sea and has the astronomical symbol , representing Neptune's trident.",
-        "extract_html": "<p><b>Neptune</b> is the eighth planet from the Sun and the farthest IAU-recognized planet in the Solar System. It is the fourth-largest planet in the Solar System by diameter, the third-most-massive planet, and the densest giant planet. It is 17\u00a0times the mass of Earth, and slightly more massive than its near-twin Uranus. Neptune is denser and physically smaller than Uranus because its greater mass causes more gravitational compression of its atmosphere. Being composed primarily of gases and liquids, it has no well-defined solid surface. The planet orbits the Sun once every 164.8\u00a0years at an average distance of 30.1 astronomical units. It is named after the Roman god of the sea and has the astronomical symbol <span class=\"nowrap\"><span><span class=\"mw-file-description\"><img src=\"//upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Neptune_symbol_%28fixed_width%29.svg/16px-Neptune_symbol_%28fixed_width%29.svg.png\" decoding=\"async\" height=\"16\" width=\"16\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Neptune_symbol_%28fixed_width%29.svg/24px-Neptune_symbol_%28fixed_width%29.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Neptune_symbol_%28fixed_width%29.svg/32px-Neptune_symbol_%28fixed_width%29.svg.png 2x\" class=\"mw-file-element\" /></span></span>,</span> representing Neptune's trident.</p>",
+        "extract": "Neptune is the eighth planet from the Sun and the farthest IAU-recognized planet in the Solar System. It is the fourth-largest planet in the Solar System by diameter, the third-most-massive planet, and the densest giant planet. It is 17\u00a0times the mass of Earth, and slightly more massive than its near-twin Uranus. Neptune is denser and physically smaller than Uranus because its greater mass causes more gravitational compression of its atmosphere. Being composed primarily of gases and liquids, it has no well-defined solid surface. The planet orbits the Sun once every 164.8\u00a0years at an orbital distance of 30.1 astronomical units. It is named after the Roman god of the sea and has the astronomical symbol , representing Neptune's trident.",
+        "extract_html": "<p><b>Neptune</b> is the eighth planet from the Sun and the farthest IAU-recognized planet in the Solar System. It is the fourth-largest planet in the Solar System by diameter, the third-most-massive planet, and the densest giant planet. It is 17\u00a0times the mass of Earth, and slightly more massive than its near-twin Uranus. Neptune is denser and physically smaller than Uranus because its greater mass causes more gravitational compression of its atmosphere. Being composed primarily of gases and liquids, it has no well-defined solid surface. The planet orbits the Sun once every 164.8\u00a0years at an orbital distance of 30.1 astronomical units. It is named after the Roman god of the sea and has the astronomical symbol <span class=\"nowrap\"><span><span class=\"mw-file-description\"><img src=\"//upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Neptune_symbol_%28fixed_width%29.svg/16px-Neptune_symbol_%28fixed_width%29.svg.png\" decoding=\"async\" height=\"16\" width=\"16\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Neptune_symbol_%28fixed_width%29.svg/24px-Neptune_symbol_%28fixed_width%29.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Neptune_symbol_%28fixed_width%29.svg/32px-Neptune_symbol_%28fixed_width%29.svg.png 2x\" class=\"mw-file-element\" /></span></span>,</span> representing Neptune's trident.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -616,9 +616,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1176212788",
-        "tid": "f85183f0-5786-11ee-a941-d977e84c83bd",
-        "timestamp": "2023-09-20T07:26:00Z",
+        "revision": "1180081294",
+        "tid": "e606a800-6a83-11ee-80c4-fd9123010217",
+        "timestamp": "2023-10-14T11:21:54Z",
         "description": "Dwarf planet",
         "description_source": "local",
         "content_urls": {
@@ -675,9 +675,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1174064950",
-        "tid": "6f4e3800-5010-11ee-aa3c-7d6b1f47f068",
-        "timestamp": "2023-09-06T03:19:30Z",
+        "revision": "1179298556",
+        "tid": "0f352360-67e0-11ee-b08e-4b5195c3f678",
+        "timestamp": "2023-10-09T06:00:56Z",
         "description": "Dwarf planet in the asteroid belt",
         "description_source": "local",
         "content_urls": {
@@ -694,8 +694,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Ceres_(dwarf_planet)"
             }
         },
-        "extract": "Ceres, minor-planet designation 1 Ceres, is a dwarf planet in the asteroid belt between the orbits of Mars and Jupiter. It was the first asteroid discovered, on 1 January 1801, by Giuseppe Piazzi at Palermo Astronomical Observatory in Sicily and announced as a new planet. Ceres was later classified as an asteroid and then a dwarf planet, the only one always inside Neptune's orbit.",
-        "extract_html": "<p><b>Ceres</b>, minor-planet designation <b>1 Ceres</b>, is a dwarf planet in the asteroid belt between the orbits of Mars and Jupiter. It was the first asteroid discovered, on 1 January 1801, by Giuseppe Piazzi at Palermo Astronomical Observatory in Sicily and announced as a new planet. Ceres was later classified as an asteroid and then a dwarf planet, the only one always inside Neptune's orbit.</p>"
+        "extract": "Ceres, minor-planet designation 1 Ceres, is a dwarf planet in the middle main asteroid belt between the orbits of Mars and Jupiter. It was the first asteroid discovered, on 1 January 1801, by Giuseppe Piazzi at Palermo Astronomical Observatory in Sicily and announced as a new planet. Ceres was later classified as an asteroid and then a dwarf planet, the only one always inside Neptune's orbit.",
+        "extract_html": "<p><b>Ceres</b>, minor-planet designation <b>1 Ceres</b>, is a dwarf planet in the middle main asteroid belt between the orbits of Mars and Jupiter. It was the first asteroid discovered, on 1 January 1801, by Giuseppe Piazzi at Palermo Astronomical Observatory in Sicily and announced as a new planet. Ceres was later classified as an asteroid and then a dwarf planet, the only one always inside Neptune's orbit.</p>"
     },
     "Io": {
         "type": "standard",
@@ -724,9 +724,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1175761608",
-        "tid": "29ac8c40-552c-11ee-a489-c7e666e9bb16",
-        "timestamp": "2023-09-17T07:30:58Z",
+        "revision": "1180148465",
+        "tid": "19685b50-6ad2-11ee-b2e4-03dbd64f1ea8",
+        "timestamp": "2023-10-14T20:41:43Z",
         "description": "Innermost of the four Galilean moons of Jupiter",
         "description_source": "local",
         "content_urls": {
@@ -743,8 +743,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Io_(moon)"
             }
         },
-        "extract": "Io, or Jupiter I, is the innermost and third-largest of the four Galilean moons of the planet Jupiter. Slightly larger than Earth\u2019s moon, Io is the fourth-largest moon in the Solar System, has the highest density of any moon, the strongest surface gravity of any moon, and the lowest amount of water of any known astronomical object in the Solar System. It was discovered in 1610 by Galileo Galilei and was named after the mythological character Io, a priestess of Hera who became one of Zeus's lovers.",
-        "extract_html": "<p><b>Io</b>, or <b>Jupiter I</b>, is the innermost and third-largest of the four Galilean moons of the planet Jupiter. Slightly larger than Earth\u2019s moon, Io is the fourth-largest moon in the Solar System, has the highest density of any moon, the strongest surface gravity of any moon, and the lowest amount of water of any known astronomical object in the Solar System. It was discovered in 1610 by Galileo Galilei and was named after the mythological character Io, a priestess of Hera who became one of Zeus's lovers.</p>",
+        "extract": "Io, or Jupiter I, is the innermost and third-largest of the four Galilean moons of the planet Jupiter. Slightly larger than Earth's moon, Io is the fourth-largest moon in the Solar System, has the highest density of any moon, the strongest surface gravity of any moon, and the lowest amount of water of any known astronomical object in the Solar System. It was discovered in 1610 by Galileo Galilei and was named after the mythological character Io, a priestess of Hera who became one of Zeus's lovers.",
+        "extract_html": "<p><b>Io</b>, or <b>Jupiter I</b>, is the innermost and third-largest of the four Galilean moons of the planet Jupiter. Slightly larger than Earth's moon, Io is the fourth-largest moon in the Solar System, has the highest density of any moon, the strongest surface gravity of any moon, and the lowest amount of water of any known astronomical object in the Solar System. It was discovered in 1610 by Galileo Galilei and was named after the mythological character Io, a priestess of Hera who became one of Zeus's lovers.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Public Domain",
@@ -783,9 +783,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1175602409",
-        "tid": "90dacc50-544c-11ee-85c0-bfcc59b8a754",
-        "timestamp": "2023-09-16T04:50:25Z",
+        "revision": "1179364846",
+        "tid": "281037b0-67bf-11ee-b074-9b04ed70e0f0",
+        "timestamp": "2023-10-09T17:13:20Z",
         "description": "Largest moon of Jupiter and in the Solar System",
         "description_source": "local",
         "content_urls": {
@@ -842,9 +842,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1175080072",
-        "tid": "76beefd0-550b-11ee-b24a-a9859c85b7fe",
-        "timestamp": "2023-09-12T17:45:06Z",
+        "revision": "1179524221",
+        "tid": "6b4af460-69dc-11ee-8fb4-3d7afec2fbd6",
+        "timestamp": "2023-10-10T18:03:02Z",
         "description": "Smallest Galilean moon of Jupiter",
         "description_source": "local",
         "content_urls": {
@@ -901,9 +901,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1174289463",
-        "tid": "514813f0-5009-11ee-a406-53dca2d33ac5",
-        "timestamp": "2023-09-07T14:27:45Z",
+        "revision": "1179707239",
+        "tid": "72fd03a0-6884-11ee-af81-f9a375e2c850",
+        "timestamp": "2023-10-11T22:20:51Z",
         "description": "Second largest moon of Jupiter",
         "description_source": "local",
         "content_urls": {
