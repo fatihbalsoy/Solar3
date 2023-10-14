@@ -23,6 +23,9 @@ class SceneCamera extends THREE.PerspectiveCamera {
     }
 
     update() {
+        let campos = AppScene.camera.position
+        AppScene.landscape.position.set(campos.x, campos.y, campos.z)
+
         let camera = this
         let object = Settings.lookAt
         if (object instanceof Planet) {

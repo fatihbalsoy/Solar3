@@ -44,6 +44,7 @@ import Ganymede from './objects/moons/jupiter_ganymede';
 import SceneCamera from './scene/camera'
 import SearchBar from './interface/search'
 import SceneLoadingManager from './scene/loading_manager'
+import LandscapeZurich from './objects/landscapes/zurich'
 
 // TODO: Preload textures to prevent lag during runtime
 class AppScene extends Component {
@@ -63,6 +64,8 @@ class AppScene extends Component {
     private stars: Stars
 
     private timer: NodeJS.Timeout;
+
+    static landscape: THREE.Object3D
 
     componentDidMount() {
         // Get the dimensions of the rendering container
@@ -179,6 +182,10 @@ class AppScene extends Component {
         this.timer = setInterval(() => {
             this.calculatePositions(true)
         }, 1000);
+
+        let zurich = new LandscapeZurich()
+        AppScene.landscape = zurich
+        AppScene.scene.add(zurich)
 
         this.start()
         AppScene.camera.flyTo(Planets.earth, 0)

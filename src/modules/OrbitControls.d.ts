@@ -1,5 +1,7 @@
 /*
  *   OrbitControls.d.ts
+ *   https://github.com/mrdoob/three.js/blob/dev/examples/jsm/controls/OrbitControls.js
+ * 
  *   solar-system-3js
  * 
  *   Created by Fatih Balsoy on 4/30/23
