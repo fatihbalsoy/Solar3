@@ -57,7 +57,7 @@ class SceneSurfaceCamera extends SceneCamera {
         const polarRad = this.planet.polarRadius * Settings.sizeScale
 
         // Altitude (converted from meters to km to game scale)
-        const altitude = ((Settings.geolocation.altitude / 1000)
+        const altitude = ((Settings.geolocation ? Settings.geolocation.altitude : 0 / 1000)
             + AppScene.geolocationConfig.altOffset) * Settings.sizeScale
 
         // Convert geographic coordinates to cartesian coordinates
