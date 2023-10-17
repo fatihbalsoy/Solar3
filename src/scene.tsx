@@ -49,7 +49,14 @@ import SceneCamera from './scene/camera'
 type SurfaceCameraProperties = {
     zoom: number
     fov: number
-    altitude: number
+    altitude: number,
+    azimuth: number
+}
+
+export type GeolocationConfig = {
+    latOffset: number
+    lonOffset: number
+    altOffset: number
 }
 
 class AppScene extends Component {
@@ -76,7 +83,18 @@ class AppScene extends Component {
     static surfaceCameraProps: SurfaceCameraProperties = {
         zoom: 1,
         fov: 100,
-        altitude: 0.00001
+        altitude: 0,
+        azimuth: 0
+    }
+
+    static cameraConfig = {
+        camera: 'p' // c(space), p(rogramme), s(urface)
+    }
+
+    static geolocationConfig: GeolocationConfig = {
+        latOffset: 0,
+        lonOffset: 0,
+        altOffset: 0,
     }
 
     componentDidMount() {
@@ -99,6 +117,15 @@ class AppScene extends Component {
         this.stars = new Stars()
 
         AppScene.scene.add(AppScene.spaceCamera)
+        const gui = new dat.GUI()
+
+        // * -- DEV GUI -- * //
+        if (Settings.isDev) {
+            gui.add(AppScene.cameraConfig, 'camera', { Program: 'p', Space: 'c', Surface: 's' })
+            gui.add(AppScene.geolocationConfig, 'latOffset', -180, 180)
+            gui.add(AppScene.geolocationConfig, 'lonOffset', -180, 180)
+            gui.add(AppScene.geolocationConfig, 'altOffset', 0, 1000, 1)
+        }
 
         // * -- RENDERERS --  * //
         this.renderer.setClearColor('#000000')
@@ -164,10 +191,10 @@ class AppScene extends Component {
 
         // * -- SURFACE CAMERA -- * //
         if (Settings.isDev) {
-            const gui = new dat.GUI()
             gui.add(AppScene.surfaceCameraProps, 'zoom', 1, 1000)
             gui.add(AppScene.surfaceCameraProps, 'fov', 1, 179)
-            gui.add(AppScene.surfaceCameraProps, 'altitude')
+            gui.add(AppScene.surfaceCameraProps, 'altitude', -90, 90)
+            gui.add(AppScene.surfaceCameraProps, 'azimuth', 0, 360)
         }
         Settings.cameraLocation = Planets.earth
         AppScene.surfaceCamera.init(Settings.cameraLocation)
@@ -305,10 +332,18 @@ class AppScene extends Component {
         this.statistics.end()
     }
 
+    getCamera() {
+        return AppScene.cameraConfig.camera == 'c'
+            ? AppScene.spaceCamera
+            : AppScene.cameraConfig.camera == 's'
+                ? AppScene.surfaceCamera
+                : AppScene.camera
+    }
+
     renderScene = () => {
         if (this.renderer && this.cssRenderer && AppScene.scene && AppScene.spaceCamera && AppScene.surfaceCamera) {
-            this.renderer.render(AppScene.scene, AppScene.camera)
-            this.cssRenderer.render(AppScene.scene, AppScene.camera)
+            this.renderer.render(AppScene.scene, this.getCamera())
+            this.cssRenderer.render(AppScene.scene, this.getCamera())
         }
     }
 
