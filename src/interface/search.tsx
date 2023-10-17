@@ -71,7 +71,7 @@ class SearchBar extends Component {
             AppScene.camera.animateLookAt(solObject || star, 2000)
         } else {
             // TODO: UI
-            console.log("No such object:", s)
+            // console.log("No such object:", s)
         }
     }
 

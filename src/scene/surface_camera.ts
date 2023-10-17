@@ -17,24 +17,13 @@ import SceneCamera from "./camera"
 // TODO: The planet's height and width segments must be extremely large to display the horizon as flat as possible
 class SceneSurfaceCamera extends SceneCamera {
     isAnimating: boolean = false
-    lastGeolocation: AppLocation
     planet: Planet
 
     init(planet: Planet) {
         this.planet = planet
         this.planet.realMesh.add(this)
-
-        const geometry = new THREE.SphereGeometry(100 * Settings.sizeScale, 8, 8)
-        const material = new THREE.MeshToonMaterial()
-        const mesh = new THREE.Mesh(geometry, material)
-        this.add(mesh)
-
-        if (Settings.isDev) {
-            const cameraHelper = new THREE.CameraHelper(this)
-            AppScene.scene.add(cameraHelper)
-
-            Settings.dev_addAxesHelper(this.planet.realMesh, 100)
-        }
+        this.update()
+        this.lookAtNorth()
     }
 
     switchTo(planet: Planet) {
@@ -43,112 +32,108 @@ class SceneSurfaceCamera extends SceneCamera {
         this.planet = planet
         this.planet.realMesh.add(this)
         Settings.cameraLocation = planet
-        this.update(true)
+        this.update()
     }
 
-    dev_addMesh(x: number, y: number, z: number) {
-        let geo = new THREE.SphereGeometry(10 * Settings.sizeScale, 8, 8)
-        var color = new THREE.Color();
-        color.setHSL(Math.random(), 1, 0.5);
-        let mat = new THREE.MeshToonMaterial({
-            color: color
-        })
-        let mesh = new THREE.Mesh(geo, mat)
-        mesh.position.set(x, y, z)
-        this.planet.realMesh.add(mesh)
+    update() {
+        // TODO: Setting back to current location doesn't set the camera's location to current location
 
-        const material = new THREE.LineBasicMaterial({ color: 0xffffff });
-        const points = [];
-        const point = new THREE.Vector3(this.position.x, this.position.y, this.position.z)
-        points.push(point);
-        points.push(new THREE.Vector3().copy(point).multiplyScalar(10000));
-        const geometry = new THREE.BufferGeometry().setFromPoints(points);
-        const line = new THREE.Line(geometry, material);
-        this.planet.realMesh.add(line);
-    }
-
-    update(force: boolean = false) {
         // Latitude and Longitude in radians
-        const lat = Settings.geolocation.latitude + AppScene.geolocationConfig.latOffset
-        const lon = Settings.geolocation.longitude + AppScene.geolocationConfig.lonOffset
+        var lat = (Settings.geolocation ? Settings.geolocation.latitude : 0)
+            + AppScene.geolocationConfig.latOffset
+        var lon = (Settings.geolocation ? Settings.geolocation.longitude : 0)
+            + AppScene.geolocationConfig.lonOffset
+
+        // TODO: Work on edge case: lat 0 & lon 0
+        if (lat == 0) lat = 0.0001
+        if (lon == 0) lon = 0.0001
 
         // Convert coordinates from degrees to radians
         const phi = THREE.MathUtils.degToRad(90 - lat)
         const theta = -THREE.MathUtils.degToRad(lon)
 
-        // TODO: Setting back to current location doesn't set the camera's location to current location
-        if (Settings.geolocation && (force || !Settings.geolocation.equals(this.lastGeolocation))) {
-            this.lastGeolocation = Settings.geolocation
+        // Equatorial and polar radius in game scale
+        const equatRad = this.planet.equatorialRadius * Settings.sizeScale
+        const polarRad = this.planet.polarRadius * Settings.sizeScale
 
-            // Altitude (converted from meters to km to game scale)
-            const altitude = ((Settings.geolocation.altitude / 1000)
-                + AppScene.geolocationConfig.altOffset) * Settings.sizeScale
+        // Altitude (converted from meters to km to game scale)
+        const altitude = ((Settings.geolocation.altitude / 1000)
+            + AppScene.geolocationConfig.altOffset) * Settings.sizeScale
 
-            // Convert geographic coordinates to cartesian coordinates
-            const x = this.planet.equatorialRadius * Math.sin(phi) * Math.cos(theta)
-            const y = this.planet.polarRadius * Math.cos(phi)
-            const z = this.planet.equatorialRadius * Math.sin(phi) * Math.sin(theta)
+        // Convert geographic coordinates to cartesian coordinates
+        const x = equatRad * Math.sin(phi) * Math.cos(theta)
+        const y = polarRad * Math.cos(phi)
+        const z = equatRad * Math.sin(phi) * Math.sin(theta)
 
-            // Set coordinates as vector3 and scale
-            const vector = new THREE.Vector3(x, y, z)
-            vector.multiplyScalar(Settings.sizeScale)
+        // Set coordinates as vector3 and scale
+        const vector = new THREE.Vector3(x, y, z)
 
-            // Calculate normal vector to tangent plane for the point on the spheroid
-            // Spheroid equation: (x/q)^2 + (y/q)^2 + (z/p)^2 = 1
-            // Spheroid gradient: [2x/(q^2), 2y/(q^2), 2z/(p^2)]
-            const nX = 2 * x / this.planet.equatorialRadius ** 2
-            const nY = 2 * y / this.planet.polarRadius ** 2
-            const nZ = 2 * z / this.planet.equatorialRadius ** 2
-            const norm = new THREE.Vector3(nX, nY, nZ)
+        // Calculate normal vector to tangent plane for the point on the spheroid
+        // Spheroid equation: (x/q)^2 + (y/q)^2 + (z/p)^2 = 1
+        // Spheroid gradient: [2x/(q^2), 2y/(q^2), 2z/(p^2)]
+        const nX = 2 * x / equatRad ** 2
+        const nY = 2 * y / polarRad ** 2
+        const nZ = 2 * z / equatRad ** 2
+        const norm = new THREE.Vector3(nX, nY, nZ)
 
-            // Set camera's altitude
-            const normHeight = new THREE.Vector3().copy(norm).normalize().multiplyScalar(altitude)
-            vector.add(normHeight)
+        // Set camera's altitude
+        const normHeight = new THREE.Vector3().copy(norm).normalize().multiplyScalar(altitude)
+        vector.add(normHeight)
 
-            // Set camera's location in relation to Earth
-            this.position.set(vector.x, vector.y, vector.z)
+        // Set camera's location in relation to Earth
+        this.position.set(vector.x, vector.y, vector.z)
 
-            // Set camera's up direction
-            this.up.set(nX, nY, nZ)
+        // Set camera's up direction
+        const worldRotation = this.planet.realMesh.rotation
+        norm.applyEuler(worldRotation)
+        this.up.set(norm.x, norm.y, norm.z)
 
-            if (Settings.isDev) {
-                // this.dev_addMesh(nX, nY, nZ)
-                // this.dev_addMesh(0, 0, 0)
-            }
-        } else if (!Settings.geolocation) {
-            this.position.set((this.planet.equatorialRadius + AppScene.geolocationConfig.altOffset) * Settings.sizeScale, 0, 0)
+        if (!this.isAnimating && Settings.lookAt != this.planet) {
+            this.lookAt(Settings.lookAt.position)
         }
 
-        if (!this.isAnimating) {
-            // this.lookAt(Settings.lookAt.position)
-        }
-
-        // Calculate the horizon towards the north (0 degrees azimuth)
-        var horizon = new THREE.Vector3(
-            lat == 0 ? Math.cos(lat * Math.PI / 180) * this.planet.equatorialRadius : 0,
-            lat == 0 ? 1
-                // y-intercept of tangent at current latitude
-                : this.planet.polarRadius / Math.sin(lat * Math.PI / 180),
-            0
-        )
-
-        // Set 0 altitude, 0 azimuth at northern horizon
-        // and offset altitude and azimuth to user values
-        this.lookAt(horizon)
-        this.rotateOnAxis(new THREE.Vector3(0, -1, 0), (phi > Math.PI / 2 ? Math.PI : 0) + AppScene.surfaceCameraProps.azimuth * Math.PI / 180)
-        this.rotateOnAxis(new THREE.Vector3(1, 0, 0), AppScene.surfaceCameraProps.altitude * Math.PI / 180)
+        // TODO: Manual control
+        // // Set 0 altitude, 0 azimuth at northern horizon
+        // // and offset altitude and azimuth to user values
+        // this.lookAtNorth()
+        // this.rotateOnAxis(new THREE.Vector3(0, -1, 0), (phi > Math.PI / 2 ? Math.PI : 0) + AppScene.surfaceCameraProps.azimuth * Math.PI / 180)
+        // this.rotateOnAxis(new THREE.Vector3(1, 0, 0), AppScene.surfaceCameraProps.altitude * Math.PI / 180)
 
         this.updateProjectionMatrix()
     }
 
-    lookAtOnUpdate(coords: { x: number, y: number, z: number }) {
-        // this.lookAt(new THREE.Vector3(coords.x, coords.y, coords.z))
+    lookAtNorth() {
+        // Latitude and Longitude in radians
+        var lat = (Settings.geolocation ? Settings.geolocation.latitude : 0)
+            + AppScene.geolocationConfig.latOffset
+
+        // Equatorial and polar radius in game scale
+        const equatRad = this.planet.equatorialRadius * Settings.sizeScale
+        const polarRad = this.planet.polarRadius * Settings.sizeScale
+
+        // Calculate the horizon towards the north (0 degrees azimuth)
+        var horizon = new THREE.Vector3(
+            lat == 0 ? Math.cos(lat * Math.PI / 180) * equatRad : 0,
+            lat == 0 ? 1
+                // y-intercept of tangent at current latitude
+                : polarRad / Math.sin(lat * Math.PI / 180),
+            0
+        )
+        horizon.add(this.planet.mesh.position)
+
+        this.lookAt(horizon)
     }
 
+    lookAtOnUpdate(coords: { x: number, y: number, z: number }) {
+        this.lookAt(new THREE.Vector3(coords.x, coords.y, coords.z))
+    }
+
+    // TODO: Proof of concept
+    // Maybe from surface to space camera?
     animateFlyTo(planet: Planet, duration: number): void {
         const newCamera = new SceneSurfaceCamera(this.fov, this.aspect, this.near, this.far)
         newCamera.init(planet)
-        newCamera.update(true)
+        newCamera.update()
         let newCameraCoords = planet.position.clone().add(newCamera.position)
         let newCameraUp = newCamera.up
 

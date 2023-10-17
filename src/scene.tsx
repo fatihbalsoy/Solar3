@@ -226,15 +226,15 @@ class AppScene extends Component {
     }
 
     handleKey(event) {
-        console.log("HANDLEKEY")
-        // if (event.keyCode == 75) { // k
-        //     console.log("K")
-        //     if (AppScene.camera instanceof SceneSpaceCamera) {
-        //         AppScene.camera.switchCamera(AppScene.surfaceCamera)
-        //     } else {
-        //         AppScene.camera.switchCamera(AppScene.spaceCamera)
-        //     }
-        // }
+        // console.log("HANDLEKEY")
+        if (event.keyCode == 75) { // k
+            // console.log("K")
+            if (AppScene.camera instanceof SceneSpaceCamera) {
+                AppScene.camera.switchCamera(AppScene.surfaceCamera)
+            } else {
+                AppScene.camera.switchCamera(AppScene.spaceCamera)
+            }
+        }
         // TODO: Switch at src/interface/drawer.tsx does not update when triggered with the 'c' key
         if (event.keyCode == 67) { // c
             Stars.toggleConstellations(AppScene.constellations)

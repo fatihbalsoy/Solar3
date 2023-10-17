@@ -12,7 +12,6 @@ import Planet from "../objects/planet"
 import Star from "../objects/star"
 import Settings from "../settings"
 import AppScene from "../scene"
-import SceneSpaceCamera from "./space_camera"
 import SceneSurfaceCamera from "./surface_camera"
 
 class SceneCamera extends THREE.PerspectiveCamera {
@@ -20,64 +19,64 @@ class SceneCamera extends THREE.PerspectiveCamera {
 
     update() { }
 
-    // switchCamera(camera: SceneCamera) {
-    //     const cameraCopy = this.clone()
+    // TODO: This is only a proof of concept
+    switchCamera(camera: SceneCamera) {
+        const cameraCopy = this.clone()
 
-    //     if (this["planet"]) {
-    //         this["planet"].realMesh.remove(this)
-    //         AppScene.scene.add(this)
-    //     }
+        if (this["planet"]) {
+            this["planet"].realMesh.remove(this)
+            AppScene.scene.add(this)
+        }
 
-    //     let thisCoords = this["planet"] ? this.position.clone().add(this["planet"].getPosition()) : this.position
-    //     let nextCoords = camera["planet"] ? camera.position.clone().add(camera["planet"].getPosition()) : camera.position
-    //     let currentCoords = { x: thisCoords.x, y: thisCoords.y, z: thisCoords.z }
+        let thisCoords = this["planet"] ? this.position.clone().add(this["planet"].getPosition()) : this.position
+        let nextCoords = camera["planet"] ? camera.position.clone().add(camera["planet"].getPosition()) : camera.position
+        let currentCoords = { x: thisCoords.x, y: thisCoords.y, z: thisCoords.z }
 
-    //     let nextUp = camera.up
-    //     let currentUp = { x: this.up.x, y: this.up.y, z: this.up.z }
+        let nextUp = camera.up
+        let currentUp = { x: this.up.x, y: this.up.y, z: this.up.z }
 
-    //     const duration = 2000
+        const duration = 2000
 
-    //     new TWEEN.Tween(currentUp)
-    //         .to(nextUp)
-    //         .duration(duration)
-    //         .easing(TWEEN.Easing.Cubic.InOut)
-    //         .onStart(() => {
-    //             this.isAnimating = true
-    //         })
-    //         .onUpdate(() => {
-    //             this.up.set(currentUp.x, currentUp.y, currentUp.z)
-    //         })
-    //         .onComplete(() => {
-    //             this.isAnimating = false
-    //         })
-    //         .start()
+        new TWEEN.Tween(currentUp)
+            .to(nextUp)
+            .duration(duration)
+            .easing(TWEEN.Easing.Cubic.InOut)
+            .onStart(() => {
+                this.isAnimating = true
+            })
+            .onUpdate(() => {
+                this.up.set(currentUp.x, currentUp.y, currentUp.z)
+            })
+            .onComplete(() => {
+                this.isAnimating = false
+            })
+            .start()
 
-    //     new TWEEN.Tween(currentCoords)
-    //         .to(nextCoords)
-    //         .duration(duration)
-    //         .easing(TWEEN.Easing.Cubic.InOut)
-    //         .onStart(() => {
-    //             this.isAnimating = true
-    //         })
-    //         .onUpdate(() => {
-    //             this.position.set(currentCoords.x, currentCoords.y, currentCoords.z)
-    //         })
-    //         .onComplete(() => {
-    //             this.isAnimating = false
-    //             AppScene.camera = camera
-    //             this.position.set(cameraCopy.position.x, cameraCopy.position.y, cameraCopy.position.z)
-    //             this.up.set(cameraCopy.up.x, cameraCopy.up.y, cameraCopy.up.z)
+        new TWEEN.Tween(currentCoords)
+            .to(nextCoords)
+            .duration(duration)
+            .easing(TWEEN.Easing.Cubic.InOut)
+            .onStart(() => {
+                this.isAnimating = true
+            })
+            .onUpdate(() => {
+                this.position.set(currentCoords.x, currentCoords.y, currentCoords.z)
+            })
+            .onComplete(() => {
+                this.isAnimating = false
+                AppScene.camera = camera
+                this.position.set(cameraCopy.position.x, cameraCopy.position.y, cameraCopy.position.z)
+                this.up.set(cameraCopy.up.x, cameraCopy.up.y, cameraCopy.up.z)
 
-    //             if (this["planet"]) {
-    //                 AppScene.scene.remove(this)
-    //                 this["planet"].realMesh.add(this)
-    //             }
-    //         })
-    //         .start()
-    // }
+                if (this["planet"]) {
+                    AppScene.scene.remove(this)
+                    this["planet"].realMesh.add(this)
+                }
+            })
+            .start()
+    }
 
     animateLookAt(object: Planet | Star, duration: number) {
-        let camera = this
         let nextPlanetCoords = object.position
         let currentPlanetCoords = Settings.lookAt.position
         let cameraLookCoords = { x: currentPlanetCoords.x, y: currentPlanetCoords.y, z: currentPlanetCoords.z }
