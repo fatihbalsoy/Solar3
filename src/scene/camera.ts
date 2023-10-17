@@ -76,8 +76,15 @@ class SceneCamera extends THREE.PerspectiveCamera {
             .start()
     }
 
+    /**
+     * Animates the camera from its current target to the given target.
+     * 
+     * @param object The object for the camera to target
+     * @param duration The time it takes for the animation to play in milliseconds
+     */
     animateLookAt(object: Planet | Star, duration: number) {
         let nextPlanetCoords = object.position
+        // Convert current planet coordinates to data type accepted by TWEEN
         let currentPlanetCoords = Settings.lookAt.position
         let cameraLookCoords = { x: currentPlanetCoords.x, y: currentPlanetCoords.y, z: currentPlanetCoords.z }
 

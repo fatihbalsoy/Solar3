@@ -6,7 +6,7 @@
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
-import { AmbientLight, AxesHelper, Color, Object3D, Scene, Vector3 } from "three"
+import { AmbientLight, AxesHelper, Color, Object3D, Scene } from "three"
 import { EnumDictionary } from "./utils/extensions"
 import Planet from "./objects/planet"
 import Star from "./objects/star"
@@ -23,16 +23,29 @@ export enum Quality {
 }
 
 export class Settings {
+    /**
+     * Returns whether the current environment is not built for production.
+     * Can be used to display things like an FPS counter when debugging.
+     */
     static isDev = process.env.NODE_ENV !== 'production'
-    static lookAt: Planet | Star = Planets.sun // does not work well with stars
+
+    // does not work well with stars when the camera range is limited
+    /**
+     * The planet/star in which the cameras are focused on
+     */
+    static lookAt: Planet | Star = Planets.sun
+
+    /**
+     * The planet in which the surface camera is sitting on
+     */
     static cameraLocation: Planet
 
-    // Geolocation
+    // * Geolocation * //
     static geolocation: AppLocation = localStorage.getItem('location')
         ? new AppLocation().setFromString(localStorage.getItem('location'))
         : null
 
-    // Graphics
+    // * Graphics * //
     private static gigabyteToBytes = 1e+9
     static readonly quality: Quality =
         // Safari on iPhone only provides roughly 300mb of RAM. Therefore, load low-res textures instead. Same for low-end devices (2gb ram)
@@ -87,16 +100,22 @@ export class Settings {
     static readonly distanceScale: number = 1 / 10000
     static readonly sizeScale: number = 1 / 10000
 
-    // Astronomical Units to Kilometers
+    /**
+     * Astronomical Units to Kilometers
+     */
     static readonly AUtoKM = 1.496e+8
 
     // * Developer Settings * //
-    // Stop the program from progressing after the loading screen
+    /**
+     * Stop the program from progressing after the loading screen
+     */
     static dev_setHaltLoadingScreen: boolean = false
     static dev_haltLoadingScreen(): boolean {
         return Settings.isDev ? Settings.dev_setHaltLoadingScreen : false
     }
-    // Add ambient light to see objects without shadows
+    /**
+     * Add ambient light to see objects without shadows
+     */
     static dev_ambientLightAdded = false
     static dev_addAmbientLight() {
         if (Settings.isDev) {
@@ -116,6 +135,9 @@ export class Settings {
     }
 }
 
+/**
+ * The range of textures for each planet and their other properties.
+ */
 export const resFields: EnumDictionary<string, EnumDictionary<Quality, string>> = {
     "mercury": Settings.res2_4_8k,
     "venus_atmosphere": Settings.res2_4k,

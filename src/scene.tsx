@@ -5,6 +5,8 @@
  *   Created by Fatih Balsoy on 5/2/23
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
+
+// Import necessary libraries and modules
 import React, { Component } from 'react'
 import * as THREE from 'three'
 import * as TWEEN from '@tweenjs/tween.js'
@@ -15,9 +17,9 @@ import Planets from './objects/planets'
 import { OrbitControls } from './modules/OrbitControls'
 import { Settings } from './settings'
 
+// Import planet objects and other celestial bodies
 import Planet from './objects/planet'
 import Stars from './objects/stars'
-
 /** Stars **/
 import Sun from './objects/sun'
 /** Planets **/
@@ -98,9 +100,11 @@ class AppScene extends Component {
     }
 
     componentDidMount() {
+        // Get the dimensions of the rendering container
         const width = this.mount?.clientWidth || 0
         const height = this.mount?.clientHeight || 0
 
+        // Initialize various scene components
         this.clock = new THREE.Clock()
         AppScene.scene = new THREE.Scene()
         AppScene.spaceCamera = new SceneSpaceCamera(75, width / height, 0.0001, (60000000000 * Settings.distanceScale) * 5)
@@ -142,6 +146,7 @@ class AppScene extends Component {
         root.insertBefore(this.cssRenderer.domElement, root.children[1])
 
         // * -- STATISTICS --  * //
+        // Add FPS, Memory display to the bottom right corner.
         this.statistics.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
         this.statistics.dom.style.inset = 'unset'
         this.statistics.dom.style.bottom = '0px'
@@ -154,15 +159,22 @@ class AppScene extends Component {
         // * -- PLANETS --  * //
         new Planets({
             sun: new Sun(),
+            // Inner Planets
             mercury: new Mercury(), venus: new Venus(), earth: new Earth(), mars: new Mars(),
+            // Outer Planets
             jupiter: new Jupiter(), saturn: new Saturn(), uranus: new Uranus(), neptune: new Neptune(),
+            // Dwarf Planets
             pluto: new Pluto(), // ceres: objArr[11],
+            // Moons
             moon: new Moon(),
             io: new Io(), callisto: new Callisto(), europa: new Europa(), ganymede: new Ganymede()
         })
+        // Adjust the range at which the shadow cast by the sun's light is visible.
         Planets.sun.light.shadow.camera.far = Planets.pluto.distance;
+        // Add orbits for each planet and moon
         const plArray = Planets.array() as Planet[]
         this.orbits.addOrbits(plArray.slice(1, plArray.length), AppScene.scene) // Mercury to Pluto
+        // Add labels, planets, and moons to the scene
         for (const key in Planets) {
             const object = Planets[key] as Planet;
 
@@ -182,12 +194,16 @@ class AppScene extends Component {
         })
 
         // * -- CONTROLS -- * //
+        // Set the camera's target
         Settings.lookAt = Planets.earth
-        AppScene.controls.enableDamping = true
-        AppScene.controls.enablePan = false
-        // AppScene.controls.maxDistance = (Planets.pluto.distance * Settings.distanceScale) * 3
         AppScene.controls.target = Settings.lookAt.getPosition()
-        // AppScene.controls.zoomSpeed
+        // Set to true to enable damping (inertia), 
+        // which can be used to give a sense of weight to the controls.
+        AppScene.controls.enableDamping = true
+        // Prevents mobile users from moving planets around when panning
+        AppScene.controls.enablePan = false
+        // -
+        // AppScene.controls.maxDistance = (Planets.pluto.distance * Settings.distanceScale) * 3
 
         // * -- SURFACE CAMERA -- * //
         if (Settings.isDev) {
@@ -201,6 +217,7 @@ class AppScene extends Component {
 
         // * -- GALAXY -- * //
         let galaxyRes = Settings.res2_8k[Settings.quality]
+        // Load background texture with given resolution settings
         const galaxyTexture = this.textureLoader.load('assets/images/textures/galaxy/' + galaxyRes + '_stars_milky_way.jpeg', () => {
             const rt = new THREE.WebGLCubeRenderTarget(galaxyTexture.image.height);
             rt.fromEquirectangularTexture(this.renderer, galaxyTexture);
@@ -216,6 +233,8 @@ class AppScene extends Component {
             this.mount.appendChild(this.renderer.domElement)
         }
 
+        // Calculate planets' positions and setup a timer 
+        // to automatically update positions every second.
         this.calculatePositions(true)
         this.timer = setInterval(() => {
             this.calculatePositions(true)
@@ -251,6 +270,7 @@ class AppScene extends Component {
         }
     }
 
+    // Handle resize event and update rendering dimensions
     handleResize = () => {
         const width = this.mount?.clientWidth || 0
         const height = this.mount?.clientHeight || 0
@@ -275,44 +295,57 @@ class AppScene extends Component {
         }
     }
 
+    // Start the animation loop
     start = () => {
         if (!this.frameId) {
             this.frameId = window.requestAnimationFrame(this.animate)
         }
     }
 
+    // Stop the animation loop
     stop = () => {
         if (this.frameId) {
             window.cancelAnimationFrame(this.frameId)
         }
     }
 
+    /**
+     * Calculate positions and perform animations
+     * @param all Whether to calculate the position of all objects. Default is false.
+     */
     calculatePositions(all: boolean = false) {
         if (AppScene.camera instanceof SceneSurfaceCamera) {
             AppScene.surfaceCamera.planet.animate(true)
         }
 
         if (all) {
+            // Calculate and update all planets and labels
             for (const key in Planets) {
                 const object: Planet = Planets[key];
                 object.animate(true)
                 object.updateLabel(AppScene.camera)
             }
         } else if (Settings.lookAt instanceof Planet) {
+            // Calculate and update the camera's target
             if (Settings.lookAt instanceof JupiterMoon) {
+                // If the camera's target is a Jovimoon, then animate Jupiter as well.
+                // This prevents the jagged movements of Jovimoons. 
                 Planets.jupiter.animate()
             }
             Settings.lookAt.animate()
             Settings.lookAt.updateLabel(AppScene.camera)
         }
 
+        // Simulate tidal locking by making the Moon always face Earth.
         Planets.moon.mesh.lookAt(Planets.earth.mesh.position)
-
-        if (!AppScene.spaceCamera.isAnimating) {
+        // Only lock onto camera's target when not animating.
+        // Examples of animation are when moving between  planet to another or changing targets.
+        if (!AppScene.camera.isAnimating) {
             AppScene.controls.target = Settings.lookAt.getPosition()
         }
     }
 
+    // Animation loop
     animate = () => {
         this.statistics.begin()
 

@@ -21,14 +21,14 @@
         },
         "originalimage": {
             "source": "https://upload.wikimedia.org/wikipedia/commons/8/83/The_Sun_in_white_light.jpg",
-            "width": 3648,
-            "height": 3648
+            "width": 3379,
+            "height": 3379
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1165255332",
-        "tid": "00e25940-2c94-11ee-bb2c-59442d0cd88b",
-        "timestamp": "2023-07-14T00:43:13Z",
+        "revision": "1179139125",
+        "tid": "a1f29dc0-6a94-11ee-a15f-536f0e0f3007",
+        "timestamp": "2023-10-08T04:38:11Z",
         "description": "Star in the Solar System",
         "description_source": "local",
         "content_urls": {
@@ -45,8 +45,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Sun"
             }
         },
-        "extract": "The Sun is the star at the center of the Solar System. It is a nearly perfect ball of hot plasma, heated to incandescence by nuclear fusion reactions in its core. The Sun radiates this energy mainly as light, ultraviolet, and infrared radiation, and is the most important source of energy for life on Earth.",
-        "extract_html": "<p>The <b>Sun</b> is the star at the center of the Solar System. It is a nearly perfect ball of hot plasma, heated to incandescence by nuclear fusion reactions in its core. The Sun radiates this energy mainly as light, ultraviolet, and infrared radiation, and is the most important source of energy for life on Earth.</p>",
+        "extract": "The Sun is the star at the center of the Solar System. It is a massive, hot ball of plasma, inflated and heated by nuclear fusion reactions at its core. Part of this internal energy is emitted from its surface as light, ultraviolet, and infrared radiation, providing most of the energy for life on Earth.",
+        "extract_html": "<p>The <b>Sun</b> is the star at the center of the Solar System. It is a massive, hot ball of plasma, inflated and heated by nuclear fusion reactions at its core. Part of this internal energy is emitted from its surface as light, ultraviolet, and infrared radiation, providing most of the energy for life on Earth.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -85,9 +85,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1165860609",
-        "tid": "dd169930-28ed-11ee-91f8-3164e5b89f59",
-        "timestamp": "2023-07-17T21:58:07Z",
+        "revision": "1179045786",
+        "tid": "8cea0190-67bd-11ee-8a42-5f86cb9c1946",
+        "timestamp": "2023-10-07T14:27:27Z",
         "description": "First planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -104,8 +104,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Mercury_(planet)"
             }
         },
-        "extract": "Mercury is the first planet from the Sun and the smallest planet in the Solar System. It is a terrestrial planet with a heavily cratered surface due to the planet having no geological activity and an extremely tenuous atmosphere. Despite being the smallest planet in the Solar System with a mean diameter of 4,880\u00a0km (3,030\u00a0mi), 38% of that of Earth's, Mercury is dense enough to have roughly the same surface gravity as Mars. Mercury has a dynamic magnetic field with a strength about 1% of that of Earth's and has no natural satellites.",
-        "extract_html": "<p><b>Mercury</b> is the first planet from the Sun and the smallest planet in the Solar System. It is a terrestrial planet with a heavily cratered surface due to the planet having no geological activity and an extremely tenuous atmosphere. Despite being the smallest planet in the Solar System with a mean diameter of 4,880\u00a0km (3,030\u00a0mi), 38% of that of Earth's, Mercury is dense enough to have roughly the same surface gravity as Mars. Mercury has a dynamic magnetic field with a strength about 1% of that of Earth's and has no natural satellites.</p>",
+        "extract": "Mercury is the first planet from the Sun and the smallest in the Solar System. It is a terrestrial planet with a heavily cratered surface due to overlapping impact events. These features are well preserved since the planet has no geological activity and an extremely tenuous atmosphere called an exosphere. Despite being the smallest planet in the Solar System with a mean diameter of 4,880\u00a0km (3,030\u00a0mi), 38% of that of Earth, Mercury is dense enough to have roughly the same surface gravity as Mars. Mercury has a dynamic magnetic field with a strength about 1% of that of Earth's and has no natural satellites.",
+        "extract_html": "<p><b>Mercury</b> is the first planet from the Sun and the smallest in the Solar System. It is a terrestrial planet with a heavily cratered surface due to overlapping impact events. These features are well preserved since the planet has no geological activity and an extremely tenuous atmosphere called an exosphere. Despite being the smallest planet in the Solar System with a mean diameter of 4,880\u00a0km (3,030\u00a0mi), 38% of that of Earth, Mercury is dense enough to have roughly the same surface gravity as Mars. Mercury has a dynamic magnetic field with a strength about 1% of that of Earth's and has no natural satellites.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -144,9 +144,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1167462464",
-        "tid": "719bc040-2ccb-11ee-ba09-737675f79b86",
-        "timestamp": "2023-07-27T22:17:44Z",
+        "revision": "1177369745",
+        "tid": "18b200b0-67be-11ee-b5b2-cfdbc2c1842e",
+        "timestamp": "2023-09-27T09:54:48Z",
         "description": "Second planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -163,8 +163,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Venus"
             }
         },
-        "extract": "Venus is the second planet from the Sun. It is a rocky planet with the densest atmosphere of all the rocky bodies in the Solar System, and the only one with a mass and size that is close to that of its orbital neighbour Earth. Orbiting inferiorly, it appears in Earth's sky always close to the Sun, as either a \"morning star\" or an \"evening star\". While this is also true for Mercury, Venus appears much more prominently, since it is the third brightest object in Earth's sky after the Moon and the Sun, appearing brighter than any other star-like classical planet or any fixed star. With such a prominence in Earth's sky, Venus has historically been a common and important object for humans, in both their cultures and astronomy.",
-        "extract_html": "<p><b>Venus</b> is the second planet from the Sun. It is a rocky planet with the densest atmosphere of all the rocky bodies in the Solar System, and the only one with a mass and size that is close to that of its orbital neighbour Earth. Orbiting inferiorly, it appears in Earth's sky always close to the Sun, as either a \"morning star\" or an \"evening star\". While this is also true for Mercury, Venus appears much more prominently, since it is the third brightest object in Earth's sky after the Moon and the Sun, appearing brighter than any other star-like classical planet or any fixed star. With such a prominence in Earth's sky, Venus has historically been a common and important object for humans, in both their cultures and astronomy.</p>",
+        "extract": "Venus is the second planet from the Sun. It is a rocky planet with the densest atmosphere of all the rocky bodies in the Solar System, and the only one with a mass and size that is close to that of its orbital neighbour Earth. Orbiting inferiorly, it appears in Earth's sky always close to the Sun, as either a \"morning star\" or an \"evening star\". While this is also true for Mercury, Venus appears much more prominently, since it is the third brightest object in Earth's sky after the Moon and the Sun, appearing brighter than any other star-like classical planet or any fixed star. With such prominence in Earth's sky, Venus has historically been a common and important object for humans, in both their cultures and astronomy.",
+        "extract_html": "<p><b>Venus</b> is the second planet from the Sun. It is a rocky planet with the densest atmosphere of all the rocky bodies in the Solar System, and the only one with a mass and size that is close to that of its orbital neighbour Earth. Orbiting inferiorly, it appears in Earth's sky always close to the Sun, as either a \"morning star\" or an \"evening star\". While this is also true for Mercury, Venus appears much more prominently, since it is the third brightest object in Earth's sky after the Moon and the Sun, appearing brighter than any other star-like classical planet or any fixed star. With such prominence in Earth's sky, Venus has historically been a common and important object for humans, in both their cultures and astronomy.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Public Domain",
@@ -203,9 +203,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1167041211",
-        "tid": "fdb38780-2c93-11ee-b193-e96884e6e5f1",
-        "timestamp": "2023-07-25T09:10:32Z",
+        "revision": "1179399146",
+        "tid": "7731b410-67bd-11ee-9aab-dd8b5b7b28ee",
+        "timestamp": "2023-10-09T21:49:58Z",
         "description": "Third planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -222,8 +222,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Earth"
             }
         },
-        "extract": "Earth is the third planet from the Sun and the only astronomical object known where life developed and found habitability. This is enabled by Earth being a water world, the only one in the Solar System sustaining liquid surface water. Almost all of Earth's water is contained in its global ocean, spanning 70.8% of Earth's surface. The remaining 29.2% of Earth's surface are land, most of which is located in the form of continential landmasses within one hemisphere, Earth's land hemisphere. Most of Earth's land is somewhat humid and covered by vegetation, while large sheets of ice at Earth's polar deserts retain more water than Earth's groundwater, lakes, rivers and atmospheric water together. Earth's land is part of Earth's crust, consisting of several slowly moving tectonic plates, which interact to produce mountain ranges, volcanoes, and earthquakes. Inside Earth's crust is a liquid outer core that generates the magnetosphere, deflecting most of the destructive solar winds and cosmic radiation.",
-        "extract_html": "<p><b>Earth</b> is the third planet from the Sun and the only astronomical object known where life developed and found habitability. This is enabled by Earth being a water world, the only one in the Solar System sustaining liquid surface water. Almost all of Earth's water is contained in its global ocean, spanning 70.8% of Earth's surface. The remaining 29.2% of Earth's surface are land, most of which is located in the form of continential landmasses within one hemisphere, Earth's land hemisphere. Most of Earth's land is somewhat humid and covered by vegetation, while large sheets of ice at Earth's polar deserts retain more water than Earth's groundwater, lakes, rivers and atmospheric water together. Earth's land is part of Earth's crust, consisting of several slowly moving tectonic plates, which interact to produce mountain ranges, volcanoes, and earthquakes. Inside Earth's crust is a liquid outer core that generates the magnetosphere, deflecting most of the destructive solar winds and cosmic radiation.</p>",
+        "extract": "Earth is the third planet from the Sun and the only astronomical object known to harbor life. This is enabled by Earth being a water world, the only one in the Solar System sustaining liquid surface water. Almost all of Earth's water is contained in its global ocean, covering 70.8% of Earth's surface. The remaining 29.2% of Earth's surface is land, most of which is located in the form of continental landmasses within one hemisphere, Earth's land hemisphere. Most of Earth's land is somewhat humid and covered by vegetation, while large sheets of ice at Earth's polar deserts retain more water than Earth's groundwater, lakes, rivers and atmospheric water combined. Earth's land is part of Earth's crust, consisting of several slowly moving tectonic plates, which interact to produce mountain ranges, volcanoes, and earthquakes. Earth has a liquid outer core that generates a magnetosphere capable of deflecting most of the destructive solar winds and cosmic radiation.",
+        "extract_html": "<p><b>Earth</b> is the third planet from the Sun and the only astronomical object known to harbor life. This is enabled by Earth being a water world, the only one in the Solar System sustaining liquid surface water. Almost all of Earth's water is contained in its global ocean, covering 70.8% of Earth's surface. The remaining 29.2% of Earth's surface is land, most of which is located in the form of continental landmasses within one hemisphere, Earth's land hemisphere. Most of Earth's land is somewhat humid and covered by vegetation, while large sheets of ice at Earth's polar deserts retain more water than Earth's groundwater, lakes, rivers and atmospheric water combined. Earth's land is part of Earth's crust, consisting of several slowly moving tectonic plates, which interact to produce mountain ranges, volcanoes, and earthquakes. Earth has a liquid outer core that generates a magnetosphere capable of deflecting most of the destructive solar winds and cosmic radiation.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -262,10 +262,10 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1167257911",
-        "tid": "fea3daf0-2c93-11ee-9975-79791841f921",
-        "timestamp": "2023-07-26T17:47:03Z",
-        "description": "Natural satellite orbiting the Earth",
+        "revision": "1180116630",
+        "tid": "b23d2a60-6ab2-11ee-87d6-a9bc21586561",
+        "timestamp": "2023-10-14T16:56:49Z",
+        "description": "Natural satellite orbiting Earth",
         "description_source": "local",
         "content_urls": {
             "desktop": {
@@ -281,8 +281,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Moon"
             }
         },
-        "extract": "The Moon is Earth's only natural satellite. Its diameter is about one-quarter of Earth's, making it the fifth largest satellite in the Solar System and the largest and most massive relative to its parent planet. It is larger than all known dwarf planets in the Solar System. The Moon is a planetary-mass object with a differentiated rocky body, making it a satellite planet under the geophysical definitions of the term. It lacks any significant atmosphere, hydrosphere, or magnetic field. Its surface gravity is about one-sixth of Earth's at 0.1654\u00a0g\u2014Jupiter's moon Io is the only satellite in the Solar System known to have a higher surface gravity and density.",
-        "extract_html": "<p>The <b>Moon</b> is Earth's only natural satellite. Its diameter is about one-quarter of Earth's, making it the fifth largest satellite in the Solar System and the largest and most massive relative to its parent planet. It is larger than all known dwarf planets in the Solar System. The Moon is a planetary-mass object with a differentiated rocky body, making it a satellite planet under the geophysical definitions of the term. It lacks any significant atmosphere, hydrosphere, or magnetic field. Its surface gravity is about one-sixth of Earth's at <span class=\"nowrap\">0.1654\u00a0g</span>\u2014Jupiter's moon Io is the only satellite in the Solar System known to have a higher surface gravity and density.</p>",
+        "extract": "The Moon is Earth's only natural satellite. It orbits Earth at an average distance of 384400\u00a0km, about 30 times Earth's diameter. The Moon's near side always faces Earth because of rotating exactly once per orbit, from being tidally locked to Earth. The resulting lunar day is 29.5 Earth days long, going through observable cycles of phases. Its influence on Earth is significant, being the main driver of Earth's tides along with the Sun.",
+        "extract_html": "<p>The <b>Moon</b> is Earth's only natural satellite. It orbits Earth at an average distance of <span class=\"nowrap\">384<span>400</span>\u00a0km</span>, about 30 times Earth's diameter. The Moon's near side always faces Earth because of rotating exactly once per orbit, from being tidally locked to Earth. The resulting lunar day is 29.5 Earth days long, going through observable cycles of phases. Its influence on Earth is significant, being the main driver of Earth's tides along with the Sun.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -321,9 +321,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1167259200",
-        "tid": "62c032f0-2c6b-11ee-96a9-777a2384c828",
-        "timestamp": "2023-07-26T17:56:25Z",
+        "revision": "1177418186",
+        "tid": "d7da3eb0-69dc-11ee-9163-654a380ed4b6",
+        "timestamp": "2023-09-27T14:20:16Z",
         "description": "Fourth planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -340,8 +340,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Mars"
             }
         },
-        "extract": "Mars is the fourth planet and the furthest terrestrial planet from the Sun. The reddish color of its surface is due to finely grained iron(III) oxide dust in the soil, giving it the nickname \"the Red Planet\". Mars's radius is second smallest among the planets in the Solar System at 3,389.5\u00a0km (2,106\u00a0mi). It has a surface gravity of 3.72\u00a0m/s2 (12.2\u00a0ft/s2), which is 38% of Earth's gravity. The Martian dichotomy is visible on the surface: on average, the terrain on Mars's northern hemisphere is flatter and lower than its southern hemisphere. Mars has a thin atmosphere made primarily of carbon dioxide and two irregularly shaped natural satellites: Phobos and Deimos.",
-        "extract_html": "<p><b>Mars</b> is the fourth planet and the furthest terrestrial planet from the Sun. The reddish color of its surface is due to finely grained iron(III) oxide dust in the soil, giving it the nickname \"the Red Planet\". Mars's radius is second smallest among the planets in the Solar System at 3,389.5\u00a0km (2,106\u00a0mi). It has a surface gravity of 3.72\u00a0m/s<sup>2</sup> (12.2\u00a0ft/s<sup>2</sup>), which is 38% of Earth's gravity. The Martian dichotomy is visible on the surface: on average, the terrain on Mars's northern hemisphere is flatter and lower than its southern hemisphere. Mars has a thin atmosphere made primarily of carbon dioxide and two irregularly shaped natural satellites: Phobos and Deimos.</p>",
+        "extract": "Mars is the fourth planet and the furthest terrestrial planet from the Sun. The reddish color of its surface is due to finely grained iron(III) oxide dust in the soil, giving it the nickname \"the Red Planet\". Mars's radius is second smallest among the planets in the Solar System at 3,389.5\u00a0km (2,106\u00a0mi). The Martian dichotomy is visible on the surface: on average, the terrain on Mars's northern hemisphere is flatter and lower than its southern hemisphere. Mars has a thin atmosphere made primarily of carbon dioxide and two irregularly shaped natural satellites: Phobos and Deimos.",
+        "extract_html": "<p><b>Mars</b> is the fourth planet and the furthest terrestrial planet from the Sun. The reddish color of its surface is due to finely grained iron(III) oxide dust in the soil, giving it the nickname \"the Red Planet\". Mars's radius is second smallest among the planets in the Solar System at 3,389.5\u00a0km (2,106\u00a0mi). The Martian dichotomy is visible on the surface: on average, the terrain on Mars's northern hemisphere is flatter and lower than its southern hemisphere. Mars has a thin atmosphere made primarily of carbon dioxide and two irregularly shaped natural satellites: Phobos and Deimos.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -380,9 +380,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1167052986",
-        "tid": "e6f39980-2adc-11ee-8f17-8d98f6f1e3bf",
-        "timestamp": "2023-07-25T11:17:47Z",
+        "revision": "1179947559",
+        "tid": "de0a5370-69e5-11ee-826f-3bef8ba8a59e",
+        "timestamp": "2023-10-13T13:58:31Z",
         "description": "Fifth planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -399,8 +399,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Jupiter"
             }
         },
-        "extract": "Jupiter is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass more than two and a half times that of all the other planets in the Solar System combined, and slightly less than one one-thousandth the mass of the Sun. Jupiter is the third brightest natural object in the Earth's night sky after the Moon and Venus, and it has been observed since prehistoric times. It was named after Jupiter, the chief deity of ancient Roman religion.",
-        "extract_html": "<p><b>Jupiter</b> is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass more than two and a half times that of all the other planets in the Solar System combined, and slightly less than one one-thousandth the mass of the Sun. Jupiter is the third brightest natural object in the Earth's night sky after the Moon and Venus, and it has been observed since prehistoric times. It was named after Jupiter, the chief deity of ancient Roman religion.</p>",
+        "extract": "Jupiter is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass more than two and a half times that of all the other planets in the Solar System combined, and slightly less than one one-thousandth the mass of the Sun. Jupiter orbits the Sun at a distance of 5.20\u00a0AU (778.5\u00a0Gm) with an orbital period of 11.86\u00a0years. Jupiter is the third brightest natural object in the Earth's night sky after the Moon and Venus, and it has been observed since prehistoric times. It was named after Jupiter, the chief deity of ancient Roman religion.",
+        "extract_html": "<p><b>Jupiter</b> is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass more than two and a half times that of all the other planets in the Solar System combined, and slightly less than one one-thousandth the mass of the Sun. Jupiter orbits the Sun at a distance of 5.20\u00a0AU (778.5\u00a0Gm) with an orbital period of <span class=\"nowrap\">11.86\u00a0years</span>. Jupiter is the third brightest natural object in the Earth's night sky after the Moon and Venus, and it has been observed since prehistoric times. It was named after Jupiter, the chief deity of ancient Roman religion.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -439,9 +439,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1167127818",
-        "tid": "fd5f9b20-2c93-11ee-abb8-d54e06738dcc",
-        "timestamp": "2023-07-25T21:37:20Z",
+        "revision": "1177761073",
+        "tid": "e48b6a00-69d0-11ee-ae61-f5423448ad4b",
+        "timestamp": "2023-09-29T12:15:54Z",
         "description": "Sixth planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -458,8 +458,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Saturn"
             }
         },
-        "extract": "Saturn is the sixth planet from the Sun and the second-largest in the Solar System, after Jupiter. It is a gas giant with an average radius of about nine and a half times that of Earth. It has only one-eighth the average density of Earth, but is over 95 times more massive.",
-        "extract_html": "<p><b>Saturn</b> is the sixth planet from the Sun and the second-largest in the Solar System, after Jupiter. It is a gas giant with an average radius of about nine and a half times that of Earth. It has only one-eighth the average density of Earth, but is over 95 times more massive.</p>",
+        "extract": "Saturn is the sixth planet from the Sun and the second-largest in the Solar System, after Jupiter. It is a gas giant with an average radius of about nine-and-a-half times that of Earth. It has only one-eighth the average density of Earth, but is over 95 times more massive.",
+        "extract_html": "<p><b>Saturn</b> is the sixth planet from the Sun and the second-largest in the Solar System, after Jupiter. It is a gas giant with an average radius of about nine-and-a-half times that of Earth. It has only one-eighth the average density of Earth, but is over 95 times more massive.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -498,9 +498,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1162270952",
-        "tid": "fd52f0f0-2c93-11ee-87bb-0d0534cd191c",
-        "timestamp": "2023-06-28T02:09:02Z",
+        "revision": "1179046625",
+        "tid": "6b8b0aa0-69dc-11ee-9ce9-bb0011131958",
+        "timestamp": "2023-10-07T14:35:01Z",
         "description": "Seventh planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -517,8 +517,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Uranus"
             }
         },
-        "extract": "Uranus is the seventh planet from the Sun and is a gaseous cyan ice giant. Most of the planet is made out of water, ammonia, and methane in a supercritical phase of matter, which in astronomy is called 'ice' or volatiles. The planet's atmosphere has a complex layered cloud structure and has the lowest minimum temperature of 49\u00a0K out of all Solar System's planets. It has a marked axial tilt of 97.8\u00b0 with a retrograde rotation rate of 17 hours. This means that in an 84 Earth years orbital period around the Sun, its poles get around 42 years of continuous sunlight, followed by 42 years of continuous darkness.",
-        "extract_html": "<p><b>Uranus</b> is the seventh planet from the Sun and is a gaseous cyan ice giant. Most of the planet is made out of water, ammonia, and methane in a supercritical phase of matter, which in astronomy is called 'ice' or volatiles. The planet's atmosphere has a complex layered cloud structure and has the lowest minimum temperature of 49\u00a0K out of all Solar System's planets. It has a marked axial tilt of 97.8\u00b0 with a retrograde rotation rate of 17 hours. This means that in an 84 Earth years orbital period around the Sun, its poles get around 42 years of continuous sunlight, followed by 42 years of continuous darkness.</p>",
+        "extract": "Uranus is the seventh planet from the Sun and is a gaseous cyan ice giant. Most of the planet is made of water, ammonia, and methane in a supercritical phase of matter, which in astronomy is called 'ice' or volatiles. The planet's atmosphere has a complex layered cloud structure and has the lowest minimum temperature of 49\u00a0K out of all Solar System's planets. It has a marked axial tilt of 97.8\u00b0 with a retrograde rotation rate of 17 hours. This means that in an 84 Earth years orbital period around the Sun, its poles get around 42 years of continuous sunlight, followed by 42 years of continuous darkness.",
+        "extract_html": "<p><b>Uranus</b> is the seventh planet from the Sun and is a gaseous cyan ice giant. Most of the planet is made of water, ammonia, and methane in a supercritical phase of matter, which in astronomy is called 'ice' or volatiles. The planet's atmosphere has a complex layered cloud structure and has the lowest minimum temperature of 49\u00a0K out of all Solar System's planets. It has a marked axial tilt of 97.8\u00b0 with a retrograde rotation rate of 17 hours. This means that in an 84 Earth years orbital period around the Sun, its poles get around 42 years of continuous sunlight, followed by 42 years of continuous darkness.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -557,9 +557,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1164753295",
-        "tid": "01df2fd0-2c94-11ee-a2af-23ef7638aee5",
-        "timestamp": "2023-07-10T22:09:03Z",
+        "revision": "1179945096",
+        "tid": "e3082cc0-69cd-11ee-9b7b-5bf4329fe5b7",
+        "timestamp": "2023-10-13T13:39:01Z",
         "description": "Eighth planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -576,8 +576,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Neptune"
             }
         },
-        "extract": "Neptune is the eighth planet from the Sun and the farthest known planet in the Solar System. It is the fourth-largest planet in the Solar System by diameter, the third-most-massive planet, and the densest giant planet. It is 17\u00a0times the mass of Earth, and slightly more massive than its near-twin Uranus. Neptune is denser and physically smaller than Uranus because its greater mass causes more gravitational compression of its atmosphere. Being composed primarily of gases and liquids, it has no well-defined solid surface. The planet orbits the Sun once every 164.8\u00a0years at an average distance of 30.1 astronomical units. It is named after the Roman god of the sea and has the astronomical symbol , representing Neptune's trident.",
-        "extract_html": "<p><b>Neptune</b> is the eighth planet from the Sun and the farthest known planet in the Solar System. It is the fourth-largest planet in the Solar System by diameter, the third-most-massive planet, and the densest giant planet. It is 17\u00a0times the mass of Earth, and slightly more massive than its near-twin Uranus. Neptune is denser and physically smaller than Uranus because its greater mass causes more gravitational compression of its atmosphere. Being composed primarily of gases and liquids, it has no well-defined solid surface. The planet orbits the Sun once every 164.8\u00a0years at an average distance of 30.1 astronomical units. It is named after the Roman god of the sea and has the astronomical symbol <span><span class=\"mw-file-description\"><img src=\"//upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Neptune_symbol_%28fixed_width%29.svg/16px-Neptune_symbol_%28fixed_width%29.svg.png\" decoding=\"async\" height=\"16\" width=\"16\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Neptune_symbol_%28fixed_width%29.svg/24px-Neptune_symbol_%28fixed_width%29.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Neptune_symbol_%28fixed_width%29.svg/32px-Neptune_symbol_%28fixed_width%29.svg.png 2x\" class=\"mw-file-element\" /></span></span>, representing Neptune's trident.</p>",
+        "extract": "Neptune is the eighth planet from the Sun and the farthest IAU-recognized planet in the Solar System. It is the fourth-largest planet in the Solar System by diameter, the third-most-massive planet, and the densest giant planet. It is 17\u00a0times the mass of Earth, and slightly more massive than its near-twin Uranus. Neptune is denser and physically smaller than Uranus because its greater mass causes more gravitational compression of its atmosphere. Being composed primarily of gases and liquids, it has no well-defined solid surface. The planet orbits the Sun once every 164.8\u00a0years at an orbital distance of 30.1 astronomical units. It is named after the Roman god of the sea and has the astronomical symbol , representing Neptune's trident.",
+        "extract_html": "<p><b>Neptune</b> is the eighth planet from the Sun and the farthest IAU-recognized planet in the Solar System. It is the fourth-largest planet in the Solar System by diameter, the third-most-massive planet, and the densest giant planet. It is 17\u00a0times the mass of Earth, and slightly more massive than its near-twin Uranus. Neptune is denser and physically smaller than Uranus because its greater mass causes more gravitational compression of its atmosphere. Being composed primarily of gases and liquids, it has no well-defined solid surface. The planet orbits the Sun once every 164.8\u00a0years at an orbital distance of 30.1 astronomical units. It is named after the Roman god of the sea and has the astronomical symbol <span class=\"nowrap\"><span><span class=\"mw-file-description\"><img src=\"//upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Neptune_symbol_%28fixed_width%29.svg/16px-Neptune_symbol_%28fixed_width%29.svg.png\" decoding=\"async\" height=\"16\" width=\"16\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Neptune_symbol_%28fixed_width%29.svg/24px-Neptune_symbol_%28fixed_width%29.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Neptune_symbol_%28fixed_width%29.svg/32px-Neptune_symbol_%28fixed_width%29.svg.png 2x\" class=\"mw-file-element\" /></span></span>,</span> representing Neptune's trident.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -616,9 +616,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1165893886",
-        "tid": "fe0529f0-2c93-11ee-af9b-4be1736b3461",
-        "timestamp": "2023-07-18T03:03:13Z",
+        "revision": "1180081294",
+        "tid": "e606a800-6a83-11ee-80c4-fd9123010217",
+        "timestamp": "2023-10-14T11:21:54Z",
         "description": "Dwarf planet",
         "description_source": "local",
         "content_urls": {
@@ -675,9 +675,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1166406549",
-        "tid": "01cc4410-2c94-11ee-bf45-4be10b6f6a93",
-        "timestamp": "2023-07-21T09:56:30Z",
+        "revision": "1179298556",
+        "tid": "0f352360-67e0-11ee-b08e-4b5195c3f678",
+        "timestamp": "2023-10-09T06:00:56Z",
         "description": "Dwarf planet in the asteroid belt",
         "description_source": "local",
         "content_urls": {
@@ -694,8 +694,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Ceres_(dwarf_planet)"
             }
         },
-        "extract": "Ceres, minor-planet designation 1 Ceres, is a dwarf planet in the asteroid belt between the orbits of Mars and Jupiter. It was the first asteroid discovered, on 1 January 1801, by Giuseppe Piazzi at Palermo Astronomical Observatory in Sicily and announced as a new planet. Ceres was later classified as an asteroid and then a dwarf planet\u00a0\u2013 the only one always inside Neptune's orbit.",
-        "extract_html": "<p><b>Ceres</b>, minor-planet designation <b>1 Ceres</b>, is a dwarf planet in the asteroid belt between the orbits of Mars and Jupiter. It was the first asteroid discovered, on 1 January 1801, by Giuseppe Piazzi at Palermo Astronomical Observatory in Sicily and announced as a new planet. Ceres was later classified as an asteroid and then a dwarf planet\u00a0\u2013 the only one always inside Neptune's orbit.</p>"
+        "extract": "Ceres, minor-planet designation 1 Ceres, is a dwarf planet in the middle main asteroid belt between the orbits of Mars and Jupiter. It was the first asteroid discovered, on 1 January 1801, by Giuseppe Piazzi at Palermo Astronomical Observatory in Sicily and announced as a new planet. Ceres was later classified as an asteroid and then a dwarf planet, the only one always inside Neptune's orbit.",
+        "extract_html": "<p><b>Ceres</b>, minor-planet designation <b>1 Ceres</b>, is a dwarf planet in the middle main asteroid belt between the orbits of Mars and Jupiter. It was the first asteroid discovered, on 1 January 1801, by Giuseppe Piazzi at Palermo Astronomical Observatory in Sicily and announced as a new planet. Ceres was later classified as an asteroid and then a dwarf planet, the only one always inside Neptune's orbit.</p>"
     },
     "Io": {
         "type": "standard",
@@ -724,9 +724,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1165096418",
-        "tid": "017f0e70-2c94-11ee-850c-01d13ea0527a",
-        "timestamp": "2023-07-12T23:51:24Z",
+        "revision": "1180148465",
+        "tid": "19685b50-6ad2-11ee-b2e4-03dbd64f1ea8",
+        "timestamp": "2023-10-14T20:41:43Z",
         "description": "Innermost of the four Galilean moons of Jupiter",
         "description_source": "local",
         "content_urls": {
@@ -743,8 +743,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Io_(moon)"
             }
         },
-        "extract": "Io, or Jupiter I, is the innermost and third-largest of the four Galilean moons of the planet Jupiter. Slightly larger than Earth\u2019s moon, Io is the fourth-largest moon in the Solar System, has the highest density of any moon, the strongest surface gravity of any moon, and the lowest amount of water of any known astronomical object in the Solar System. It was discovered in 1610 by Galileo Galilei and was named after the mythological character Io, a priestess of Hera who became one of Zeus's lovers.",
-        "extract_html": "<p><b>Io</b>, or <b>Jupiter I</b>, is the innermost and third-largest of the four Galilean moons of the planet Jupiter. Slightly larger than Earth\u2019s moon, Io is the fourth-largest moon in the Solar System, has the highest density of any moon, the strongest surface gravity of any moon, and the lowest amount of water of any known astronomical object in the Solar System. It was discovered in 1610 by Galileo Galilei and was named after the mythological character Io, a priestess of Hera who became one of Zeus's lovers.</p>",
+        "extract": "Io, or Jupiter I, is the innermost and third-largest of the four Galilean moons of the planet Jupiter. Slightly larger than Earth's moon, Io is the fourth-largest moon in the Solar System, has the highest density of any moon, the strongest surface gravity of any moon, and the lowest amount of water of any known astronomical object in the Solar System. It was discovered in 1610 by Galileo Galilei and was named after the mythological character Io, a priestess of Hera who became one of Zeus's lovers.",
+        "extract_html": "<p><b>Io</b>, or <b>Jupiter I</b>, is the innermost and third-largest of the four Galilean moons of the planet Jupiter. Slightly larger than Earth's moon, Io is the fourth-largest moon in the Solar System, has the highest density of any moon, the strongest surface gravity of any moon, and the lowest amount of water of any known astronomical object in the Solar System. It was discovered in 1610 by Galileo Galilei and was named after the mythological character Io, a priestess of Hera who became one of Zeus's lovers.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Public Domain",
@@ -783,9 +783,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1165020797",
-        "tid": "fc0fc290-2c93-11ee-acb4-9917b60d5501",
-        "timestamp": "2023-07-12T14:00:01Z",
+        "revision": "1179364846",
+        "tid": "281037b0-67bf-11ee-b074-9b04ed70e0f0",
+        "timestamp": "2023-10-09T17:13:20Z",
         "description": "Largest moon of Jupiter and in the Solar System",
         "description_source": "local",
         "content_urls": {
@@ -802,8 +802,8 @@
                 "talk": "https://en.m.wikipedia.org/wiki/Talk:Ganymede_(moon)"
             }
         },
-        "extract": "Ganymede, or Jupiter III, is the largest and most massive natural satellite of Jupiter as well as in the Solar System, being a planetary-mass moon. It is the largest Solar System object without an atmosphere, despite being the only moon of the Solar System with a magnetic field. Like Titan, it is larger than the planet Mercury, but has somewhat less surface gravity than Mercury, Io or the Moon.",
-        "extract_html": "<p><b>Ganymede</b>, or <b>Jupiter III</b>, is the largest and most massive natural satellite of Jupiter as well as in the Solar System, being a planetary-mass moon. It is the largest Solar System object without an atmosphere, despite being the only moon of the Solar System with a magnetic field. Like Titan, it is larger than the planet Mercury, but has somewhat less surface gravity than Mercury, Io or the Moon.</p>",
+        "extract": "Ganymede, or Jupiter III, is the largest and most massive natural satellite of Jupiter as well as in the Solar System, being a planetary-mass moon. It is the largest Solar System object without an atmosphere, despite being the only moon in the Solar System with a magnetic field. Like Titan, it is larger than the planet Mercury, but has somewhat less surface gravity than Mercury, Io or the Moon.",
+        "extract_html": "<p><b>Ganymede</b>, or <b>Jupiter III</b>, is the largest and most massive natural satellite of Jupiter as well as in the Solar System, being a planetary-mass moon. It is the largest Solar System object without an atmosphere, despite being the only moon in the Solar System with a magnetic field. Like Titan, it is larger than the planet Mercury, but has somewhat less surface gravity than Mercury, Io or the Moon.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "CC BY 2.0",
@@ -842,9 +842,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1167214772",
-        "tid": "f654eea0-2baa-11ee-8926-4136078a329b",
-        "timestamp": "2023-07-26T11:52:48Z",
+        "revision": "1179524221",
+        "tid": "6b4af460-69dc-11ee-8fb4-3d7afec2fbd6",
+        "timestamp": "2023-10-10T18:03:02Z",
         "description": "Smallest Galilean moon of Jupiter",
         "description_source": "local",
         "content_urls": {
@@ -901,9 +901,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1167083983",
-        "tid": "48610c40-2b03-11ee-a31b-b70a3c6cef7f",
-        "timestamp": "2023-07-25T15:52:28Z",
+        "revision": "1179707239",
+        "tid": "72fd03a0-6884-11ee-af81-f9a375e2c850",
+        "timestamp": "2023-10-11T22:20:51Z",
         "description": "Second largest moon of Jupiter",
         "description_source": "local",
         "content_urls": {

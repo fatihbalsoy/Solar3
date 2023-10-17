@@ -9,6 +9,11 @@
 import { Matrix3, Matrix4 } from "three";
 import { RotationMatrix } from 'astronomy-engine';
 
+/**
+ * Converts astronomy-engine's RotationMatrix to a three.js Matrix3.
+ * @param m The rotation matrix to be converted.
+ * @returns A Matrix3 representation of the input rotation matrix.
+ */
 export function convertRotationMatrix3(m: RotationMatrix): Matrix3 {
     const mat3 = new Matrix3()
     mat3.set(
@@ -18,10 +23,22 @@ export function convertRotationMatrix3(m: RotationMatrix): Matrix3 {
     )
     return mat3
 }
+/**
+ * Converts astronomy-engine's RotationMatrix to a three.js Matrix4.
+ * Calling `convertRotationMatrix3` in the process.
+ * @param m The rotation matrix to be converted
+ * @returns A Matrix4 representation of the input rotation matrix.
+ */
 export function convertRotationMatrix4(m: RotationMatrix): Matrix4 {
     return new Matrix4().setFromMatrix3(convertRotationMatrix3(m))
 }
 
+/**
+ * Converts a given time in hours to a string representation in hours, minutes, and seconds.
+ * @param h The time in hours to be converted.
+ * @param fixed The number of decimal places to fix for seconds. Default is -1 (no fixed decimals).
+ * @returns A string representing the time in the format "Xh Ym Zs".
+ */
 export function convertHourToHMS(h: number, fixed: number = -1): string {
     let hour = Math.floor(h)
     let m = (h - hour) * 60
