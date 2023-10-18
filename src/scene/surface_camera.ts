@@ -13,17 +13,24 @@ import AppScene from "../scene"
 import Settings from "../settings"
 import AppLocation from "../models/location"
 import SceneCamera from "./camera"
+import LandscapeZurich from "../objects/landscapes/zurich"
 
 // TODO: The planet's height and width segments must be extremely large to display the horizon as flat as possible
 class SceneSurfaceCamera extends SceneCamera {
     isAnimating: boolean = false
     planet: Planet
+    landscape: LandscapeZurich
 
     init(planet: Planet) {
         this.planet = planet
         this.planet.realMesh.add(this)
+
+        this.landscape = new LandscapeZurich()
+        this.planet.realMesh.add(this.landscape)
+
         this.update()
         this.lookAtNorth()
+
     }
 
     switchTo(planet: Planet) {
@@ -40,9 +47,9 @@ class SceneSurfaceCamera extends SceneCamera {
 
         // Latitude and Longitude in radians
         var lat = (Settings.geolocation ? Settings.geolocation.latitude : 0)
-            + AppScene.geolocationConfig.latOffset
+            + AppScene.developerConfigs.latOffset
         var lon = (Settings.geolocation ? Settings.geolocation.longitude : 0)
-            + AppScene.geolocationConfig.lonOffset
+            + AppScene.developerConfigs.lonOffset
 
         // TODO: Work on edge case: lat 0 & lon 0
         if (lat == 0) lat = 0.0001
@@ -58,7 +65,7 @@ class SceneSurfaceCamera extends SceneCamera {
 
         // Altitude (converted from meters to km to game scale)
         const altitude = ((Settings.geolocation ? Settings.geolocation.altitude : 0 / 1000)
-            + AppScene.geolocationConfig.altOffset) * Settings.sizeScale
+            + AppScene.developerConfigs.altOffset) * Settings.sizeScale
 
         // Convert geographic coordinates to cartesian coordinates
         const x = equatRad * Math.sin(phi) * Math.cos(theta)
@@ -82,11 +89,13 @@ class SceneSurfaceCamera extends SceneCamera {
 
         // Set camera's location in relation to Earth
         this.position.set(vector.x, vector.y, vector.z)
+        this.landscape.position.set(vector.x, vector.y, vector.z)
 
         // Set camera's up direction
         const worldRotation = this.planet.realMesh.rotation
         norm.applyEuler(worldRotation)
         this.up.set(norm.x, norm.y, norm.z)
+        this.landscape.up.set(norm.x, norm.y, norm.z)
 
         if (!this.isAnimating && Settings.lookAt != this.planet) {
             this.lookAt(Settings.lookAt.position)
@@ -99,13 +108,15 @@ class SceneSurfaceCamera extends SceneCamera {
         // this.rotateOnAxis(new THREE.Vector3(0, -1, 0), (phi > Math.PI / 2 ? Math.PI : 0) + AppScene.surfaceCameraProps.azimuth * Math.PI / 180)
         // this.rotateOnAxis(new THREE.Vector3(1, 0, 0), AppScene.surfaceCameraProps.altitude * Math.PI / 180)
 
+        this.landscape.visible = AppScene.landscapeVisible
+
         this.updateProjectionMatrix()
     }
 
     lookAtNorth() {
         // Latitude and Longitude in radians
         var lat = (Settings.geolocation ? Settings.geolocation.latitude : 0)
-            + AppScene.geolocationConfig.latOffset
+            + AppScene.developerConfigs.latOffset
 
         // Equatorial and polar radius in game scale
         const equatRad = this.planet.equatorialRadius * Settings.sizeScale
@@ -122,6 +133,7 @@ class SceneSurfaceCamera extends SceneCamera {
         horizon.add(this.planet.mesh.position)
 
         this.lookAt(horizon)
+        this.landscape.lookAt(horizon)
     }
 
     lookAtOnUpdate(coords: { x: number, y: number, z: number }) {

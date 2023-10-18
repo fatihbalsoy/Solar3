@@ -11,7 +11,7 @@ import './drawer.scss'
 import { Divider, ListItem, ListItemButton, ListItemIcon, ListItemText, Switch } from '@mui/material';
 import React from 'react';
 import Icon from '@mdi/react';
-import { mdiBookOpenVariant, mdiBug, mdiChartTimelineVariantShimmer, mdiGiftOutline, mdiGithub, mdiMapMarkerOutline, mdiShieldAccountOutline, mdiTune, mdiWeb } from '@mdi/js';
+import { mdiBookOpenVariant, mdiBug, mdiChartTimelineVariantShimmer, mdiGiftOutline, mdiGithub, mdiImageFilterHdr, mdiMapMarkerOutline, mdiShieldAccountOutline, mdiTune, mdiWeb } from '@mdi/js';
 import LicenseDialog from './dialog_license';
 import LocationDialog from './dialog_location';
 import AppLocation from '../models/location';
@@ -24,6 +24,7 @@ interface DrawerContentState {
     locationDialogOpen: boolean
     licenseDialogOpen: boolean,
     constellationsVisible: boolean
+    landscapeVisible: boolean
 }
 
 class DrawerContent extends Component<{}, DrawerContentState> {
@@ -31,7 +32,8 @@ class DrawerContent extends Component<{}, DrawerContentState> {
         location: Settings.geolocation,
         locationDialogOpen: false,
         licenseDialogOpen: false,
-        constellationsVisible: Stars.constellationsVisible ?? false
+        constellationsVisible: Stars.constellationsVisible ?? false,
+        landscapeVisible: AppScene.landscapeVisible
     }
 
     constructor(props: {}) {
@@ -45,6 +47,7 @@ class DrawerContent extends Component<{}, DrawerContentState> {
         this.onLicenseDialogClose = this.onLicenseDialogClose.bind(this)
 
         this.onToggleConstellations = this.onToggleConstellations.bind(this)
+        this.onToggleLandscape = this.onToggleLandscape.bind(this)
     }
 
     divider() {
@@ -103,6 +106,14 @@ class DrawerContent extends Component<{}, DrawerContentState> {
         />
     }
 
+    landscapeSwitch() {
+        return <Switch
+            key={this.state.landscapeVisible ? "landscapeVisible" : "landscapeNotVisible"}
+            checked={this.state.landscapeVisible}
+            style={{ pointerEvents: 'none' }}
+        />
+    }
+
     onLicenseDialogOpen() {
         this.setState({
             licenseDialogOpen: true
@@ -120,6 +131,13 @@ class DrawerContent extends Component<{}, DrawerContentState> {
         Stars.toggleConstellations(AppScene.constellations)
         this.setState({
             constellationsVisible: Stars.constellationsVisible
+        })
+    }
+
+    onToggleLandscape() {
+        AppScene.landscapeVisible = !AppScene.landscapeVisible
+        this.setState({
+            landscapeVisible: AppScene.landscapeVisible
         })
     }
 
@@ -147,6 +165,7 @@ class DrawerContent extends Component<{}, DrawerContentState> {
                 {this.divider()}
                 {this.listItem("Location", mdiMapMarkerOutline, this.onLocationDialogOpen, this.locationSubtitle())}
                 {this.listItem("Constellations", mdiChartTimelineVariantShimmer, this.onToggleConstellations, null, this.constellationsSwitch())}
+                {this.listItem("Landscape", mdiImageFilterHdr, this.onToggleLandscape, null, this.landscapeSwitch())}
                 {this.listItem("Settings", mdiTune)}
                 {this.divider()}
                 <h3>About</h3>

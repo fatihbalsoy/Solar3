@@ -48,19 +48,6 @@ import dat, { GUI } from 'dat.gui'
 import SceneSurfaceCamera from './scene/surface_camera'
 import SceneCamera from './scene/camera'
 
-type SurfaceCameraProperties = {
-    zoom: number
-    fov: number
-    altitude: number,
-    azimuth: number
-}
-
-export type GeolocationConfig = {
-    latOffset: number
-    lonOffset: number
-    altOffset: number
-}
-
 class AppScene extends Component {
     private mount: HTMLDivElement
     private clock: THREE.Clock
@@ -79,24 +66,19 @@ class AppScene extends Component {
     private orbits: Orbits
     private stars: Stars
     static constellations: THREE.Line[]
+    static landscapeVisible: boolean = false
 
     private timer: NodeJS.Timeout;
 
-    static surfaceCameraProps: SurfaceCameraProperties = {
+    static developerConfigs = {
         zoom: 1,
         fov: 100,
         altitude: 0,
-        azimuth: 0
-    }
-
-    static cameraConfig = {
-        camera: 'p' // c(space), p(rogramme), s(urface)
-    }
-
-    static geolocationConfig: GeolocationConfig = {
+        azimuth: 0,
         latOffset: 0,
         lonOffset: 0,
         altOffset: 0,
+        camera: 'p' // c(space), p(rogramme), s(urface)
     }
 
     componentDidMount() {
@@ -125,10 +107,16 @@ class AppScene extends Component {
 
         // * -- DEV GUI -- * //
         if (Settings.isDev) {
-            gui.add(AppScene.cameraConfig, 'camera', { Program: 'p', Space: 'c', Surface: 's' })
-            gui.add(AppScene.geolocationConfig, 'latOffset', -180, 180)
-            gui.add(AppScene.geolocationConfig, 'lonOffset', -180, 180)
-            gui.add(AppScene.geolocationConfig, 'altOffset', 0, 1000, 1)
+            gui.add(AppScene.developerConfigs, 'camera', { Program: 'p', Space: 'c', Surface: 's' })
+
+            gui.add(AppScene.developerConfigs, 'latOffset', -180, 180)
+            gui.add(AppScene.developerConfigs, 'lonOffset', -180, 180)
+            gui.add(AppScene.developerConfigs, 'altOffset', 0, 1000, 1)
+
+            gui.add(AppScene.developerConfigs, 'zoom', 1, 1000)
+            gui.add(AppScene.developerConfigs, 'fov', 1, 179)
+            gui.add(AppScene.developerConfigs, 'altitude', -90, 90)
+            gui.add(AppScene.developerConfigs, 'azimuth', 0, 360)
         }
 
         // * -- RENDERERS --  * //
@@ -206,12 +194,6 @@ class AppScene extends Component {
         // AppScene.controls.maxDistance = (Planets.pluto.distance * Settings.distanceScale) * 3
 
         // * -- SURFACE CAMERA -- * //
-        if (Settings.isDev) {
-            gui.add(AppScene.surfaceCameraProps, 'zoom', 1, 1000)
-            gui.add(AppScene.surfaceCameraProps, 'fov', 1, 179)
-            gui.add(AppScene.surfaceCameraProps, 'altitude', -90, 90)
-            gui.add(AppScene.surfaceCameraProps, 'azimuth', 0, 360)
-        }
         Settings.cameraLocation = Planets.earth
         AppScene.surfaceCamera.init(Settings.cameraLocation)
 
@@ -244,6 +226,7 @@ class AppScene extends Component {
         AppScene.spaceCamera.animateFlyTo(Planets.earth, 0)
     }
 
+    // TODO: should not capture keys when focused on any text field
     handleKey(event) {
         // console.log("HANDLEKEY")
         if (event.keyCode == 75) { // k
@@ -257,6 +240,9 @@ class AppScene extends Component {
         // TODO: Switch at src/interface/drawer.tsx does not update when triggered with the 'c' key
         if (event.keyCode == 67) { // c
             Stars.toggleConstellations(AppScene.constellations)
+        }
+        if (event.keyCode == 76) { // l
+            AppScene.landscapeVisible = !AppScene.landscapeVisible
         }
     }
 
@@ -355,8 +341,8 @@ class AppScene extends Component {
         // AppScene.spaceCamera.update()
         // AppScene.surfaceCamera.update()
 
-        AppScene.surfaceCamera.zoom = AppScene.surfaceCameraProps.zoom
-        AppScene.surfaceCamera.fov = AppScene.surfaceCameraProps.fov
+        AppScene.surfaceCamera.zoom = AppScene.developerConfigs.zoom
+        AppScene.surfaceCamera.fov = AppScene.developerConfigs.fov
 
         this.renderScene()
         this.frameId = window.requestAnimationFrame(this.animate)
@@ -366,9 +352,9 @@ class AppScene extends Component {
     }
 
     getCamera() {
-        return AppScene.cameraConfig.camera == 'c'
+        return AppScene.developerConfigs.camera == 'c'
             ? AppScene.spaceCamera
-            : AppScene.cameraConfig.camera == 's'
+            : AppScene.developerConfigs.camera == 's'
                 ? AppScene.surfaceCamera
                 : AppScene.camera
     }

@@ -6,9 +6,11 @@
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
+@import 'stylesheets/mixins.scss';
+@import 'stylesheets/variables.scss';
+
 $max-width: 600px;
 $content-padding: 20px;
-$scrollbar-width: 6px;
 $search-margin: 10px;
 $search-height: 44px;
 $search-width: 400px;
@@ -65,6 +67,9 @@ $search-width: 400px;
     box-sizing: border-box;
     align-items: start;
 
+    // Scroll Behavior
+    @include scrollbar;
+
     // Full-width on mobile
     @media (max-width: $max-width) {
         width: unset;
@@ -78,35 +83,6 @@ $search-width: 400px;
         width: calc($search-width + $search-margin * 2);
         position: fixed;
         background: linear-gradient(to bottom, rgb(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
-    }
-
-    // Scroll Behavior
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding-right: 6px;
-    
-    &::-webkit-scrollbar {
-        height: 0px;
-        width: 0px;
-    }
-
-    &:hover {
-        padding-right: 0px;
-        overflow-y: overlay;
-        scrollbar-width: $scrollbar-width;
-
-        &::-webkit-scrollbar {
-            height: $scrollbar-width;
-            width: $scrollbar-width;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background-color: #7a7a7a;
-        }
-
-        &::-webkit-scrollbar-track {
-            background-color: #2e2e2e;
-        }
     }
 }
 
