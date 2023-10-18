@@ -67,9 +67,10 @@ $search-width: 400px;
 
     // Full-width on mobile
     @media (max-width: $max-width) {
-        width: unset;
-        right: 0;
-        left: 0;
+        // width: unset;
+        // right: 0;
+        // left: 0;
+        display: none;
     }
 
     &:before {
@@ -84,7 +85,7 @@ $search-width: 400px;
     overflow-x: hidden;
     overflow-y: auto;
     padding-right: 6px;
-    
+
     &::-webkit-scrollbar {
         height: 0px;
         width: 0px;
@@ -110,19 +111,32 @@ $search-width: 400px;
     }
 }
 
+.info-card-mobile {
+    display: none;
+
+    @media (max-width: $max-width) {
+        display: unset;
+    }
+}
+
 .info-card-image {
     object-fit: cover;
     width: 420px;
     height: 250px;
 
     @media (max-width: $max-width) {
-        width: 100%;
+        // width: 100%;
+        display: none;
     }
 }
 
 .info-card-content {
     padding: $content-padding;
     padding-top: 10px;
+
+    @media (max-width: $max-width) {
+        padding-top: 20px;
+    }
 }
 
 .info-card-close-button {
@@ -132,6 +146,10 @@ $search-width: 400px;
 
     .info-card:hover>.info-card-content>& {
         right: calc($content-padding - $close-btn-padding - $scrollbar-width);
+    }
+
+    @media (max-width: $max-width) {
+        display: none;
     }
 }
 
