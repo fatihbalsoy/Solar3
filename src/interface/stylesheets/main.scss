@@ -1,12 +1,19 @@
 /*
- *   mixins.scss
+ *   general.scss
  *   solar-system-3js
  * 
- *   Created by Fatih Balsoy on 17 Oct 2023
+ *   Created by Fatih Balsoy on 3 May 2023
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
-@mixin scrollbar {
+@import 'variables.scss';
+
+html {
+    overflow: hidden;
+}
+
+.modern-scrollbar,
+.MuiDrawer-paper {
     overflow-x: hidden;
     overflow-y: auto;
     padding-right: 6px;

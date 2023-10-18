@@ -226,27 +226,40 @@ class AppScene extends Component {
         AppScene.spaceCamera.animateFlyTo(Planets.earth, 0)
     }
 
-    // TODO: should not capture keys when focused on any text field
+    /**
+     * Handle keys presses
+     * @param event key press event
+     * @returns void
+     */
     handleKey(event) {
-        // console.log("HANDLEKEY")
-        if (event.keyCode == 75) { // k
-            // console.log("K")
+        // Ignore key press if the target is an input
+        if ((event.target as Element).tagName.toLowerCase() === 'input') {
+            return;
+        }
+
+        // k: Switch between surface and space camera
+        if (event.keyCode == 75) {
             if (AppScene.camera instanceof SceneSpaceCamera) {
                 AppScene.camera.switchCamera(AppScene.surfaceCamera)
             } else {
                 AppScene.camera.switchCamera(AppScene.spaceCamera)
             }
         }
-        // TODO: Switch at src/interface/drawer.tsx does not update when triggered with the 'c' key
-        if (event.keyCode == 67) { // c
+
+        // TODO: Switches at src/interface/drawer.tsx does not update when triggered with the 'c' key
+        // c: Toggle constellations
+        if (event.keyCode == 67) {
             Stars.toggleConstellations(AppScene.constellations)
         }
-        if (event.keyCode == 76) { // l
+
+        // l: Toggle landscape
+        if (event.keyCode == 76) {
             AppScene.landscapeVisible = !AppScene.landscapeVisible
         }
     }
 
     componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize)
         window.removeEventListener('resize', this.handleResize)
         this.stop()
         clearInterval(this.timer)

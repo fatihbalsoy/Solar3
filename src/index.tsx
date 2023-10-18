@@ -11,7 +11,7 @@ import AppScene from './scene';
 import { WebsiteTheme } from './theme';
 import SearchBar from './interface/search';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import './style.css';
+import './interface/stylesheets/main.scss';
 import LoadingScreen from './interface/loading_screen';
 
 const root = ReactDOM.createRoot(

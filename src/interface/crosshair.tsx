@@ -10,7 +10,7 @@ import React from "react";
 import { Component } from "react";
 import Settings from "../settings";
 import Star from "../objects/star";
-import './crosshair.scss'
+import './stylesheets/crosshair.scss'
 
 class Crosshair extends Component {
     render() {

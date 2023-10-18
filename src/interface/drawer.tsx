@@ -7,7 +7,7 @@
  */
 
 import { Component, ReactNode } from 'react';
-import './drawer.scss'
+import './stylesheets/drawer.scss'
 import { Divider, ListItem, ListItemButton, ListItemIcon, ListItemText, Switch } from '@mui/material';
 import React from 'react';
 import Icon from '@mdi/react';

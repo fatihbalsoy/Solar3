@@ -8,7 +8,7 @@
 
 import React from "react";
 import { Component } from "react";
-import "./loading_screen.scss";
+import "./stylesheets/loading_screen.scss";
 import { LinearProgress } from "@mui/material";
 
 class LoadingScreen extends Component {

@@ -14,7 +14,7 @@ import Stars from "../objects/stars";
 import { Settings } from "../settings";
 import Planet from "../objects/planet";
 import Planets from "../objects/planets";
-import './search.scss';
+import './stylesheets/search.scss';
 import { Star } from "../objects/star";
 import AppScene from "../scene";
 import * as wikiJson from '../data/wiki.json';
@@ -352,7 +352,7 @@ class SearchBar extends Component {
                 {
                     this.state.showingInfoCard && Settings.lookAt instanceof Planet ?
                         <div className="info-card-body">
-                            <Paper className="info-card search-bar-mobile-full-width">
+                            <Paper className="info-card modern-scrollbar search-bar-mobile-full-width">
                                 <div>
                                     {/* TODO: Compress images, they are too big. */}
                                     <img src={'assets/images/info/' + planet.id + '.jpeg'} className="info-card-image"></img>

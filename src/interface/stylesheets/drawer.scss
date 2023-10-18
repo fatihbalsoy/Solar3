@@ -6,8 +6,6 @@
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
-@import 'stylesheets/mixins.scss';
-@import 'stylesheets/variables.scss';
 
 .drawer {
     width: 300px;
@@ -15,7 +13,4 @@
     padding-top: 15px;
     flex-shrink: 0;
     box-sizing: border-box;
-
-    // TODO: Scrollbar for drawer
-    // @include scrollbar;
 }

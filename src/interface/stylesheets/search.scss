@@ -6,8 +6,7 @@
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
-@import 'stylesheets/mixins.scss';
-@import 'stylesheets/variables.scss';
+@import './variables.scss';
 
 $max-width: 600px;
 $content-padding: 20px;
@@ -66,9 +65,6 @@ $search-width: 400px;
     position: fixed;
     box-sizing: border-box;
     align-items: start;
-
-    // Scroll Behavior
-    @include scrollbar;
 
     // Full-width on mobile
     @media (max-width: $max-width) {
