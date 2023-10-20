@@ -8,7 +8,7 @@
 
 import { mdiClose, mdiEarth, mdiMagnify, mdiMenu, mdiRocketLaunch, mdiStarFourPoints, mdiStarFourPointsSmall, mdiTelescope, mdiWeb } from "@mdi/js";
 import Icon from "@mdi/react";
-import { Button, Divider, Drawer, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, SwipeableDrawer, Tooltip } from "@mui/material";
+import { Box, Button, Divider, Drawer, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Skeleton, SwipeableDrawer, Tooltip } from "@mui/material";
 import React, { Component } from "react";
 import Stars from "../objects/stars";
 import { Settings } from "../settings";
@@ -25,6 +25,8 @@ import Crosshair from "./crosshair";
 import DrawerContent from "./drawer";
 import LocationDialog from "./dialog_location";
 import AppLocation from "../models/location";
+import SheetHandle from "./sheet_handle";
+import { Global } from "@emotion/react";
 
 class SearchBar extends Component {
     state = {
@@ -32,6 +34,7 @@ class SearchBar extends Component {
         showingInfoCard: false,
         results: [] as number[],
         drawerOpen: false,
+        mobileInfoCardOpen: false,
         locationDialogOpen: false,
         locationUpdater: 0
     }
@@ -50,6 +53,8 @@ class SearchBar extends Component {
 
         this.onMenuOpen = this.onMenuOpen.bind(this)
         this.onMenuClose = this.onMenuClose.bind(this)
+        this.onMobileInfoCardOpen = this.onMobileInfoCardOpen.bind(this)
+        this.onMobileInfoCardClose = this.onMobileInfoCardClose.bind(this)
 
         this.onLocationDialogOpen = this.onLocationDialogOpen.bind(this)
         this.onLocationDialogClose = this.onLocationDialogClose.bind(this)
@@ -103,6 +108,54 @@ class SearchBar extends Component {
 
     padding(p: number = 10) {
         return <div style={{ height: p.toString() + "px" }}></div>
+    }
+
+    infoCardTarget(): Planet {
+        return Settings.lookAt as Planet
+    }
+
+    infoCardImage(className: string = "") {
+        return (
+            <div>
+                {/* TODO: Compress images, they are too big. */}
+                <img src={'assets/images/info/' + this.infoCardTarget().id + '.jpeg'} className={`info-card-image ${className}`}></img>
+            </div>
+        )
+    }
+
+    infoCard(includeHeader: boolean) {
+        return (
+            <div>
+                {this.infoCardImage()}
+                <div className="info-card-content">
+                    {this.iconButton("Close", mdiClose, "close", this.onClickCloseInfoCard, false, "info-card-close-button")}
+                    {includeHeader ? <div>
+                        <h1>{this.infoCardTarget().name}</h1>
+                        <h3>{this.infoCardTarget().type}</h3>
+                    </div> : null}
+                    <br />
+                    <p>{this.getPlanetWiki()["extract"]} <a style={{ color: "lightblue" }} target="_blank" rel="noopener noreferrer" href={this.getPlanetWiki()["content_urls"]["desktop"]["page"]}><i><b>Wikipedia</b></i></a></p>
+                    {/* <p>TODO: Table including RA, Dec, Mag, and etc.</p> */}
+                    <br />
+                    {this.infoCardImage("info-card-image-mobile")}
+                    {this.planetPositionComponent()}
+                    <br />
+                    {this.characteristics()}
+                    <br />
+                    <h4>Photo Details</h4>
+                    <p>License: {this.getPlanetWiki()["photo_credits"]["wiki"]["cc"]}</p>
+                    <p>Author: {this.getPlanetWiki()["photo_credits"]["wiki"]["by"]}</p>
+                    <br />
+                    <h4>Texture Details</h4>
+                    <p>License: {this.getPlanetWiki()["photo_credits"]["texture"]["cc"]}</p>
+                    <p>Author: {this.getPlanetWiki()["photo_credits"]["texture"]["by"]}</p>
+                    <br />
+                    <p className="info-card-update-text">
+                        Updated on {this.getPlanetWikiDate()} | <a target="_blank" rel="noopener noreferrer" className="info-card-update-text" href={this.getPlanetWiki()["content_urls"]["desktop"]["revisions"]}>Revisions</a> | <a target="_blank" rel="noopener noreferrer" className="info-card-update-text" href={this.getPlanetWiki()["content_urls"]["desktop"]["edit"]}>Edit</a>
+                    </p>
+                </div>
+            </div>
+        )
     }
 
     planetPositionComponent() {
@@ -175,8 +228,7 @@ class SearchBar extends Component {
     }
 
     characteristics() {
-        const planet = Settings.lookAt as Planet
-        const solApiData = objectsJson[planet.id]
+        const solApiData = objectsJson[this.infoCardTarget().id]
 
         const circumference = (2 * Math.PI * parseFloat(solApiData["meanRadius"])).toFixed(4)
         const circumferenceEquatorial = parseFloat((2 * Math.PI * parseFloat(solApiData["equaRadius"])).toFixed(4))
@@ -252,39 +304,14 @@ class SearchBar extends Component {
         })
     }
 
-    onClickSearchBar() {
-        SearchBar.hideSearchResults(false)
-    }
-
-    onClickCloseInfoCard = () => {
-        this.setState({
-            showingInfoCard: false
-        })
-    }
-
-    onMenuOpen = () => {
-        this.setState({
-            drawerOpen: true
-        })
-    }
-
-    onMenuClose = () => {
-        this.setState({
-            drawerOpen: false
-        })
-    }
-
-    onLocationDialogOpen() {
-        this.setState({
-            locationDialogOpen: true
-        })
-    }
-
-    onLocationDialogClose() {
-        this.setState({
-            locationDialogOpen: false
-        })
-    }
+    onClickSearchBar() { SearchBar.hideSearchResults(false) }
+    onClickCloseInfoCard = () => { this.setState({ showingInfoCard: false }) }
+    onMenuOpen() { this.setState({ drawerOpen: true }) }
+    onMenuClose() { this.setState({ drawerOpen: false }) }
+    onMobileInfoCardOpen() { this.setState({ mobileInfoCardOpen: true }) }
+    onMobileInfoCardClose() { this.setState({ mobileInfoCardOpen: false }) }
+    onLocationDialogOpen() { this.setState({ locationDialogOpen: true }) }
+    onLocationDialogClose() { this.setState({ locationDialogOpen: false }) }
 
     onLocationSave(position: AppLocation) {
         this.setState({
@@ -311,7 +338,7 @@ class SearchBar extends Component {
     }
 
     getPlanetWiki() {
-        const wiki = wikiJson[(Settings.lookAt as Planet).name]
+        const wiki = wikiJson[this.infoCardTarget().name]
         return wiki
     }
 
@@ -327,7 +354,7 @@ class SearchBar extends Component {
     }
 
     render() {
-        const planet = (Settings.lookAt as Planet)
+        const mobileInfoCardBleed = 180
         return (
             <div>
                 {/* Crosshair (Enabled when a star is selected) */}
@@ -352,38 +379,65 @@ class SearchBar extends Component {
                 {
                     this.state.showingInfoCard && Settings.lookAt instanceof Planet ?
                         <div className="info-card-body">
-                            <Paper className="info-card search-bar-mobile-full-width">
-                                <div>
-                                    {/* TODO: Compress images, they are too big. */}
-                                    <img src={'assets/images/info/' + planet.id + '.jpeg'} className="info-card-image"></img>
-                                </div>
-                                <div className="info-card-content">
-                                    {this.iconButton("Close", mdiClose, "close", this.onClickCloseInfoCard, false, "info-card-close-button")}
-                                    <h1>{planet.name}</h1>
-                                    <h3>{planet.type}</h3>
-                                    <br />
-                                    <p>{this.getPlanetWiki()["extract"]} <a style={{ color: "lightblue" }} target="_blank" rel="noopener noreferrer" href={this.getPlanetWiki()["content_urls"]["desktop"]["page"]}><i><b>Wikipedia</b></i></a></p>
-                                    {/* <p>TODO: Table including RA, Dec, Mag, and etc.</p> */}
-                                    <br />
-                                    {this.planetPositionComponent()}
-                                    <br />
-                                    {this.characteristics()}
-                                    <br />
-                                    <h4>Photo Details</h4>
-                                    <p>License: {this.getPlanetWiki()["photo_credits"]["wiki"]["cc"]}</p>
-                                    <p>Author: {this.getPlanetWiki()["photo_credits"]["wiki"]["by"]}</p>
-                                    <br />
-                                    <h4>Texture Details</h4>
-                                    <p>License: {this.getPlanetWiki()["photo_credits"]["texture"]["cc"]}</p>
-                                    <p>Author: {this.getPlanetWiki()["photo_credits"]["texture"]["by"]}</p>
-                                    <br />
-                                    <p className="info-card-update-text">
-                                        Updated on {this.getPlanetWikiDate()} | <a target="_blank" rel="noopener noreferrer" className="info-card-update-text" href={this.getPlanetWiki()["content_urls"]["desktop"]["revisions"]}>Revisions</a> | <a target="_blank" rel="noopener noreferrer" className="info-card-update-text" href={this.getPlanetWiki()["content_urls"]["desktop"]["edit"]}>Edit</a>
-                                    </p>
-                                </div>
-                            </Paper>
+                            <div className="info-card search-bar-mobile-full-width">
+                                <Paper>
+                                    {this.infoCard(true)}
+                                </Paper>
+                            </div>
                         </div>
                         : null
+                }
+                {/* Mobile Info Card */}
+                <Global
+                    styles={
+                        {
+                            ".MuiDrawer-root.info-card-mobile > .MuiPaper-root": {
+                                height: `calc(80vh - ${mobileInfoCardBleed}px)`,
+                                overflow: "visible"
+                            }
+                        }
+                    }
+                />
+                {
+                    this.state.showingInfoCard && Settings.lookAt instanceof Planet ?
+                        <SwipeableDrawer
+                            className="info-card-mobile"
+                            anchor="bottom"
+                            open={this.state.mobileInfoCardOpen}
+                            onClose={this.onMobileInfoCardClose}
+                            onOpen={this.onMobileInfoCardOpen}
+                            swipeAreaWidth={mobileInfoCardBleed}
+                            disableSwipeToOpen={false}
+                            ModalProps={{
+                                keepMounted: true
+                            }}
+                        >
+                            <Paper
+                                sx={{
+                                    position: "absolute",
+                                    top: -mobileInfoCardBleed,
+                                    borderTopLeftRadius: 8,
+                                    borderTopRightRadius: 8,
+                                    visibility: "visible",
+                                    right: 0,
+                                    left: 0,
+                                }}
+                            >
+                                <SheetHandle />
+                                <div className="info-card-content">
+                                    <h1>{this.infoCardTarget().name}</h1>
+                                    <h3>{this.infoCardTarget().type}</h3>
+                                </div>
+                            </Paper>
+                            <Paper sx={{
+                                marginTop: `calc(-${mobileInfoCardBleed}px / 2)`,
+                                overflow: "auto",
+                                visibility: 'visible',
+                            }}
+                            >
+                                {this.infoCard(false)}
+                            </Paper>
+                        </SwipeableDrawer> : null
                 }
                 {/* Search Bar */}
                 <div className="search">
