@@ -110,24 +110,34 @@ class SearchBar extends Component {
         return <div style={{ height: p.toString() + "px" }}></div>
     }
 
-    infoCard(includeHeader: boolean) {
-        const planet = (Settings.lookAt as Planet)
+    infoCardTarget(): Planet {
+        return Settings.lookAt as Planet
+    }
+
+    infoCardImage(className: string = "") {
         return (
             <div>
-                <div>
-                    {/* TODO: Compress images, they are too big. */}
-                    <img src={'assets/images/info/' + planet.id + '.jpeg'} className="info-card-image"></img>
-                </div>
+                {/* TODO: Compress images, they are too big. */}
+                <img src={'assets/images/info/' + this.infoCardTarget().id + '.jpeg'} className={`info-card-image ${className}`}></img>
+            </div>
+        )
+    }
+
+    infoCard(includeHeader: boolean) {
+        return (
+            <div>
+                {this.infoCardImage()}
                 <div className="info-card-content">
                     {this.iconButton("Close", mdiClose, "close", this.onClickCloseInfoCard, false, "info-card-close-button")}
                     {includeHeader ? <div>
-                        <h1>{planet.name}</h1>
-                        <h3>{planet.type}</h3>
+                        <h1>{this.infoCardTarget().name}</h1>
+                        <h3>{this.infoCardTarget().type}</h3>
                     </div> : null}
                     <br />
                     <p>{this.getPlanetWiki()["extract"]} <a style={{ color: "lightblue" }} target="_blank" rel="noopener noreferrer" href={this.getPlanetWiki()["content_urls"]["desktop"]["page"]}><i><b>Wikipedia</b></i></a></p>
                     {/* <p>TODO: Table including RA, Dec, Mag, and etc.</p> */}
                     <br />
+                    {this.infoCardImage("info-card-image-mobile")}
                     {this.planetPositionComponent()}
                     <br />
                     {this.characteristics()}
@@ -218,8 +228,7 @@ class SearchBar extends Component {
     }
 
     characteristics() {
-        const planet = Settings.lookAt as Planet
-        const solApiData = objectsJson[planet.id]
+        const solApiData = objectsJson[this.infoCardTarget().id]
 
         const circumference = (2 * Math.PI * parseFloat(solApiData["meanRadius"])).toFixed(4)
         const circumferenceEquatorial = parseFloat((2 * Math.PI * parseFloat(solApiData["equaRadius"])).toFixed(4))
@@ -330,7 +339,7 @@ class SearchBar extends Component {
     }
 
     getPlanetWiki() {
-        const wiki = wikiJson[(Settings.lookAt as Planet).name]
+        const wiki = wikiJson[this.infoCardTarget().name]
         return wiki
     }
 
@@ -346,8 +355,10 @@ class SearchBar extends Component {
     }
 
     render() {
-        const mobileInfoCardBleed = window.innerHeight * 0.25
-        const planet = (Settings.lookAt as Planet)
+        /**
+         * 100
+         */
+        const mobileInfoCardBleed = 180
         return (
             <div>
                 {/* Crosshair (Enabled when a star is selected) */}
@@ -385,7 +396,7 @@ class SearchBar extends Component {
                     styles={
                         {
                             ".MuiDrawer-root.info-card-mobile > .MuiPaper-root": {
-                                height: `calc(80% - ${mobileInfoCardBleed}px)`,
+                                height: `calc(80vh - ${mobileInfoCardBleed}px)`,
                                 overflow: "visible"
                             }
                         }
@@ -394,12 +405,12 @@ class SearchBar extends Component {
                 {
                     this.state.showingInfoCard && Settings.lookAt instanceof Planet ?
                         <SwipeableDrawer
-                            // container={container}
+                            // container={this.mount}
                             className="info-card-mobile"
                             anchor="bottom"
                             open={this.state.mobileInfoCardOpen}
-                            onClose={this.onMobileInfoCardOpen}
-                            onOpen={this.onMobileInfoCardClose}
+                            onClose={this.onMobileInfoCardClose}
+                            onOpen={this.onMobileInfoCardOpen}
                             swipeAreaWidth={mobileInfoCardBleed}
                             disableSwipeToOpen={false}
                             ModalProps={{
@@ -415,21 +426,18 @@ class SearchBar extends Component {
                                     visibility: "visible",
                                     right: 0,
                                     left: 0,
-                                    zIndex: 2
                                 }}
                             >
                                 <SheetHandle />
                                 <div className="info-card-content">
-                                    <h1>{planet.name}</h1>
-                                    <h3>{planet.type}</h3>
+                                    <h1>{this.infoCardTarget().name}</h1>
+                                    <h3>{this.infoCardTarget().type}</h3>
                                 </div>
                             </Paper>
                             <Paper sx={{
-                                position: "absolute",
-                                top: -mobileInfoCardBleed + 90,
+                                marginTop: `calc(-${mobileInfoCardBleed}px / 2)`,
                                 overflow: "auto",
                                 visibility: 'visible',
-                                zIndex: 1
                             }}
                             >
                                 {this.infoCard(false)}

@@ -130,6 +130,17 @@ $search-width: 400px;
     }
 }
 
+.info-card-image-mobile {
+    display: none;
+    width: 100% !important;
+    height: unset !important;
+    margin-bottom: 20px;
+
+    @media (max-width: $max-width) {
+        display: unset !important;
+    }
+}
+
 .info-card-content {
     padding: $content-padding;
     padding-top: 10px;
