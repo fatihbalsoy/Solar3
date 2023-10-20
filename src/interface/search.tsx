@@ -365,6 +365,7 @@ class SearchBar extends Component {
                     open={this.state.drawerOpen}
                     onClose={this.onMenuClose}
                     onOpen={this.onMenuOpen}
+                    style={{ zIndex: 1001 }}
                 >
                     <DrawerContent />
                 </SwipeableDrawer>
@@ -408,6 +409,7 @@ class SearchBar extends Component {
                             onOpen={this.onMobileInfoCardOpen}
                             swipeAreaWidth={mobileInfoCardBleed}
                             disableSwipeToOpen={false}
+                            style={{ zIndex: 1000 }}
                             ModalProps={{
                                 keepMounted: true
                             }}
@@ -429,11 +431,12 @@ class SearchBar extends Component {
                                     <h3>{this.infoCardTarget().type}</h3>
                                 </div>
                             </Paper>
-                            <Paper sx={{
-                                marginTop: `calc(-${mobileInfoCardBleed}px / 2)`,
-                                overflow: "auto",
-                                visibility: 'visible',
-                            }}
+                            <Paper
+                                sx={{
+                                    marginTop: `calc(-${mobileInfoCardBleed}px / 2)`,
+                                    overflow: "auto",
+                                    visibility: 'visible',
+                                }}
                             >
                                 {this.infoCard(false)}
                             </Paper>

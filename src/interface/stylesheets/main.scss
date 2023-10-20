@@ -1,0 +1,44 @@
+/*
+ *   general.scss
+ *   solar-system-3js
+ * 
+ *   Created by Fatih Balsoy on 3 May 2023
+ *   Copyright © 2023 Fatih Balsoy. All rights reserved.
+ */
+
+@import 'variables.scss';
+
+html {
+    overflow: hidden;
+}
+
+// .MuiDrawer-paper // TODO: conflict with mobile info card
+.modern-scrollbar {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-right: 6px;
+
+    &::-webkit-scrollbar {
+        height: 0px;
+        width: 0px;
+    }
+
+    &:hover {
+        padding-right: 0px;
+        overflow-y: overlay;
+        scrollbar-width: $scrollbar-width;
+
+        &::-webkit-scrollbar {
+            height: $scrollbar-width;
+            width: $scrollbar-width;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #7a7a7a;
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: #2e2e2e;
+        }
+    }
+}
