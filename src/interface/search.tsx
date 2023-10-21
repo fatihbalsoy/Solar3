@@ -380,11 +380,9 @@ class SearchBar extends Component {
                 {
                     this.state.showingInfoCard && Settings.lookAt instanceof Planet ?
                         <div className="info-card-body">
-                            <div className="info-card search-bar-mobile-full-width">
-                                <Paper>
-                                    {this.infoCard(true)}
-                                </Paper>
-                            </div>
+                            <Paper className="info-card modern-scrollbar search-bar-mobile-full-width">
+                                {this.infoCard(true)}
+                            </Paper>
                         </div>
                         : null
                 }

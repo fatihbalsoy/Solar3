@@ -59,7 +59,7 @@ $search-width: 400px;
 
 .info-card {
     align-items: center;
-    width: 420px;
+    width: calc($search-width + 2 * $search-margin);
     height: 100%;
     position: fixed;
     box-sizing: border-box;
@@ -84,35 +84,6 @@ $search-width: 400px;
         position: fixed;
         background: linear-gradient(to bottom, rgb(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
     }
-
-    // Scroll Behavior
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding-right: 6px;
-
-    &::-webkit-scrollbar {
-        height: 0px;
-        width: 0px;
-    }
-
-    &:hover {
-        padding-right: 0px;
-        overflow-y: overlay;
-        scrollbar-width: $scrollbar-width;
-
-        &::-webkit-scrollbar {
-            height: $scrollbar-width;
-            width: $scrollbar-width;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background-color: #7a7a7a;
-        }
-
-        &::-webkit-scrollbar-track {
-            background-color: #2e2e2e;
-        }
-    }
 }
 
 .info-card-mobile {
@@ -125,7 +96,7 @@ $search-width: 400px;
 
 .info-card-image {
     object-fit: cover;
-    width: 420px;
+    width: calc($search-width + 2* $search-margin);
     height: 250px;
 
     @media (max-width: $max-width) and (hover: hover) {
