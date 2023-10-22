@@ -97,6 +97,7 @@ export class Stars {
                 const material = new THREE.LineBasicMaterial({ color: 0x0000ff });
                 const geometry = new THREE.BufferGeometry().setFromPoints(points);
                 const line = new THREE.Line(geometry, material);
+                line.renderOrder = -100
                 Planets.earth.mesh.add(line)
                 const cameraPosition = AppScene.surfaceCamera.position
                 line.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z)
