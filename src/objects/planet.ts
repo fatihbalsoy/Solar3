@@ -75,8 +75,8 @@ class Planet {
         this.type = obj.type
         this.mass = obj.mass.massValue * Math.pow(10, obj.mass.massExponent)
         this.radius = obj.meanRadius
-        this.polarRadius = obj.polarRadius
-        this.equatorialRadius = obj.equaRadius
+        this.polarRadius = obj.polarRadius == 0 ? this.radius : obj.polarRadius
+        this.equatorialRadius = obj.equaRadius == 0 ? this.radius : obj.equaRadius
         this.distance = obj.semimajorAxis
         this.orbitalPeriod = obj.sideralOrbit
         this.rotationalPeriod = obj.sideralRotation / 24
@@ -85,8 +85,8 @@ class Planet {
         this.material = material
 
         const radiusScale = this.radius * Settings.sizeScale
-        const equatorialRadius = this.equatorialRadius == 0 ? radiusScale : this.equatorialRadius * Settings.sizeScale
-        const polarRadius = this.polarRadius == 0 ? radiusScale : this.polarRadius * Settings.sizeScale
+        const equatorialRadius = this.equatorialRadius * Settings.sizeScale
+        const polarRadius = this.polarRadius * Settings.sizeScale
 
         // LEVEL OF DETAIL //
         this.lod = new THREE.LOD()

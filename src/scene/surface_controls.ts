@@ -130,7 +130,7 @@ class SurfaceControls {
             this.camera.zoom *= 1.1;
         }
 
-        this.camera.zoom = Math.max(1, Math.min(10000, this.camera.zoom));
+        this.camera.zoom = Math.max(1, Math.min(100000, this.camera.zoom));
     }
 
 }

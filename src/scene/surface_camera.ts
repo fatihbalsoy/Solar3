@@ -32,6 +32,17 @@ class SceneSurfaceCamera extends SceneCamera {
         this.update()
         this.lookAtNorth()
 
+        // TODO: Does lookAtNorth() actually look at north?
+        // const lineGeometry = new THREE.BufferGeometry()
+        // lineGeometry.setFromPoints([
+        //     new THREE.Vector3(0, 0, 0),
+        //     new THREE.Vector3(0, 100000, 0)
+        // ])
+        // const lineMaterial = new THREE.LineBasicMaterial({
+        //     color: 0xffffff
+        // })
+        // const northPole = new THREE.Line(lineGeometry, lineMaterial)
+        // this.planet.realMesh.add(northPole)
     }
 
     switchTo(planet: Planet) {
@@ -41,6 +52,7 @@ class SceneSurfaceCamera extends SceneCamera {
         this.planet.realMesh.add(this)
         Settings.cameraLocation = planet
         this.update()
+        this.lookAtNorth()
     }
 
     update() {
