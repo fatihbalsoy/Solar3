@@ -47,6 +47,7 @@ import SceneLoadingManager from './scene/loading_manager'
 import dat, { GUI } from 'dat.gui'
 import SceneSurfaceCamera from './scene/surface_camera'
 import SceneCamera from './scene/camera'
+import SurfaceControls from './scene/surface_controls'
 
 class AppScene extends Component {
     private mount: HTMLDivElement
@@ -56,6 +57,7 @@ class AppScene extends Component {
     static spaceCamera: SceneSpaceCamera
     static surfaceCamera: SceneSurfaceCamera
     static controls: OrbitControls
+    static surfaceControls: SurfaceControls
     private renderer: THREE.WebGLRenderer
     private cssRenderer: CSS2DRenderer
     private frameId: number
@@ -92,7 +94,6 @@ class AppScene extends Component {
         AppScene.spaceCamera = new SceneSpaceCamera(75, width / height, 0.0001, (60000000000 * Settings.distanceScale) * 5)
         AppScene.surfaceCamera = new SceneSurfaceCamera(100, width / height, 0.0000001, (60000000000 * Settings.distanceScale) * 5)
         AppScene.camera = AppScene.surfaceCamera
-        AppScene.controls = new OrbitControls(AppScene.spaceCamera, this.mount)
         this.renderer = new THREE.WebGLRenderer({ antialias: true, depth: true })
         this.cssRenderer = new CSS2DRenderer()
         AppScene.loadingManager = new SceneLoadingManager()
@@ -184,6 +185,7 @@ class AppScene extends Component {
         // * -- CONTROLS -- * //
         // Set the camera's target
         Settings.lookAt = Planets.earth
+        AppScene.controls = new OrbitControls(AppScene.spaceCamera, this.mount)
         AppScene.controls.target = Settings.lookAt.getPosition()
         // Set to true to enable damping (inertia), 
         // which can be used to give a sense of weight to the controls.
@@ -196,6 +198,7 @@ class AppScene extends Component {
         // * -- SURFACE CAMERA -- * //
         Settings.cameraLocation = Planets.earth
         AppScene.surfaceCamera.init(Settings.cameraLocation)
+        AppScene.surfaceControls = new SurfaceControls(AppScene.surfaceCamera, this.mount)
 
         // * -- GALAXY -- * //
         let galaxyRes = Settings.res2_8k[Settings.quality]
@@ -260,7 +263,7 @@ class AppScene extends Component {
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleResize)
-        window.removeEventListener('resize', this.handleResize)
+        window.removeEventListener('keydown', this.handleKey)
         this.stop()
         clearInterval(this.timer)
 
@@ -350,12 +353,13 @@ class AppScene extends Component {
 
         this.calculatePositions()
         AppScene.controls.update()
+        AppScene.surfaceControls.update()
         AppScene.camera.update()
         // AppScene.spaceCamera.update()
         // AppScene.surfaceCamera.update()
 
-        AppScene.surfaceCamera.zoom = AppScene.developerConfigs.zoom
-        AppScene.surfaceCamera.fov = AppScene.developerConfigs.fov
+        // AppScene.surfaceCamera.zoom = AppScene.developerConfigs.zoom
+        // AppScene.surfaceCamera.fov = AppScene.developerConfigs.fov
 
         this.renderScene()
         this.frameId = window.requestAnimationFrame(this.animate)

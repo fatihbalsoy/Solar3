@@ -20,6 +20,7 @@ class SceneSurfaceCamera extends SceneCamera {
     isAnimating: boolean = false
     planet: Planet
     landscape: LandscapeZurich
+    lockedOntoPlanet: boolean = false
 
     init(planet: Planet) {
         this.planet = planet
@@ -97,16 +98,9 @@ class SceneSurfaceCamera extends SceneCamera {
         this.up.set(norm.x, norm.y, norm.z)
         this.landscape.up.set(norm.x, norm.y, norm.z)
 
-        if (!this.isAnimating && Settings.lookAt != this.planet) {
+        if (!this.isAnimating && Settings.lookAt != this.planet && this.lockedOntoPlanet) {
             this.lookAt(Settings.lookAt.position)
         }
-
-        // TODO: Manual control
-        // // Set 0 altitude, 0 azimuth at northern horizon
-        // // and offset altitude and azimuth to user values
-        // this.lookAtNorth()
-        // this.rotateOnAxis(new THREE.Vector3(0, -1, 0), (phi > Math.PI / 2 ? Math.PI : 0) + AppScene.surfaceCameraProps.azimuth * Math.PI / 180)
-        // this.rotateOnAxis(new THREE.Vector3(1, 0, 0), AppScene.surfaceCameraProps.altitude * Math.PI / 180)
 
         this.landscape.visible = AppScene.landscapeVisible
 
@@ -138,9 +132,10 @@ class SceneSurfaceCamera extends SceneCamera {
 
     lookAtOnUpdate(coords: { x: number, y: number, z: number }) {
         this.lookAt(new THREE.Vector3(coords.x, coords.y, coords.z))
+        this.lockedOntoPlanet = true
     }
 
-    // TODO: Proof of concept
+    // TODO: Lazy Implementation / Proof of concept
     // Maybe from surface to space camera?
     animateFlyTo(planet: Planet, duration: number): void {
         const newCamera = new SceneSurfaceCamera(this.fov, this.aspect, this.near, this.far)
