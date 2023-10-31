@@ -103,7 +103,7 @@ class DrawerContent extends Component<{}, DrawerContentState> {
     render(): ReactNode {
         const website = "fatih.bal.soy"
         const paypalLink = "paypal.me/fatihbalsoy"
-        const githubLink = "fatihbalsoy/solarsystem.3js"
+        const githubLink = "fatihbalsoy/Solar3"
 
         return (
             <div className="drawer">

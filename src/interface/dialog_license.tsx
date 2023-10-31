@@ -62,7 +62,7 @@ class LicenseDialog extends Component<LicenseDialogProps, LicenseDialogState> {
                 <DialogTitle>Licenses</DialogTitle>
                 <DialogContent dividers={true}>
                     <DialogContentText>
-                        {this.listItem("Solar3 by Fatih Balsoy", "AGPL v3.0", "https://github.com/fatihbalsoy/SolarSystem.3js")}
+                        {this.listItem("Solar3 by Fatih Balsoy", "AGPL v3.0", "https://github.com/fatihbalsoy/Solar3")}
                         {this.listItem("Astronomy Engine by Don Cross", "MIT", "https://github.com/cosinekitty/astronomy")}
                         {this.listItem("three.js by mrdoob", "MIT", "https://github.com/mrdoob/three.js/")}
                         {this.listItem("tween.js", "MIT", "https://github.com/tweenjs/tween.js")}
@@ -80,7 +80,7 @@ class LicenseDialog extends Component<LicenseDialogProps, LicenseDialogState> {
                         {this.listItem("Textures by James Hastings-Trew", null, "https://planetpixelemporium.com/planets.html")}
                         {this.listItem("Solar System Data by Christophe", null, "https://api.le-systeme-solaire.net/en/")}
                         {this.listItem("Ephemeris Data by NASA's Horizons System", null, "https://ssd.jpl.nasa.gov/horizons/app.html#/")}
-                        {/* * Licenses for images used in the wiki/info card can be found [here](https://github.com/fatihbalsoy/SolarSystem.3js/tree/master/src/data/generate_data.py). */}
+                        {/* * Licenses for images used in the wiki/info card can be found [here](https://github.com/fatihbalsoy/Solar3/tree/master/src/data/generate_data.py). */}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
