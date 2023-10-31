@@ -1,6 +1,6 @@
 {
-  "name": "SolarSystem.3js",
-  "short_name": "Solar System",
+  "name": "Solar3",
+  "short_name": "Solar3",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#000",

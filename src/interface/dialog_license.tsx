@@ -62,7 +62,7 @@ class LicenseDialog extends Component<LicenseDialogProps, LicenseDialogState> {
                 <DialogTitle>Licenses</DialogTitle>
                 <DialogContent dividers={true}>
                     <DialogContentText>
-                        {this.listItem("SolarSystem.3js by Fatih Balsoy", "AGPL v3.0", "https://github.com/fatihbalsoy/SolarSystem.3js")}
+                        {this.listItem("Solar3 by Fatih Balsoy", "AGPL v3.0", "https://github.com/fatihbalsoy/SolarSystem.3js")}
                         {this.listItem("Astronomy Engine by Don Cross", "MIT", "https://github.com/cosinekitty/astronomy")}
                         {this.listItem("three.js by mrdoob", "MIT", "https://github.com/mrdoob/three.js/")}
                         {this.listItem("tween.js", "MIT", "https://github.com/tweenjs/tween.js")}

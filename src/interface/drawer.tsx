@@ -120,7 +120,7 @@ class DrawerContent extends Component<{}, DrawerContentState> {
                     open={this.state.licenseDialogOpen}
                     onClose={this.onLicenseDialogClose}
                 />
-                <h2>SolarSystem.3js</h2>
+                <h2>Solar3</h2>
                 {this.divider()}
                 {this.listItem("Location", mdiMapMarkerOutline, this.onLocationDialogOpen, this.locationSubtitle())}
                 {this.listItem("Settings", mdiTune)}
