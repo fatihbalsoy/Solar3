@@ -43,6 +43,9 @@ class SurfaceControls {
         this.domElement.addEventListener('mousedown', this.mouseDown)
         this.domElement.addEventListener('mouseup', this.mouseUp)
         this.domElement.addEventListener('mousemove', this.mouseMove)
+        // this.domElement.addEventListener('touchstart', this.mouseDown)
+        // this.domElement.addEventListener('touchend', this.mouseUp)
+        // this.domElement.addEventListener('touchmove', this.mouseMove)
         this.domElement.addEventListener('wheel', this.mouseScroll)
     }
 
@@ -100,6 +103,9 @@ class SurfaceControls {
         this.domElement.removeEventListener('mousedown', this.mouseDown)
         this.domElement.removeEventListener('mouseup', this.mouseUp)
         this.domElement.removeEventListener('mousemove', this.mouseMove)
+        // this.domElement.removeEventListener('touchstart', this.mouseDown)
+        // this.domElement.removeEventListener('touchend', this.mouseUp)
+        // this.domElement.removeEventListener('touchmove', this.mouseMove)
         this.domElement.removeEventListener('wheel', this.mouseScroll)
     }
 
