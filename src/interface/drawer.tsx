@@ -144,7 +144,7 @@ class DrawerContent extends Component<{}, DrawerContentState> {
     render(): ReactNode {
         const website = "fatih.bal.soy"
         const paypalLink = "paypal.me/fatihbalsoy"
-        const githubLink = "fatihbalsoy/solarsystem.3js"
+        const githubLink = "fatihbalsoy/Solar3"
 
         return (
             <div className="drawer">
@@ -161,7 +161,7 @@ class DrawerContent extends Component<{}, DrawerContentState> {
                     open={this.state.licenseDialogOpen}
                     onClose={this.onLicenseDialogClose}
                 />
-                <h2>SolarSystem.3js</h2>
+                <h2>Solar3</h2>
                 {this.divider()}
                 {this.listItem("Location", mdiMapMarkerOutline, this.onLocationDialogOpen, this.locationSubtitle())}
                 {this.listItem("Constellations", mdiChartTimelineVariantShimmer, this.onToggleConstellations, null, this.constellationsSwitch())}
@@ -174,7 +174,7 @@ class DrawerContent extends Component<{}, DrawerContentState> {
                 {this.listItem("Github", mdiGithub, () => { window.open("https://github.com/" + githubLink, "_blank") }, githubLink)}
                 {this.listItem("Report Issues", mdiBug, () => { window.open("https://github.com/" + githubLink + "/issues", "_blank") })}
                 {this.listItem("Licenses", mdiBookOpenVariant, this.onLicenseDialogOpen)}
-                {this.listItem("Privacy Policy", mdiShieldAccountOutline)}
+                {this.listItem("Privacy Policy", mdiShieldAccountOutline, () => { window.open("https://" + website + "/privacy-policy?solar3", "_blank") })}
             </div>
         )
     }
