@@ -19,61 +19,70 @@ class SceneCamera extends THREE.PerspectiveCamera {
 
     update() { }
 
-    // TODO: This is only a proof of concept
     switchCamera(camera: SceneCamera) {
         const cameraCopy = this.clone()
 
+        this.isAnimating = false
+        AppScene.camera = camera
+        this.position.set(cameraCopy.position.x, cameraCopy.position.y, cameraCopy.position.z)
+        this.up.set(cameraCopy.up.x, cameraCopy.up.y, cameraCopy.up.z)
+
         if (this["planet"]) {
-            this["planet"].realMesh.remove(this)
-            AppScene.scene.add(this)
+            AppScene.scene.remove(this)
+            this["planet"].realMesh.add(this)
         }
 
-        let thisCoords = this["planet"] ? this.position.clone().add(this["planet"].getPosition()) : this.position
-        let nextCoords = camera["planet"] ? camera.position.clone().add(camera["planet"].getPosition()) : camera.position
-        let currentCoords = { x: thisCoords.x, y: thisCoords.y, z: thisCoords.z }
+        // if (this["planet"]) {
+        //     this["planet"].realMesh.remove(this)
+        //     AppScene.scene.add(this)
+        // }
 
-        let nextUp = camera.up
-        let currentUp = { x: this.up.x, y: this.up.y, z: this.up.z }
+        // let thisCoords = this["planet"] ? this.position.clone().add(this["planet"].getPosition()) : this.position
+        // let nextCoords = camera["planet"] ? camera.position.clone().add(camera["planet"].getPosition()) : camera.position
+        // let currentCoords = { x: thisCoords.x, y: thisCoords.y, z: thisCoords.z }
 
-        const duration = 2000
+        // let nextUp = camera.up
+        // let currentUp = { x: this.up.x, y: this.up.y, z: this.up.z }
 
-        new TWEEN.Tween(currentUp)
-            .to(nextUp)
-            .duration(duration)
-            .easing(TWEEN.Easing.Cubic.InOut)
-            .onStart(() => {
-                this.isAnimating = true
-            })
-            .onUpdate(() => {
-                this.up.set(currentUp.x, currentUp.y, currentUp.z)
-            })
-            .onComplete(() => {
-                this.isAnimating = false
-            })
-            .start()
+        // const duration = 2000
 
-        new TWEEN.Tween(currentCoords)
-            .to(nextCoords)
-            .duration(duration)
-            .easing(TWEEN.Easing.Cubic.InOut)
-            .onStart(() => {
-                this.isAnimating = true
-            })
-            .onUpdate(() => {
-                this.position.set(currentCoords.x, currentCoords.y, currentCoords.z)
-            })
-            .onComplete(() => {
-                this.isAnimating = false
-                AppScene.camera = camera
-                this.position.set(cameraCopy.position.x, cameraCopy.position.y, cameraCopy.position.z)
-                this.up.set(cameraCopy.up.x, cameraCopy.up.y, cameraCopy.up.z)
+        // new TWEEN.Tween(currentUp)
+        //     .to(nextUp)
+        //     .duration(duration)
+        //     .easing(TWEEN.Easing.Cubic.InOut)
+        //     .onStart(() => {
+        //         this.isAnimating = true
+        //     })
+        //     .onUpdate(() => {
+        //         this.up.set(currentUp.x, currentUp.y, currentUp.z)
+        //     })
+        //     .onComplete(() => {
+        //         this.isAnimating = false
+        //     })
+        //     .start()
 
-                if (this["planet"]) {
-                    AppScene.scene.remove(this)
-                    this["planet"].realMesh.add(this)
-                }
-            })
-            .start()
+        // new TWEEN.Tween(currentCoords)
+        //     .to(nextCoords)
+        //     .duration(duration)
+        //     .easing(TWEEN.Easing.Cubic.InOut)
+        //     .onStart(() => {
+        //         this.isAnimating = true
+        //     })
+        //     .onUpdate(() => {
+        //         this.position.set(currentCoords.x, currentCoords.y, currentCoords.z)
+        //     })
+        //     .onComplete(() => {
+        //         this.isAnimating = false
+        //         AppScene.camera = camera
+        //         this.position.set(cameraCopy.position.x, cameraCopy.position.y, cameraCopy.position.z)
+        //         this.up.set(cameraCopy.up.x, cameraCopy.up.y, cameraCopy.up.z)
+
+        //         if (this["planet"]) {
+        //             AppScene.scene.remove(this)
+        //             this["planet"].realMesh.add(this)
+        //         }
+        //     })
+        //     .start()
     }
 
     /**
