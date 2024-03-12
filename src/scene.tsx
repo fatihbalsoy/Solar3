@@ -189,20 +189,36 @@ class AppScene extends Component {
         AppScene.camera.flyTo(Planets.earth, 0)
     }
 
+    /**
+     * Handle keys presses
+     * @param event key press event
+     * @returns void
+     */
     handleKey(event) {
-        // console.log("HANDLEKEY")
+        // Ignore key press if the target is an input
+        if ((event.target as Element).tagName.toLowerCase() === 'input') {
+            return;
+        }
+
+        // k: Switch between surface and space camera
         // if (event.keyCode == 75) {
-        //     console.log("K")
         //     if (AppScene.camera instanceof SceneSpaceCamera) {
         //         AppScene.camera.switchCamera(AppScene.surfaceCamera)
         //     } else {
         //         AppScene.camera.switchCamera(AppScene.spaceCamera)
         //     }
         // }
-        // TODO: Switch at src/interface/drawer.tsx does not update when triggered with the 'c' key
-        if (event.keyCode == 67) { // c
+
+        // TODO: Switches at src/interface/drawer.tsx does not update when triggered with the 'c' key
+        // c: Toggle constellations
+        if (event.keyCode == 67) {
             Stars.toggleConstellations(AppScene.constellations)
         }
+
+        // l: Toggle landscape
+        // if (event.keyCode == 76) {
+        //     AppScene.landscapeVisible = !AppScene.landscapeVisible
+        // }
     }
 
     componentWillUnmount() {
