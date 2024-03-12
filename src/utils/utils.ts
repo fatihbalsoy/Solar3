@@ -77,3 +77,20 @@ export function angleBetweenZeroVectorForComponent(component: ComponentEnum, mat
     var angle = Math.acos(dotProduct / (magnitude1 * magnitude2));
     return angle
 }
+
+/**
+ * Detects whether the device is running iOS (iPhone, iPod, or iPad).
+ * @returns a boolean indicating whether the device is running iOS.
+ */
+export function deviceIsIOS(): boolean {
+    return [
+        'iPad Simulator',
+        'iPhone Simulator',
+        'iPod Simulator',
+        'iPad',
+        'iPhone',
+        'iPod'
+    ].includes(navigator.platform)
+        // iPad on iOS 13 detection
+        || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+}

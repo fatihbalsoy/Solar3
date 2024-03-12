@@ -175,7 +175,7 @@ class DrawerContent extends Component<{}, DrawerContentState> {
                 {this.listItem("Report Issues", mdiBug, () => { window.open("https://github.com/" + githubLink + "/issues", "_blank") })}
                 {this.listItem("Licenses", mdiBookOpenVariant, this.onLicenseDialogOpen)}
                 {this.listItem("Privacy Policy", mdiShieldAccountOutline, () => { window.open("https://" + website + "/privacy-policy?solar3", "_blank") })}
-            </div>
+            </div >
         )
     }
 }

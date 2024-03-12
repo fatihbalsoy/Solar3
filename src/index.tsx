@@ -12,7 +12,9 @@ import { WebsiteTheme } from './theme';
 import SearchBar from './interface/search';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import './interface/stylesheets/main.scss';
+import LowEndDeviceWarningScreen from './interface/low_end_warning';
 import LoadingScreen from './interface/loading_screen';
+import { deviceIsIOS } from './utils/utils';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -21,8 +23,14 @@ const root = ReactDOM.createRoot(
 root.render(
     <ThemeProvider theme={WebsiteTheme}>
         <CssBaseline />
-        <AppScene />
-        <SearchBar />
-        <LoadingScreen />
+        {
+            deviceIsIOS()
+                ? <LowEndDeviceWarningScreen />
+                : <div>
+                    <AppScene />
+                    <SearchBar />
+                    <LoadingScreen />
+                </div>
+        }
     </ThemeProvider>
 );
