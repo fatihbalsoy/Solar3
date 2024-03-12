@@ -59,6 +59,7 @@ class AppScene extends Component {
 
     private orbits: Orbits
     private stars: Stars
+    static constellations: THREE.Line[]
 
     private timer: NodeJS.Timeout;
 
@@ -131,7 +132,8 @@ class AppScene extends Component {
 
         // * -- STARS --  * //
         this.stars.parseData().then(() => {
-            this.stars.displayConstellations()
+            AppScene.constellations = Stars.createConstellations()
+            Stars.hideConstellations(AppScene.constellations)
         })
 
         // * -- CONTROLS -- * //
@@ -153,6 +155,7 @@ class AppScene extends Component {
         // * ---- * //
 
         window.addEventListener('resize', this.handleResize)
+        window.addEventListener('keydown', this.handleKey, false)
 
         if (this.mount) {
             this.mount.appendChild(this.renderer.domElement)
@@ -165,6 +168,22 @@ class AppScene extends Component {
 
         this.start()
         AppScene.camera.flyTo(Planets.earth, 0)
+    }
+
+    handleKey(event) {
+        // console.log("HANDLEKEY")
+        // if (event.keyCode == 75) {
+        //     console.log("K")
+        //     if (AppScene.camera instanceof SceneSpaceCamera) {
+        //         AppScene.camera.switchCamera(AppScene.surfaceCamera)
+        //     } else {
+        //         AppScene.camera.switchCamera(AppScene.spaceCamera)
+        //     }
+        // }
+        // TODO: Switch at src/interface/drawer.tsx does not update when triggered with the 'c' key
+        if (event.keyCode == 67) { // c
+            Stars.toggleConstellations(AppScene.constellations)
+        }
     }
 
     componentWillUnmount() {

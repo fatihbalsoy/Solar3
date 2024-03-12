@@ -19,6 +19,7 @@ export class Stars {
     static indexedDatabase: { [key: string]: Star } = {}
     static indexedDatabaseByHIP: { [key: number]: Star } = {}
     static indexedTree: string[] = []
+    static constellationsVisible: boolean
 
     constructor() { }
 
@@ -67,8 +68,8 @@ export class Stars {
         return stars
     }
 
-    // TODO: Must normalize points onto sphere and add line mesh onto camera
-    displayConstellations() {
+    static createConstellations(): THREE.Line[] {
+        var result: THREE.Line[] = []
         for (var constellation in constellations) {
             const lineGroups: string[][] = constellations[constellation]
 
@@ -88,7 +89,8 @@ export class Stars {
                         } else {
                             starObj = this.getStarByName(star)
                         }
-                        points.push(starObj.position.normalize().multiplyScalar(Planets.earth.getRadius()).multiplyScalar(1.5))
+                        // TODO: Must mount constellations onto camera
+                        points.push(starObj.position.normalize().multiplyScalar(Planets.pluto.getDistance() * 20))
                     }
                 }
 
@@ -96,20 +98,46 @@ export class Stars {
                 const geometry = new THREE.BufferGeometry().setFromPoints(points);
                 const line = new THREE.Line(geometry, material);
                 Planets.earth.mesh.add(line)
-            }
 
+                result.push(line)
+            }
+        }
+        return result
+    }
+
+    static hideConstellations(lines: THREE.Line[]): void {
+        for (var lineIndex in lines) {
+            var line = lines[lineIndex]
+            line.visible = false;
+            Stars.constellationsVisible = false
         }
     }
 
-    getStarByName(name: string): Star {
+    static showConstellations(lines: THREE.Line[]): void {
+        for (var lineIndex in lines) {
+            var line = lines[lineIndex]
+            line.visible = true
+            Stars.constellationsVisible = true
+        }
+    }
+
+    static toggleConstellations(lines: THREE.Line[]): void {
+        if (Stars.constellationsVisible) {
+            this.hideConstellations(lines)
+        } else {
+            this.showConstellations(lines)
+        }
+    }
+
+    static getStarByName(name: string): Star {
         return Stars.indexedDatabase[name.toLowerCase()] ?? Star.empty()
     }
 
-    getStarByHIP(hip: number): Star {
+    static getStarByHIP(hip: number): Star {
         return Stars.indexedDatabaseByHIP[hip]
     }
 
-    getStarById(id: number): Star {
+    static getStarById(id: number): Star {
         return Stars.database[id]
     }
 }
