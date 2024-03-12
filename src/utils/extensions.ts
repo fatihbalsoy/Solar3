@@ -6,8 +6,22 @@
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
-
-
+/**
+ * Represents a dictionary-like object where keys are of type `T` and values are of type `U`.
+ * This type is often used to map enum-like values to specific data or constants.
+ * 
+ * Example:
+ * ```typescript
+ * static readonly res2_4_8k: EnumDictionary<Quality, string> = {
+ *      [Quality.high]: '8k',
+ *      [Quality.medium]: '4k',
+ *      [Quality.low]: '2k'
+ * }
+ * ```
+ * 
+ * @typeparam T - The type of keys, which can be strings, symbols, or numbers.
+ * @typeparam U - The type of values associated with the keys.
+ */
 export type EnumDictionary<T extends string | symbol | number, U> = {
     [K in T]: U;
 };
