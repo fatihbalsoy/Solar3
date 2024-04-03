@@ -41,7 +41,7 @@ jobs:
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/release'
+        # if: github.ref == 'refs/heads/release' # Github does not allow scheduled tasks to run on other branches :(
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
