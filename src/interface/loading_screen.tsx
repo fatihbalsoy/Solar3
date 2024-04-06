@@ -26,7 +26,7 @@ class LoadingScreen extends Component {
             <div id="loading-screen">
                 <img className="loading-screen-image" src="assets/images/galaxy_loading_screen.jpg"></img>
                 <div className="loading-screen-content">
-                    <h1 className="loading-screen-title">SolarSystem.3js</h1>
+                    <h1 className="loading-screen-title">Solar3</h1>
                     <LinearProgress />
                     {
                         this.isFirstTime == 'true'
