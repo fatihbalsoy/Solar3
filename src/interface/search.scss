@@ -59,17 +59,22 @@ $search-width: 400px;
 
 .info-card {
     align-items: center;
-    width: 420px;
+    width: calc($search-width + 2 * $search-margin);
     height: 100%;
     position: fixed;
     box-sizing: border-box;
     align-items: start;
 
     // Full-width on mobile
-    @media (max-width: $max-width) {
+    @media (max-width: $max-width) and (hover: hover) {
         width: unset;
         right: 0;
         left: 0;
+    }
+
+    // Display bottom sheet instead
+    @media (max-width: $max-width) and (hover: none) {
+        display: none;
     }
 
     &:before {
@@ -79,50 +84,48 @@ $search-width: 400px;
         position: fixed;
         background: linear-gradient(to bottom, rgb(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
     }
+}
 
-    // Scroll Behavior
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding-right: 6px;
-    
-    &::-webkit-scrollbar {
-        height: 0px;
-        width: 0px;
-    }
+.info-card-mobile {
+    display: none;
 
-    &:hover {
-        padding-right: 0px;
-        overflow-y: overlay;
-        scrollbar-width: $scrollbar-width;
-
-        &::-webkit-scrollbar {
-            height: $scrollbar-width;
-            width: $scrollbar-width;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background-color: #7a7a7a;
-        }
-
-        &::-webkit-scrollbar-track {
-            background-color: #2e2e2e;
-        }
+    @media (max-width: $max-width) and (hover: none) {
+        display: unset;
     }
 }
 
 .info-card-image {
     object-fit: cover;
-    width: 420px;
+    width: calc($search-width + 2* $search-margin);
     height: 250px;
 
-    @media (max-width: $max-width) {
+    @media (max-width: $max-width) and (hover: hover) {
         width: 100%;
+    }
+
+    @media (max-width: $max-width) and (hover: none) {
+        display: none;
+    }
+}
+
+.info-card-image-mobile {
+    display: none;
+    width: 100% !important;
+    height: unset !important;
+    margin-bottom: 20px;
+
+    @media (max-width: $max-width) and (hover: none) {
+        display: unset !important;
     }
 }
 
 .info-card-content {
     padding: $content-padding;
     padding-top: 10px;
+
+    @media (max-width: $max-width) and (hover: none) {
+        padding-top: 20px;
+    }
 }
 
 .info-card-close-button {
@@ -132,6 +135,10 @@ $search-width: 400px;
 
     .info-card:hover>.info-card-content>& {
         right: calc($content-padding - $close-btn-padding - $scrollbar-width);
+    }
+
+    @media (max-width: $max-width) and (hover: none) {
+        display: none;
     }
 }
 

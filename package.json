@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "description": "SolarSystem.3js",
+  "description": "Solar3",
   "name": "solar-system-3js",
-  "repository": "https://github.com/fatihbalsoy/SolarSystem.3js",
+  "repository": "https://github.com/fatihbalsoy/Solar3",
   "license": "AGPL-3.0",
   "scripts": {
     "build:dev": "webpack --mode=development",
