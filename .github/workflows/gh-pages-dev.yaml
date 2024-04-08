@@ -1,0 +1,68 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Build & Deploy (Dev)
+
+env:
+  CI: false
+  public_folder: ./web-gh-pages
+
+on:
+  push:
+    branches: ["dev", "surface-camera"]
+  pull_request:
+    branches: ["dev", "surface-camera"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: ${{ env.public_folder }}
+
+      - name: Delete ${{ github.ref_name }} and git folder.
+        run: |
+          rm -rf ${{ env.public_folder }}/${{ github.ref_name }}/
+          rm -rf ${{ env.public_folder }}/.git/
+
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref_name }}
+          path: ${{ github.ref_name }}
+          clean: false
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: ./${{ github.ref_name }}/package-lock.json
+      
+      - name: Build site
+        run: |
+          cd ./${{ github.ref_name }}
+          unset CI
+          BASE_HREF=/${{ github.ref_name }}/
+          npm i
+          npm run build:prod:all
+          cd ..
+
+      - name: Move ${{ github.ref_name }} to web folder
+        run: | 
+          mkdir ${{ env.public_folder }}/${{ github.ref_name }}
+          mv ./${{ github.ref_name }}/dist/* ${{ env.public_folder }}/${{ github.ref_name }}/
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ env.public_folder }}
