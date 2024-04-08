@@ -18,8 +18,8 @@ photo_credits = {
             'by': 'NASA'
         },
         'texture': {
-            'cc': 'None',
-            'by': 'None'
+            'cc': 'CC BY 4.0',
+            'by': 'Solar System Scope'
         }
     },
     'mercury': {

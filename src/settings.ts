@@ -131,6 +131,7 @@ export class Settings {
  * The range of textures for each planet and their other properties.
  */
 export const resFields: EnumDictionary<string, EnumDictionary<Quality, string>> = {
+    "sun": Settings.res2_8k,
     "mercury": Settings.res2_4_8k,
     "venus_atmosphere": Settings.res2_4k,
     "venus_surface": Settings.res2_4_8k,
