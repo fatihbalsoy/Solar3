@@ -6,7 +6,7 @@
  *   Copyright © 2023 Fatih Balsoy. All rights reserved.
  */
 
-@import 'variables.scss';
+@use 'variables.scss';
 
 html {
     overflow: hidden;
@@ -26,11 +26,11 @@ html {
     &:hover {
         padding-right: 0px;
         overflow-y: overlay;
-        scrollbar-width: $scrollbar-width;
+        scrollbar-width: variables.$scrollbar-width;
 
         &::-webkit-scrollbar {
-            height: $scrollbar-width;
-            width: $scrollbar-width;
+            height: variables.$scrollbar-width;
+            width: variables.$scrollbar-width;
         }
 
         &::-webkit-scrollbar-thumb {
