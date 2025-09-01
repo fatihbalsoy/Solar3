@@ -1,3 +1,4 @@
+
 import json
 import requests
 
@@ -218,16 +219,23 @@ with open("src/data/objects.json", "w") as outfile:
 
 # Wikipedia
 
+headers = {
+    "User-Agent": "Solar3-Bot/1.0 (github.com/fatihbalsoy/solar3)"
+}
+
 wikipedia_json_object = {}
 for planet in only:
     p_lower = planet.lower()
     planet_url = planet if p_lower not in wiki_corrections else wiki_corrections[p_lower]
     wiki_url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + planet_url
-    response = requests.get(wiki_url)
+    response = requests.get(wiki_url, headers=headers)
     if response.ok:
         wikipedia_json_object[planet] = response.json()
         if p_lower in photo_credits:
             wikipedia_json_object[planet]["photo_credits"] = photo_credits[p_lower]
+    else:
+        print(f"{planet} status code: {response.status_code} {response.reason}")
+        exit(1)
 
 # print(wikipedia_json_object)
 
