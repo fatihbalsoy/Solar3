@@ -220,15 +220,14 @@ with open("src/data/objects.json", "w") as outfile:
 
 wikipedia_json_object = {}
 for planet in only:
-    planet_url = planet if planet.lower(
-    ) not in wiki_corrections else wiki_corrections[planet.lower()]
+    p_lower = planet.lower()
+    planet_url = planet if p_lower not in wiki_corrections else wiki_corrections[p_lower]
     wiki_url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + planet_url
     response = requests.get(wiki_url)
     if response.ok:
         wikipedia_json_object[planet] = response.json()
-    if planet.lower() in photo_credits:
-        wikipedia_json_object[planet]["photo_credits"] = photo_credits[planet.lower(
-        )]
+        if p_lower in photo_credits:
+            wikipedia_json_object[planet]["photo_credits"] = photo_credits[p_lower]
 
 # print(wikipedia_json_object)
 
