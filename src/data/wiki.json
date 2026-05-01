@@ -2,7 +2,7 @@
     "Sun": {
         "type": "standard",
         "title": "Sun",
-        "displaytitle": "<span class=\"mw-page-title-main\">Sun</span>",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Sun</span></span>",
         "namespace": {
             "id": 0,
             "text": ""
@@ -11,25 +11,25 @@
         "titles": {
             "canonical": "Sun",
             "normalized": "Sun",
-            "display": "<span class=\"mw-page-title-main\">Sun</span>"
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Sun</span></span>"
         },
         "pageid": 26751,
         "thumbnail": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/The_Sun_in_white_light.jpg/320px-The_Sun_in_white_light.jpg",
-            "width": 320,
-            "height": 320
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/The_Sun_in_white_light.jpg/330px-The_Sun_in_white_light.jpg",
+            "width": 330,
+            "height": 330
         },
         "originalimage": {
             "source": "https://upload.wikimedia.org/wikipedia/commons/8/83/The_Sun_in_white_light.jpg",
-            "width": 3379,
-            "height": 3379
+            "width": 3648,
+            "height": 3648
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1211354192",
-        "tid": "ff22c78f-d841-11ee-8532-9a28c4c4d4ac",
-        "timestamp": "2024-03-02T03:07:26Z",
-        "description": "Star at the center of the Solar System",
+        "revision": "1351582191",
+        "tid": "18a1dfef-434d-11f1-ad72-bdb9cc8802f0",
+        "timestamp": "2026-04-28T21:56:23Z",
+        "description": "Star at the centre of the Solar System",
         "description_source": "local",
         "content_urls": {
             "desktop": {
@@ -39,14 +39,14 @@
                 "talk": "https://en.wikipedia.org/wiki/Talk:Sun"
             },
             "mobile": {
-                "page": "https://en.m.wikipedia.org/wiki/Sun",
-                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Sun",
-                "edit": "https://en.m.wikipedia.org/wiki/Sun?action=edit",
-                "talk": "https://en.m.wikipedia.org/wiki/Talk:Sun"
+                "page": "https://en.wikipedia.org/wiki/Sun",
+                "revisions": "https://en.wikipedia.org/wiki/Special:History/Sun",
+                "edit": "https://en.wikipedia.org/wiki/Sun?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Sun"
             }
         },
-        "extract": "The Sun is the star at the center of the Solar System. It is a massive, hot ball of plasma, inflated and heated by energy produced by nuclear fusion reactions at its core. Part of this energy is emitted from its surface as light, ultraviolet, and infrared radiation, providing most of the energy for life on Earth. The Sun has been an object of veneration in many cultures. It has been a central subject for astronomical research since ancient times.",
-        "extract_html": "<p>The <b>Sun</b> is the star at the center of the Solar System. It is a massive, hot ball of plasma, inflated and heated by energy produced by nuclear fusion reactions at its core. Part of this energy is emitted from its surface as light, ultraviolet, and infrared radiation, providing most of the energy for life on Earth. The Sun has been an object of veneration in many cultures. It has been a central subject for astronomical research since ancient times.</p>",
+        "extract": "The Sun is the star located at the centre of the Solar System. It is a massive sphere of hot plasma, heated to incandescence by nuclear fusion reactions in its core, radiating the energy from its surface mainly as visible light and infrared radiation with 10% at ultraviolet energies. It is the main source of energy for life on Earth. The Sun has been an object of veneration in many cultures and a central subject of astronomical research since antiquity.",
+        "extract_html": "<p>The <b>Sun</b> is the star located at the centre of the Solar System. It is a massive sphere of hot plasma, heated to incandescence by nuclear fusion reactions in its core, radiating the energy from its surface mainly as visible light and infrared radiation with 10% at ultraviolet energies. It is the main source of energy for life on Earth. The Sun has been an object of veneration in many cultures and a central subject of astronomical research since antiquity.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -61,7 +61,7 @@
     "Mercury": {
         "type": "standard",
         "title": "Mercury (planet)",
-        "displaytitle": "<span class=\"mw-page-title-main\">Mercury (planet)</span>",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Mercury (planet)</span></span>",
         "namespace": {
             "id": 0,
             "text": ""
@@ -70,13 +70,13 @@
         "titles": {
             "canonical": "Mercury_(planet)",
             "normalized": "Mercury (planet)",
-            "display": "<span class=\"mw-page-title-main\">Mercury (planet)</span>"
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Mercury (planet)</span></span>"
         },
         "pageid": 19694,
         "thumbnail": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Mercury_in_true_color.jpg/320px-Mercury_in_true_color.jpg",
-            "width": 320,
-            "height": 320
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Mercury_in_true_color.jpg/330px-Mercury_in_true_color.jpg",
+            "width": 330,
+            "height": 330
         },
         "originalimage": {
             "source": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Mercury_in_true_color.jpg",
@@ -85,9 +85,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1212361570",
-        "tid": "4bc51ada-dc86-11ee-99ee-b4b58bcf0d2e",
-        "timestamp": "2024-03-07T13:26:25Z",
+        "revision": "1351360349",
+        "tid": "f4ee753b-423a-11f1-91f5-10707f4acf67",
+        "timestamp": "2026-04-27T13:14:01Z",
         "description": "First planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -98,14 +98,14 @@
                 "talk": "https://en.wikipedia.org/wiki/Talk:Mercury_(planet)"
             },
             "mobile": {
-                "page": "https://en.m.wikipedia.org/wiki/Mercury_(planet)",
-                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Mercury_(planet)",
-                "edit": "https://en.m.wikipedia.org/wiki/Mercury_(planet)?action=edit",
-                "talk": "https://en.m.wikipedia.org/wiki/Talk:Mercury_(planet)"
+                "page": "https://en.wikipedia.org/wiki/Mercury_(planet)",
+                "revisions": "https://en.wikipedia.org/wiki/Special:History/Mercury_(planet)",
+                "edit": "https://en.wikipedia.org/wiki/Mercury_(planet)?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Mercury_(planet)"
             }
         },
-        "extract": "Mercury is the first planet from the Sun and the smallest in the Solar System. In English, it is named after the Roman god Mercurius (Mercury), god of commerce and communication, and the messenger of the gods. Mercury is classified as a terrestrial planet, with roughly the same surface gravity as Mars. The surface of Mercury is heavily cratered, as a result of countless impact events that have accumulated over billions of years. Its largest crater, Caloris Planitia, has a diameter of 1,550\u00a0km (960\u00a0mi) and one-third the diameter of the planet. Similarly to the Earth's Moon, Mercury's surface displays an expansive rupes system generated from thrust faults and bright ray systems formed by impact event remnants.",
-        "extract_html": "<p><b>Mercury</b> is the first planet from the Sun and the smallest in the Solar System. In English, it is named after the Roman god <span><i lang=\"la\">Mercurius</i></span> (Mercury), god of commerce and communication, and the messenger of the gods. Mercury is classified as a terrestrial planet, with roughly the same surface gravity as Mars. The surface of Mercury is heavily cratered, as a result of countless impact events that have accumulated over billions of years. Its largest crater, Caloris Planitia, has a diameter of 1,550\u00a0km (960\u00a0mi) and one-third the diameter of the planet. Similarly to the Earth's Moon, Mercury's surface displays an expansive rupes system generated from thrust faults and bright ray systems formed by impact event remnants.</p>",
+        "extract": "Mercury is the first planet from the Sun and the smallest in the Solar System. It is a rocky planet with a trace atmosphere and a surface gravity slightly higher than that of Mars. The surface of Mercury is similar to Earth's Moon, being cratered, with an expansive rupes system generated from thrust faults, and bright ray systems, formed by ejecta. Its largest crater, Caloris Planitia, has a diameter of 1,550\u00a0km (960\u00a0mi), which is about one-third the diameter of the planet. Being the most inferior orbiting planet, it always appears close to the Sun in Earth's sky, either as a \"morning star\" or an \"evening star\". It is the planet with the highest delta-v required for travel from Earth, as well as to and from the other planets in the Solar System.",
+        "extract_html": "<p><b>Mercury</b> is the first planet from the Sun and the smallest in the Solar System. It is a rocky planet with a trace atmosphere and a surface gravity slightly higher than that of Mars. The surface of Mercury is similar to Earth's Moon, being cratered, with an expansive rupes system generated from thrust faults, and bright ray systems, formed by ejecta. Its largest crater, Caloris Planitia, has a diameter of 1,550\u00a0km (960\u00a0mi), which is about one-third the diameter of the planet. Being the most inferior orbiting planet, it always appears close to the Sun in Earth's sky, either as a \"morning star\" or an \"evening star\". It is the planet with the highest delta-v required for travel from Earth, as well as to and from the other planets in the Solar System.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -120,7 +120,7 @@
     "Venus": {
         "type": "standard",
         "title": "Venus",
-        "displaytitle": "<span class=\"mw-page-title-main\">Venus</span>",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Venus</span></span>",
         "namespace": {
             "id": 0,
             "text": ""
@@ -129,13 +129,13 @@
         "titles": {
             "canonical": "Venus",
             "normalized": "Venus",
-            "display": "<span class=\"mw-page-title-main\">Venus</span>"
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Venus</span></span>"
         },
         "pageid": 32745,
         "thumbnail": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Venus_2_Approach_Image.jpg/320px-Venus_2_Approach_Image.jpg",
-            "width": 320,
-            "height": 328
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Venus_2_Approach_Image.jpg/330px-Venus_2_Approach_Image.jpg",
+            "width": 330,
+            "height": 338
         },
         "originalimage": {
             "source": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Venus_2_Approach_Image.jpg",
@@ -144,9 +144,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1213277671",
-        "tid": "a7d7e9a2-e013-11ee-8698-9b49be4342f1",
-        "timestamp": "2024-03-12T01:55:52Z",
+        "revision": "1351913750",
+        "tid": "348ab96e-44e2-11f1-9925-79cfcbb4ede2",
+        "timestamp": "2026-04-30T22:16:16Z",
         "description": "Second planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -157,14 +157,14 @@
                 "talk": "https://en.wikipedia.org/wiki/Talk:Venus"
             },
             "mobile": {
-                "page": "https://en.m.wikipedia.org/wiki/Venus",
-                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Venus",
-                "edit": "https://en.m.wikipedia.org/wiki/Venus?action=edit",
-                "talk": "https://en.m.wikipedia.org/wiki/Talk:Venus"
+                "page": "https://en.wikipedia.org/wiki/Venus",
+                "revisions": "https://en.wikipedia.org/wiki/Special:History/Venus",
+                "edit": "https://en.wikipedia.org/wiki/Venus?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Venus"
             }
         },
-        "extract": "Venus is the second planet from the Sun. It is a terrestrial planet and is the closest in mass and size to its orbital neighbour Earth. Venus is notable for having the densest atmosphere of the terrestrial planets, composed mostly of carbon dioxide with a thick, global sulfuric acid cloud cover. At the surface it has a mean temperature of 737\u00a0K and a pressure of 92 times that of Earth's at sea level. These conditions are extreme enough to compress carbon dioxide into a supercritical state close to Venus's surface.",
-        "extract_html": "<p><b>Venus</b> is the second planet from the Sun. It is a terrestrial planet and is the closest in mass and size to its orbital neighbour Earth. Venus is notable for having the densest atmosphere of the terrestrial planets, composed mostly of carbon dioxide with a thick, global sulfuric acid cloud cover. At the surface it has a mean temperature of 737\u00a0K and a pressure of 92 times that of Earth's at sea level. These conditions are extreme enough to compress carbon dioxide into a supercritical state close to Venus's surface.</p>",
+        "extract": "Venus is the second planet from the Sun. Similar in size and mass to Earth, Venus has no liquid water, and its atmosphere is far thicker and denser than that of any other rocky body in the Solar System. The atmosphere is composed mostly of carbon dioxide and has a thick cloud layer of sulfuric acid that spans the whole planet. At the mean surface level, the atmosphere reaches a temperature of 737\u00a0K and a pressure 92 times greater than Earth's at sea level, turning the lowest layer of the atmosphere into a supercritical fluid. From Earth, Venus is visible as a star-like point of light, appearing brighter than any other natural point of light in the sky, as either the brightest \"morning star\" or \"evening star\".",
+        "extract_html": "<p><b>Venus</b> is the second planet from the Sun. Similar in size and mass to Earth, Venus has no liquid water, and its atmosphere is far thicker and denser than that of any other rocky body in the Solar System. The atmosphere is composed mostly of carbon dioxide and has a thick cloud layer of sulfuric acid that spans the whole planet. At the mean surface level, the atmosphere reaches a temperature of 737\u00a0K and a pressure 92 times greater than Earth's at sea level, turning the lowest layer of the atmosphere into a supercritical fluid. From Earth, Venus is visible as a star-like point of light, appearing brighter than any other natural point of light in the sky, as either the brightest \"morning star\" or \"evening star\".</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Public Domain",
@@ -179,7 +179,7 @@
     "Earth": {
         "type": "standard",
         "title": "Earth",
-        "displaytitle": "<span class=\"mw-page-title-main\">Earth</span>",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Earth</span></span>",
         "namespace": {
             "id": 0,
             "text": ""
@@ -188,24 +188,24 @@
         "titles": {
             "canonical": "Earth",
             "normalized": "Earth",
-            "display": "<span class=\"mw-page-title-main\">Earth</span>"
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Earth</span></span>"
         },
         "pageid": 9228,
         "thumbnail": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/The_Blue_Marble_%28remastered%29.jpg/320px-The_Blue_Marble_%28remastered%29.jpg",
-            "width": 320,
-            "height": 320
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Meteosat-12-fci-march-equinox-2025-noon.jpg/330px-Meteosat-12-fci-march-equinox-2025-noon.jpg",
+            "width": 330,
+            "height": 330
         },
         "originalimage": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/c/cb/The_Blue_Marble_%28remastered%29.jpg",
-            "width": 3000,
-            "height": 3000
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Meteosat-12-fci-march-equinox-2025-noon.jpg/3840px-Meteosat-12-fci-march-equinox-2025-noon.jpg",
+            "width": 12261,
+            "height": 12261
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1213283419",
-        "tid": "ce98ffc0-e019-11ee-a4a4-c1878d6c37cb",
-        "timestamp": "2024-03-12T02:39:54Z",
+        "revision": "1351738085",
+        "tid": "a180526e-440d-11f1-b7bd-5f8814e4e00e",
+        "timestamp": "2026-04-29T20:54:36Z",
         "description": "Third planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -216,14 +216,14 @@
                 "talk": "https://en.wikipedia.org/wiki/Talk:Earth"
             },
             "mobile": {
-                "page": "https://en.m.wikipedia.org/wiki/Earth",
-                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Earth",
-                "edit": "https://en.m.wikipedia.org/wiki/Earth?action=edit",
-                "talk": "https://en.m.wikipedia.org/wiki/Talk:Earth"
+                "page": "https://en.wikipedia.org/wiki/Earth",
+                "revisions": "https://en.wikipedia.org/wiki/Special:History/Earth",
+                "edit": "https://en.wikipedia.org/wiki/Earth?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Earth"
             }
         },
-        "extract": "Earth is the third planet from the Sun and the only astronomical object known to harbor life. This is enabled by Earth being a water world, the only one in the Solar System sustaining liquid surface water. Almost all of Earth's water is contained in its global ocean, covering 70.8% of Earth's crust. The remaining 29.2% of Earth's crust is land, most of which is located in the form of continental landmasses within Earth's land hemisphere. Most of Earth's land is somewhat humid and covered by vegetation, while large sheets of ice at Earth's polar deserts retain more water than Earth's groundwater, lakes, rivers and atmospheric water combined. Earth's crust consists of slowly moving tectonic plates, which interact to produce mountain ranges, volcanoes, and earthquakes. Earth has a liquid outer core that generates a magnetosphere capable of deflecting most of the destructive solar winds and cosmic radiation.",
-        "extract_html": "<p><b>Earth</b> is the third planet from the Sun and the only astronomical object known to harbor life. This is enabled by Earth being a water world, the only one in the Solar System sustaining liquid surface water. Almost all of Earth's water is contained in its global ocean, covering 70.8% of Earth's crust. The remaining 29.2% of Earth's crust is land, most of which is located in the form of continental landmasses within Earth's land hemisphere. Most of Earth's land is somewhat humid and covered by vegetation, while large sheets of ice at Earth's polar deserts retain more water than Earth's groundwater, lakes, rivers and atmospheric water combined. Earth's crust consists of slowly moving tectonic plates, which interact to produce mountain ranges, volcanoes, and earthquakes. Earth has a liquid outer core that generates a magnetosphere capable of deflecting most of the destructive solar winds and cosmic radiation.</p>",
+        "extract": "Earth is the third planet from the Sun and the only astronomical object known to harbor life. This is made possible by Earth being an ocean world, the only one in the Solar System sustaining liquid surface water. Almost all of Earth's water is contained in its global ocean, covering 70.8% of Earth's crust. The remaining 29.2% of Earth's crust is land, most of which is located in the form of continental landmasses within Earth's land hemisphere. Most of Earth's land is at least somewhat humid and covered by vegetation, while large ice sheets at Earth's polar deserts retain more water than Earth's groundwater, lakes, rivers, and atmospheric water combined. Earth's crust consists of slowly moving tectonic plates, which interact to produce mountain ranges, volcanoes, and earthquakes. Earth has a liquid outer core that generates a magnetosphere capable of deflecting most of the destructive solar winds and cosmic radiation.",
+        "extract_html": "<p><b>Earth</b> is the third planet from the Sun and the only astronomical object known to harbor life. This is made possible by Earth being an ocean world, the only one in the Solar System sustaining liquid surface water. Almost all of Earth's water is contained in its global ocean, covering 70.8% of Earth's crust. The remaining 29.2% of Earth's crust is land, most of which is located in the form of continental landmasses within Earth's land hemisphere. Most of Earth's land is at least somewhat humid and covered by vegetation, while large ice sheets at Earth's polar deserts retain more water than Earth's groundwater, lakes, rivers, and atmospheric water combined. Earth's crust consists of slowly moving tectonic plates, which interact to produce mountain ranges, volcanoes, and earthquakes. Earth has a liquid outer core that generates a magnetosphere capable of deflecting most of the destructive solar winds and cosmic radiation.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -238,7 +238,7 @@
     "Moon": {
         "type": "standard",
         "title": "Moon",
-        "displaytitle": "<span class=\"mw-page-title-main\">Moon</span>",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Moon</span></span>",
         "namespace": {
             "id": 0,
             "text": ""
@@ -247,13 +247,13 @@
         "titles": {
             "canonical": "Moon",
             "normalized": "Moon",
-            "display": "<span class=\"mw-page-title-main\">Moon</span>"
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Moon</span></span>"
         },
         "pageid": 19331,
         "thumbnail": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/320px-FullMoon2010.jpg",
-            "width": 320,
-            "height": 304
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/330px-FullMoon2010.jpg",
+            "width": 330,
+            "height": 314
         },
         "originalimage": {
             "source": "https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg",
@@ -262,9 +262,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1213223503",
-        "tid": "3c273e63-dfde-11ee-b02f-d6c7b58e455f",
-        "timestamp": "2024-03-11T19:33:28Z",
+        "revision": "1351360091",
+        "tid": "90cbafbc-423a-11f1-8039-f21b31fa4026",
+        "timestamp": "2026-04-27T13:11:13Z",
         "description": "Natural satellite orbiting Earth",
         "description_source": "local",
         "content_urls": {
@@ -275,14 +275,14 @@
                 "talk": "https://en.wikipedia.org/wiki/Talk:Moon"
             },
             "mobile": {
-                "page": "https://en.m.wikipedia.org/wiki/Moon",
-                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Moon",
-                "edit": "https://en.m.wikipedia.org/wiki/Moon?action=edit",
-                "talk": "https://en.m.wikipedia.org/wiki/Talk:Moon"
+                "page": "https://en.wikipedia.org/wiki/Moon",
+                "revisions": "https://en.wikipedia.org/wiki/Special:History/Moon",
+                "edit": "https://en.wikipedia.org/wiki/Moon?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Moon"
             }
         },
-        "extract": "The Moon is Earth's only natural satellite. It orbits at an average distance of 384,400\u00a0km (238,900\u00a0mi), about 30 times the diameter of Earth. Over time Earth's gravity has caused tidal locking, causing the same side of the Moon to always face Earth. Because of this, the lunar day and the lunar month are the same length, at 29.5 Earth days. The Moon's gravitational pull\u00a0\u2013 and to a lesser extent, the Sun's\u00a0\u2013 are the main drivers of Earth's tides.",
-        "extract_html": "<p>The <b>Moon</b> is Earth's only natural satellite. It orbits at an average distance of 384,400\u00a0km (238,900\u00a0mi), about 30 times the diameter of Earth. Over time Earth's gravity has caused tidal locking, causing the same side of the Moon to always face Earth. Because of this, the lunar day and the lunar month are the same length, at 29.5 Earth days. The Moon's gravitational pull\u00a0\u2013 and to a lesser extent, the Sun's\u00a0\u2013 are the main drivers of Earth's tides.</p>",
+        "extract": "The Moon is the only natural satellite of Earth. It orbits around Earth at an average distance of 384,399 kilometres (238,854\u00a0mi), a distance roughly 30 times the width of Earth. It completes an orbit in relation to Earth and the Sun (synodically) every 29.5 days. The Moon and Earth are bound by gravitational attraction, which is stronger on the sides facing each other. The resulting tidal forces are the main driver of Earth's tides, and have pulled the Moon to always face Earth with the same near side. This tidal locking effectively synchronizes the Moon's rotation period to its orbital period.",
+        "extract_html": "<p>The <b>Moon</b> is the only natural satellite of Earth. It orbits around Earth at an average distance of 384,399 kilometres (238,854\u00a0mi), a distance roughly 30 times the width of Earth. It completes an orbit in relation to Earth and the Sun (synodically) every 29.5 days. The Moon and Earth are bound by gravitational attraction, which is stronger on the sides facing each other. The resulting tidal forces are the main driver of Earth's tides, and have pulled the Moon to always face Earth with the same near side. This tidal locking effectively synchronizes the Moon's rotation period to its orbital period.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -297,7 +297,7 @@
     "Mars": {
         "type": "standard",
         "title": "Mars",
-        "displaytitle": "<span class=\"mw-page-title-main\">Mars</span>",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Mars</span></span>",
         "namespace": {
             "id": 0,
             "text": ""
@@ -306,13 +306,13 @@
         "titles": {
             "canonical": "Mars",
             "normalized": "Mars",
-            "display": "<span class=\"mw-page-title-main\">Mars</span>"
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Mars</span></span>"
         },
         "pageid": 14640471,
         "thumbnail": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png/320px-Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png",
-            "width": 320,
-            "height": 320
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png/330px-Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png",
+            "width": 330,
+            "height": 330
         },
         "originalimage": {
             "source": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png",
@@ -321,9 +321,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1212446110",
-        "tid": "dd5b7e18-dcd4-11ee-a7e4-4473ab2d55f8",
-        "timestamp": "2024-03-07T22:48:50Z",
+        "revision": "1351360400",
+        "tid": "06d015ed-423b-11f1-a913-cfbb76c3b0f5",
+        "timestamp": "2026-04-27T13:14:31Z",
         "description": "Fourth planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -334,14 +334,14 @@
                 "talk": "https://en.wikipedia.org/wiki/Talk:Mars"
             },
             "mobile": {
-                "page": "https://en.m.wikipedia.org/wiki/Mars",
-                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Mars",
-                "edit": "https://en.m.wikipedia.org/wiki/Mars?action=edit",
-                "talk": "https://en.m.wikipedia.org/wiki/Talk:Mars"
+                "page": "https://en.wikipedia.org/wiki/Mars",
+                "revisions": "https://en.wikipedia.org/wiki/Special:History/Mars",
+                "edit": "https://en.wikipedia.org/wiki/Mars?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Mars"
             }
         },
-        "extract": "Mars is the fourth planet from the Sun. The surface of Mars is orange-red because it is covered in iron(III) oxide dust, giving it the nickname \"the Red Planet\". Mars is among the brightest objects in Earth's sky and its high-contrast albedo features have made it a common subject for telescope viewing. It is classified as a terrestrial planet and is the second smallest of the Solar System's planets with a diameter of 6,779\u00a0km (4,212\u00a0mi). In terms of orbital motion, a Martian solar day (sol) is equal to 24.5 hours and a Martian solar year is equal to 1.88 Earth years. Mars has two natural satellites that are small and irregular in shape: Phobos and Deimos.",
-        "extract_html": "<p><b>Mars</b> is the fourth planet from the Sun. The surface of Mars is orange-red because it is covered in iron(III) oxide dust, giving it the nickname \"<b>the Red Planet</b>\". Mars is among the brightest objects in Earth's sky and its high-contrast albedo features have made it a common subject for telescope viewing. It is classified as a terrestrial planet and is the second smallest of the Solar System's planets with a diameter of 6,779\u00a0km (4,212\u00a0mi). In terms of orbital motion, a Martian solar day (sol) is equal to 24.5 hours and a Martian solar year is equal to 1.88 Earth years. Mars has two natural satellites that are small and irregular in shape: Phobos and Deimos.</p>",
+        "extract": "Mars is the fourth planet from the Sun. It is also known as the \"Red Planet\", for its orange-red appearance. Mars is a desert-like rocky planet with a tenuous atmosphere that is primarily carbon dioxide. At the average surface level the atmospheric pressure is a few thousandths of Earth's, atmospheric temperature ranges from \u2212153 to 20\u00a0\u00b0C, and cosmic radiation is high. Mars retains some water, in the ground as well as thinly in the atmosphere, forming cirrus clouds, fog, frost, larger polar regions of permafrost and ice caps, but no bodies of liquid surface water. Its surface gravity is roughly a third of Earth's or double that of the Moon. Its diameter, 6,779\u00a0km (4,212\u00a0mi), is about half the Earth's, or twice the Moon's, and its surface area is the size of all the dry land of Earth.",
+        "extract_html": "<p><b>Mars</b> is the fourth planet from the Sun. It is also known as the \"<b>Red Planet</b>\", for its orange-red appearance. Mars is a desert-like rocky planet with a tenuous atmosphere that is primarily carbon dioxide. At the average surface level the atmospheric pressure is a few thousandths of Earth's, atmospheric temperature ranges from \u2212153 to 20\u00a0\u00b0C, and cosmic radiation is high. Mars retains some water, in the ground as well as thinly in the atmosphere, forming cirrus clouds, fog, frost, larger polar regions of permafrost and ice caps, but no bodies of liquid surface water. Its surface gravity is roughly a third of Earth's or double that of the Moon. Its diameter, 6,779\u00a0km (4,212\u00a0mi), is about half the Earth's, or twice the Moon's, and its surface area is the size of all the dry land of Earth.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -356,7 +356,7 @@
     "Jupiter": {
         "type": "standard",
         "title": "Jupiter",
-        "displaytitle": "<span class=\"mw-page-title-main\">Jupiter</span>",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Jupiter</span></span>",
         "namespace": {
             "id": 0,
             "text": ""
@@ -365,24 +365,24 @@
         "titles": {
             "canonical": "Jupiter",
             "normalized": "Jupiter",
-            "display": "<span class=\"mw-page-title-main\">Jupiter</span>"
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Jupiter</span></span>"
         },
         "pageid": 38930,
         "thumbnail": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Jupiter_New_Horizons.jpg/320px-Jupiter_New_Horizons.jpg",
-            "width": 320,
-            "height": 303
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Jupiter_OPAL_2024.png/330px-Jupiter_OPAL_2024.png",
+            "width": 330,
+            "height": 299
         },
         "originalimage": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Jupiter_New_Horizons.jpg",
-            "width": 579,
-            "height": 549
+            "source": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter_OPAL_2024.png",
+            "width": 1810,
+            "height": 1639
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1210918977",
-        "tid": "0e8d4710-da51-11ee-8584-29d6dfdd93e5",
-        "timestamp": "2024-02-28T23:42:43Z",
+        "revision": "1349808354",
+        "tid": "1d1c0c7a-3b8d-11f1-b64c-0f4a6c9e45aa",
+        "timestamp": "2026-04-19T01:14:29Z",
         "description": "Fifth planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -393,14 +393,14 @@
                 "talk": "https://en.wikipedia.org/wiki/Talk:Jupiter"
             },
             "mobile": {
-                "page": "https://en.m.wikipedia.org/wiki/Jupiter",
-                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Jupiter",
-                "edit": "https://en.m.wikipedia.org/wiki/Jupiter?action=edit",
-                "talk": "https://en.m.wikipedia.org/wiki/Talk:Jupiter"
+                "page": "https://en.wikipedia.org/wiki/Jupiter",
+                "revisions": "https://en.wikipedia.org/wiki/Special:History/Jupiter",
+                "edit": "https://en.wikipedia.org/wiki/Jupiter?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Jupiter"
             }
         },
-        "extract": "Jupiter is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass more than two and a half times that of all the other planets in the Solar System combined, and slightly less than one one-thousandth the mass of the Sun. Jupiter orbits the Sun at a distance of 5.20\u00a0AU (778.5\u00a0Gm) with an orbital period of 11.86\u00a0years. Jupiter is the third brightest natural object in the Earth's night sky after the Moon and Venus, and it has been observed since prehistoric times. It was named after Jupiter, the chief deity of ancient Roman religion.",
-        "extract_html": "<p><b>Jupiter</b> is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass more than two and a half times that of all the other planets in the Solar System combined, and slightly less than one one-thousandth the mass of the Sun. Jupiter orbits the Sun at a distance of 5.20\u00a0AU (778.5\u00a0Gm) with an orbital period of <span class=\"nowrap\">11.86\u00a0years</span>. Jupiter is the third brightest natural object in the Earth's night sky after the Moon and Venus, and it has been observed since prehistoric times. It was named after Jupiter, the chief deity of ancient Roman religion.</p>",
+        "extract": "Jupiter is the fifth planet from the Sun, and the largest in the Solar System. It is a gas giant with a mass nearly 2.5 times that of all the other planets in the Solar System combined and slightly less than one-thousandth the mass of the Sun. Its diameter is 11 times that of Earth and a tenth that of the Sun. Jupiter orbits the Sun at a distance of 5.20\u00a0AU (778.5\u00a0Gm), with an orbital period of 11.86\u00a0years. It is the third-brightest natural object in the Earth's night sky, after the Moon and Venus, and has been observed since prehistoric times. Its name derives from that of Jupiter, the chief deity of ancient Roman religion.",
+        "extract_html": "<p><b>Jupiter</b> is the fifth planet from the Sun, and the largest in the Solar System. It is a gas giant with a mass nearly 2.5 times that of all the other planets in the Solar System combined and slightly less than one-thousandth the mass of the Sun. Its diameter is 11 times that of Earth and a tenth that of the Sun. Jupiter orbits the Sun at a distance of 5.20\u00a0AU (778.5\u00a0Gm), with an orbital period of <span class=\"nowrap\">11.86\u00a0years</span>. It is the third-brightest natural object in the Earth's night sky, after the Moon and Venus, and has been observed since prehistoric times. Its name derives from that of Jupiter, the chief deity of ancient Roman religion.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -415,7 +415,7 @@
     "Saturn": {
         "type": "standard",
         "title": "Saturn",
-        "displaytitle": "<span class=\"mw-page-title-main\">Saturn</span>",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Saturn</span></span>",
         "namespace": {
             "id": 0,
             "text": ""
@@ -424,24 +424,24 @@
         "titles": {
             "canonical": "Saturn",
             "normalized": "Saturn",
-            "display": "<span class=\"mw-page-title-main\">Saturn</span>"
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Saturn</span></span>"
         },
         "pageid": 44474,
         "thumbnail": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Saturn_during_Equinox.jpg/320px-Saturn_during_Equinox.jpg",
-            "width": 320,
-            "height": 155
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Saturn_during_Equinox.jpg/330px-Saturn_during_Equinox.jpg",
+            "width": 330,
+            "height": 160
         },
         "originalimage": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox.jpg",
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Saturn_during_Equinox.jpg/3840px-Saturn_during_Equinox.jpg",
             "width": 4613,
             "height": 2233
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1211235164",
-        "tid": "7c193c05-d7d8-11ee-9fb7-5d35d76274c5",
-        "timestamp": "2024-03-01T14:32:09Z",
+        "revision": "1350088455",
+        "tid": "6d21cac3-3c74-11f1-b0d9-5e2ddc84ee83",
+        "timestamp": "2026-04-20T04:50:17Z",
         "description": "Sixth planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -452,14 +452,14 @@
                 "talk": "https://en.wikipedia.org/wiki/Talk:Saturn"
             },
             "mobile": {
-                "page": "https://en.m.wikipedia.org/wiki/Saturn",
-                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Saturn",
-                "edit": "https://en.m.wikipedia.org/wiki/Saturn?action=edit",
-                "talk": "https://en.m.wikipedia.org/wiki/Talk:Saturn"
+                "page": "https://en.wikipedia.org/wiki/Saturn",
+                "revisions": "https://en.wikipedia.org/wiki/Special:History/Saturn",
+                "edit": "https://en.wikipedia.org/wiki/Saturn?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Saturn"
             }
         },
-        "extract": "Saturn is the sixth planet from the Sun and the second-largest in the Solar System, after Jupiter. It is a gas giant with an average radius of about nine-and-a-half times that of Earth. It has only one-eighth the average density of Earth, but is over 95 times more massive. Even though Saturn is nearly the size of Jupiter, Saturn has less than one-third of Jupiter's mass. Saturn orbits the Sun at a distance of 9.59\u00a0AU (1,434\u00a0million\u00a0km) with an orbital period of 29.45\u00a0years.",
-        "extract_html": "<p><b>Saturn</b> is the sixth planet from the Sun and the second-largest in the Solar System, after Jupiter. It is a gas giant with an average radius of about nine-and-a-half times that of Earth. It has only one-eighth the average density of Earth, but is over 95 times more massive. Even though Saturn is nearly the size of Jupiter, Saturn has less than one-third of Jupiter's mass. Saturn orbits the Sun at a distance of 9.59\u00a0AU (1,434\u00a0million\u00a0km) with an orbital period of 29.45\u00a0years.</p>",
+        "extract": "Saturn is the sixth planet from the Sun and the second largest in the Solar System, after Jupiter. It is a gas giant, with an average radius of about 9 times that of Earth. It has an eighth of the average density of Earth, but is over 95 times more massive. Even though Saturn is almost as big as Jupiter, Saturn has less than a third of its mass. Saturn orbits the Sun at a distance of 9.59\u00a0AU (1,434\u00a0million\u00a0km), with an orbital period of 29.45\u00a0years.",
+        "extract_html": "<p><b>Saturn</b> is the sixth planet from the Sun and the second largest in the Solar System, after Jupiter. It is a gas giant, with an average radius of about 9 times that of Earth. It has an eighth of the average density of Earth, but is over 95 times more massive. Even though Saturn is almost as big as Jupiter, Saturn has less than a third of its mass. Saturn orbits the Sun at a distance of 9.59\u00a0AU (1,434\u00a0million\u00a0km), with an orbital period of 29.45\u00a0years.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -474,7 +474,7 @@
     "Uranus": {
         "type": "standard",
         "title": "Uranus",
-        "displaytitle": "<span class=\"mw-page-title-main\">Uranus</span>",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Uranus</span></span>",
         "namespace": {
             "id": 0,
             "text": ""
@@ -483,13 +483,13 @@
         "titles": {
             "canonical": "Uranus",
             "normalized": "Uranus",
-            "display": "<span class=\"mw-page-title-main\">Uranus</span>"
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Uranus</span></span>"
         },
         "pageid": 44475,
         "thumbnail": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Uranus_Voyager2_color_calibrated.png/320px-Uranus_Voyager2_color_calibrated.png",
-            "width": 320,
-            "height": 320
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Uranus_Voyager2_color_calibrated.png/330px-Uranus_Voyager2_color_calibrated.png",
+            "width": 330,
+            "height": 330
         },
         "originalimage": {
             "source": "https://upload.wikimedia.org/wikipedia/commons/6/69/Uranus_Voyager2_color_calibrated.png",
@@ -498,9 +498,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1213268943",
-        "tid": "8de5d378-e00a-11ee-b9a8-818ed9a011a0",
-        "timestamp": "2024-03-12T00:50:43Z",
+        "revision": "1350814389",
+        "tid": "0286ce4a-3f9d-11f1-8c05-78d76e91ac23",
+        "timestamp": "2026-04-24T05:18:21Z",
         "description": "Seventh planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -511,14 +511,14 @@
                 "talk": "https://en.wikipedia.org/wiki/Talk:Uranus"
             },
             "mobile": {
-                "page": "https://en.m.wikipedia.org/wiki/Uranus",
-                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Uranus",
-                "edit": "https://en.m.wikipedia.org/wiki/Uranus?action=edit",
-                "talk": "https://en.m.wikipedia.org/wiki/Talk:Uranus"
+                "page": "https://en.wikipedia.org/wiki/Uranus",
+                "revisions": "https://en.wikipedia.org/wiki/Special:History/Uranus",
+                "edit": "https://en.wikipedia.org/wiki/Uranus?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Uranus"
             }
         },
-        "extract": "Uranus is the seventh planet from the Sun. It is a gaseous cyan-coloured ice giant. Most of the planet is made of water, ammonia, and methane in a supercritical phase of matter, which in astronomy is called 'ice' or volatiles. The planet's atmosphere has a complex layered cloud structure and has the lowest minimum temperature of 49\u00a0K out of all the Solar System's planets. It has a marked axial tilt of 82.23\u00b0 with a retrograde rotation period of 17 hours and 14 minutes. This means that in an 84-Earth-year orbital period around the Sun, its poles get around 42 years of continuous sunlight, followed by 42 years of continuous darkness.",
-        "extract_html": "<p><b>Uranus</b> is the seventh planet from the Sun. It is a gaseous cyan-coloured ice giant. Most of the planet is made of water, ammonia, and methane in a supercritical phase of matter, which in astronomy is called 'ice' or volatiles. The planet's atmosphere has a complex layered cloud structure and has the lowest minimum temperature of 49\u00a0K out of all the Solar System's planets. It has a marked axial tilt of 82.23\u00b0 with a retrograde rotation period of 17 hours and 14 minutes. This means that in an 84-Earth-year orbital period around the Sun, its poles get around 42 years of continuous sunlight, followed by 42 years of continuous darkness.</p>",
+        "extract": "Uranus is the seventh planet from the Sun. It is a gaseous cyan-coloured ice giant. Most of the planet is made of water, ammonia, and methane in a supercritical phase of matter, which astronomy calls \"ice\" or volatiles. The planet's atmosphere has a complex layered cloud structure and has the lowest minimum temperature of all the Solar System's planets. It has a marked axial tilt of 82.23\u00b0 with a retrograde rotation period of 17 hours and 14 minutes. This means that in an 84-Earth-year orbital period around the Sun, its poles get around 42 years of continuous sunlight, followed by 42 years of continuous darkness.",
+        "extract_html": "<p><b>Uranus</b> is the seventh planet from the Sun. It is a gaseous cyan-coloured ice giant. Most of the planet is made of water, ammonia, and methane in a supercritical phase of matter, which astronomy calls \"ice\" or volatiles. The planet's atmosphere has a complex layered cloud structure and has the lowest minimum temperature of all the Solar System's planets. It has a marked axial tilt of 82.23\u00b0 with a retrograde rotation period of 17 hours and 14 minutes. This means that in an 84-Earth-year orbital period around the Sun, its poles get around 42 years of continuous sunlight, followed by 42 years of continuous darkness.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -533,7 +533,7 @@
     "Neptune": {
         "type": "standard",
         "title": "Neptune",
-        "displaytitle": "<span class=\"mw-page-title-main\">Neptune</span>",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Neptune</span></span>",
         "namespace": {
             "id": 0,
             "text": ""
@@ -542,13 +542,13 @@
         "titles": {
             "canonical": "Neptune",
             "normalized": "Neptune",
-            "display": "<span class=\"mw-page-title-main\">Neptune</span>"
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Neptune</span></span>"
         },
         "pageid": 19003265,
         "thumbnail": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Neptune_Voyager2_color_calibrated.png/320px-Neptune_Voyager2_color_calibrated.png",
-            "width": 320,
-            "height": 320
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Neptune_Voyager2_color_calibrated.png/330px-Neptune_Voyager2_color_calibrated.png",
+            "width": 330,
+            "height": 330
         },
         "originalimage": {
             "source": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Neptune_Voyager2_color_calibrated.png",
@@ -557,9 +557,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1212432137",
-        "tid": "d3cc1d1f-dcc8-11ee-9f8f-81bcd88aac8b",
-        "timestamp": "2024-03-07T21:22:40Z",
+        "revision": "1350811652",
+        "tid": "f9e0c7d8-3f99-11f1-8909-37a81800c31d",
+        "timestamp": "2026-04-24T04:56:38Z",
         "description": "Eighth planet from the Sun",
         "description_source": "local",
         "content_urls": {
@@ -570,14 +570,14 @@
                 "talk": "https://en.wikipedia.org/wiki/Talk:Neptune"
             },
             "mobile": {
-                "page": "https://en.m.wikipedia.org/wiki/Neptune",
-                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Neptune",
-                "edit": "https://en.m.wikipedia.org/wiki/Neptune?action=edit",
-                "talk": "https://en.m.wikipedia.org/wiki/Talk:Neptune"
+                "page": "https://en.wikipedia.org/wiki/Neptune",
+                "revisions": "https://en.wikipedia.org/wiki/Special:History/Neptune",
+                "edit": "https://en.wikipedia.org/wiki/Neptune?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Neptune"
             }
         },
-        "extract": "Neptune is the eighth and farthest known planet from the Sun. It is the fourth-largest planet in the Solar System by diameter, the third-most-massive planet, and the densest giant planet. It is 17\u00a0times the mass of Earth, and slightly more massive than fellow ice giant Uranus. Neptune is denser and physically smaller than Uranus because its greater mass causes more gravitational compression of its atmosphere. Being composed primarily of gases and liquids, it has no well-defined solid surface. The planet orbits the Sun once every 164.8\u00a0years at an orbital distance of 30.1 astronomical units. It is named after the Roman god of the sea and has the astronomical symbol , representing Neptune's trident.",
-        "extract_html": "<p><b>Neptune</b> is the eighth and farthest known planet from the Sun. It is the fourth-largest planet in the Solar System by diameter, the third-most-massive planet, and the densest giant planet. It is 17\u00a0times the mass of Earth, and slightly more massive than fellow ice giant Uranus. Neptune is denser and physically smaller than Uranus because its greater mass causes more gravitational compression of its atmosphere. Being composed primarily of gases and liquids, it has no well-defined solid surface. The planet orbits the Sun once every 164.8\u00a0years at an orbital distance of 30.1 astronomical units. It is named after the Roman god of the sea and has the astronomical symbol <span class=\"nowrap\"><span><span class=\"mw-file-description\"><img src=\"//upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Neptune_symbol_%28fixed_width%29.svg/16px-Neptune_symbol_%28fixed_width%29.svg.png\" decoding=\"async\" height=\"16\" width=\"16\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Neptune_symbol_%28fixed_width%29.svg/24px-Neptune_symbol_%28fixed_width%29.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Neptune_symbol_%28fixed_width%29.svg/32px-Neptune_symbol_%28fixed_width%29.svg.png 2x\" class=\"mw-file-element\" /></span></span>,</span> representing Neptune's trident.</p>",
+        "extract": "Neptune is the eighth and farthest known planet orbiting the Sun. It is the fourth-largest planet in the Solar System by diameter, the third-most-massive planet, and the densest giant planet. It is 17\u00a0times the mass of Earth. Compared to Uranus, its neighbouring ice giant, Neptune is slightly smaller, but more massive and dense. Being composed primarily of gases and liquids, it has no well-defined solid surface. Neptune orbits the Sun once every 164.8\u00a0years at an orbital distance of 30.1 astronomical units. It is named after the Roman god of the sea and has the astronomical symbol , representing Neptune's trident.",
+        "extract_html": "<p><b>Neptune</b> is the eighth and farthest known planet orbiting the Sun. It is the fourth-largest planet in the Solar System by diameter, the third-most-massive planet, and the densest giant planet. It is 17\u00a0times the mass of Earth. Compared to Uranus, its neighbouring ice giant, Neptune is slightly smaller, but more massive and dense. Being composed primarily of gases and liquids, it has no well-defined solid surface. Neptune orbits the Sun once every 164.8\u00a0years at an orbital distance of 30.1 astronomical units. It is named after the Roman god of the sea and has the astronomical symbol <span class=\"nowrap\"><span><span class=\"mw-file-description\"><img src=\"//upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Neptune_symbol_%28fixed_width%29.svg/20px-Neptune_symbol_%28fixed_width%29.svg.png\" decoding=\"async\" height=\"16\" width=\"16\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Neptune_symbol_%28fixed_width%29.svg/40px-Neptune_symbol_%28fixed_width%29.svg.png 2x\" class=\"mw-file-element\" /></span></span>,</span> representing Neptune's trident.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -592,7 +592,7 @@
     "Pluto": {
         "type": "standard",
         "title": "Pluto",
-        "displaytitle": "<span class=\"mw-page-title-main\">Pluto</span>",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Pluto</span></span>",
         "namespace": {
             "id": 0,
             "text": ""
@@ -601,25 +601,25 @@
         "titles": {
             "canonical": "Pluto",
             "normalized": "Pluto",
-            "display": "<span class=\"mw-page-title-main\">Pluto</span>"
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Pluto</span></span>"
         },
         "pageid": 44469,
         "thumbnail": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Pluto_in_True_Color_-_High-Res.jpg/320px-Pluto_in_True_Color_-_High-Res.jpg",
-            "width": 320,
-            "height": 320
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Pluto_in_True_Color_-_High-Res.png/330px-Pluto_in_True_Color_-_High-Res.png",
+            "width": 330,
+            "height": 330
         },
         "originalimage": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/e/ef/Pluto_in_True_Color_-_High-Res.jpg",
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Pluto_in_True_Color_-_High-Res.png/3840px-Pluto_in_True_Color_-_High-Res.png",
             "width": 8000,
             "height": 8000
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1212431222",
-        "tid": "e98d1133-dcc7-11ee-9170-ec2b48143cbb",
-        "timestamp": "2024-03-07T21:16:07Z",
-        "description": "Dwarf planet",
+        "revision": "1351829025",
+        "tid": "ab93662a-4488-11f1-b5f5-17c712e50238",
+        "timestamp": "2026-04-30T11:35:21Z",
+        "description": "Largest dwarf planet",
         "description_source": "local",
         "content_urls": {
             "desktop": {
@@ -629,14 +629,14 @@
                 "talk": "https://en.wikipedia.org/wiki/Talk:Pluto"
             },
             "mobile": {
-                "page": "https://en.m.wikipedia.org/wiki/Pluto",
-                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Pluto",
-                "edit": "https://en.m.wikipedia.org/wiki/Pluto?action=edit",
-                "talk": "https://en.m.wikipedia.org/wiki/Talk:Pluto"
+                "page": "https://en.wikipedia.org/wiki/Pluto",
+                "revisions": "https://en.wikipedia.org/wiki/Special:History/Pluto",
+                "edit": "https://en.wikipedia.org/wiki/Pluto?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Pluto"
             }
         },
-        "extract": "Pluto is a dwarf planet in the Kuiper belt, a ring of bodies beyond the orbit of Neptune. It is the ninth-largest and tenth-most-massive known object to directly orbit the Sun. It is the largest known trans-Neptunian object by volume, by a small margin, but is less massive than Eris. Like other Kuiper belt objects, Pluto is made primarily of ice and rock and is much smaller than the inner planets. Pluto has only one sixth the mass of Earth's moon, and one third its volume.",
-        "extract_html": "<p><b>Pluto</b> is a dwarf planet in the Kuiper belt, a ring of bodies beyond the orbit of Neptune. It is the ninth-largest and tenth-most-massive known object to directly orbit the Sun. It is the largest known trans-Neptunian object by volume, by a small margin, but is less massive than Eris. Like other Kuiper belt objects, Pluto is made primarily of ice and rock and is much smaller than the inner planets. Pluto has only one sixth the mass of Earth's moon, and one third its volume.</p>",
+        "extract": "Pluto is a dwarf planet in the Kuiper belt, a ring of bodies beyond the orbit of Neptune. It is the ninth-largest and tenth-most-massive known object to directly orbit the Sun. It is the largest known trans-Neptunian object by volume by a small margin, but is less massive than Eris. Like other Kuiper belt objects, Pluto is made primarily of ice and rock and is much smaller than the inner planets. Pluto has roughly one-sixth the mass of the Moon and one-third of its volume. Originally considered a planet, its status was changed when astronomers adopted a new definition of the word with new criteria.",
+        "extract_html": "<p><b>Pluto</b> is a dwarf planet in the Kuiper belt, a ring of bodies beyond the orbit of Neptune. It is the ninth-largest and tenth-most-massive known object to directly orbit the Sun. It is the largest known trans-Neptunian object by volume by a small margin, but is less massive than Eris. Like other Kuiper belt objects, Pluto is made primarily of ice and rock and is much smaller than the inner planets. Pluto has roughly one-sixth the mass of the Moon and one-third of its volume. Originally considered a <i>planet</i>, its status was changed when astronomers adopted a new definition of the word with new criteria.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Unsplash",
@@ -651,7 +651,7 @@
     "1 Ceres": {
         "type": "standard",
         "title": "Ceres (dwarf planet)",
-        "displaytitle": "<span class=\"mw-page-title-main\">Ceres (dwarf planet)</span>",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Ceres (dwarf planet)</span></span>",
         "namespace": {
             "id": 0,
             "text": ""
@@ -660,13 +660,13 @@
         "titles": {
             "canonical": "Ceres_(dwarf_planet)",
             "normalized": "Ceres (dwarf planet)",
-            "display": "<span class=\"mw-page-title-main\">Ceres (dwarf planet)</span>"
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Ceres (dwarf planet)</span></span>"
         },
         "pageid": 5595163,
         "thumbnail": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg/320px-Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg",
-            "width": 320,
-            "height": 314
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg/330px-Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg",
+            "width": 330,
+            "height": 324
         },
         "originalimage": {
             "source": "https://upload.wikimedia.org/wikipedia/commons/7/76/Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg",
@@ -675,9 +675,9 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1211270772",
-        "tid": "459ffbf2-d7f9-11ee-932b-26ae59bc627d",
-        "timestamp": "2024-03-01T18:26:51Z",
+        "revision": "1351810693",
+        "tid": "437f5606-4465-11f1-b48f-0547f8ba9622",
+        "timestamp": "2026-04-30T07:21:54Z",
         "description": "Dwarf planet in the asteroid belt",
         "description_source": "local",
         "content_urls": {
@@ -688,19 +688,19 @@
                 "talk": "https://en.wikipedia.org/wiki/Talk:Ceres_(dwarf_planet)"
             },
             "mobile": {
-                "page": "https://en.m.wikipedia.org/wiki/Ceres_(dwarf_planet)",
-                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Ceres_(dwarf_planet)",
-                "edit": "https://en.m.wikipedia.org/wiki/Ceres_(dwarf_planet)?action=edit",
-                "talk": "https://en.m.wikipedia.org/wiki/Talk:Ceres_(dwarf_planet)"
+                "page": "https://en.wikipedia.org/wiki/Ceres_(dwarf_planet)",
+                "revisions": "https://en.wikipedia.org/wiki/Special:History/Ceres_(dwarf_planet)",
+                "edit": "https://en.wikipedia.org/wiki/Ceres_(dwarf_planet)?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Ceres_(dwarf_planet)"
             }
         },
-        "extract": "Ceres is a dwarf planet in the middle main asteroid belt between the orbits of Mars and Jupiter. It was the first known asteroid, discovered on 1 January 1801 by Giuseppe Piazzi at Palermo Astronomical Observatory in Sicily, and announced as a new planet. Ceres was later classified as an asteroid and then a dwarf planet, the only one always inside Neptune's orbit.",
-        "extract_html": "<p><b>Ceres</b> is a dwarf planet in the middle main asteroid belt between the orbits of Mars and Jupiter. It was the first known asteroid, discovered on 1 January 1801 by Giuseppe Piazzi at Palermo Astronomical Observatory in Sicily, and announced as a new planet. Ceres was later classified as an asteroid and then a dwarf planet, the only one always inside Neptune's orbit.</p>"
+        "extract": "Ceres is a dwarf planet in the main asteroid belt between the orbits of Mars and Jupiter. It was the first known asteroid, discovered on 1 January 1801 by Giuseppe Piazzi at Palermo Astronomical Observatory in Sicily, and announced as a new planet. Ceres was later classified as an asteroid, and then more recently as the only confirmed dwarf planet within the orbit of Neptune and the largest without a moon.",
+        "extract_html": "<p><b>Ceres</b> is a dwarf planet in the main asteroid belt between the orbits of Mars and Jupiter. It was the first known asteroid, discovered on 1 January 1801 by Giuseppe Piazzi at Palermo Astronomical Observatory in Sicily, and announced as a new planet. Ceres was later classified as an asteroid, and then more recently as the only confirmed dwarf planet within the orbit of Neptune and the largest without a moon.</p>"
     },
     "Io": {
         "type": "standard",
         "title": "Io (moon)",
-        "displaytitle": "<span class=\"mw-page-title-main\">Io (moon)</span>",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Io (moon)</span></span>",
         "namespace": {
             "id": 0,
             "text": ""
@@ -709,25 +709,25 @@
         "titles": {
             "canonical": "Io_(moon)",
             "normalized": "Io (moon)",
-            "display": "<span class=\"mw-page-title-main\">Io (moon)</span>"
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Io (moon)</span></span>"
         },
         "pageid": 1051892,
         "thumbnail": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Io_highest_resolution_true_color.jpg/320px-Io_highest_resolution_true_color.jpg",
-            "width": 320,
-            "height": 320
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Io_mosaic_in_true_color.png/330px-Io_mosaic_in_true_color.png",
+            "width": 330,
+            "height": 330
         },
         "originalimage": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Io_highest_resolution_true_color.jpg",
-            "width": 3196,
-            "height": 3196
+            "source": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Io_mosaic_in_true_color.png",
+            "width": 3500,
+            "height": 3500
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1213297739",
-        "tid": "7d475b03-e02e-11ee-b480-c0db89b69205",
-        "timestamp": "2024-03-12T05:07:57Z",
-        "description": "Innermost of the four Galilean moons of Jupiter",
+        "revision": "1351866459",
+        "tid": "9bde4413-44b5-11f1-81ea-1eddd60b613a",
+        "timestamp": "2026-04-30T16:57:02Z",
+        "description": "Innermost Galilean moon of Jupiter",
         "description_source": "local",
         "content_urls": {
             "desktop": {
@@ -737,14 +737,14 @@
                 "talk": "https://en.wikipedia.org/wiki/Talk:Io_(moon)"
             },
             "mobile": {
-                "page": "https://en.m.wikipedia.org/wiki/Io_(moon)",
-                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Io_(moon)",
-                "edit": "https://en.m.wikipedia.org/wiki/Io_(moon)?action=edit",
-                "talk": "https://en.m.wikipedia.org/wiki/Talk:Io_(moon)"
+                "page": "https://en.wikipedia.org/wiki/Io_(moon)",
+                "revisions": "https://en.wikipedia.org/wiki/Special:History/Io_(moon)",
+                "edit": "https://en.wikipedia.org/wiki/Io_(moon)?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Io_(moon)"
             }
         },
-        "extract": "Io, or Jupiter I, is the innermost and second-smallest of the four Galilean moons of the planet Jupiter. Slightly larger than Earth's moon, Io is the fourth-largest moon in the Solar System, has the highest density of any moon, the strongest surface gravity of any moon, and the lowest amount of water by atomic ratio of any known astronomical object in the Solar System. It was discovered in 1610 by Galileo Galilei and was named after the mythological character Io, a priestess of Hera who became one of Zeus's lovers.",
-        "extract_html": "<p><b>Io</b>, or <b>Jupiter I</b>, is the innermost and second-smallest of the four Galilean moons of the planet Jupiter. Slightly larger than Earth's moon, Io is the fourth-largest moon in the Solar System, has the highest density of any moon, the strongest surface gravity of any moon, and the lowest amount of water by atomic ratio of any known astronomical object in the Solar System. It was discovered in 1610 by Galileo Galilei and was named after the mythological character Io, a priestess of Hera who became one of Zeus's lovers.</p>",
+        "extract": "Io is the innermost and second-smallest of the four Galilean moons of Jupiter. Slightly larger than Earth's Moon, Io is the fourth-largest natural satellite in the Solar System, has the highest density and strongest surface gravity of any natural satellite, and the lowest amount of water by atomic ratio of any known astronomical object in the Solar System.",
+        "extract_html": "<p><b>Io</b> is the innermost and second-smallest of the four Galilean moons of Jupiter. Slightly larger than Earth's Moon, Io is the fourth-largest natural satellite in the Solar System, has the highest density and strongest surface gravity of any natural satellite, and the lowest amount of water by atomic ratio of any known astronomical object in the Solar System.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "Public Domain",
@@ -759,7 +759,7 @@
     "Ganymede": {
         "type": "standard",
         "title": "Ganymede (moon)",
-        "displaytitle": "<span class=\"mw-page-title-main\">Ganymede (moon)</span>",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Ganymede (moon)</span></span>",
         "namespace": {
             "id": 0,
             "text": ""
@@ -768,13 +768,13 @@
         "titles": {
             "canonical": "Ganymede_(moon)",
             "normalized": "Ganymede (moon)",
-            "display": "<span class=\"mw-page-title-main\">Ganymede (moon)</span>"
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Ganymede (moon)</span></span>"
         },
         "pageid": 54211,
         "thumbnail": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Ganymede_-_Perijove_34_Composite.png/320px-Ganymede_-_Perijove_34_Composite.png",
-            "width": 320,
-            "height": 320
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Ganymede_-_Perijove_34_Composite.png/330px-Ganymede_-_Perijove_34_Composite.png",
+            "width": 330,
+            "height": 330
         },
         "originalimage": {
             "source": "https://upload.wikimedia.org/wikipedia/commons/2/21/Ganymede_-_Perijove_34_Composite.png",
@@ -783,10 +783,10 @@
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1210906458",
-        "tid": "c92465a0-d979-11ee-8ff5-aba7a1d5e0ee",
-        "timestamp": "2024-02-28T22:36:57Z",
-        "description": "Largest moon of Jupiter and in the Solar System",
+        "revision": "1351334524",
+        "tid": "50106f10-421b-11f1-8937-360c6bcf4db7",
+        "timestamp": "2026-04-27T09:27:30Z",
+        "description": "Largest moon of Jupiter",
         "description_source": "local",
         "content_urls": {
             "desktop": {
@@ -796,14 +796,14 @@
                 "talk": "https://en.wikipedia.org/wiki/Talk:Ganymede_(moon)"
             },
             "mobile": {
-                "page": "https://en.m.wikipedia.org/wiki/Ganymede_(moon)",
-                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Ganymede_(moon)",
-                "edit": "https://en.m.wikipedia.org/wiki/Ganymede_(moon)?action=edit",
-                "talk": "https://en.m.wikipedia.org/wiki/Talk:Ganymede_(moon)"
+                "page": "https://en.wikipedia.org/wiki/Ganymede_(moon)",
+                "revisions": "https://en.wikipedia.org/wiki/Special:History/Ganymede_(moon)",
+                "edit": "https://en.wikipedia.org/wiki/Ganymede_(moon)?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Ganymede_(moon)"
             }
         },
-        "extract": "Ganymede, or Jupiter III, is the largest and most massive natural satellite of Jupiter as well as the largest in the Solar System, being a planetary-mass moon. It is the largest Solar System object without a substantial atmosphere, despite being the only moon in the Solar System with a substantial magnetic field. Like Titan, Saturn's largest moon, it is larger than the planet Mercury, but has somewhat less surface gravity than Mercury, Io, or the Moon due to its lower density compared to the three.",
-        "extract_html": "<p><b>Ganymede</b>, or <b>Jupiter III</b>, is the largest and most massive natural satellite of Jupiter as well as the largest in the Solar System, being a planetary-mass moon. It is the largest Solar System object without a substantial atmosphere, despite being the only moon in the Solar System with a substantial magnetic field. Like Titan, Saturn's largest moon, it is larger than the planet Mercury, but has somewhat less surface gravity than Mercury, Io, or the Moon due to its lower density compared to the three.</p>",
+        "extract": "Ganymede is a natural satellite of Jupiter and is the largest and most massive moon in the Solar System. Like Saturn's largest moon Titan, it is larger than the planet Mercury, but has somewhat less surface gravity than Mercury, Io, or Earth's Moon due to its lower density compared to the three. Ganymede orbits Jupiter in roughly seven days and is in a 1:2:4 orbital resonance with the moons Europa and Io, respectively.",
+        "extract_html": "<p><b>Ganymede</b> is a natural satellite of Jupiter and is the largest and most massive moon in the Solar System. Like Saturn's largest moon Titan, it is larger than the planet Mercury, but has somewhat less surface gravity than Mercury, Io, or Earth's Moon due to its lower density compared to the three. Ganymede orbits Jupiter in roughly seven days and is in a 1:2:4 orbital resonance with the moons Europa and Io, respectively.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "CC BY 2.0",
@@ -818,7 +818,7 @@
     "Europa": {
         "type": "standard",
         "title": "Europa (moon)",
-        "displaytitle": "<span class=\"mw-page-title-main\">Europa (moon)</span>",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Europa (moon)</span></span>",
         "namespace": {
             "id": 0,
             "text": ""
@@ -827,24 +827,24 @@
         "titles": {
             "canonical": "Europa_(moon)",
             "normalized": "Europa (moon)",
-            "display": "<span class=\"mw-page-title-main\">Europa (moon)</span>"
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Europa (moon)</span></span>"
         },
         "pageid": 43127,
         "thumbnail": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Europa_in_natural_color.png/320px-Europa_in_natural_color.png",
-            "width": 320,
-            "height": 320
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Europa_-_Perijove_45_%28cropped%29.png/330px-Europa_-_Perijove_45_%28cropped%29.png",
+            "width": 330,
+            "height": 330
         },
         "originalimage": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Europa_in_natural_color.png",
-            "width": 2744,
-            "height": 2744
+            "source": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Europa_-_Perijove_45_%28cropped%29.png",
+            "width": 1700,
+            "height": 1700
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1213112153",
-        "tid": "2590dd8e-df65-11ee-ab08-98fafd9471af",
-        "timestamp": "2024-03-11T05:06:41Z",
+        "revision": "1351502673",
+        "tid": "1f026c5e-42f1-11f1-b937-4be6dda17e52",
+        "timestamp": "2026-04-28T10:58:00Z",
         "description": "Smallest Galilean moon of Jupiter",
         "description_source": "local",
         "content_urls": {
@@ -855,14 +855,14 @@
                 "talk": "https://en.wikipedia.org/wiki/Talk:Europa_(moon)"
             },
             "mobile": {
-                "page": "https://en.m.wikipedia.org/wiki/Europa_(moon)",
-                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Europa_(moon)",
-                "edit": "https://en.m.wikipedia.org/wiki/Europa_(moon)?action=edit",
-                "talk": "https://en.m.wikipedia.org/wiki/Talk:Europa_(moon)"
+                "page": "https://en.wikipedia.org/wiki/Europa_(moon)",
+                "revisions": "https://en.wikipedia.org/wiki/Special:History/Europa_(moon)",
+                "edit": "https://en.wikipedia.org/wiki/Europa_(moon)?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Europa_(moon)"
             }
         },
-        "extract": "Europa, or Jupiter II, is the smallest of the four Galilean moons orbiting Jupiter, and the sixth-closest to the planet of all the 95 known moons of Jupiter. It is also the sixth-largest moon in the Solar System. Europa was discovered independently by Simon Marius and Galileo Galilei and was named after Europa, the Phoenician mother of King Minos of Crete and lover of Zeus.",
-        "extract_html": "<p><b>Europa</b>, or <b>Jupiter II</b>, is the smallest of the four Galilean moons orbiting Jupiter, and the sixth-closest to the planet of all the 95 known moons of Jupiter. It is also the sixth-largest moon in the Solar System. Europa was discovered independently by Simon Marius and Galileo Galilei and was named after Europa, the Phoenician mother of King Minos of Crete and lover of Zeus.</p>",
+        "extract": "Europa is the smallest and least massive of Jupiter's four Galilean moons. It is observable from Earth with common binoculars and is a planetary-mass moon, slightly smaller and less massive than Earth's Moon. Europa is an icy moon, and, of the three icy Galilean moons, the closest orbiting Jupiter. As a result, it exhibits a relatively young surface shaped by tidal heating.",
+        "extract_html": "<p><b>Europa</b> is the smallest and least massive of Jupiter's four Galilean moons. It is observable from Earth with common binoculars and is a planetary-mass moon, slightly smaller and less massive than Earth's Moon. Europa is an icy moon, and, of the three icy Galilean moons, the closest orbiting Jupiter. As a result, it exhibits a relatively young surface shaped by tidal heating.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "CC BY 2.0",
@@ -877,7 +877,7 @@
     "Callisto": {
         "type": "standard",
         "title": "Callisto (moon)",
-        "displaytitle": "<span class=\"mw-page-title-main\">Callisto (moon)</span>",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Callisto (moon)</span></span>",
         "namespace": {
             "id": 0,
             "text": ""
@@ -886,24 +886,24 @@
         "titles": {
             "canonical": "Callisto_(moon)",
             "normalized": "Callisto (moon)",
-            "display": "<span class=\"mw-page-title-main\">Callisto (moon)</span>"
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Callisto (moon)</span></span>"
         },
         "pageid": 43126,
         "thumbnail": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Callisto_-_July_8_1979_%2838926064465%29.jpg/320px-Callisto_-_July_8_1979_%2838926064465%29.jpg",
-            "width": 320,
-            "height": 331
+            "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Callisto_VGR2_C2060635_OGB.png/330px-Callisto_VGR2_C2060635_OGB.png",
+            "width": 330,
+            "height": 330
         },
         "originalimage": {
-            "source": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Callisto_-_July_8_1979_%2838926064465%29.jpg",
-            "width": 1602,
-            "height": 1655
+            "source": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Callisto_VGR2_C2060635_OGB.png",
+            "width": 2000,
+            "height": 2000
         },
         "lang": "en",
         "dir": "ltr",
-        "revision": "1210906595",
-        "tid": "bcb283b0-d979-11ee-9125-fd98bcbbcd2c",
-        "timestamp": "2024-02-28T22:37:45Z",
+        "revision": "1351334490",
+        "tid": "4424adeb-421b-11f1-90f5-a959f3ce466f",
+        "timestamp": "2026-04-27T09:27:10Z",
         "description": "Second-largest moon of Jupiter",
         "description_source": "local",
         "content_urls": {
@@ -914,14 +914,14 @@
                 "talk": "https://en.wikipedia.org/wiki/Talk:Callisto_(moon)"
             },
             "mobile": {
-                "page": "https://en.m.wikipedia.org/wiki/Callisto_(moon)",
-                "revisions": "https://en.m.wikipedia.org/wiki/Special:History/Callisto_(moon)",
-                "edit": "https://en.m.wikipedia.org/wiki/Callisto_(moon)?action=edit",
-                "talk": "https://en.m.wikipedia.org/wiki/Talk:Callisto_(moon)"
+                "page": "https://en.wikipedia.org/wiki/Callisto_(moon)",
+                "revisions": "https://en.wikipedia.org/wiki/Special:History/Callisto_(moon)",
+                "edit": "https://en.wikipedia.org/wiki/Callisto_(moon)?action=edit",
+                "talk": "https://en.wikipedia.org/wiki/Talk:Callisto_(moon)"
             }
         },
-        "extract": "Callisto, or Jupiter IV, is the second-largest moon of Jupiter, after Ganymede. In the Solar System it is the third-largest moon after Ganymede and Saturn's largest moon Titan, and as large as the smallest planet Mercury, though only about a third as massive. Callisto is, with a diameter of 4,821\u00a0km, roughly a third larger than Earth's Moon and orbits Jupiter on average at a distance of 1,883,000\u00a0km, which is about six times further out than the Moon orbiting Earth. It is the outermost of the four large Galilean moons of Jupiter, which were discovered in 1610 with one of the first telescopes, being visible from Earth with common binoculars.",
-        "extract_html": "<p><b>Callisto</b>, or <b>Jupiter IV</b>, is the second-largest moon of Jupiter, after Ganymede. In the Solar System it is the third-largest moon after Ganymede and Saturn's largest moon Titan, and as large as the smallest planet Mercury, though only about a third as massive. Callisto is, with a diameter of <span class=\"nowrap\">4,821\u00a0km</span>, roughly a third larger than Earth's Moon and orbits Jupiter on average at a distance of <span class=\"nowrap\">1,883,000\u00a0km</span>, which is about six times further out than the Moon orbiting Earth. It is the outermost of the four large Galilean moons of Jupiter, which were discovered in 1610 with one of the first telescopes, being visible from Earth with common binoculars.</p>",
+        "extract": "Callisto is the second-largest moon of Jupiter, after Ganymede. It is also the third-largest moon in the Solar System, following Ganymede and Saturn's moon Titan, and nearly as large as the planet Mercury. With a diameter of 4,821\u00a0km, Callisto is roughly a third larger than Earth's Moon and orbits Jupiter on average at a distance of 1.883 million km, which is about five times further out than the Moon orbiting Earth. It is the outermost of the four large Galilean moons of Jupiter, which were discovered in 1610 with one of the first telescopes, and is today visible from Earth with common binoculars.",
+        "extract_html": "<p><b>Callisto</b> is the second-largest moon of Jupiter, after Ganymede. It is also the third-largest moon in the Solar System, following Ganymede and Saturn's moon Titan, and nearly as large as the planet Mercury. With a diameter of <span class=\"nowrap\">4,821\u00a0km</span>, Callisto is roughly a third larger than Earth's Moon and orbits Jupiter on average at a distance of 1.883 million km, which is about five times further out than the Moon orbiting Earth. It is the outermost of the four large Galilean moons of Jupiter, which were discovered in 1610 with one of the first telescopes, and is today visible from Earth with common binoculars.</p>",
         "photo_credits": {
             "wiki": {
                 "cc": "CC BY 2.0",

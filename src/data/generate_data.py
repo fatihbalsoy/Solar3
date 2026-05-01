@@ -1,6 +1,7 @@
 
 import json
 import requests
+import time
 
 only = ["Sun", "Mercury", "Venus", "Earth", "Moon", "Mars",
         "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto",
@@ -219,23 +220,35 @@ with open("src/data/objects.json", "w") as outfile:
 
 # Wikipedia
 
+# https://www.mediawiki.org/wiki/Wikimedia_APIs/Rate_limits
+wikipedia_rate_limit = 200 # req/min
+wikipedia_rate_limit_margin = 50 # req
+wikipedia_req_delay = 60 / (wikipedia_rate_limit - wikipedia_rate_limit_margin)
+print(f"Wikipedia rate limit set to {wikipedia_rate_limit - wikipedia_rate_limit_margin} req / min")
+print(f"Delays set to {wikipedia_req_delay} sec / req")
+# https://foundation.wikimedia.org/wiki/Policy:Wikimedia_Foundation_User-Agent_Policy
 headers = {
-    "User-Agent": "Solar3-Bot/1.0 (github.com/fatihbalsoy/solar3)"
+    "User-Agent": "Solar3-Bot/1.1 (github.com/fatihbalsoy/solar3)"
 }
 
 wikipedia_json_object = {}
 for planet in only:
+    print("======== ", planet, " ========")
     p_lower = planet.lower()
     planet_url = planet if p_lower not in wiki_corrections else wiki_corrections[p_lower]
     wiki_url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + planet_url
     response = requests.get(wiki_url, headers=headers)
+    print(wiki_url)
     if response.ok:
+        print("Success")
         wikipedia_json_object[planet] = response.json()
         if p_lower in photo_credits:
             wikipedia_json_object[planet]["photo_credits"] = photo_credits[p_lower]
     else:
+        print("Failed")
         print(f"{planet} status code: {response.status_code} {response.reason}")
         exit(1)
+    time.sleep(wikipedia_req_delay)
 
 # print(wikipedia_json_object)
 
