@@ -222,9 +222,9 @@ with open("src/data/objects.json", "w") as outfile:
 
 # https://www.mediawiki.org/wiki/Wikimedia_APIs/Rate_limits
 wikipedia_rate_limit = 200 # req/min
-wikipedia_rate_limit_margin = 50 # req
-wikipedia_req_delay = 60 / (wikipedia_rate_limit - wikipedia_rate_limit_margin)
-print(f"Wikipedia rate limit set to {wikipedia_rate_limit - wikipedia_rate_limit_margin} req / min")
+wikipedia_rate_limit_offset = -180 # req
+wikipedia_req_delay = 60 / (wikipedia_rate_limit + wikipedia_rate_limit_offset)
+print(f"Wikipedia rate limit set to {wikipedia_rate_limit + wikipedia_rate_limit_offset} req / min")
 print(f"Delays set to {wikipedia_req_delay} sec / req")
 # https://foundation.wikimedia.org/wiki/Policy:Wikimedia_Foundation_User-Agent_Policy
 headers = {
